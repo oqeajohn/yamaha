@@ -1,0 +1,74 @@
+{
+  "questions": [
+    {
+      "id": 1,
+      "question": "What is the capital of France?",
+      "options": ["London", "Paris"],
+      "correct": 1,
+      "explanation": "Paris is the capital and largest city of France."
+    },
+    {
+      "id": 2,
+      "question": "What is 15 + 27?",
+      "options": ["40", "42"],
+      "correct": 1,
+      "explanation": "15 + 27 = 42"
+    },
+    {
+      "id": 3,
+      "question": "Which planet is closest to the Sun?",
+      "options": ["Venus", "Mercury"],
+      "correct": 1,
+      "explanation": "Mercury is the planet closest to the Sun."
+    },
+    {
+      "id": 4,
+      "question": "What is the largest ocean on Earth?",
+      "options": ["Atlantic", "Pacific"],
+      "correct": 1,
+      "explanation": "The Pacific Ocean is the largest ocean on Earth."
+    },
+    {
+      "id": 5,
+      "question": "How many days are there in a leap year?",
+      "options": ["365", "366"],
+      "correct": 1,
+      "explanation": "A leap year has 366 days."
+    },
+    {
+      "id": 6,
+      "question": "What is the chemical symbol for gold?",
+      "options": ["Go", "Au"],
+      "correct": 1,
+      "explanation": "Au is the chemical symbol for gold, from the Latin 'aurum'."
+    },
+    {
+      "id": 7,
+      "question": "Which continent is home to the Amazon rainforest?",
+      "options": ["Africa", "South America"],
+      "correct": 1,
+      "explanation": "The Amazon rainforest is primarily located in South America."
+    },
+    {
+      "id": 8,
+      "question": "What is 8 × 7?",
+      "options": ["54", "56"],
+      "correct": 1,
+      "explanation": "8 × 7 = 56"
+    },
+    {
+      "id": 9,
+      "question": "Which gas makes up most of Earth's atmosphere?",
+      "options": ["Oxygen", "Nitrogen"],
+      "correct": 1,
+      "explanation": "Nitrogen makes up about 78% of Earth's atmosphere."
+    },
+    {
+      "id": 10,
+      "question": "In which year did World War II end?",
+      "options": ["1944", "1945"],
+      "correct": 1,
+      "explanation": "World War II ended in 1945."
+    }
+  ]
+}
