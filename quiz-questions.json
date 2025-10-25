@@ -3,45 +3,37 @@
     {
       "id": 1,
       "section": "Helmet",
-      "question": "Sabi ni Mama matigas ulo ko, kailangan ko ba ng helmet?",
-      "options": [
-        "Suot ko na para sigurado!",
-        "Ngayon natin masusubukan kung totoo sabi ni Mama!"
-      ],
-      "correct": 0,
-      "explanation": "Let's be responsible and wear a helmet!"
+      "question": "Should you wear a helmet when riding a motorcycle?",
+      "options": ["Yes", "No"],
+      "correct": 0
     },
     {
       "id": 2,
       "section": "Illegal U-turn",
-      "question": "Baka pwede na dumaan dito?",
-      "options": ["Wag Pre'!", "Sige Pre' wala namang pulis"],
-      "correct": 0,
-      "explanation": "Let's be responsible and follow traffic rules!"
+      "question": "Is it okay to make an illegal U-turn when there's no police around?",
+      "options": ["Yes", "No"],
+      "correct": 1
     },
     {
       "id": 3,
-      "section": "Singit Moves",
-      "question": "Kasha pa ata ako, Singit kaya ako sa dalawang kotse?",
-      "options": ["Deliks Pre'!", "Bilisan ko na lang para hindi maipit!"],
-      "correct": 0,
-      "explanation": "Let's be responsible and avoid risky maneuvers!"
+      "section": "Lane Splitting",
+      "question": "Is it safe to squeeze between two cars in tight spaces?",
+      "options": ["Yes", "No"],
+      "correct": 1
     },
     {
       "id": 4,
-      "section": "Over speeding",
-      "question": "Wala naman kotse, hataw na ako!?",
-      "options": ["Hinay lang, Pre!", "Hataw mo!"],
-      "correct": 0,
-      "explanation": "Let's be responsible and drive safely."
+      "section": "Speed Limits",
+      "question": "Should you speed up when the road is empty?",
+      "options": ["Yes", "No"],
+      "correct": 1
     },
     {
       "id": 5,
       "section": "Pedestrian Lane",
-      "question": "Kasha pa ako sa pedestrian lane, Singit kaya ako para mauna?",
-      "options": ["Makakaabala lang ako, wag' na!", "Ang Wais mo ah!"],
-      "correct": 0,
-      "explanation": "Let's be responsible and avoid blocking pedestrian lanes."
+      "question": "Is it acceptable to cut through a pedestrian crossing to save time?",
+      "options": ["Yes", "No"],
+      "correct": 1
     }
   ]
 }

@@ -50,7 +50,10 @@
 			{src:'assets/button_music_on.png', id:'buttonMusicOn'},
 			{src:'assets/button_music_off.png', id:'buttonMusicOff'},
 			{src:'assets/button_exit.png', id:'buttonExit'},
-		{src:'assets/button_settings.png', id:'buttonSettings'}];
+			{src:'assets/button_settings.png', id:'buttonSettings'},
+			
+			{src:'assets/yes.png', id:'buttonYes'},
+			{src:'assets/no.png', id:'buttonNo'}];
 	
 	for(var key in spritesData) {
 		if(spritesData[key].src != undefined)

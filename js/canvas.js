@@ -19,6 +19,16 @@ function initGameCanvas(w,h){
 	gameCanvas.width = w;
 	gameCanvas.height = h;
 	
+	// Override getContext to add willReadFrequently for better performance
+	const originalGetContext = gameCanvas.getContext.bind(gameCanvas);
+	gameCanvas.getContext = function(type, attributes) {
+		if (type === '2d') {
+			attributes = attributes || {};
+			attributes.willReadFrequently = true;
+		}
+		return originalGetContext(type, attributes);
+	};
+	
 	canvasW=w;
 	canvasH=h;
 	stage = new createjs.Stage("gameCanvas",{ antialias: true });
@@ -32,7 +42,7 @@ function initGameCanvas(w,h){
 }
 
 var safeZoneGuide = false;
-var canvasContainer, mainContainer, gameContainer, resultContainer, exitContainer, optionsContainer, shareContainer, shareSaveContainer, socialContainer, tJunctionContainer, quizContainer;
+var canvasContainer, mainContainer, gameContainer, resultContainer, exitContainer, optionsContainer, shareContainer, shareSaveContainer, socialContainer, tJunctionContainer, quizContainer, quizButtonContainer;
 var guideline, bg, bgP, logo, logoP;
 var itemExit, itemExitP, popTitleTxt, popDescTxt, buttonConfirm, buttonCancel;
 var itemResult, itemResultP, buttonContinue, resultTitleTxt, resultDescTxt, buttonShare, buttonSave;
@@ -43,6 +53,8 @@ var itemTJunction, tJunctionTitleTxt, buttonTurnLeft, buttonTurnRight, tJunction
 // Quiz Modal Variables
 var itemQuiz, quizTitleTxt, quizQuestionTxt, buttonQuizA, buttonQuizB, buttonQuizC, buttonQuizD, buttonQuizContinue;
 var labelA, labelB, labelC, labelD, labelContinue; // Quiz option labels
+// Quiz Button Variables (no overlay)
+var buttonYes, buttonNo, currentQuizQuestion, quizButtonQuestionTxt, quizButtonQuestionShadowTxt;
 $.share = {};
 
 var statusContainer, gameStatusContainer, worldContainer;
@@ -66,6 +78,7 @@ function buildGameCanvas(){
     socialContainer = new createjs.Container();
     tJunctionContainer = new createjs.Container();
     quizContainer = new createjs.Container();
+    quizButtonContainer = new createjs.Container();
 	
 	statusContainer = new createjs.Container();
 	gameStatusContainer = new createjs.Container();
@@ -584,6 +597,52 @@ function buildGameCanvas(){
 	quizContainer.addChild(itemQuiz, quizTitleTxt, quizQuestionTxt, buttonQuizA, buttonQuizB, buttonQuizC, buttonQuizD, labelA, labelB, labelC, labelD, buttonQuizContinue, labelContinue);
 	quizContainer.visible = false;
 	
+	// Quiz Buttons (Yes/No - no overlay)
+	// Calculate responsive font size and button scale
+	var quizFontSize = Math.min(40, canvasW * 0.05); // Scale font with screen width, max 40px
+	var quizLineWidth = canvasW * 0.85; // 85% of screen width for text
+	var buttonScale = Math.min(1, canvasW / 600); // Scale buttons for smaller screens
+	
+	// Question text shadow (outline)
+	quizButtonQuestionShadowTxt = new createjs.Text();
+	quizButtonQuestionShadowTxt.font = quizFontSize + "px Mont Heavy DEMO";
+	quizButtonQuestionShadowTxt.color = "#ffffff";
+	quizButtonQuestionShadowTxt.textAlign = "center";
+	quizButtonQuestionShadowTxt.textBaseline = "alphabetic";
+	quizButtonQuestionShadowTxt.outline = outlineSize + 2;
+	quizButtonQuestionShadowTxt.text = "";
+	quizButtonQuestionShadowTxt.x = canvasW/2;
+	quizButtonQuestionShadowTxt.y = canvasH/100 * 55;
+	quizButtonQuestionShadowTxt.lineWidth = quizLineWidth;
+	
+	// Question text main
+	quizButtonQuestionTxt = new createjs.Text();
+	quizButtonQuestionTxt.font = quizFontSize + "px Mont Heavy DEMO";
+	quizButtonQuestionTxt.color = "#0087ac";
+	quizButtonQuestionTxt.textAlign = "center";
+	quizButtonQuestionTxt.textBaseline = "alphabetic";
+	quizButtonQuestionTxt.text = "";
+	quizButtonQuestionTxt.x = canvasW/2;
+	quizButtonQuestionTxt.y = canvasH/100 * 55;
+	quizButtonQuestionTxt.lineWidth = quizLineWidth;
+	
+	buttonYes = new createjs.Bitmap(loader.getResult('buttonYes'));
+	centerReg(buttonYes);
+	createHitarea(buttonYes);
+	buttonYes.x = canvasW/100 * 35;
+	buttonYes.y = canvasH/100 * 70;
+	buttonYes.scaleX = buttonYes.scaleY = buttonScale;
+	
+	buttonNo = new createjs.Bitmap(loader.getResult('buttonNo'));
+	centerReg(buttonNo);
+	createHitarea(buttonNo);
+	buttonNo.x = canvasW/100 * 65;
+	buttonNo.y = canvasH/100 * 70;
+	buttonNo.scaleX = buttonNo.scaleY = buttonScale;
+	
+	quizButtonContainer.addChild(quizButtonQuestionShadowTxt, quizButtonQuestionTxt, buttonYes, buttonNo);
+	quizButtonContainer.visible = false;
+	
 	guideline = new createjs.Shape();
 	
 	mainContainer.addChild(logo, buttonStart);
@@ -592,7 +651,7 @@ function buildGameCanvas(){
 	statusContainer.addChild(scoreShadowTxt, scoreTxt, fuelShadowTxt, fuelTxt, fuelBarBackground, fuelBarEmpty, fuelBarFill);
 	resultContainer.addChild(resultTitleShadowTxt, resultTitleTxt, resultScoreDescShadowTxt, resultScoreDescTxt, resultScoreShadowTxt, resultScoreTxt, buttonRestart, shareContainer, shareSaveContainer);
 	
-	canvasContainer.addChild(bg, worldContainer, mainContainer, gameContainer, resultContainer, exitContainer, tJunctionContainer, quizContainer, optionsContainer, buttonSettings, guideline);
+	canvasContainer.addChild(bg, worldContainer, mainContainer, gameContainer, resultContainer, exitContainer, tJunctionContainer, quizContainer, quizButtonContainer, optionsContainer, buttonSettings, guideline);
 	stage.addChild(canvasContainer);
 	
 	resizeCanvas();

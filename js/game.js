@@ -98,7 +98,8 @@ const spritesData = {
 	COIN_KAMOTE4:{src:'assets/item_power_coin_kamote4.png'}, // Kamote coin (-700 score)
 	COIN_KAMOTE5:{src:'assets/item_power_coin_kamote5.png'}, // Kamote coin (-700 score)
 	COIN_KAMOTE6:{src:'assets/item_power_coin_kamote6.png'}, // Kamote coin (-700 score)
-	FUEL:{src:'assets/truss.png'}  // Road tunnel/arc that triggers quiz when player drives through it
+	FUEL:{src:'assets/truss.png'},  // Road tunnel/arc that triggers quiz when player drives through it
+	FINISH_LINE:{src:'assets/finish.png'}  // Finish line checkpoint with Manila skyline background
 };
 
 // Sprite collections - grouped arrays for random selection during gameplay
@@ -130,7 +131,7 @@ const fuelData = {text:'TIME:', //fuel display text
 //game status (text, color and font size)				
 const statusData = {
 				start:{text:'READY?', color:'#071c27', size:120},
-				fuel:{text:'+TIME', color:'#39b54a', size:70},
+				fuel:{text:'+TIME', color:'#25bf1d', size:70},
 				score:{text:'+[NUMBER] SCORE', color:'#fcdb05', size:70},
 				penalty:{text:'TIME OUT:\n[NUMBER]', color:'#ec3e34', size:70},
 				lowFuel:{text:'LOW TIME', color:'#ff7f00', size:70},
@@ -216,7 +217,7 @@ const roadLengthData = {length:{none:0, short:25, medium:50, long:100},
 					  curve:{none:0, easy:0.8, medium:1.3, hard:1.8, veryHard:2.2, extreme:2.8, ninety:3.5}};
 
 const playerData = {score:0, displayScore:0};
-const gameData = {paused:true, fuel:0, fuelUpdate:false, accel:false, penalty:false, penaltyTime:0, brakeSound:false, accelSound:false, stopSound:false, ended:false};
+const gameData = {paused:true, fuel:0, fuelUpdate:false, accel:false, penalty:false, penaltyTime:0, brakeSound:false, accelSound:false, stopSound:false, ended:false, waitingAtTunnel:false};
 const keyData = {left:false, right:false, accelerate:false, brake:false};
 
 // T-Junction Modal System Variables
@@ -229,17 +230,23 @@ var tJunctionChoiceMade = false; // Track if player has made a choice
 
 // Quiz System Variables
 var quizQuestions = []; // Array to store quiz questions from JSON
-var currentQuiz = null; // Current quiz question object
-var quizModalActive = false; // Track if quiz modal is showing
-var pendingFuelAmount = 0; // Amount of fuel to add if quiz is correct
+var currentQuizQuestion = null; // Current quiz question object
+var questionsAnswered = 0; // Number of questions answered (regardless of correct/wrong)
+var correctAnswers = 0; // Number of correct answers
+var maxQuestionsPerGame = 3; // Only 3 questions per game
+var selectedQuestions = []; // Randomized questions for this game session
+var finishAfterLastQuestion = false; // Flag to trigger finish line after last question
+var distanceToFinish = 200; // Distance to run after last question before finishing
+var showingFinishLine = false; // Flag to show finish line image
+var finishLineDelay = 5000; // Time to run after 3rd question (5 seconds)
+var finishLineOverlay = null; // Finish line overlay container
 
-// Game Progress Variables
-var totalQuizzes = 5; // Total number of quiz questions in the game
-var quizzesCompleted = 0; // Number of quizzes completed correctly
-var usedQuestionIds = []; // Track which questions have been used
-var finishLinePosition = 3000; // Position of the finish line
-var gameWon = false; // Track if player reached the finish line
-var gamePaused = false; // Track if game is paused (separate from gameData.paused)
+// Legacy finish line variables (for old system compatibility)
+var totalQuizzes = 5;
+var quizzesCompleted = 0;
+var finishLinePosition = 3000;
+var gameWon = false;
+var gamePaused = false;
 
 /*!
  * FINISH LINE SYSTEM
@@ -281,13 +288,154 @@ function checkFinishLine() {
 
 // Show victory message
 function showVictoryMessage() {
-		updateGameText("MANILA RUSH CHAMPION! You conquered EDSA highway!", "#00ff00", 30, 0);	setTimeout(function() {
-		// Show final score and end game
-		updateGameText("Final Score: " + addCommas(playerData.score), "#ffff00", 25, 0);
+	// Hide the status container (TIME/fuel display)
+	statusContainer.visible = false;
+	
+	// Stop penalty timer and hide penalty messages
+	gameData.penalty = false;
+	gameData.penaltyTime = 0;
+	
+	// Clear any existing game text and show victory message immediately
+	gameStatusContainer.visible = false;
+	
+	updateGameText("THANK YOU\n FOR PLAYING!", "#071c27", 80, 0);	
+	setTimeout(function() {
+		// Show final score
+		updateGameText("Final Score: \n" + addCommas(playerData.score), "#008cb1", 80, 0);
+		
+		// Show victory buttons after score is displayed
 		setTimeout(function() {
-			endGame();
-		}, 3000);
-	}, 3000);
+			showVictoryButtons();
+		}, 500);
+	}, 2000);
+}
+
+/**
+ * Show victory buttons (Claim Prize and Play Again)
+ */
+function showVictoryButtons() {
+	// Create container for victory buttons
+	var victoryButtonsContainer = new createjs.Container();
+	victoryButtonsContainer.name = "victoryButtonsContainer";
+	
+	// Calculate button positions - place below Final Score text
+	var buttonWidth = 400;
+	var buttonHeight = 80;
+	var buttonSpacing = 40;
+	var startY = canvasH / 2 + 100; // Position below the Final Score text
+	
+	// CLAIM PRIZE button
+	var claimPrizeButton = new createjs.Container();
+	
+	// Button background with gradient (left to right: #01cdee to #018bb0)
+	var claimPrizeBg = new createjs.Shape();
+	var gradient = claimPrizeBg.graphics.beginLinearGradientFill(
+		["#01cdee", "#018bb0"], 
+		[0, 1], 
+		0, 0, 
+		buttonWidth, 0
+	);
+	
+	// Draw main button shape with gradient (no rounded corners)
+	claimPrizeBg.graphics.drawRect(0, 0, buttonWidth, buttonHeight);
+	
+	// Draw border as a rectangle outline with variable thickness
+	var claimPrizeBorder = new createjs.Shape();
+	
+	// Top and side borders - thicker (8px)
+	claimPrizeBorder.graphics.setStrokeStyle(8, "square", "miter").beginStroke("#2f302f");
+	claimPrizeBorder.graphics.drawRect(0, 0, buttonWidth, buttonHeight - 4);
+	
+	// Bottom border - 3 times thicker (24px)
+	claimPrizeBorder.graphics.setStrokeStyle(24, "butt").beginStroke("#2f302f");
+	claimPrizeBorder.graphics.moveTo(0, buttonHeight).lineTo(buttonWidth, buttonHeight);
+	
+	var claimPrizeText = new createjs.Text("CLAIM PRIZE", "bold 32px Mont Heavy DEMO", "#FFFFFF");
+	claimPrizeText.textAlign = "left";
+	claimPrizeText.textBaseline = "middle";
+	claimPrizeText.x = 30;
+	claimPrizeText.y = buttonHeight / 2;
+	
+	// Countdown timer positioned to the right of text
+	var claimPrizeTimer = new createjs.Text("(5)", "bold 28px Mont Heavy DEMO", "#FFFFFF");
+	claimPrizeTimer.textAlign = "right";
+	claimPrizeTimer.textBaseline = "middle";
+	claimPrizeTimer.x = buttonWidth - 30;
+	claimPrizeTimer.y = buttonHeight / 2;
+	
+	claimPrizeButton.addChild(claimPrizeBg, claimPrizeBorder, claimPrizeText, claimPrizeTimer);
+	claimPrizeButton.x = (canvasW - buttonWidth) / 2;
+	claimPrizeButton.y = startY;
+	claimPrizeButton.cursor = "pointer";
+	
+	// PLAY AGAIN button
+	var playAgainButton = new createjs.Container();
+	
+	// Button background with gradient (left to right: #01cdee to #018bb0)
+	var playAgainBg = new createjs.Shape();
+	playAgainBg.graphics.beginLinearGradientFill(
+		["#01cdee", "#018bb0"], 
+		[0, 1], 
+		0, 0, 
+		buttonWidth, 0
+	).drawRect(0, 0, buttonWidth, buttonHeight);
+	
+	// Draw border as a rectangle outline with variable thickness
+	var playAgainBorder = new createjs.Shape();
+	
+	// Top and side borders - thicker (8px)
+	playAgainBorder.graphics.setStrokeStyle(8, "square", "miter").beginStroke("#2f302f");
+	playAgainBorder.graphics.drawRect(0, 0, buttonWidth, buttonHeight - 4);
+	
+	// Bottom border - 3 times thicker (24px)
+	playAgainBorder.graphics.setStrokeStyle(24, "butt").beginStroke("#2f302f");
+	playAgainBorder.graphics.moveTo(0, buttonHeight).lineTo(buttonWidth, buttonHeight);
+	
+	var playAgainText = new createjs.Text("PLAY AGAIN", "bold 32px Mont Heavy DEMO", "#FFFFFF");
+	playAgainText.textAlign = "center";
+	playAgainText.textBaseline = "middle";
+	playAgainText.x = buttonWidth / 2;
+	playAgainText.y = buttonHeight / 2;
+	
+	playAgainButton.addChild(playAgainBg, playAgainBorder, playAgainText);
+	playAgainButton.x = (canvasW - buttonWidth) / 2;
+	playAgainButton.y = startY + buttonHeight + buttonSpacing;
+	playAgainButton.cursor = "pointer";
+	
+	// Add click handlers
+	var countdown = 5;
+	var countdownInterval;
+	
+	claimPrizeButton.addEventListener("click", function() {
+		playSound('soundClick');
+		clearInterval(countdownInterval);
+		window.location.href = "https://www.yamaha.com";
+	});
+	
+	playAgainButton.addEventListener("click", function() {
+		playSound('soundClick');
+		clearInterval(countdownInterval);
+		location.reload();
+	});
+	
+	// Add buttons to container
+	victoryButtonsContainer.addChild(claimPrizeButton, playAgainButton);
+	victoryButtonsContainer.alpha = 0;
+	gameContainer.addChild(victoryButtonsContainer);
+	
+	// Fade in buttons
+	TweenMax.to(victoryButtonsContainer, 0.5, {alpha: 1});
+	
+	// Start countdown timer for Claim Prize button
+	countdownInterval = setInterval(function() {
+		countdown--;
+		claimPrizeTimer.text = "(" + countdown + ")";
+		if (countdown <= 0) {
+			clearInterval(countdownInterval);
+			// Auto redirect after countdown
+			window.location.href = "https://www.yamaha.com";
+		}
+	}, 1000);
 }
 
 /*!
@@ -386,25 +534,22 @@ function triggerFuelQuiz() {
 		console.log('Selected quiz:', currentQuiz); // Debug log
 		console.log('Used question IDs:', usedQuestionIds); // Debug log
 		
-		// Display HTML quiz modal
-		displayHTMLQuizModal();
-		
-	} catch (error) {
-		console.error('Error in triggerFuelQuiz:', error);
-		// Fallback: just add fuel and continue
-		gameData.fuel = Math.min(gameData.fuel + 50, fuelData.total);
-		playSound('soundCollectFuel');
-		gamePaused = false;
-		gameData.paused = false;
-		quizModalActive = false;
-		// Restore speed if it was saved
-		if (currentQuiz && currentQuiz.savedSpeed !== undefined) {
-			defaultData.speed = currentQuiz.savedSpeed;
-		}
+	
+	// Display HTML quiz modal
+	displayHTMLQuizModal();
+	
+} catch (error) {
+	console.error('Error in triggerFuelQuiz:', error);
+	// Fallback: just add fuel and continue
+	gameData.fuel = Math.min(gameData.fuel + 50, fuelData.total);
+	playSound('soundCollectFuel');
+	gameData.paused = false;
+	// Restore speed if it was saved
+	if (currentQuiz && currentQuiz.savedSpeed !== undefined) {
+		defaultData.speed = currentQuiz.savedSpeed;
 	}
 }
-
-// LEGACY: Old quiz functions removed - now using HTML modal system
+}// LEGACY: Old quiz functions removed - now using HTML modal system
 
 // LEGACY: showQuizResult function removed - now handled in HTML modal
 
@@ -543,26 +688,38 @@ function handleHTMLQuizAnswer(optionIndex) {
 	optionA.style.cursor = 'default';
 	optionB.style.cursor = 'default';
 	
+	// Increment questions answered counter (regardless of correct/incorrect)
+	questionsAnswered++;
+	
 	// Update question with result
 	var resultText = currentQuiz.explanation;
 	
 	if (isCorrect) {
 		// Add fuel and increment completed questions
 		quizzesCompleted++;
+		correctAnswers++;
 		console.log('Quiz completed! Progress:', quizzesCompleted + '/' + totalQuizzes); // Debug log
 		gameData.fuel = Math.min(gameData.fuel + 50, fuelData.total);
 		playSound('soundCollectFuel');
 		
-		var remaining = totalQuizzes - quizzesCompleted;
+		var remaining = totalQuizzes - questionsAnswered;
 		if (remaining <= 0) {
 			resultText += "\n\nAll scenarios completed! Head to the finish line!";
-			console.log('ALL QUIZZES COMPLETED! Player can now finish the game.'); // Debug log
+			console.log('ALL QUIZZES ANSWERED! Player can now finish the game.'); // Debug log
 		} else {
 			resultText += "\n\n" + remaining + " more scenarios to go!";
 		}
 	} else {
-		resultText += "\n\nWrong answer! Your time is running low...";
-		console.log('Wrong answer given, quiz progress unchanged:', quizzesCompleted + '/' + totalQuizzes); // Debug log
+		// Still increment quizzesCompleted so player can finish even with wrong answers
+		quizzesCompleted++;
+		
+		var remaining = totalQuizzes - questionsAnswered;
+		if (remaining <= 0) {
+			resultText += "\n\nWrong answer! But all scenarios completed - head to the finish line!";
+		} else {
+			resultText += "\n\nWrong answer! Your time is running low... " + remaining + " more scenarios to go!";
+		}
+		console.log('Wrong answer given. Quiz count still progresses:', quizzesCompleted + '/' + totalQuizzes); // Debug log
 	}
 	
 	quizQuestion.innerHTML = resultText.replace(/\n/g, '<br>');
@@ -682,53 +839,49 @@ function buildGameButton(){
 	if(!isDesktop){
 		itemTouchUp.visible = itemTouchDown.visible = itemTouchLeft.visible = itemTouchRight.visible = true;
 		
-		itemTouchUp.addEventListener("mousedown", function(evt) {
-			if(gameData.paused || gamePaused || quizModalActive){
-				return;	
-			}
-			keyData.accelerate = true;
-		});
-		
-		itemTouchUp.addEventListener("pressup", function(evt) {
-			if(keyData.accelerate){
-				keyData.accelerate = false;	
-			}
-		});
-		
-		itemTouchDown.addEventListener("mousedown", function(evt) {
-			if(gameData.paused || gamePaused || quizModalActive){
-				return;	
-			}
-			keyData.brake = true;
-		});
-		
-		itemTouchDown.addEventListener("pressup", function(evt) {
+	itemTouchUp.addEventListener("mousedown", function(evt) {
+		if(gameData.paused){
+			return;	
+		}
+		keyData.accelerate = true;
+	});
+	
+	itemTouchUp.addEventListener("pressup", function(evt) {
+		if(keyData.accelerate){
+			keyData.accelerate = false;	
+		}
+	});
+	
+	itemTouchDown.addEventListener("mousedown", function(evt) {
+		if(gameData.paused){
+			return;	
+		}
+		keyData.brake = true;
+	});		itemTouchDown.addEventListener("pressup", function(evt) {
 			if(keyData.brake){
 				keyData.brake = false;	
 			}
-		});
-		
-		itemTouchLeft.addEventListener("mousedown", function(evt) {
-			if(gameData.paused || gamePaused || quizModalActive){
-				return;	
-			}
-			keyData.left = true;
-		});
-		
-		itemTouchLeft.addEventListener("pressup", function(evt) {
-			if(keyData.left){
-				keyData.left = false;	
-			}
-		});
-		
-		itemTouchRight.addEventListener("mousedown", function(evt) {
-			if(gameData.paused || gamePaused || quizModalActive){
-				return;	
-			}
-			keyData.right = true;
-		});
-		
-		itemTouchRight.addEventListener("pressup", function(evt) {
+	});
+	
+	itemTouchLeft.addEventListener("mousedown", function(evt) {
+		if(gameData.paused){
+			return;	
+		}
+		keyData.left = true;
+	});
+	
+	itemTouchLeft.addEventListener("pressup", function(evt) {
+		if(keyData.left){
+			keyData.left = false;	
+		}
+	});
+	
+	itemTouchRight.addEventListener("mousedown", function(evt) {
+		if(gameData.paused){
+			return;	
+		}
+		keyData.right = true;
+	});		itemTouchRight.addEventListener("pressup", function(evt) {
 			if(keyData.right){
 				keyData.right = false;	
 			}
@@ -865,6 +1018,17 @@ function buildGameButton(){
 	
 	// Removed buttonQuizC and buttonQuizD event handlers - only 2 choices now
 	
+	// Quiz Yes/No Button Events (no overlay)
+	buttonYes.cursor = "pointer";
+	buttonYes.addEventListener("click", function(evt) {
+		clickQuizYes();
+	});
+	
+	buttonNo.cursor = "pointer";
+	buttonNo.addEventListener("click", function(evt) {
+		clickQuizNo();
+	});
+	
 	buttonRestart.cursor = "pointer";
 	buttonRestart.addEventListener("click", function(evt) {
 		playSound('soundClick');
@@ -873,6 +1037,9 @@ function buildGameButton(){
 	});
 
 	preventScrolling();
+	
+	// Load quiz questions early so they're ready when game starts
+	loadQuizQuestions();
 }
 
 function preventScrolling(){
@@ -900,7 +1067,7 @@ function appendFocusFrame(){
  * 
  */
 function keydown(event) {
-	if(gameData.paused || gamePaused || quizModalActive){
+	if(gameData.paused){
 		return;	
 	}
 	
@@ -926,7 +1093,7 @@ function keydown(event) {
 }
 
 function keyup(event) {
-	if(gameData.paused || gamePaused || quizModalActive){
+	if(gameData.paused){
 		return;	
 	}
 	
@@ -1163,14 +1330,50 @@ function startGame(){
 			if (quizQuestions.length === 0) {
 				loadQuizQuestions();
 			}
-			quizModalActive = false;
-			currentQuiz = null;
 			
-		// Reset progress variables
-		quizzesCompleted = 0;
-		usedQuestionIds = []; // Reset used questions for new game
-		gameWon = false;
-		gamePaused = false;			console.log('Quiz system initialized successfully');
+		// Reset quiz progress for new game
+		questionsAnswered = 0;
+		correctAnswers = 0;
+		currentQuizQuestion = null;
+		finishAfterLastQuestion = false;
+		showingFinishLine = false;
+		gameData.waitingAtTunnel = false;
+		
+		// Randomize and select 3 questions for this game
+		if (quizQuestions.length > 0) {
+			// Shuffle using Fisher-Yates algorithm for better randomization
+			const shuffled = [...quizQuestions];
+			for (let i = shuffled.length - 1; i > 0; i--) {
+				const j = Math.floor(Math.random() * (i + 1));
+				[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+			}
+			selectedQuestions = shuffled.slice(0, maxQuestionsPerGame);
+			console.log('Selected questions for this game:', selectedQuestions.map(q => q.id));
+		} else {
+			console.warn('No quiz questions available, using fallback');
+			selectedQuestions = [
+				{
+					id: 1,
+					question: "Should you wear a helmet when riding?",
+					options: ["Yes", "No"],
+					correct: 0
+				},
+				{
+					id: 2,
+					question: "Should you follow traffic rules?",
+					options: ["Yes", "No"],
+					correct: 0
+				},
+				{
+					id: 3,
+					question: "Is safe riding important?",
+					options: ["Yes", "No"],
+					correct: 0
+				}
+			];
+		}
+			
+		console.log('Quiz system initialized successfully');
 		} else {
 			console.warn('Quiz container not ready, skipping quiz initialization');
 		}
@@ -1178,12 +1381,10 @@ function startGame(){
 		console.error('Error initializing quiz system:', error);
 		// Set fallback to prevent game from breaking
 		quizQuestions = [];
-		quizModalActive = false;
-		currentQuiz = null;
-		quizzesCompleted = 0;
-		usedQuestionIds = []; // Reset used questions for new game
-		gameWon = false;
-		gamePaused = false;
+		questionsAnswered = 0;
+		correctAnswers = 0;
+		selectedQuestions = [];
+		currentQuizQuestion = null;
 	}
 	
 	defaultData.playerX = 0;
@@ -1240,11 +1441,6 @@ function saveGame(score){
  * 
  */
 function updateGame(){
-	// Don't update anything when quiz modal is active
-	if (gamePaused || quizModalActive) {
-		return;
-	}
-	
 	updateWorld();
 	updateFuel();
 	
@@ -1280,11 +1476,11 @@ function updateGame(){
  */
 function updateFuel(){
 	// Re-enabled fuel system for quiz collection - but respect quiz pause
-	if(defaultData.speed > 0 && !gameData.fuelUpdate && !gameData.paused && !quizModalActive){
+	if(defaultData.speed > 0 && !gameData.fuelUpdate && !gameData.paused){
 		gameData.fuelUpdate = true;
 		TweenMax.to(fuelData, fuelData.updateTime, {overwrite:true, onComplete:function(){
 			// Double-check we're not paused before decreasing fuel
-			if (!gameData.paused && !quizModalActive) {
+			if (!gameData.paused) {
 				gameData.fuel -= fuelData.decrease;
 				gameData.fuel = gameData.fuel < 0 ? 0 : gameData.fuel;
 			}
@@ -1311,6 +1507,11 @@ function togglePenaltyTimer(con){
 }
 
 function updatePenaltyTimer(){
+	// Stop penalty timer if game ended or penalty disabled
+	if(gameData.ended || !gameData.penalty || gameData.penaltyTime <= 0){
+		return;
+	}
+	
 	gameData.penaltyTime -= 1;
 	
 	var displayPenaltyTimer = false;
@@ -1467,19 +1668,29 @@ function updateSprites() {
 	
 	defaultData.position = getIncrease(defaultData.position, dt * defaultData.speed, defaultData.trackLength);
 	
-	if (keyData.left){
-		defaultData.playerX = defaultData.playerX - dx;
-	}else if (keyData.right){
-		defaultData.playerX = defaultData.playerX + dx;
+	// Only allow steering if not waiting at tunnel
+	if (!gameData.waitingAtTunnel) {
+		if (keyData.left){
+			defaultData.playerX = defaultData.playerX - dx;
+		}else if (keyData.right){
+			defaultData.playerX = defaultData.playerX + dx;
+		}
 	}
-	defaultData.playerX = defaultData.playerX - (dx * speedPercent * playerSegment.curve * defaultData.centrifugal);
 	
-	if (keyData.accelerate){
-		defaultData.speed = getAccelerate(defaultData.speed, worldData.accel, dt);
-	}else if (keyData.brake){
-		defaultData.speed = getAccelerate(defaultData.speed, defaultData.breaking, dt);
-	}else{
-		defaultData.speed = getAccelerate(defaultData.speed, defaultData.decel, dt);
+	// Only apply centrifugal force from curves if not waiting at tunnel and not paused
+	if (!gameData.waitingAtTunnel && !gameData.paused) {
+		defaultData.playerX = defaultData.playerX - (dx * speedPercent * playerSegment.curve * defaultData.centrifugal);
+	}
+	
+	// Only allow acceleration/braking if not waiting at tunnel
+	if (!gameData.waitingAtTunnel) {
+		if (keyData.accelerate){
+			defaultData.speed = getAccelerate(defaultData.speed, worldData.accel, dt);
+		}else if (keyData.brake){
+			defaultData.speed = getAccelerate(defaultData.speed, defaultData.breaking, dt);
+		}else{
+			defaultData.speed = getAccelerate(defaultData.speed, defaultData.decel, dt);
+		}
 	}
 	
 	if ((defaultData.playerX < -1) || (defaultData.playerX > 1)) {
@@ -1497,8 +1708,54 @@ function updateSprites() {
 		}
 	}
 	
+	// TUNNEL DETECTION - Always check for upcoming tunnels (even when paused)
+	// This prevents getting stuck if paused near a tunnel
+	if(!gameData.waitingAtTunnel){
+		var lookAheadDistance = 100;
+		var lookAheadSegment = findSegment(defaultData.position + defaultData.playerZ + lookAheadDistance);
+		
+		if(lookAheadSegment && lookAheadSegment.sprites){
+			for(n = 0; n < lookAheadSegment.sprites.length; n++){
+				sprite = lookAheadSegment.sprites[n];
+				
+				// Check for quiz tunnels (FUEL sprite)
+				if(sprite.source.id == 'FUEL' && sprite.active){
+					sprite.active = false; // Deactivate so we don't trigger again
+					console.log('Quiz tunnel approaching! Stopping car and showing quiz...');
+					gameData.waitingAtTunnel = true; // Flag to stop the car
+					defaultData.speed = 0; // Stop the car immediately
+					gameData.paused = false; // Unpause if paused by something else
+					showQuizButtons();
+					break; // Only trigger once
+				}
+				
+				// Check for finish line checkpoint (FINISH_LINE sprite)
+				if(sprite.source.id == 'FINISH_LINE' && sprite.active){
+					sprite.active = false; // Deactivate so we don't trigger again
+					console.log('Finish line checkpoint reached! Questions:', questionsAnswered, 'Correct:', correctAnswers);
+					
+					// Check if player answered all questions (regardless of correct/incorrect)
+					if(questionsAnswered >= maxQuestionsPerGame){
+						// Stop the car at finish line
+						gameData.waitingAtTunnel = true;
+						defaultData.speed = 0;
+						
+						// Show finish line and trigger victory
+						console.log('Player answered all questions! Showing finish line and victory!');
+						showFinishLine();
+					} else {
+						console.log('Player did not answer all questions. Continue to run out of fuel.');
+						// Player will naturally run out of fuel - do nothing (just pass through)
+					}
+					break; // Only trigger once
+				}
+			}
+		}
+	}
+	
 	// COLLECTIBLE ITEM COLLISION DETECTION - Check for player collision with sprites (only when game not paused)
-	if(!gameData.paused){
+	if(!gameData.paused && !gameData.waitingAtTunnel){
+		// Regular collision detection for other items
 		for(n = 0 ; n < playerSegment.sprites.length ; n++) {
 			sprite  = playerSegment.sprites[n];
 			if(sprite.active){
@@ -1525,25 +1782,15 @@ function updateSprites() {
 						subtractScore(); // Deduct 700 points
 						console.log('Score after kamote collision:', playerData.score);
 					}
-					// TUNNEL/ARC - Trigger quiz modal for time bonus when player drives through
-					else if(sprite.source.id == 'FUEL'){
-						console.log('Tunnel collision detected! Triggering quiz...');
-						sprite.active = false;
-						
-						// Trigger quiz system (defined in init.js)
-						if (typeof triggerFuelQuiz === 'function') {
-							console.log('Calling triggerFuelQuiz function...');
-							triggerFuelQuiz(); // Opens quiz modal, pauses game
-						} else {
-							console.error('triggerFuelQuiz function not found!');
-							// Fallback: add fuel/time directly without quiz
-							gameData.fuel = Math.min(gameData.fuel + 50, fuelData.total);
-							playSound('soundCollectFuel');
-						}
-					}
+					// Note: FUEL/tunnel collision removed - now handled by look-ahead code above
 				}	
 			}
 		}
+	}
+	
+	// If waiting at tunnel, force speed to 0
+	if(gameData.waitingAtTunnel){
+		defaultData.speed = 0;
 	}
 	
 	playCarSound();
@@ -2020,8 +2267,18 @@ function addRoadType(type, num, height, curve){
  * 
  */
 function resetGame(){
+	// Hide and reset finish line overlay
+	if (finishLineOverlay) {
+		finishLineOverlay.visible = false;
+		finishLineOverlay.alpha = 0;
+	}
+	
+	// Reset game state
+	showingFinishLine = false;
+	
 	resetWorld();
 	resetRoad();	
+	startGame();
 }
 
 function resetWorld(){
@@ -2038,6 +2295,40 @@ function resetWorld(){
 	  
 	for(var key in defaultData) {
 		worldData[key] = defaultData[key];
+	}
+}
+
+/**
+ * Force straight road sections at specific segment positions
+ * Used to ensure tunnels and finish line are on straight roads without curves
+ * @param {Array} positions - Array of segment indices to make straight
+ */
+function forceStraightSections(positions) {
+	if (!segments || segments.length === 0) {
+		console.error('Cannot force straight sections: segments array is empty');
+		return;
+	}
+	
+	var straightRange = 10; // Number of segments before and after to make straight
+	
+	for (var i = 0; i < positions.length; i++) {
+		var centerPos = positions[i];
+		
+		if (centerPos >= segments.length) {
+			console.warn('Position', centerPos, 'is beyond segments length', segments.length);
+			continue;
+		}
+		
+		var startPos = Math.max(0, centerPos - straightRange);
+		var endPos = Math.min(segments.length - 1, centerPos + straightRange);
+		
+		// Set curve to 0 for all segments in this range
+		for (var j = startPos; j <= endPos; j++) {
+			if (segments[j]) {
+				segments[j].curve = 0;
+			}
+		}
+		console.log('Forced straight section at segments', startPos, 'to', endPos, 'for position', centerPos);
 	}
 }
 
@@ -2116,11 +2407,15 @@ function resetRoad() {
 	}
 	
 	// Add extra road segments to ensure finish line is reachable
-	while (segments.length < finishLinePosition + 100) {
+	var targetLength = (typeof finishLinePosition !== 'undefined' ? finishLinePosition : 3000) + 100;
+	while (segments.length < targetLength) {
 		addRoadType('straight', roadLengthData.length.long);
 	}
 	
 	addRoadType('end');
+	
+	// Force straight road sections at tunnel and finish line positions to prevent centrifugal force
+	forceStraightSections([400, 900, 1400, 1900]);
 	
 	resetSprites();
 	resetCars();
@@ -2199,19 +2494,28 @@ function resetCollectItems(){
 	
 	// ROAD TUNNELS - Place tunnel/arc sprites that trigger quiz when player drives through
 	// Positioned at intervals along the highway like real tunnel checkpoints
-	var fuelPositions = [400, 900, 1400, 1900, 2400]; // Segment numbers for tunnel spawns
-	for(var i = 0; i < fuelPositions.length; i++) {
-		if (fuelPositions[i] < segments.length) {
+	// Only 3 tunnels for 3 questions, then a finish line checkpoint at the 4th position
+	var tunnelPositions = [400, 900, 1400]; // 3 quiz tunnels
+	for(var i = 0; i < tunnelPositions.length; i++) {
+		if (tunnelPositions[i] < segments.length) {
 			// Place tunnel arc centered on road (offset 0) so player drives through it
-			addSprite(fuelPositions[i], spritesData.FUEL, 0);
+			addSprite(tunnelPositions[i], spritesData.FUEL, 0);
 		}
 	}
 	
+	// FINISH LINE CHECKPOINT - 4th checkpoint with background_hills.png (same spacing as tunnels)
+	var finishCheckpoint = 1900; // Same interval after 3rd tunnel
+	if (finishCheckpoint < segments.length) {
+		// Place finish line checkpoint centered on road
+		addSprite(finishCheckpoint, spritesData.FINISH_LINE, 0);
+	}
+	
 	// FINISH LINE - Add victory billboards at the finish line position
-	if (finishLinePosition < segments.length) {
-		addSprite(finishLinePosition, spritesData.BILLBOARD01, 0); // Center victory display
-		addSprite(finishLinePosition, spritesData.BILLBOARD02, -0.7); // Left finish marker
-		addSprite(finishLinePosition, spritesData.BILLBOARD03, 0.7); // Right finish marker
+	var finishPos = (typeof finishLinePosition !== 'undefined' ? finishLinePosition : 3000);
+	if (finishPos < segments.length) {
+		addSprite(finishPos, spritesData.BILLBOARD01, 0); // Center victory display
+		addSprite(finishPos, spritesData.BILLBOARD02, -0.7); // Left finish marker
+		addSprite(finishPos, spritesData.BILLBOARD03, 0.7); // Right finish marker
 	}
 	
 	// KAMOTE COINS - Spawn penalty coins along the track (100% kamote, no good coins)
@@ -2344,6 +2648,13 @@ function renderSprite(width, height, resolution, roadWidth, sprites, sprite, sca
 		heightMultiplier = 1.5; // Tunnel: 1.5x taller for proper arc proportions
 	}
 	
+	// FINISH LINE MULTIPLIER - Make finish line checkpoint large and visible
+	// Displays Manila skyline background as a prominent checkpoint marker
+	if(sprite.id === 'FINISH_LINE') {
+		widthMultiplier = 3.5; // Finish line: extra wide to span across road
+		heightMultiplier = 2.0; // Finish line: tall to be prominent
+	}
+	
 	// Calculate destination width and height with scaling
     var destW  = (newSprite.image.naturalWidth * scale * width/2) * (defaultData.scale * roadWidth) * widthMultiplier;
     var destH  = (newSprite.image.naturalHeight * scale * width/2) * (defaultData.scale * roadWidth) * heightMultiplier;
@@ -2354,10 +2665,10 @@ function renderSprite(width, height, resolution, roadWidth, sprites, sprite, sca
     
     // CENTER TUNNEL - Adjust X position to perfectly center wide tunnel on road
     // The sprite expands from its anchor point, so we need to shift it to true center
-    if(sprite.id === 'FUEL') {
+    if(sprite.id === 'FUEL' || sprite.id === 'FINISH_LINE') {
     	var originalW = (newSprite.image.naturalWidth * scale * width/2) * (defaultData.scale * roadWidth);
     	// Shift left by half the extra width to center perfectly
-    	destX = destX - ((destW - originalW) * 0.75); // 0.5 = half, centers tunnel with equal margins
+    	destX = destX - ((destW - originalW) * 0.75); // 0.5 = half, centers sprite with equal margins
     }
 	
 	// Calculate clipping height for horizon line (sprites disappear over horizon)
@@ -2511,7 +2822,7 @@ function addScore2(){
 function subtractScore(){
 	console.log('subtractScore called! Score before:', playerData.score);
 	playSound('soundHit'); // Hit sound for penalty
-	playerData.score -= 700; // Subtract 700 points penalty
+	playerData.score -= 100; // Subtract 100 points penalty
 	
 	if (playerData.score < 0) {
 		console.log('Score was negative, setting to 0');
@@ -2519,7 +2830,7 @@ function subtractScore(){
 	}
 	console.log('Final score:', playerData.score);
 	// Display red text showing score penalty
-	updateGameText('-700 SCORE', '#ff0000', 70, 1);
+	updateGameText('-100 SCORE', '#ff0000', 70, 1);
 }
 
 /**
@@ -2756,4 +3067,208 @@ function shareLinks(action, shareScore){
 	}
 
 	window.open(shareURL);
+}
+
+/**
+ * Show Quiz Buttons (Yes/No) without overlay
+ * Displays buttons on screen when player hits tunnel
+ */
+function showQuizButtons() {
+	console.log('showQuizButtons called');
+	console.log('questionsAnswered:', questionsAnswered, 'maxQuestionsPerGame:', maxQuestionsPerGame);
+	
+	// Check if all questions have been answered
+	if (questionsAnswered >= maxQuestionsPerGame) {
+		console.log('All questions answered, skipping quiz');
+		return;
+	}
+	
+	// Ensure we have selected questions
+	if (!selectedQuestions || selectedQuestions.length === 0) {
+		console.warn('No selected questions, using fallback');
+		selectedQuestions = [{
+			id: 1,
+			question: "Should you wear a helmet when riding?",
+			options: ["Yes", "No"],
+			correct: 0
+		}];
+	}
+	
+	// Get the next question from selected questions
+	// Make sure we have a question for this index
+	if (questionsAnswered >= selectedQuestions.length) {
+		console.error('No more questions available! questionsAnswered:', questionsAnswered, 'selectedQuestions.length:', selectedQuestions.length);
+		// Add a fallback question
+		currentQuizQuestion = {
+			id: questionsAnswered + 1,
+			question: "Should you always follow traffic rules?",
+			options: ["Yes", "No"],
+			correct: 0
+		};
+	} else {
+		currentQuizQuestion = selectedQuestions[questionsAnswered];
+	}
+	
+	console.log('Quiz question selected:', currentQuizQuestion, 'Question number:', questionsAnswered + 1);
+	
+	// Safety check: ensure currentQuizQuestion is valid
+	if (!currentQuizQuestion || !currentQuizQuestion.question) {
+		console.error('Invalid question object!', currentQuizQuestion);
+		currentQuizQuestion = {
+			id: 1,
+			question: "Is safety important when riding?",
+			options: ["Yes", "No"],
+			correct: 0
+		};
+	}
+	
+	// Set the question text
+	if (quizButtonQuestionTxt && quizButtonQuestionShadowTxt) {
+		quizButtonQuestionTxt.text = currentQuizQuestion.question;
+		quizButtonQuestionShadowTxt.text = currentQuizQuestion.question;
+		console.log('Question text set to:', currentQuizQuestion.question);
+	} else {
+		console.error('Question text elements not found!');
+		console.log('quizButtonQuestionTxt:', quizButtonQuestionTxt);
+		console.log('quizButtonQuestionShadowTxt:', quizButtonQuestionShadowTxt);
+	}
+	
+	// Pause the game
+	gameData.paused = true;
+	console.log('Game paused for quiz');
+	
+	// Show buttons
+	if (quizButtonContainer) {
+		quizButtonContainer.visible = true;
+		quizButtonContainer.alpha = 0;
+		TweenMax.to(quizButtonContainer, 0.3, {alpha: 1});
+		console.log('Quiz buttons container shown and animating');
+	} else {
+		console.error('quizButtonContainer not found!');
+	}
+}
+
+/**
+ * Hide Quiz Buttons
+ */
+function hideQuizButtons() {
+	if (quizButtonContainer) {
+		TweenMax.to(quizButtonContainer, 0.3, {alpha: 0, onComplete: function() {
+			quizButtonContainer.visible = false;
+			// Clear question text
+			if (quizButtonQuestionTxt && quizButtonQuestionShadowTxt) {
+				quizButtonQuestionTxt.text = "";
+				quizButtonQuestionShadowTxt.text = "";
+			}
+		}});
+	}
+}
+
+/**
+ * Show Finish Line - Display background_hills.png and trigger victory
+ */
+function showFinishLine() {
+	console.log('=== FINISH LINE REACHED! ===');
+	
+	// Set flag to hide tunnel sprites
+	showingFinishLine = true;
+	
+	// Stop penalty timer and clear any penalty display
+	gameData.penalty = false;
+	gameData.penaltyTime = 0;
+	gameData.ended = true; // Mark game as ended to stop all timers
+	TweenMax.killTweensOf(gameContainer);
+	
+	// Hide game status container immediately
+	gameStatusContainer.visible = false;
+	
+	// Create finish line overlay with background_hills.png
+	if (!finishLineOverlay) {
+		finishLineOverlay = new createjs.Container();
+		
+		// Create semi-transparent black background
+		var overlayBg = new createjs.Shape();
+		overlayBg.graphics.beginFill("rgba(0,0,0,0.7)").drawRect(0, 0, canvasW, canvasH);
+		
+		// Create finish line image (background_hills.png)
+		var finishImage = new createjs.Bitmap(loader.getResult('hills'));
+		finishImage.x = canvasW / 2;
+		finishImage.y = canvasH / 2;
+		centerReg(finishImage);
+		
+		// Scale image to fit screen nicely
+		var scale = Math.min(canvasW / finishImage.image.width, canvasH / finishImage.image.height) * 0.8;
+		finishImage.scaleX = finishImage.scaleY = scale;
+		
+		finishLineOverlay.addChild(overlayBg, finishImage);
+		finishLineOverlay.alpha = 0;
+		mainContainer.addChild(finishLineOverlay);
+	}
+	
+	// Fade in the finish line overlay
+	finishLineOverlay.visible = true;
+	TweenMax.to(finishLineOverlay, 0.5, {alpha: 1, onComplete: function() {
+		// Show victory message after finish line
+		showVictoryMessage();
+	}});
+}
+
+/**
+ * Handle Yes Button Click
+ */
+function clickQuizYes() {
+	playSound('soundClick');
+	handleQuizAnswer(0); // "Yes" is option index 0
+}
+
+/**
+ * Handle No Button Click
+ */
+function clickQuizNo() {
+	playSound('soundClick');
+	handleQuizAnswer(1); // "No" is option index 1
+}
+
+/**
+ * Process quiz answer
+ */
+function handleQuizAnswer(selectedIndex) {
+	if (!currentQuizQuestion) {
+		console.error('No current quiz question');
+		hideQuizButtons();
+		gameData.paused = false; // Resume game
+		return;
+	}
+	
+	const isCorrect = selectedIndex === currentQuizQuestion.correct;
+	console.log('Answer selected:', selectedIndex, 'Correct:', currentQuizQuestion.correct, 'Is correct:', isCorrect);
+	
+	if (isCorrect) {
+		// Correct answer - add fuel/time
+		correctAnswers++;
+		gameData.fuel = Math.min(gameData.fuel + 50, fuelData.total);
+		playSound('soundCollectFuel');
+		updateGameText('+TIME', '#39b54a', 70, 1);
+		console.log('Correct answer! Added fuel. Correct answers:', correctAnswers);
+	} else {
+		// Wrong answer - no fuel bonus (penalty is lack of fuel gain + time pressure)
+		playSound('soundHit');
+		updateGameText('WRONG', '#ec3e34', 70, 1);
+		console.log('Wrong answer! No fuel bonus. Correct answers:', correctAnswers);
+	}
+	
+	// Increment questions answered count
+	questionsAnswered++;
+	console.log('Questions answered:', questionsAnswered, '/', maxQuestionsPerGame, 'Correct:', correctAnswers);
+	
+	// After answering, player continues driving
+	// The next tunnel will check if all questions are answered and trigger finish line
+	
+	// Hide buttons and resume game
+	hideQuizButtons();
+	defaultData.playerX = 0; // Reset player to center of road to prevent centrifugal drift
+	gameData.paused = false; // Resume game
+	gameData.waitingAtTunnel = false; // Allow car to move again
+	console.log('Game resumed, car centered and can move to next tunnel');
+	currentQuizQuestion = null;
 }
