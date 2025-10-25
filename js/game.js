@@ -138,8 +138,8 @@ const statusData = {
 				};
 				
 const exitMessage = 'Are you sure\nyou want to quit?'; //go to main page message
-const resultTitleText = 'GOOD JOB THO!';  //result text display
-const resultScoreText = 'SENSIBLE METER SCORE:';  //result text display
+const resultTitleText = 'GOOD JOB\nTHO!';  //result text display
+const resultScoreText = 'SENSIBLE METER\nSCORE:';  //result text display
 
 //Social share, [SCORE] will replace with game score
 const shareText = 'SHARE YOUR SENSIBLE METER SCORE'; //social share message
@@ -191,6 +191,17 @@ const defaultData = {
 	lastY:0,
 	turnSpeed:3.5
 };
+
+// Mobile detection and performance optimization
+var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+// Adjust settings for mobile devices
+if (isMobile) {
+	console.log('Mobile device detected - applying performance optimizations');
+	defaultData.drawDistance = 150; // Reduce draw distance from 300 to 150
+	defaultData.totalCars = 80; // Reduce AI cars from 200 to 80
+	defaultData.fieldOfView = 100; // Slightly reduce FOV
+}
 				
 var worldData = {};
 var segments = [];
@@ -1450,7 +1461,7 @@ function updateSprites() {
 	var startPosition = defaultData.position;
 	
 	// Check for T-junction trigger
-	checkTJunctionTrigger(playerSegment);
+	// checkTJunctionTrigger(playerSegment);
 	
 	updateCars(dt, playerSegment, playerW);
 	

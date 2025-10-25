@@ -5,6 +5,10 @@ var stage;
 var canvasW=0;
 var canvasH=0;
 
+// Mobile detection for performance optimization
+var isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+var outlineSize = isMobileDevice ? 2 : 6; // Reduce outline on mobile for better performance
+
 /*!
  * 
  * START GAME CANVAS - This is the function that runs to setup game canvas
@@ -169,7 +173,7 @@ function buildGameCanvas(){
 	scoreShadowTxt.textAlign = "left";
 	scoreShadowTxt.textBaseline='alphabetic';
 	scoreShadowTxt.text = scoreData.text;
-	scoreShadowTxt.outline = 6;
+	scoreShadowTxt.outline = outlineSize;
 	scoreShadowTxt.x = scoreTxt.x;
 	scoreShadowTxt.y = scoreTxt.y;
 	
@@ -188,7 +192,7 @@ function buildGameCanvas(){
 	fuelShadowTxt.textAlign = "left";
 	fuelShadowTxt.textBaseline='alphabetic';
 	fuelShadowTxt.text = fuelData.text;
-	fuelShadowTxt.outline = 4;
+	fuelShadowTxt.outline = Math.max(2, outlineSize - 2);
 	fuelShadowTxt.x = fuelTxt.x;
 	fuelShadowTxt.y = fuelTxt.y;
 	
@@ -221,7 +225,7 @@ function buildGameCanvas(){
 	gameStatusShadowTxt.textAlign = "center";
 	gameStatusShadowTxt.textBaseline='alphabetic';
 	gameStatusShadowTxt.text = '';
-	gameStatusShadowTxt.outline = 8;
+	gameStatusShadowTxt.outline = outlineSize + 2;
 	gameStatusShadowTxt.x = gameStatusTxt.x;
 	gameStatusShadowTxt.y = gameStatusTxt.y;
 	
@@ -275,7 +279,7 @@ function buildGameCanvas(){
 	resultTitleShadowTxt.textAlign = "center";
 	resultTitleShadowTxt.textBaseline='alphabetic';
 	resultTitleShadowTxt.text = resultTitleText;
-	resultTitleShadowTxt.outline = 6;
+	resultTitleShadowTxt.outline = outlineSize;
 	resultTitleShadowTxt.x = resultTitleTxt.x+1;
 	resultTitleShadowTxt.y = resultTitleTxt.y;
 	
@@ -286,7 +290,7 @@ function buildGameCanvas(){
 	resultScoreTxt.textBaseline='alphabetic';
 	resultScoreTxt.text = '1500PTS';
 	resultScoreTxt.x = canvasW/2;
-	resultScoreTxt.y = canvasH/100 * 48;
+	resultScoreTxt.y = canvasH/100 * 70;
 	
 	resultScoreShadowTxt = new createjs.Text();
 	resultScoreShadowTxt.font = "120px Mont Heavy DEMO";
@@ -294,7 +298,7 @@ function buildGameCanvas(){
 	resultScoreShadowTxt.textAlign = "center";
 	resultScoreShadowTxt.textBaseline='alphabetic';
 	resultScoreShadowTxt.text = '1500PTS';
-	resultScoreShadowTxt.outline = 6;
+	resultScoreShadowTxt.outline = outlineSize;
 	resultScoreShadowTxt.x = resultScoreTxt.x+1;
 	resultScoreShadowTxt.y = resultScoreTxt.y;
 	
@@ -305,14 +309,14 @@ function buildGameCanvas(){
 	resultScoreDescTxt.textBaseline='alphabetic';
 	resultScoreDescTxt.text = resultScoreText;
 	resultScoreDescTxt.x = canvasW/2;
-	resultScoreDescTxt.y = canvasH/100 * 38;
+	resultScoreDescTxt.y = canvasH/100 * 52;
 	
 	resultScoreDescShadowTxt = new createjs.Text();
 	resultScoreDescShadowTxt.font = "60px Mont Heavy DEMO";
 	resultScoreDescShadowTxt.color = "#ffffff";
 	resultScoreDescShadowTxt.textAlign = "center";
 	resultScoreDescShadowTxt.textBaseline='alphabetic';
-	resultScoreDescShadowTxt.outline = 6;
+	resultScoreDescShadowTxt.outline = outlineSize;
 	resultScoreDescShadowTxt.text = resultScoreText;
 	resultScoreDescShadowTxt.x = resultScoreDescTxt.x+1;
 	resultScoreDescShadowTxt.y = resultScoreDescTxt.y;
@@ -371,7 +375,7 @@ function buildGameCanvas(){
 	centerReg(buttonRestart);
 	createHitarea(buttonRestart);
 	buttonRestart.x = canvasW/2;
-	buttonRestart.y = canvasH/100 * 65;
+	buttonRestart.y = canvasH/100 * 80;
 	
 	//option
 	buttonFullscreen = new createjs.Bitmap(loader.getResult('buttonFullscreen'));
