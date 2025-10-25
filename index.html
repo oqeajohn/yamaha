@@ -6,29 +6,7 @@
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="theme-color" content="#000000" />
-        <title>Speed Racer</title>
-
-        <!-- SEO Meta -->
-        <meta name="description" content="Speed Racer is a HTML5 game where you can drive through the forest world, collecting the powers along the road to help extend the fuel, race with turbo mode and collect coin to get high score!" />
-        <meta name="keywords" content="racing game, car race, speed racer, turbo mode, coin collection, fuel boost, nitro boost, vehicle race, high score challenge, forest race, racing track, HTML5 racer, endless racing" />
-        <meta name="author" content="demonisblack" />
-
-        <!-- Open Graph / Facebook -->
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://demonisblack.com/code/2017/speedracer/game/" />
-        <meta property="og:title" content="Speed Racer" />
-        <meta property="og:description" content="Speed Racer is a HTML5 game where you can drive through the forest world, collecting the powers along the road to help extend the fuel, race with turbo mode and collect coin to get high score!" />
-        <meta property="og:image" content="https://demonisblack.com/code/2017/speedracer/game/share.jpg" />
-
-        <!-- Twitter Card -->
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:url" content="https://demonisblack.com/code/2017/speedracer/game/" />
-        <meta name="twitter:title" content="Speed Racer" />
-        <meta name="twitter:description" content="Speed Racer is a HTML5 game where you can drive through the forest world, collecting the powers along the road to help extend the fuel, race with turbo mode and collect coin to get high score!" />
-        <meta name="twitter:image" content="https://demonisblack.com/code/2017/speedracer/game/share.jpg" />
-
-        <meta name="application-name" content="Speed Racer" />
-        <meta name="author" content="demonisblack" />
+        <title>Sensible Meter</title>
 
         <!-- Favicons -->
         <link rel="icon" type="image/png" href="icons/favicon-96x96.png" sizes="96x96" />
@@ -66,6 +44,26 @@
             <!-- CANVAS START-->
             <div id="canvasHolder">
                 <canvas id="gameCanvas" width="768" height="1024"></canvas>
+                
+                <!-- QUIZ MODAL START -->
+                <div id="quizModal" class="quiz-modal" style="display: none; visibility: hidden;">
+                    <div class="quiz-container">
+                        <div class="quiz-header">
+                            <h2 id="quizTitle">FUEL QUIZ!</h2>
+                        </div>
+                        <div class="quiz-content">
+                            <div class="quiz-question" id="quizQuestion">
+                                Question will appear here
+                            </div>
+                            <div class="quiz-options">
+                                <button id="quizOptionA" class="quiz-option">Option A</button>
+                                <button id="quizOptionB" class="quiz-option">Option B</button>
+                            </div>
+                            <button id="quizContinue" class="quiz-continue" style="display: none;">Continue</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- QUIZ MODAL END -->
             </div>
             <!-- CANVAS END-->
             
@@ -89,15 +87,5 @@
         <script src="js/init.js"></script>
     </body>
     
-    
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-RWJ67R5BQR"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-RWJ67R5BQR');
-</script>
 
 </html>

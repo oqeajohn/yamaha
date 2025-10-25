@@ -20,7 +20,7 @@
 	manifest=[
 			{src:'assets/background.png', id:'background'},
 			{src:'assets/logo.png', id:'logo'},
-			{src:'assets/button_start.png', id:'buttonStart'},
+			{src:'assets/startbutton.png', id:'buttonStart'},
 			
 			{src:'assets/smoke_Spritesheet2x1.png', id:'itemSmoke'},
 			{src:'assets/fire_Spritesheet2x1.png', id:'itemFire'},

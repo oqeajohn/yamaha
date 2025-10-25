@@ -6,31 +6,31 @@
  * 
  * GAME SETTING CUSTOMIZATION START
  * 
- * FUEL SYSTEM: DISABLED for infinite driving
- * - Fuel bar always shows full
- * - No fuel consumption
- * - No fuel pickups generated
- * - No game over from running out of fuel
- * - Drive as long as you want!
+ * MANILA RUSH SYSTEM: Philippine urban racing experience
+ * - Navigate through EDSA and city highways
+ * - Race between Makati and BGC skyscrapers
+ * - Modern cityscape with glass towers and urban architecture
+ * - Authentic Philippine city atmosphere
+ * - Optimized for modernized city background images
  * 
  */
  
-//background assets - city theme
+//background assets - Philippine city theme with tropical lighting
 const backgroundData = {
-	hills: { src:'assets/background_hills.png'}, // City skyline
-	sky:   { src:'assets/background_sky.png'},   // Urban sky
-	trees: { src:'assets/background_trees.png'} // Foreground buildings
+	hills: { src:'assets/background_hills.png'}, // Manila/Makati/BGC skyline silhouette
+	sky:   { src:'assets/background_sky.png'},   // Bright tropical Philippine sky with golden hour lighting
+	trees: { src:'assets/background_trees.png'} // Foreground Filipino high-rise buildings and condominiums
 };
 
-//road assets
+//road assets - Philippine metropolitan highway with realistic cement/concrete road colors
 const roadData = {
 	width:1800,
 	rumbleLength:2,
 	lanes:3,
-	fogDensity:5,
-	fog:'#045b4c',
-	light:{road:'#434343', grass:'#509b50', rumble:'#7c4d29', lane:'#CCCCCC'},
-	dark:{road:'#444', grass:'#5bae5d', rumble:'#7c4d29'}
+	fogDensity:2, // Reduced fog for better skyline visibility
+	fog:'#B0C4DE', // Light steel blue for urban atmospheric haze
+	light:{road:'#C0C0C0', grass:'#008eb3', rumble:'#FFD700', lane:'#FFFFFF'}, // Uniform cement gray road, pale green urban areas, gold lane markers, white lines
+	dark:{road:'#C0C0C0', grass:'#008eb3', rumble:'#FF8C00'} // Same uniform cement gray road - no more zebra stripes, light green areas, dark orange construction markers
 };
 
 /* NEW ROAD TYPES ADDED:
@@ -69,35 +69,45 @@ const playerCarData = {
 	up_straight: { src:'assets/car_up_straight.png'}
 };
 
-//world assets
+//world assets - Philippine city environment with tropical architecture
 const spritesData = {
-	BILLBOARD01:{src:'assets/billboard_01.png'},
-	BILLBOARD02:{src:'assets/billboard_02.png'},
-	BILLBOARD03:{src:'assets/billboard_03.png'},
-	BUILDING1:{src:'assets/tree_01.png'}, // Tall office building
-	BUILDING2:{src:'assets/tree_02.png'}, // Modern glass building
-	BUILDING3:{src:'assets/tree_03.png'}, // Residential apartment building
-	BUILDING4:{src:'assets/tree_04.png'}, // Industrial building
-	BUILDING5:{src:'assets/tree_05.png'}, // Mixed-use building
-	STREETLAMP:{src:'assets/rock_01.png'}, // Street lamp
-	TRAFFICLIGHT:{src:'assets/rock_02.png'}, // Traffic light
-	FIREHYDRANT:{src:'assets/rock_03.png'}, // Fire hydrant
-	TRUCK01:{src:'assets/truck_01.png'},
-	TRUCK02:{src:'assets/truck_02.png'},
-	JEEP01:{src:'assets/jeep_01.png'},
-	CAR04:{src:'assets/car_04.png'},
-	CAR03:{src:'assets/car_03.png'},
-	CAR02:{src:'assets/car_02.png'},
-	CAR01:{src:'assets/car_01.png'},
-	COIN:{src:'assets/item_power_coin.png'},
-	FUEL:{src:'assets/item_power_fuel.png'}
+	BILLBOARD01:{src:'assets/billboard_01.png'}, // Jollibee, SM, Globe telecommunications billboard
+	BILLBOARD02:{src:'assets/billboard_02.png'}, // Philippine brands advertisement (Ayala, BDO, etc.)
+	BILLBOARD03:{src:'assets/billboard_03.png'}, // Local business digital signage
+	BILLBOARD04:{src:'assets/billboard_04.png'}, // Local business digital signage
+	BUILDING1:{src:'assets/bulding1.png'}, // Manila building 1
+	BUILDING2A:{src:'assets/building2a.png'}, // Manila building 2a
+	BUILDING2B:{src:'assets/Building2b.png'}, // Manila building 2b
+	BUILDING3A:{src:'assets/building3a.png'}, // Manila building 3a
+	BUILDING3B:{src:'assets/building3b.png'}, // Manila building 3b
+	BUILDING4A:{src:'assets/building4a.png'}, // Manila building 4a
+	BUILDING4B:{src:'assets/buildng4b.png'}, // Manila building 4b
+	TRUCK01:{src:'assets/truck_01.png'}, // Filipino delivery truck (Isuzu style)
+	TRUCK02:{src:'assets/truck_02.png'}, // Philippine commercial vehicle
+	TRUCK03:{src:'assets/truck_03.png'}, // Philippine commercial vehicle
+	JEEP01:{src:'assets/jeep_01.png'}, // Traditional Filipino jeepney
+	CAR04:{src:'assets/car_04.png'}, // Toyota Vios (popular Philippine sedan)
+	CAR03:{src:'assets/car_03.png'}, // Honda City (compact Philippine car)
+	CAR02:{src:'assets/car_02.png'}, // Sports car for Filipino roads
+	CAR01:{src:'assets/car_01.png'}, // Luxury vehicle (BMW/Mercedes in PH)
+	COIN:{src:'assets/item_power_coin.png'}, // Philippine peso coin (+500 score)
+	COIN2:{src:'assets/item_power_coin_2.png'}, // Second peso coin (+500 score)
+	COIN_KAMOTE1:{src:'assets/item_power_coin_kamote.png'}, // Kamote coin (-700 score)
+	COIN_KAMOTE2:{src:'assets/item_power_coin_kamote2.png'}, // Kamote coin (-700 score)
+	COIN_KAMOTE3:{src:'assets/item_power_coin_kamote3.png'}, // Kamote coin (-700 score)
+	COIN_KAMOTE4:{src:'assets/item_power_coin_kamote4.png'}, // Kamote coin (-700 score)
+	COIN_KAMOTE5:{src:'assets/item_power_coin_kamote5.png'}, // Kamote coin (-700 score)
+	COIN_KAMOTE6:{src:'assets/item_power_coin_kamote6.png'}, // Kamote coin (-700 score)
+	FUEL:{src:'assets/truss.png'}  // Road tunnel/arc that triggers quiz when player drives through it
 };
 
-spritesData.CITYSCAPE = [spritesData.BUILDING1, spritesData.BUILDING2, spritesData.BUILDING3, spritesData.BUILDING4, spritesData.BUILDING5, spritesData.STREETLAMP, spritesData.TRAFFICLIGHT, spritesData.FIREHYDRANT];
-spritesData.CARS = [spritesData.CAR01, spritesData.CAR02, spritesData.CAR03, spritesData.CAR04, spritesData.JEEP01, spritesData.TRUCK01, spritesData.TRUCK02];
-spritesData.BILLBOARDS = [spritesData.BILLBOARD01, spritesData.BILLBOARD02, spritesData.BILLBOARD03];
+// Sprite collections - grouped arrays for random selection during gameplay
+spritesData.CITYSCAPE = [spritesData.BUILDING1, spritesData.BUILDING2A, spritesData.BUILDING2B, spritesData.BUILDING3A, spritesData.BUILDING3B, spritesData.BUILDING4A, spritesData.BUILDING4B]; // All building types for urban skyline
+spritesData.CARS = [spritesData.CAR01, spritesData.CAR02, spritesData.CAR03, spritesData.CAR04, spritesData.JEEP01, spritesData.TRUCK01, spritesData.TRUCK02, spritesData.TRUCK03]; // Traffic vehicles (cars, jeepneys, trucks)
+spritesData.BILLBOARDS = [spritesData.BILLBOARD01, spritesData.BILLBOARD02, spritesData.BILLBOARD03, spritesData.BILLBOARD04]; // Advertisement billboards
+spritesData.KAMOTE_COINS = [spritesData.COIN_KAMOTE1, spritesData.COIN_KAMOTE2, spritesData.COIN_KAMOTE3, spritesData.COIN_KAMOTE4, spritesData.COIN_KAMOTE5, spritesData.COIN_KAMOTE6]; // Penalty coins that subtract score
 
-const intructionDisplayText = 'Press W,A,S,D to\ndrive the car.'; //instruction display text
+const intructionDisplayText = 'Press W,A,S,D\n to navigate'; //instruction display text
 
 //keyboard keycode
 const keyboard_arr = {left:[65,37],
@@ -109,35 +119,35 @@ const keyboard_arr = {left:[65,37],
 const scoreData = {text:'SCORE: [NUMBER]',//score display text
 				coin:500} //collect coin score
 				
-const fuelData = {text:'FUEL:', //fuel display text
+const fuelData = {text:'TIME:', //fuel display text
 				total:100, //total fuel
 				add:20, //collect fuel total
 				updateTime:1, //fuel update timer
-				decrease:3, //fuel decrease
-				bar:{width:200, height:28, backgroundColor:'#2f2f2f', blankColor:'#fff', fillColor:'#25bf1d', space:3} //fuel bar
+				decrease:2, //fuel decrease
+				bar:{width:200, height:28, backgroundColor:'#2f2f2fff', blankColor:'#fff', fillColor:'#25bf1d', space:3} //fuel bar
 				};
 				
 //game status (text, color and font size)				
 const statusData = {
-				start:{text:'GO', color:'#fff', size:120},
-				fuel:{text:'+FUEL', color:'#39b54a', size:70},
-				score:{text:'+[NUMBER]', color:'#fcdb05', size:70},
-				penalty:{text:'TIMEOUT:\n[NUMBER]', color:'#ec3e34', size:70},
-				lowFuel:{text:'LOW FUEL', color:'#ff7f00', size:70},
-				noFuel:{text:'OUT OF FUEL', color:'#ec3e34', size:70},
-				}
+				start:{text:'READY?', color:'#071c27', size:120},
+				fuel:{text:'+TIME', color:'#39b54a', size:70},
+				score:{text:'+[NUMBER] SCORE', color:'#fcdb05', size:70},
+				penalty:{text:'TIME OUT:\n[NUMBER]', color:'#ec3e34', size:70},
+				lowFuel:{text:'LOW TIME', color:'#ff7f00', size:70},
+				noFuel:{text:'OUT OF TIME', color:'#ec3e34', size:70},
+				};
 				
 const exitMessage = 'Are you sure\nyou want to quit?'; //go to main page message
-const resultTitleText = 'GAME OVER';  //result text display
-const resultScoreText = 'BEST SCORE:';  //result text display
+const resultTitleText = 'GOOD JOB THO!';  //result text display
+const resultScoreText = 'SENSIBLE METER SCORE:';  //result text display
 
 //Social share, [SCORE] will replace with game score
-const shareText = 'SHARE YOUR SCORE'; //social share message
+const shareText = 'SHARE YOUR SENSIBLE METER SCORE'; //social share message
 const shareSettings = {
-	enable:true,
+	enable:false,
 	options:['facebook','twitter','whatsapp','telegram','reddit','linkedin'],
-	shareTitle:'Highscore on Speed Racer Game is [SCORE]PTS.',
-	shareText:'[SCORE]PTS is mine new highscore on Speed Racer Game! Try it now!',
+	shareTitle:'My Sensible Meter highscore is [SCORE] PESOS!',
+	shareText:'Just scored [SCORE] PESOS racing through Manila in Sensible Meter! Try this Philippine city racing game now!',
 	customScore:true, //share a custom score to Facebook, it use customize share.php (Facebook and PHP only)
 	gtag:true //Google Tag
 };
@@ -155,18 +165,18 @@ const defaultData = {
 	extraHeight:184,
 	scale:0.00165,
 	centrifugal:.6,
-	skySpeed:0.001,
-	hillSpeed:0.002,
-	treeSpeed:0.003,
+	skySpeed:0.0003, // Very slow for distant city horizon - creates deep perspective
+	hillSpeed:0.002, // Medium speed for mid-distance buildings - layered depth
+	buildingSpeed:0.006, // Faster for close buildings - strong 3D parallax effect
 	skyOffset:0,
 	hillOffset:0,
-	treeOffset:0,
+	buildingOffset:0,
 	segmentLength:200,
 	trackLength:null,
-	fieldOfView:100,
-	cameraHeight:800,
+	fieldOfView:110, // Wider field of view for better 3D city immersion
+	cameraHeight:700, // Lower camera for more street-level perspective
 	cameraDepth:null,
-	drawDistance:300,
+	drawDistance:300, // Increased to see more of the city canyon ahead
 	playerX:0,
 	playerZ:0,
 	position:0,
@@ -192,7 +202,7 @@ var currentLapTime = 0;
 
 const roadLengthData = {length:{none:0, short:25, medium:50, long:100},
 					  hill:{none:0, low:20, medium:40, high:60},
-					  curve:{none:0, easy:2, medium:4, hard:6, veryHard:8, extreme:12, ninety:20}};
+					  curve:{none:0, easy:1.5, medium:2.5, hard:3.5, veryHard:4.5, extreme:6, ninety:8}};
 
 const playerData = {score:0, displayScore:0};
 const gameData = {paused:true, fuel:0, fuelUpdate:false, accel:false, penalty:false, penaltyTime:0, brakeSound:false, accelSound:false, stopSound:false, ended:false};
@@ -215,6 +225,7 @@ var pendingFuelAmount = 0; // Amount of fuel to add if quiz is correct
 // Game Progress Variables
 var totalQuizzes = 5; // Total number of quiz questions in the game
 var quizzesCompleted = 0; // Number of quizzes completed correctly
+var usedQuestionIds = []; // Track which questions have been used
 var finishLinePosition = 3000; // Position of the finish line
 var gameWon = false; // Track if player reached the finish line
 var gamePaused = false; // Track if game is paused (separate from gameData.paused)
@@ -231,6 +242,7 @@ function checkFinishLine() {
 	
 	// Check if player reached the finish line and completed all quizzes
 	if (currentSegment >= finishLinePosition && quizzesCompleted >= totalQuizzes) {
+		console.log('VICTORY! Player reached finish line with all quizzes completed:', quizzesCompleted + '/' + totalQuizzes);
 		gameWon = true;
 		gamePaused = true;
 		gameData.paused = true;
@@ -242,6 +254,7 @@ function checkFinishLine() {
 	}
 	// Check if player reached finish line but didn't complete all quizzes
 	else if (currentSegment >= finishLinePosition && quizzesCompleted < totalQuizzes) {
+		console.log('FAILURE! Player reached finish line but missing quizzes:', quizzesCompleted + '/' + totalQuizzes);
 		// Player reached finish but failed - end game
 		gamePaused = true;
 		gameData.paused = true;
@@ -257,9 +270,7 @@ function checkFinishLine() {
 
 // Show victory message
 function showVictoryMessage() {
-	updateGameText("CONGRATULATIONS! You reached the finish line!", "#00ff00", 30, 0);
-	
-	setTimeout(function() {
+		updateGameText("MANILA RUSH CHAMPION! You conquered EDSA highway!", "#00ff00", 30, 0);	setTimeout(function() {
 		// Show final score and end game
 		updateGameText("Final Score: " + addCommas(playerData.score), "#ffff00", 25, 0);
 		setTimeout(function() {
@@ -296,15 +307,23 @@ function loadQuizQuestions() {
 
 // Trigger fuel quiz when player collects fuel
 function triggerFuelQuiz() {
-	console.log('triggerFuelQuiz called!'); // Debug log
+	console.log('=== triggerFuelQuiz called! ==='); // Debug log
+	console.log('quizQuestions array:', quizQuestions);
+	console.log('quizQuestions length:', quizQuestions.length);
 	console.log('Quiz questions available:', quizQuestions.length); // Debug log
 	
 	try {
 		if (quizQuestions.length === 0) {
-			console.warn('No quiz questions available, adding fuel directly');
-			gameData.fuel = Math.min(gameData.fuel + 50, fuelData.total);
-			playSound('soundCollectFuel');
-			return;
+			console.warn('No quiz questions available, using fallback question');
+			// Create a fallback question instead of returning
+			quizQuestions = [{
+				"id": 1,
+				"section": "Fuel",
+				"question": "You need fuel to continue. Ready to refuel?",
+				"options": ["Yes, let's go!", "I'm ready!"],
+				"correct": 0,
+				"explanation": "Great! You've refueled and can continue your Manila adventure!"
+			}];
 		}
 		
 		// Completely pause game - stop fuel consumption and car movement
@@ -316,6 +335,18 @@ function triggerFuelQuiz() {
 		var savedSpeed = defaultData.speed;
 		defaultData.speed = 0;
 		
+		// Stop all engine sounds immediately
+		stopSoundLoop('soundEngine');
+		stopSoundID('soundSpeedUp');
+		stopSoundID('soundSlowDown');
+		stopSoundLoop('soundBrake');
+		gameData.accelSound = false;
+		gameData.brakeSound = false;
+		
+		// Reset acceleration keys to prevent movement
+		keyData.accelerate = false;
+		keyData.brake = false;
+		
 		// Store current speed for restoration
 		if (!currentQuiz) {
 			currentQuiz = {savedSpeed: savedSpeed};
@@ -323,40 +354,29 @@ function triggerFuelQuiz() {
 			currentQuiz.savedSpeed = savedSpeed;
 		}
 		
-		// Select random question
-		var questionIndex = Math.floor(Math.random() * quizQuestions.length);
-		var selectedQuestion = quizQuestions[questionIndex];
+		// Select next unused question to ensure all questions appear
+		var availableQuestions = quizQuestions.filter(function(q) {
+			return usedQuestionIds.indexOf(q.id) === -1;
+		});
+		
+		var selectedQuestion;
+		if (availableQuestions.length > 0) {
+			// Pick randomly from unused questions
+			var randomIndex = Math.floor(Math.random() * availableQuestions.length);
+			selectedQuestion = availableQuestions[randomIndex];
+			usedQuestionIds.push(selectedQuestion.id);
+		} else {
+			// All questions used, pick any (shouldn't happen with proper fuel placement)
+			selectedQuestion = quizQuestions[0];
+		}
 		
 		// Merge question data with saved speed
 		currentQuiz = Object.assign({}, selectedQuestion, {savedSpeed: savedSpeed});
 		console.log('Selected quiz:', currentQuiz); // Debug log
+		console.log('Used question IDs:', usedQuestionIds); // Debug log
 		
-		// Check if quiz UI elements exist (only A and B needed now)
-		if (!quizTitleTxt || !quizQuestionTxt || !labelA || !labelB) {
-			console.error('Quiz UI elements not found, adding fuel directly');
-			gameData.fuel = Math.min(gameData.fuel + 50, fuelData.total);
-			playSound('soundCollectFuel');
-			gamePaused = false;
-			gameData.paused = false;
-			// Restore speed if it was saved
-			if (currentQuiz && currentQuiz.savedSpeed !== undefined) {
-				defaultData.speed = currentQuiz.savedSpeed;
-			}
-			return;
-		}
-		
-		// Update quiz modal UI
-		quizTitleTxt.text = "Fuel Quiz!";
-		quizQuestionTxt.text = currentQuiz.question;
-		
-		// Update option buttons with quiz options (only A and B)
-		labelA.text = "A. " + currentQuiz.options[0];
-		labelB.text = "B. " + currentQuiz.options[1];
-		
-		// Show quiz modal
-		console.log('Showing quiz modal'); // Debug log
-		toggleQuizModal(true);
-		quizModalActive = true;
+		// Display HTML quiz modal
+		displayHTMLQuizModal();
 		
 	} catch (error) {
 		console.error('Error in triggerFuelQuiz:', error);
@@ -373,88 +393,11 @@ function triggerFuelQuiz() {
 	}
 }
 
-// Check quiz answer
-function checkQuizAnswer(optionIndex) {
-	if (!currentQuiz) return;
-	
-	var isCorrect = (optionIndex === currentQuiz.correct);
-	
-	if (isCorrect) {
-		// Correct answer - add fuel and track progress
-		gameData.fuel = Math.min(gameData.fuel + 50, fuelData.total);
-		quizzesCompleted++;
-		playSound('soundCollectFuel');
-		
-		// Check if all quizzes completed
-		if (quizzesCompleted >= totalQuizzes) {
-			showQuizResult(true, currentQuiz.explanation + "\n\nAll quizzes completed! Head to the finish line!", true);
-		} else {
-			var remaining = totalQuizzes - quizzesCompleted;
-			showQuizResult(true, currentQuiz.explanation + "\n\n" + remaining + " more questions to go!", true);
-		}
-	} else {
-		// Wrong answer - no fuel, game over (fuel will run out)
-		playSound('soundHit');
-		showQuizResult(false, currentQuiz.explanation + "\n\nWrong answer! Your fuel is running low...", false);
-	}
-}
+// LEGACY: Old quiz functions removed - now using HTML modal system
 
-// Show quiz result
-function showQuizResult(isCorrect, explanation, addedFuel) {
-	var resultText = isCorrect ? "Correct!" : "Wrong!";
-	var fuelText = addedFuel ? "\nFuel added!" : "\nNo fuel added.";
-	
-	// Update quiz modal with result
-	quizTitleTxt.text = resultText;
-	quizQuestionTxt.text = explanation + fuelText;
-	
-	// Hide option buttons and labels temporarily (only A and B)
-	buttonQuizA.visible = false;
-	buttonQuizB.visible = false;
-	labelA.visible = false;
-	labelB.visible = false;
-	
-	// Auto-close modal after 3 seconds
-	setTimeout(function() {
-		toggleQuizModal(false);
-		quizModalActive = false;
-		
-		// Resume game with appropriate behavior
-		if (addedFuel) {
-			// Correct answer: resume normal game
-			gamePaused = false;
-			gameData.paused = false;
-			// Restore saved speed
-			if (currentQuiz && currentQuiz.savedSpeed !== undefined) {
-				defaultData.speed = currentQuiz.savedSpeed;
-			}
-		} else {
-			// Wrong answer: resume but keep fuel decreasing
-			gamePaused = false;
-			gameData.paused = false;
-			// Restore saved speed
-			if (currentQuiz && currentQuiz.savedSpeed !== undefined) {
-				defaultData.speed = currentQuiz.savedSpeed;
-			}
-			// Force immediate fuel decrease for wrong answer
-			setTimeout(function() {
-				if (!gamePaused && defaultData.speed > 0) {
-					gameData.fuel -= fuelData.decrease;
-					gameData.fuel = gameData.fuel < 0 ? 0 : gameData.fuel;
-					updateGameStatus();
-				}
-			}, 100);
-		}
-		
-		// Reset button and label visibility (only A and B)
-		buttonQuizA.visible = true;
-		buttonQuizB.visible = true;
-		labelA.visible = true;
-		labelB.visible = true;
-		
-		currentQuiz = null;
-	}, 3000);
-}
+// LEGACY: showQuizResult function removed - now handled in HTML modal
+
+// LEGACY: handleQuizContinue function removed - now handled in HTML modal
 
 // Toggle quiz modal visibility
 function toggleQuizModal(show) {
@@ -472,12 +415,215 @@ function toggleQuizModal(show) {
 			TweenMax.to(quizContainer, 0.5, {alpha: 1});
 		} else {
 			console.log('Hiding quiz container'); // Debug log
+			// Clean up HTML buttons when hiding modal
+			var htmlButtons = document.querySelectorAll('.quiz-html-button');
+			htmlButtons.forEach(function(btn) { btn.remove(); });
+			
 			TweenMax.to(quizContainer, 0.5, {alpha: 0, onComplete: function() {
 				quizContainer.visible = false;
+				// Show PNG buttons again for next time
+				buttonQuizA.visible = true;
+				buttonQuizB.visible = true;
 			}});
 		}
 	} catch (error) {
 		console.error('Error in toggleQuizModal:', error);
+	}
+}
+
+// Display HTML Quiz Modal
+function displayHTMLQuizModal() {
+	console.log('=== displayHTMLQuizModal called! ==='); // Debug log
+	
+	// Simple test to show modal exists
+	console.log('DOM ready state:', document.readyState);
+	console.log('All elements in DOM:', document.querySelectorAll('*').length);
+	
+	// Get HTML elements
+	var quizModal = document.getElementById('quizModal');
+	var quizTitle = document.getElementById('quizTitle');
+	var quizQuestion = document.getElementById('quizQuestion');
+	var optionA = document.getElementById('quizOptionA');
+	var optionB = document.getElementById('quizOptionB');
+	var continueBtn = document.getElementById('quizContinue');
+	
+	console.log('Quiz elements found:', {
+		quizModal: !!quizModal,
+		quizTitle: !!quizTitle,
+		quizQuestion: !!quizQuestion,
+		optionA: !!optionA,
+		optionB: !!optionB,
+		continueBtn: !!continueBtn,
+		currentQuiz: !!currentQuiz
+	});
+	
+	if (!quizModal || !currentQuiz) {
+		console.error('Quiz modal elements or currentQuiz not found');
+		console.error('quizModal:', quizModal);
+		console.error('currentQuiz:', currentQuiz);
+		return;
+	}
+	
+	// Set content
+	quizTitle.textContent = "SCENARIO: " + currentQuiz.section.toUpperCase();
+	quizQuestion.textContent = currentQuiz.question;
+	optionA.textContent = "A) " + currentQuiz.options[0];
+	optionB.textContent = "B) " + currentQuiz.options[1];
+	
+	// Hide continue button initially
+	continueBtn.style.display = 'none';
+	
+	// Show option buttons
+	optionA.style.display = 'flex';
+	optionB.style.display = 'flex';
+	
+	// Remove previous event listeners and classes
+	optionA.className = 'quiz-option';
+	optionB.className = 'quiz-option';
+	optionA.onclick = null;
+	optionB.onclick = null;
+	continueBtn.onclick = null;
+	
+	// Add click event listeners
+	optionA.onclick = function() { handleHTMLQuizAnswer(0); };
+	optionB.onclick = function() { handleHTMLQuizAnswer(1); };
+	continueBtn.onclick = function() { hideHTMLQuizModal(); };
+	
+	// Show modal
+	quizModal.classList.add('show');
+	quizModalActive = true;
+}
+
+// Handle HTML Quiz Answer
+function handleHTMLQuizAnswer(optionIndex) {
+	console.log('Quiz answer selected:', optionIndex); // Debug log
+	
+	var optionA = document.getElementById('quizOptionA');
+	var optionB = document.getElementById('quizOptionB');
+	var continueBtn = document.getElementById('quizContinue');
+	var quizQuestion = document.getElementById('quizQuestion');
+	
+	if (!currentQuiz) {
+		console.error('No current quiz found');
+		return;
+	}
+	
+	var isCorrect = (optionIndex === currentQuiz.correct);
+	
+	// Style the selected option
+	if (optionIndex === 0) {
+		optionA.className = isCorrect ? 'quiz-option correct' : 'quiz-option incorrect';
+	} else {
+		optionB.className = isCorrect ? 'quiz-option correct' : 'quiz-option incorrect';
+	}
+	
+	// Show correct answer if wrong option was selected
+	if (!isCorrect) {
+		if (currentQuiz.correct === 0) {
+			optionA.className = 'quiz-option correct';
+		} else {
+			optionB.className = 'quiz-option correct';
+		}
+	}
+	
+	// Disable option buttons
+	optionA.onclick = null;
+	optionB.onclick = null;
+	optionA.style.cursor = 'default';
+	optionB.style.cursor = 'default';
+	
+	// Update question with result
+	var resultText = currentQuiz.explanation;
+	
+	if (isCorrect) {
+		// Add fuel and increment completed questions
+		quizzesCompleted++;
+		console.log('Quiz completed! Progress:', quizzesCompleted + '/' + totalQuizzes); // Debug log
+		gameData.fuel = Math.min(gameData.fuel + 50, fuelData.total);
+		playSound('soundCollectFuel');
+		
+		var remaining = totalQuizzes - quizzesCompleted;
+		if (remaining <= 0) {
+			resultText += "\n\nAll scenarios completed! Head to the finish line!";
+			console.log('ALL QUIZZES COMPLETED! Player can now finish the game.'); // Debug log
+		} else {
+			resultText += "\n\n" + remaining + " more scenarios to go!";
+		}
+	} else {
+		resultText += "\n\nWrong answer! Your time is running low...";
+		console.log('Wrong answer given, quiz progress unchanged:', quizzesCompleted + '/' + totalQuizzes); // Debug log
+	}
+	
+	quizQuestion.innerHTML = resultText.replace(/\n/g, '<br>');
+	
+	// Show continue button
+	continueBtn.style.display = 'block';
+	
+	// Hide option buttons
+	optionA.style.display = 'none';
+	optionB.style.display = 'none';
+}
+
+// Hide HTML Quiz Modal
+function hideHTMLQuizModal() {
+	console.log('Hiding HTML quiz modal'); // Debug log
+	
+	var quizModal = document.getElementById('quizModal');
+	if (quizModal) {
+		quizModal.classList.remove('show');
+	}
+	
+	// Resume game but keep car stopped
+	quizModalActive = false;
+	gamePaused = false;
+	gameData.paused = false;
+	
+	// Do NOT restore speed automatically - keep car stopped
+	// The player must press accelerate key again to start moving
+	defaultData.speed = 0;
+	
+	// Clear the saved speed data
+	if (currentQuiz && currentQuiz.savedSpeed !== undefined) {
+		currentQuiz = null; // Clear current quiz
+	}
+	
+	console.log('Game resumed, car stopped - player must accelerate to continue'); // Debug log
+}
+
+// Initialize quiz modal - ensure it's hidden on game start
+function initializeQuizModal() {
+	var quizModal = document.getElementById('quizModal');
+	if (quizModal) {
+		quizModal.classList.remove('show');
+		console.log('Quiz modal initialized and hidden');
+	}
+}
+
+// Test function for debugging HTML quiz modal
+function testHTMLQuizModal() {
+	console.log('Testing HTML Quiz Modal...');
+	
+	// Set up a test quiz
+	currentQuiz = {
+		section: "Test",
+		question: "This is a test question. Can you see this modal?",
+		options: ["Yes, I can see it!", "No, it's not working"],
+		correct: 0,
+		explanation: "Great! The HTML modal is working correctly."
+	};
+	
+	displayHTMLQuizModal();
+}
+
+// Simple force show modal function for testing
+function forceShowModal() {
+	console.log('Force showing modal...');
+	var modal = document.getElementById('quizModal');
+	if (modal) {
+		modal.classList.add('show');
+		console.log('Modal should now be visible');
+	} else {
+		console.error('Modal element not found!');
 	}
 }
 
@@ -526,7 +672,7 @@ function buildGameButton(){
 		itemTouchUp.visible = itemTouchDown.visible = itemTouchLeft.visible = itemTouchRight.visible = true;
 		
 		itemTouchUp.addEventListener("mousedown", function(evt) {
-			if(gameData.paused){
+			if(gameData.paused || gamePaused || quizModalActive){
 				return;	
 			}
 			keyData.accelerate = true;
@@ -539,7 +685,7 @@ function buildGameButton(){
 		});
 		
 		itemTouchDown.addEventListener("mousedown", function(evt) {
-			if(gameData.paused){
+			if(gameData.paused || gamePaused || quizModalActive){
 				return;	
 			}
 			keyData.brake = true;
@@ -552,7 +698,7 @@ function buildGameButton(){
 		});
 		
 		itemTouchLeft.addEventListener("mousedown", function(evt) {
-			if(gameData.paused){
+			if(gameData.paused || gamePaused || quizModalActive){
 				return;	
 			}
 			keyData.left = true;
@@ -565,7 +711,7 @@ function buildGameButton(){
 		});
 		
 		itemTouchRight.addEventListener("mousedown", function(evt) {
-			if(gameData.paused){
+			if(gameData.paused || gamePaused || quizModalActive){
 				return;	
 			}
 			keyData.right = true;
@@ -699,6 +845,13 @@ function buildGameButton(){
 		checkQuizAnswer(1);
 	});
 	
+	// Continue button for quiz results
+	buttonQuizContinue.cursor = "pointer";
+	buttonQuizContinue.addEventListener("click", function(evt) {
+		playSound('soundClick');
+		handleQuizContinue();
+	});
+	
 	// Removed buttonQuizC and buttonQuizD event handlers - only 2 choices now
 	
 	buttonRestart.cursor = "pointer";
@@ -736,7 +889,7 @@ function appendFocusFrame(){
  * 
  */
 function keydown(event) {
-	if(gameData.paused){
+	if(gameData.paused || gamePaused || quizModalActive){
 		return;	
 	}
 	
@@ -762,7 +915,7 @@ function keydown(event) {
 }
 
 function keyup(event) {
-	if(gameData.paused){
+	if(gameData.paused || gamePaused || quizModalActive){
 		return;	
 	}
 	
@@ -911,8 +1064,8 @@ function toggleTJunctionModal(con){
 function applyTJunctionChoice(){
 	if(tJunctionPendingDirection == 'left'){
 		// Create sharp 90-degree left turn after the junction
-		addRoad(defaultData.segmentLength, defaultData.segmentLength, 0, roadLengthData.curve.ninety, 0); // Sharp 90° left turn
-		addRoad(defaultData.segmentLength, defaultData.segmentLength, 0, roadLengthData.curve.ninety, 0); // Continue left
+		addRoad(defaultData.segmentLength, defaultData.segmentLength, 0, roadLengthData.curve.hard, 0); // Moderate left turn
+		addRoad(defaultData.segmentLength, defaultData.segmentLength, 0, roadLengthData.curve.hard, 0); // Continue left
 		addRoad(defaultData.segmentLength, defaultData.segmentLength, 0, roadLengthData.curve.hard, 0); // Ease out
 		addRoad(defaultData.segmentLength, defaultData.segmentLength, 0, 0, 0); // Straight
 		
@@ -933,8 +1086,8 @@ function applyTJunctionChoice(){
 		
 	}else if(tJunctionPendingDirection == 'right'){
 		// Create sharp 90-degree right turn after the junction  
-		addRoad(defaultData.segmentLength, defaultData.segmentLength, 0, -roadLengthData.curve.ninety, 0); // Sharp 90° right turn
-		addRoad(defaultData.segmentLength, defaultData.segmentLength, 0, -roadLengthData.curve.ninety, 0); // Continue right
+		addRoad(defaultData.segmentLength, defaultData.segmentLength, 0, -roadLengthData.curve.hard, 0); // Moderate right turn
+		addRoad(defaultData.segmentLength, defaultData.segmentLength, 0, -roadLengthData.curve.hard, 0); // Continue right
 		addRoad(defaultData.segmentLength, defaultData.segmentLength, 0, -roadLengthData.curve.hard, 0); // Ease out
 		addRoad(defaultData.segmentLength, defaultData.segmentLength, 0, 0, 0); // Straight
 		
@@ -983,6 +1136,9 @@ function startGame(){
 	gameData.stopSound = false;
 	gameData.ended = false;
 	
+	// Initialize and hide quiz modal
+	initializeQuizModal();
+	
 	// Reset T-junction variables
 	tJunctionPendingDirection = null;
 	tJunctionForcedDirection = 0;
@@ -999,12 +1155,11 @@ function startGame(){
 			quizModalActive = false;
 			currentQuiz = null;
 			
-			// Reset progress variables
-			quizzesCompleted = 0;
-			gameWon = false;
-			gamePaused = false;
-			
-			console.log('Quiz system initialized successfully');
+		// Reset progress variables
+		quizzesCompleted = 0;
+		usedQuestionIds = []; // Reset used questions for new game
+		gameWon = false;
+		gamePaused = false;			console.log('Quiz system initialized successfully');
 		} else {
 			console.warn('Quiz container not ready, skipping quiz initialization');
 		}
@@ -1015,6 +1170,7 @@ function startGame(){
 		quizModalActive = false;
 		currentQuiz = null;
 		quizzesCompleted = 0;
+		usedQuestionIds = []; // Reset used questions for new game
 		gameWon = false;
 		gamePaused = false;
 	}
@@ -1073,6 +1229,11 @@ function saveGame(score){
  * 
  */
 function updateGame(){
+	// Don't update anything when quiz modal is active
+	if (gamePaused || quizModalActive) {
+		return;
+	}
+	
 	updateWorld();
 	updateFuel();
 	
@@ -1325,25 +1486,46 @@ function updateSprites() {
 		}
 	}
 	
-	//powers
+	// COLLECTIBLE ITEM COLLISION DETECTION - Check for player collision with sprites (only when game not paused)
 	if(!gameData.paused){
 		for(n = 0 ; n < playerSegment.sprites.length ; n++) {
 			sprite  = playerSegment.sprites[n];
 			if(sprite.active){
 				spriteW = sprite.source.w * defaultData.scale;
+				// Check if player overlaps with sprite
 				if(getOverlap(defaultData.playerX, playerW, sprite.offset + spriteW/2 * (sprite.offset > 0 ? 1 : -1), spriteW)) {
+					
+					// GOOD COIN (COIN) - Add 500 points
 					if(sprite.source.id == 'COIN'){
 						sprite.active = false;
 						addScore();
-					}else if(sprite.source.id == 'FUEL'){
-						console.log('FUEL collision detected!'); // Debug log
+					}
+					// GOOD COIN (COIN2) - Add 500 points
+					else if(sprite.source.id == 'COIN2'){
+						sprite.active = false;
+						addScore2();
+					}
+					// KAMOTE COINS - Subtract 700 points (penalty items to avoid)
+					else if(sprite.source.id == 'COIN_KAMOTE1' || sprite.source.id == 'COIN_KAMOTE2' || 
+					         sprite.source.id == 'COIN_KAMOTE3' || sprite.source.id == 'COIN_KAMOTE4' || 
+					         sprite.source.id == 'COIN_KAMOTE5' || sprite.source.id == 'COIN_KAMOTE6'){
+						console.log('KAMOTE coin collision detected! Current score:', playerData.score);
+						sprite.active = false;
+						subtractScore(); // Deduct 700 points
+						console.log('Score after kamote collision:', playerData.score);
+					}
+					// TUNNEL/ARC - Trigger quiz modal for time bonus when player drives through
+					else if(sprite.source.id == 'FUEL'){
+						console.log('Tunnel collision detected! Triggering quiz...');
 						sprite.active = false;
 						
-						// Enable quiz system
+						// Trigger quiz system (defined in init.js)
 						if (typeof triggerFuelQuiz === 'function') {
-							triggerFuelQuiz();
+							console.log('Calling triggerFuelQuiz function...');
+							triggerFuelQuiz(); // Opens quiz modal, pauses game
 						} else {
-							// Fallback: add fuel directly
+							console.error('triggerFuelQuiz function not found!');
+							// Fallback: add fuel/time directly without quiz
 							gameData.fuel = Math.min(gameData.fuel + 50, fuelData.total);
 							playSound('soundCollectFuel');
 						}
@@ -1373,7 +1555,7 @@ function updateSprites() {
 	
 	defaultData.skyOffset  = getIncrease(defaultData.skyOffset,  defaultData.skySpeed  * playerSegment.curve * (defaultData.position-startPosition)/defaultData.segmentLength, 1);
 	defaultData.hillOffset = getIncrease(defaultData.hillOffset, defaultData.hillSpeed * playerSegment.curve * (defaultData.position-startPosition)/defaultData.segmentLength, 1);
-	defaultData.treeOffset = getIncrease(defaultData.treeOffset, defaultData.treeSpeed * playerSegment.curve * (defaultData.position-startPosition)/defaultData.segmentLength, 1);
+	defaultData.buildingOffset = getIncrease(defaultData.buildingOffset, defaultData.buildingSpeed * playerSegment.curve * (defaultData.position-startPosition)/defaultData.segmentLength, 1);
 
 	if (defaultData.position > defaultData.playerZ) {
 		if (currentLapTime && (startPosition < defaultData.playerZ)) {
@@ -1495,7 +1677,7 @@ function renderWorld() {
 	
 	renderBackground(background, defaultData.width, defaultData.height, backgroundData.sky,   defaultData.skyOffset,  resolution * defaultData.skySpeed  * playerY);
 	renderBackground(background, defaultData.width, defaultData.height, backgroundData.hills, defaultData.hillOffset, resolution * defaultData.hillSpeed * playerY);
-	renderBackground(background, defaultData.width, defaultData.height, backgroundData.trees, defaultData.treeOffset, resolution * defaultData.treeSpeed * playerY);
+	renderBackground(background, defaultData.width, defaultData.height, backgroundData.trees, defaultData.buildingOffset, resolution * defaultData.buildingSpeed * playerY);
 
   	var n, i, segment, car, sprite, spriteScale, spriteX, spriteY;
 	
@@ -1712,28 +1894,28 @@ function addRoadType(type, num, height, curve){
 			// Sharp 90-degree left turn after straight section
 			num = num || roadLengthData.length.short;
 			addRoad(num*2, num*2, num*2, 0, 0); // Long straight approach
-			addRoad(num/2, num, num*2, -roadLengthData.curve.ninety, 0); // Sharp left turn
+			addRoad(num/2, num, num*2, -roadLengthData.curve.veryHard, 0); // Challenging left turn
 		break;
 		
 		case 'hardRightTurn':
 			// Sharp 90-degree right turn after straight section  
 			num = num || roadLengthData.length.short;
 			addRoad(num*2, num*2, num*2, 0, 0); // Long straight approach
-			addRoad(num/2, num, num*2, roadLengthData.curve.ninety, 0); // Sharp right turn
+			addRoad(num/2, num, num*2, roadLengthData.curve.veryHard, 0); // Challenging right turn
 		break;
 		
 		case 'tJunctionLeft':
 			// T-junction forcing left turn
 			num = num || roadLengthData.length.medium;
 			addRoad(num*3, num*3, num*3, 0, 0); // Long straight approach
-			addRoad(num/3, num/2, num, -roadLengthData.curve.extreme, 0); // Force left
+			addRoad(num/3, num/2, num, -roadLengthData.curve.veryHard, 0); // Force left
 		break;
 		
 		case 'tJunctionRight':
 			// T-junction forcing right turn
 			num = num || roadLengthData.length.medium;
 			addRoad(num*3, num*3, num*3, 0, 0); // Long straight approach  
-			addRoad(num/3, num/2, num, roadLengthData.curve.extreme, 0); // Force right
+			addRoad(num/3, num/2, num, roadLengthData.curve.veryHard, 0); // Force right
 		break;
 		
 		case 'tJunctionChoice':
@@ -1763,28 +1945,12 @@ function addRoadType(type, num, height, curve){
 			segments[junctionSegmentIndex].roadBlocked = true; // Mark as blocked
 			console.log('Created T-junction end at segment', junctionSegmentIndex);
 			
-			// Add massive rock barriers across the entire road to create visual dead end
-			addSprite(junctionSegmentIndex, spritesData.ROCK1, 0);      // Center barrier
-			addSprite(junctionSegmentIndex, spritesData.ROCK2, 0.5);    // Right center
-			addSprite(junctionSegmentIndex, spritesData.ROCK3, -0.5);   // Left center
-			addSprite(junctionSegmentIndex, spritesData.ROCK1, 1.0);    // Right barrier
-			addSprite(junctionSegmentIndex, spritesData.ROCK2, -1.0);   // Left barrier
-			addSprite(junctionSegmentIndex, spritesData.ROCK3, 1.5);    // Far right
-			addSprite(junctionSegmentIndex, spritesData.ROCK1, -1.5);   // Far left
-			addSprite(junctionSegmentIndex, spritesData.ROCK2, 2.0);    // Extreme right
-			addSprite(junctionSegmentIndex, spritesData.ROCK3, -2.0);   // Extreme left
-			
-			// Add warning barriers approaching the junction
-			if (triggerSegmentIndex > 0) {
-				addSprite(triggerSegmentIndex - 1, spritesData.ROCK1, 1.8);   // Warning barrier right
-				addSprite(triggerSegmentIndex - 1, spritesData.ROCK2, -1.8);  // Warning barrier left
-			}
-			
-			// Add trees to create visual corridor effect
+
+			// Add buildings to create visual corridor effect
 			for (var i = 1; i <= 3; i++) {
 				if (triggerSegmentIndex - i >= 0) {
-					addSprite(triggerSegmentIndex - i, spritesData.TREE1, 2.5);   // Right trees
-					addSprite(triggerSegmentIndex - i, spritesData.TREE2, -2.5);  // Left trees
+					addSprite(triggerSegmentIndex - i, spritesData.BUILDING1, 2.5);   // Right buildings
+					addSprite(triggerSegmentIndex - i, spritesData.BUILDING2A, -2.5);  // Left buildings
 				}
 			}
 			
@@ -1807,16 +1973,16 @@ function addRoadType(type, num, height, curve){
 			// Extreme hairpin left turn
 			num = num || roadLengthData.length.short;
 			addRoad(num, num, num, 0, 0); // Straight approach
-			addRoad(num/4, num/2, num, -roadLengthData.curve.ninety, 0); // Hairpin left
-			addRoad(num/4, num/2, num, -roadLengthData.curve.extreme, 0); // Continue left
+			addRoad(num/4, num/2, num, -roadLengthData.curve.veryHard, 0); // Challenging hairpin left
+			addRoad(num/4, num/2, num, -roadLengthData.curve.veryHard, 0); // Continue left
 		break;
 		
 		case 'hairpinRight':
 			// Extreme hairpin right turn
 			num = num || roadLengthData.length.short;
 			addRoad(num, num, num, 0, 0); // Straight approach
-			addRoad(num/4, num/2, num, roadLengthData.curve.ninety, 0); // Hairpin right
-			addRoad(num/4, num/2, num, roadLengthData.curve.extreme, 0); // Continue right
+			addRoad(num/4, num/2, num, roadLengthData.curve.veryHard, 0); // Challenging hairpin right
+			addRoad(num/4, num/2, num, roadLengthData.curve.veryHard, 0); // Continue right
 		break;
 		
 		case 'bumps':
@@ -1848,7 +2014,7 @@ function resetGame(){
 }
 
 function resetWorld(){
-	defaultData.maxSpeed = defaultData.segmentLength/(1/60);
+	defaultData.maxSpeed = (defaultData.segmentLength/(1/60)) * 0.5; // 50% slower speed
 	defaultData.accel          =  defaultData.maxSpeed/5;
 	defaultData.breaking       = -defaultData.maxSpeed;
 	defaultData.decel          = -defaultData.maxSpeed/5;
@@ -1951,52 +2117,101 @@ function resetRoad() {
 	defaultData.trackLength = segments.length * defaultData.segmentLength;
 }
 
+/*!
+ * 
+ * RESET SPRITES - Initialize and place all environmental sprites along the track
+ * Creates the dense highway cityscape with buildings and billboards
+ * 
+ */
 function resetSprites() {
-	//city buildings and urban objects
-	for(var n = 10 ; n < segments.length ; n += 3) {
-		addSprite(n, randomChoice(spritesData.CITYSCAPE), randomChoice([1,-1]) * (1.2 + Math.random() * 5));
-	}
-	
-	//billboards
-	if(spritesData.BILLBOARDS.length > 0){
-		for(var n = 100 ; n < segments.length ; n += (300 + Math.floor(Math.random()*100))) {
-			addSprite(n, randomChoice(spritesData.BILLBOARDS), randomChoice([1,-1]) * (1.2));
+	// Dense highway cityscape - tall buildings lined up on both sides creating urban canyon effect
+	for(var n = 3 ; n < segments.length ; n += 2) { // Place sprites every 2 segments for continuous highway feel
+		var hasLeftBillboard = false;
+		var hasRightBillboard = false;
+		
+		// BILLBOARDS - Check first if billboards should appear (1% chance per side)
+		// Billboards are placed closer to road and render in front of buildings
+		if (spritesData.BILLBOARDS && spritesData.BILLBOARDS.length > 0) {
+			// Left side billboard (closer to road than buildings)
+			if (Math.random() < 0.01) {
+				var leftBBOffset = -0.8; // Position between road center and left buildings
+				addSprite(n, randomChoice([spritesData.BILLBOARD01, spritesData.BILLBOARD03]), leftBBOffset);
+				hasLeftBillboard = true; // Flag to prevent building spawn on this side
+			}
+			// Right side billboard
+			if (Math.random() < 0.01) {
+				var rightBBOffset = 0.8; // Position between road center and right buildings
+				addSprite(n, randomChoice([spritesData.BILLBOARD02, spritesData.BILLBOARD04]), rightBBOffset);
+				hasRightBillboard = true; // Flag to prevent building spawn on this side
+			}
+		}
+		
+		// BUILDINGS - Only spawn if no billboard on that side
+		// Buildings are positioned further from road, appearing behind billboards when both exist
+		if (!hasLeftBillboard) {
+			var leftDistance = -1.5; // Further left creates highway corridor effect
+			addSprite(n, randomChoice([spritesData.BUILDING1, spritesData.BUILDING2A, spritesData.BUILDING3B, spritesData.BUILDING4A]), leftDistance);
+		}
+		
+		if (!hasRightBillboard) {
+			var rightDistance = 1.5; // Further right creates highway corridor effect
+			addSprite(n, randomChoice([spritesData.BUILDING1, spritesData.BUILDING2B, spritesData.BUILDING3A, spritesData.BUILDING3B, spritesData.BUILDING4B]), rightDistance);
 		}
 	}
 	
-	resetCollectItems();
+	resetCollectItems(); // Place coins, fuel, and finish line
 }
 
+/*!
+ * 
+ * RESET COLLECT ITEMS - Place collectible items along the track
+ * Includes fuel canisters, coins (kamote), and finish line markers
+ * 
+ */
 function resetCollectItems(){
+	// Clear existing collectible sprites from all segments
 	for(var n=0; n<segments.length;n++){
 		var curSegment = segments[n];
 		for(var s = 0 ; s < curSegment.sprites.length ; s++) {
 			var sprite  = curSegment.sprites[s];
-			if(sprite.source.id == 'COIN' || sprite.source.id == 'FUEL'){
+			// Remove all coin types and tunnel/arc items
+			if(sprite.source.id == 'COIN' || sprite.source.id == 'COIN2' || 
+			   sprite.source.id == 'COIN_KAMOTE1' || sprite.source.id == 'COIN_KAMOTE2' || 
+			   sprite.source.id == 'COIN_KAMOTE3' || sprite.source.id == 'COIN_KAMOTE4' || 
+			   sprite.source.id == 'COIN_KAMOTE5' || sprite.source.id == 'COIN_KAMOTE6' || 
+			   sprite.source.id == 'FUEL'){
 				curSegment.sprites.splice(s,1);
 				s--;
 			}
 		}	
 	}
 	
-	//fuel - Exactly 5 fuel items for quiz system
-	var fuelPositions = [500, 1000, 1500, 2000, 2500]; // Strategic positions
+	// ROAD TUNNELS - Place tunnel/arc sprites that trigger quiz when player drives through
+	// Positioned at intervals along the highway like real tunnel checkpoints
+	var fuelPositions = [400, 900, 1400, 1900, 2400]; // Segment numbers for tunnel spawns
 	for(var i = 0; i < fuelPositions.length; i++) {
 		if (fuelPositions[i] < segments.length) {
-			addSprite(fuelPositions[i], spritesData.FUEL, randomChoice([1,-1]) * (0.1 + Math.random()*0.3));
+			// Place tunnel arc centered on road (offset 0) so player drives through it
+			addSprite(fuelPositions[i], spritesData.FUEL, 0);
 		}
 	}
 	
-	// Add finish line building at the end
+	// FINISH LINE - Add victory billboards at the finish line position
 	if (finishLinePosition < segments.length) {
-		addSprite(finishLinePosition, spritesData.BILLBOARD01, 0); // Center finish line
-		addSprite(finishLinePosition, spritesData.BILLBOARD02, -0.5); // Left side
-		addSprite(finishLinePosition, spritesData.BILLBOARD03, 0.5); // Right side
+		addSprite(finishLinePosition, spritesData.BILLBOARD01, 0); // Center victory display
+		addSprite(finishLinePosition, spritesData.BILLBOARD02, -0.7); // Left finish marker
+		addSprite(finishLinePosition, spritesData.BILLBOARD03, 0.7); // Right finish marker
 	}
 	
-	//coin
-	for(var n = randomInt(20, 50) ; n < segments.length ; n += (300 + Math.floor(Math.random()*50))) {
-		addSprite(n,  spritesData.COIN, randomChoice([1,-1]) * (0.1 + Math.random()*0.3));
+	// KAMOTE COINS - Spawn penalty coins along the track (100% kamote, no good coins)
+	// Players must avoid these to prevent score reduction (-700 points each)
+	for(var n = randomInt(20, 50) ; n < segments.length ; n += (200 + Math.floor(Math.random()*30))) {
+		// Randomly select one of 6 kamote coin variants
+		var coinType = randomChoice(spritesData.KAMOTE_COINS);
+		console.log('Spawning KAMOTE coin at segment:', n, 'Type:', coinType.id); // Debug log
+		
+		// Place coin at random offset from road center (±0.1 to ±0.4)
+		addSprite(n, coinType, randomChoice([1,-1]) * (0.1 + Math.random()*0.3));
 	}
 }
 
@@ -2081,23 +2296,70 @@ function renderBackground(background, width, height, layer, rotation, offset){
 	newBackgroundMirror.y = newBackground.y;
 }
 
+/*!
+ * 
+ * RENDER SPRITE - Draw individual sprite (building, car, billboard, coin, etc.) on the canvas
+ * Handles scaling, positioning, and height multipliers for 3D effect
+ * 
+ * @param {number} width - Canvas width
+ * @param {number} height - Canvas height
+ * @param {number} resolution - Rendering resolution
+ * @param {number} roadWidth - Width of the road for scaling
+ * @param {object} sprites - Sprite collection
+ * @param {object} sprite - Individual sprite to render
+ * @param {number} scale - Scale factor based on distance from camera
+ * @param {number} destX - X position on canvas
+ * @param {number} destY - Y position on canvas
+ * @param {number} offsetX - X offset adjustment
+ * @param {number} offsetY - Y offset adjustment
+ * @param {number} clipY - Y clipping for horizon effect
+ */
 function renderSprite(width, height, resolution, roadWidth, sprites, sprite, scale, destX, destY, offsetX, offsetY, clipY){
 	var newSprite = $.sprites[sprite.id].clone();
 	
-    var destW  = (newSprite.image.naturalWidth * scale * width/2) * (defaultData.scale * roadWidth);
-    var destH  = (newSprite.image.naturalHeight * scale * width/2) * (defaultData.scale * roadWidth);
+	// BUILDING HEIGHT MULTIPLIER - Make buildings appear taller for highway skyline effect
+	// Buildings are rendered 2.5x their actual height to create towering cityscape
+	var heightMultiplier = 1.0; // Default: normal height for all sprites
+	var widthMultiplier = 1.0; // Default: normal width for all sprites
+	
+	if(sprite.id.indexOf('BUILDING') === 0) {
+		heightMultiplier = 2.5; // Buildings: 2.5x taller for dramatic urban effect
+	}
+	
+	// TUNNEL WIDTH MULTIPLIER - Make tunnel/arc span the entire road width
+	// Tunnel appears as a full-width overhead arc that player drives through
+	if(sprite.id === 'FUEL') {
+		widthMultiplier = 2.8; // Tunnel: 3x wider to cover full road width
+		heightMultiplier = 1.5; // Tunnel: 1.5x taller for proper arc proportions
+	}
+	
+	// Calculate destination width and height with scaling
+    var destW  = (newSprite.image.naturalWidth * scale * width/2) * (defaultData.scale * roadWidth) * widthMultiplier;
+    var destH  = (newSprite.image.naturalHeight * scale * width/2) * (defaultData.scale * roadWidth) * heightMultiplier;
 
+	// Apply position offsets
     destX = destX + (destW * (offsetX || 0));
     destY = destY + (destH * (offsetY || 0));
+    
+    // CENTER TUNNEL - Adjust X position to perfectly center wide tunnel on road
+    // The sprite expands from its anchor point, so we need to shift it to true center
+    if(sprite.id === 'FUEL') {
+    	var originalW = (newSprite.image.naturalWidth * scale * width/2) * (defaultData.scale * roadWidth);
+    	// Shift left by half the extra width to center perfectly
+    	destX = destX - ((destW - originalW) * 0.75); // 0.5 = half, centers tunnel with equal margins
+    }
 	
+	// Calculate clipping height for horizon line (sprites disappear over horizon)
     var clipH = clipY ? Math.max(0, destY+destH-clipY) : 0;
+    
+    // Only render sprite if it's visible (not completely clipped)
     if (clipH < destH){
 		newSprite.x = destX;
 		newSprite.y = destY;
-		newSprite.scaleX = destW/sprite.w;
-		newSprite.scaleY = (destH - clipH)/sprite.h;
+		newSprite.scaleX = destW/sprite.w; // Scale width
+		newSprite.scaleY = (destH - clipH)/sprite.h; // Scale height with clipping
 		
-		worldContainer.addChild(newSprite);	
+		worldContainer.addChild(newSprite); // Add to render container
 	}
 }
 
@@ -2199,19 +2461,60 @@ function laneMarkerWidth(projectedRoadWidth, lanes){
 
 /*!
  * 
- * COLLECT ITEMS - This is the function that runs for collect items
+ * COLLECT ITEMS - Scoring and camera functions for collectible items
  * 
+ */
+
+/**
+ * Update camera position based on player Z position
  */
 function updateCamera(){
 	defaultData.playerZ = (worldData.cameraHeight * defaultData.cameraDepth);
 }
 
+/**
+ * Add score for collecting COIN (+500 points)
+ * Plays coin collection sound and displays score text
+ */
 function addScore(){
 	playSound('soundCollectCoin');
-	playerData.score += scoreData.coin;
+	playerData.score += scoreData.coin; // Add 500 points
 	updateGameText(statusData.score.text.replace('[NUMBER]', scoreData.coin), statusData.score.color, statusData.score.size, 1);
 }
 
+/**
+ * Add score for collecting COIN2 (+500 points)
+ * Same behavior as regular coin
+ */
+function addScore2(){
+	playSound('soundCollectCoin');
+	playerData.score += scoreData.coin; // Add 500 points (same as COIN)
+	updateGameText(statusData.score.text.replace('[NUMBER]', scoreData.coin), statusData.score.color, statusData.score.size, 1);
+}
+
+/**
+ * Subtract score for collecting KAMOTE coin (-700 points penalty)
+ * Plays hit sound and displays red negative score text
+ * Prevents score from going below zero
+ */
+function subtractScore(){
+	console.log('subtractScore called! Score before:', playerData.score);
+	playSound('soundHit'); // Hit sound for penalty
+	playerData.score -= 700; // Subtract 700 points penalty
+	
+	if (playerData.score < 0) {
+		console.log('Score was negative, setting to 0');
+		playerData.score = 0;
+	}
+	console.log('Final score:', playerData.score);
+	// Display red text showing score penalty
+	updateGameText('-700 SCORE', '#ff0000', 70, 1);
+}
+
+/**
+ * Add fuel/time when collecting fuel canister
+ * Increases time remaining, capped at maximum
+ */
 function addFuel(){
 	playSound('soundCollectFuel');
 	gameData.fuel += fuelData.add;	
@@ -2227,14 +2530,6 @@ function addFuel(){
 function updateGameStatus(){
 	//score
 	scoreTxt.text = scoreShadowTxt.text = scoreData.text.replace('[NUMBER]', addCommas(playerData.score));
-	
-	// Add quiz progress indicator
-	if (typeof quizzesCompleted !== 'undefined') {
-		var progressText = "Quizzes: " + quizzesCompleted + "/" + totalQuizzes;
-		if (gameStatusTxt) {
-			gameStatusTxt.text = gameStatusShadowTxt.text = progressText;
-		}
-	}
 	
 	//fuel - Show actual fuel level
 	var fuelPercent = (gameData.fuel / fuelData.total) * (fuelData.bar.width - (fuelData.bar.space*2));
@@ -2256,8 +2551,8 @@ function updateGameStatus(){
 function updateGameText(text, color, size, delay){
 	gameStatusContainer.visible = true;
 	
-	gameStatusTxt.font = size+"px dimitriregular";
-	gameStatusShadowTxt.font = size+"px dimitri_swankregular";
+	gameStatusTxt.font = size+"px Mont Heavy DEMO";
+	gameStatusShadowTxt.font = size+"px Mont Heavy DEMO";
 	gameStatusTxt.color = color;
 	gameStatusTxt.text = text;
 	gameStatusShadowTxt.text = text;
@@ -2350,6 +2645,68 @@ function toggleOptions(con){
 	}
 }
 
+
+/*!
+ * 
+ * UTILITY FUNCTIONS - Essential helper functions for game functionality
+ * 
+ */
+function randomChoice(array) {
+	return array[Math.floor(Math.random() * array.length)];
+}
+
+function randomInt(min, max) {
+	return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function addCommas(nStr) {
+	nStr += '';
+	var x = nStr.split('.');
+	var x1 = x[0];
+	var x2 = x.length > 1 ? '.' + x[1] : '';
+	var rgx = /(\d+)(\d{3})/;
+	while (rgx.test(x1)) {
+		x1 = x1.replace(rgx, '$1' + ',' + '$2');
+	}
+	return x1 + x2;
+}
+
+function toInt(obj, def) {
+	if (obj !== null) {
+		var x = parseInt(obj, 10);
+		return (isNaN(x)) ? def : x;
+	}
+	return def;
+}
+
+// Additional utility functions for game mechanics
+function getIncrease(start, increment, max) {
+	var result = start + increment;
+	while (result >= max) result -= max;
+	while (result < 0) result += max;
+	return result;
+}
+
+function getAccelerate(v, accel, dt) {
+	return v + (accel * dt);
+}
+
+function getLimit(value, min, max) {
+	return (value < min) ? min : (value > max) ? max : value;
+}
+
+function getOverlap(x1, w1, x2, w2, percent) {
+	var half = (percent || 1) / 2;
+	var min1 = x1 - (w1 * half);
+	var max1 = x1 + (w1 * half);
+	var min2 = x2 - (w2 * half);
+	var max2 = x2 + (w2 * half);
+	return !((max1 < min2) || (min1 > max2));
+}
+
+function percentRemaining(n, total) {
+	return (n % total) / total;
+}
 
 /*!
  * 

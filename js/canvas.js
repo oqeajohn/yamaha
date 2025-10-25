@@ -37,8 +37,8 @@ var buttonSettings, buttonFullscreen, buttonSoundOn, buttonSoundOff, buttonMusic
 // T-Junction Modal Variables
 var itemTJunction, tJunctionTitleTxt, buttonTurnLeft, buttonTurnRight, tJunctionPendingDirection;
 // Quiz Modal Variables
-var itemQuiz, quizTitleTxt, quizQuestionTxt, buttonQuizA, buttonQuizB, buttonQuizC, buttonQuizD;
-var labelA, labelB, labelC, labelD; // Quiz option labels
+var itemQuiz, quizTitleTxt, quizQuestionTxt, buttonQuizA, buttonQuizB, buttonQuizC, buttonQuizD, buttonQuizContinue;
+var labelA, labelB, labelC, labelD, labelContinue; // Quiz option labels
 $.share = {};
 
 var statusContainer, gameStatusContainer, worldContainer;
@@ -79,13 +79,23 @@ function buildGameCanvas(){
 	for(var key in spritesData) {
 		if(spritesData[key].src != undefined){
 			spritesData[key].id = key;
-			$.sprites[key] = new createjs.Bitmap(loader.getResult(key));
-			$.sprites[key].y -= $.sprites[key].image.naturalHeight;
-			gameContainer.addChild($.sprites[key]);
-			
-			spritesData[key].id = key;
-			spritesData[key].w = $.sprites[key].image.naturalWidth;
-			spritesData[key].h = $.sprites[key].image.naturalHeight;
+			var loadedResult = loader.getResult(key);
+			if (loadedResult) {
+				$.sprites[key] = new createjs.Bitmap(loadedResult);
+				$.sprites[key].y -= $.sprites[key].image.naturalHeight;
+				gameContainer.addChild($.sprites[key]);
+				
+				spritesData[key].id = key;
+				spritesData[key].w = $.sprites[key].image.naturalWidth;
+				spritesData[key].h = $.sprites[key].image.naturalHeight;
+				
+				// Debug log for coin sprites
+				if (key.includes('COIN')) {
+					console.log('Loaded sprite:', key, 'Size:', spritesData[key].w + 'x' + spritesData[key].h);
+				}
+			} else {
+				console.error('Failed to load sprite:', key, 'from', spritesData[key].src);
+			}
 		}
 	}
 	
@@ -145,8 +155,8 @@ function buildGameCanvas(){
 	fireAnimate.x = -200;
 	
 	scoreTxt = new createjs.Text();
-	scoreTxt.font = "50px dimitriregular";
-	scoreTxt.color = "#ffda00";
+	scoreTxt.font = "50px Mont Heavy DEMO";
+	scoreTxt.color = "#071c27";
 	scoreTxt.textAlign = "left";
 	scoreTxt.textBaseline='alphabetic';
 	scoreTxt.text = scoreData.text;
@@ -154,17 +164,18 @@ function buildGameCanvas(){
 	scoreTxt.y = canvasH/100 * 5;
 	
 	scoreShadowTxt = new createjs.Text();
-	scoreShadowTxt.font = "50px dimitri_swankregular";
-	scoreShadowTxt.color = "#2f2f2f";
+	scoreShadowTxt.font = "50px Mont Heavy DEMO";
+	scoreShadowTxt.color = "#ffffff";
 	scoreShadowTxt.textAlign = "left";
 	scoreShadowTxt.textBaseline='alphabetic';
 	scoreShadowTxt.text = scoreData.text;
-	scoreShadowTxt.x = scoreTxt.x+1;
+	scoreShadowTxt.outline = 6;
+	scoreShadowTxt.x = scoreTxt.x;
 	scoreShadowTxt.y = scoreTxt.y;
 	
 	fuelTxt = new createjs.Text();
-	fuelTxt.font = "30px dimitriregular";
-	fuelTxt.color = "#cccccc";
+	fuelTxt.font = "30px Mont Heavy DEMO";
+	fuelTxt.color = "#0087ac";
 	fuelTxt.textAlign = "left";
 	fuelTxt.textBaseline='alphabetic';
 	fuelTxt.text = fuelData.text;
@@ -172,12 +183,13 @@ function buildGameCanvas(){
 	fuelTxt.y = canvasH/100 * 9;
 	
 	fuelShadowTxt = new createjs.Text();
-	fuelShadowTxt.font = "30px dimitri_swankregular";
-	fuelShadowTxt.color = "#2f2f2f";
+	fuelShadowTxt.font = "30px Mont Heavy DEMO";
+	fuelShadowTxt.color = "#ffffff";
 	fuelShadowTxt.textAlign = "left";
 	fuelShadowTxt.textBaseline='alphabetic';
 	fuelShadowTxt.text = fuelData.text;
-	fuelShadowTxt.x = fuelTxt.x+1;
+	fuelShadowTxt.outline = 4;
+	fuelShadowTxt.x = fuelTxt.x;
 	fuelShadowTxt.y = fuelTxt.y;
 	
 	fuelBarBackground = new createjs.Shape();
@@ -195,7 +207,7 @@ function buildGameCanvas(){
 	fuelBarFill.y = fuelBarBackground.y + fuelData.bar.space;
 	
 	gameStatusTxt = new createjs.Text();
-	gameStatusTxt.font = "90px dimitriregular";
+	gameStatusTxt.font = "90px Mont Heavy DEMO";
 	gameStatusTxt.color = "#fff";
 	gameStatusTxt.textAlign = "center";
 	gameStatusTxt.textBaseline='alphabetic';
@@ -204,17 +216,18 @@ function buildGameCanvas(){
 	gameStatusTxt.y = canvasH/100 * 30;
 	
 	gameStatusShadowTxt = new createjs.Text();
-	gameStatusShadowTxt.font = "90px dimitri_swankregular";
-	gameStatusShadowTxt.color = "#2f2f2f";
+	gameStatusShadowTxt.font = "90px Mont Heavy DEMO";
+	gameStatusShadowTxt.color = "#ffffff";
 	gameStatusShadowTxt.textAlign = "center";
 	gameStatusShadowTxt.textBaseline='alphabetic';
 	gameStatusShadowTxt.text = '';
-	gameStatusShadowTxt.x = gameStatusTxt.x+1;
+	gameStatusShadowTxt.outline = 8;
+	gameStatusShadowTxt.x = gameStatusTxt.x;
 	gameStatusShadowTxt.y = gameStatusTxt.y;
 	
 	instructionTxt = new createjs.Text();
-	instructionTxt.font = "50px dimitriregular";
-	instructionTxt.color = "#fff";
+	instructionTxt.font = "50px Mont Heavy DEMO";
+	instructionTxt.color = "#ffffff";
 	instructionTxt.textAlign = "center";
 	instructionTxt.textBaseline='alphabetic';
 	instructionTxt.text = intructionDisplayText;
@@ -222,7 +235,7 @@ function buildGameCanvas(){
 	instructionTxt.y = canvasH/100 * 40;
 	
 	instructionShadowTxt = new createjs.Text();
-	instructionShadowTxt.font = "50px dimitri_swankregular";
+	instructionShadowTxt.font = "50px Mont Heavy DEMO";
 	instructionShadowTxt.color = "#2f2f2f";
 	instructionShadowTxt.textAlign = "center";
 	instructionShadowTxt.textBaseline='alphabetic';
@@ -248,8 +261,8 @@ function buildGameCanvas(){
 	
 	//result
 	resultTitleTxt = new createjs.Text();
-	resultTitleTxt.font = "90px dimitriregular";
-	resultTitleTxt.color = "#fff";
+	resultTitleTxt.font = "90px Mont Heavy DEMO";
+	resultTitleTxt.color = "#071c27";
 	resultTitleTxt.textAlign = "center";
 	resultTitleTxt.textBaseline='alphabetic';
 	resultTitleTxt.text = resultTitleText;
@@ -257,17 +270,18 @@ function buildGameCanvas(){
 	resultTitleTxt.y = canvasH/100 * 30;
 	
 	resultTitleShadowTxt = new createjs.Text();
-	resultTitleShadowTxt.font = "90px dimitri_swankregular";
-	resultTitleShadowTxt.color = "#2f2f2f";
+	resultTitleShadowTxt.font = "90px Mont Heavy DEMO";
+	resultTitleShadowTxt.color = "#ffffff";
 	resultTitleShadowTxt.textAlign = "center";
 	resultTitleShadowTxt.textBaseline='alphabetic';
 	resultTitleShadowTxt.text = resultTitleText;
+	resultTitleShadowTxt.outline = 6;
 	resultTitleShadowTxt.x = resultTitleTxt.x+1;
 	resultTitleShadowTxt.y = resultTitleTxt.y;
 	
 	resultScoreTxt = new createjs.Text();
-	resultScoreTxt.font = "120px dimitriregular";
-	resultScoreTxt.color = "#fada06";
+	resultScoreTxt.font = "120px Mont Heavy DEMO";
+	resultScoreTxt.color = "#0087ac";
 	resultScoreTxt.textAlign = "center";
 	resultScoreTxt.textBaseline='alphabetic';
 	resultScoreTxt.text = '1500PTS';
@@ -275,17 +289,18 @@ function buildGameCanvas(){
 	resultScoreTxt.y = canvasH/100 * 48;
 	
 	resultScoreShadowTxt = new createjs.Text();
-	resultScoreShadowTxt.font = "120px dimitri_swankregular";
-	resultScoreShadowTxt.color = "#2f2f2f";
+	resultScoreShadowTxt.font = "120px Mont Heavy DEMO";
+	resultScoreShadowTxt.color = "#ffffff";
 	resultScoreShadowTxt.textAlign = "center";
 	resultScoreShadowTxt.textBaseline='alphabetic';
 	resultScoreShadowTxt.text = '1500PTS';
+	resultScoreShadowTxt.outline = 6;
 	resultScoreShadowTxt.x = resultScoreTxt.x+1;
 	resultScoreShadowTxt.y = resultScoreTxt.y;
 	
 	resultScoreDescTxt = new createjs.Text();
-	resultScoreDescTxt.font = "60px dimitriregular";
-	resultScoreDescTxt.color = "#fada06";
+	resultScoreDescTxt.font = "60px Mont Heavy DEMO";
+	resultScoreDescTxt.color = "#0087ac";
 	resultScoreDescTxt.textAlign = "center";
 	resultScoreDescTxt.textBaseline='alphabetic';
 	resultScoreDescTxt.text = resultScoreText;
@@ -293,28 +308,29 @@ function buildGameCanvas(){
 	resultScoreDescTxt.y = canvasH/100 * 38;
 	
 	resultScoreDescShadowTxt = new createjs.Text();
-	resultScoreDescShadowTxt.font = "60px dimitri_swankregular";
-	resultScoreDescShadowTxt.color = "#2f2f2f";
+	resultScoreDescShadowTxt.font = "60px Mont Heavy DEMO";
+	resultScoreDescShadowTxt.color = "#ffffff";
 	resultScoreDescShadowTxt.textAlign = "center";
 	resultScoreDescShadowTxt.textBaseline='alphabetic';
+	resultScoreDescShadowTxt.outline = 6;
 	resultScoreDescShadowTxt.text = resultScoreText;
 	resultScoreDescShadowTxt.x = resultScoreDescTxt.x+1;
 	resultScoreDescShadowTxt.y = resultScoreDescTxt.y;
 	
-	resultShareTxt = new createjs.Text();
-	resultShareTxt.font = "25px dimitriregular";
-	resultShareTxt.color = "#fff";
-	resultShareTxt.textAlign = "center";
-	resultShareTxt.textBaseline='alphabetic';
-	resultShareTxt.text = shareText;
+	// resultShareTxt = new createjs.Text();
+	// resultShareTxt.font = "25px Mont Heavy DEMO";
+	// resultShareTxt.color = "#fff";
+	// resultShareTxt.textAlign = "center";
+	// resultShareTxt.textBaseline='alphabetic';
+	// resultShareTxt.text = shareText;
 	
-	resultShareShadowTxt = new createjs.Text();
-	resultShareShadowTxt.font = "25px dimitri_swankregular";
-	resultShareShadowTxt.color = "#2f2f2f";
-	resultShareShadowTxt.textAlign = "center";
-	resultShareShadowTxt.textBaseline='alphabetic';
-	resultShareShadowTxt.text = shareText;
-	resultShareShadowTxt.x = 1;
+	// resultShareShadowTxt = new createjs.Text();
+	// resultShareShadowTxt.font = "25px Mont Heavy DEMO";
+	// resultShareShadowTxt.color = "#2f2f2f";
+	// resultShareShadowTxt.textAlign = "center";
+	// resultShareShadowTxt.textBaseline='alphabetic';
+	// resultShareShadowTxt.text = shareText;
+	// resultShareShadowTxt.x = 1;
 
 	shareContainer.x = shareSaveContainer.x = canvasW/2;
     shareContainer.y = shareSaveContainer.y = canvasH/100 * 63;
@@ -355,7 +371,7 @@ function buildGameCanvas(){
 	centerReg(buttonRestart);
 	createHitarea(buttonRestart);
 	buttonRestart.x = canvasW/2;
-	buttonRestart.y = canvasH/100 * 55;
+	buttonRestart.y = canvasH/100 * 65;
 	
 	//option
 	buttonFullscreen = new createjs.Bitmap(loader.getResult('buttonFullscreen'));
@@ -401,7 +417,7 @@ function buildGameCanvas(){
 	buttonCancel.y = canvasH/100 * 58;
 	
 	confirmMessageTxt = new createjs.Text();
-	confirmMessageTxt.font = "35px dimitriregular";
+	confirmMessageTxt.font = "35px Mont Heavy DEMO";
 	confirmMessageTxt.color = "#2f2f2f";
 	confirmMessageTxt.textAlign = "center";
 	confirmMessageTxt.textBaseline='alphabetic';
@@ -426,7 +442,7 @@ function buildGameCanvas(){
 	buttonTurnRight.y = canvasH/100 * 58;
 	
 	tJunctionTitleTxt = new createjs.Text();
-	tJunctionTitleTxt.font = "35px dimitriregular";
+	tJunctionTitleTxt.font = "35px Mont Heavy DEMO";
 	tJunctionTitleTxt.color = "#2f2f2f";
 	tJunctionTitleTxt.textAlign = "center";
 	tJunctionTitleTxt.textBaseline='alphabetic';
@@ -436,7 +452,7 @@ function buildGameCanvas(){
 	
 	// Button labels
 	var leftLabel = new createjs.Text();
-	leftLabel.font = "28px dimitriregular";
+	leftLabel.font = "28px Mont Heavy DEMO";
 	leftLabel.color = "#ffffff";
 	leftLabel.textAlign = "center";
 	leftLabel.textBaseline='alphabetic';
@@ -445,7 +461,7 @@ function buildGameCanvas(){
 	leftLabel.y = buttonTurnLeft.y + 10;
 	
 	var rightLabel = new createjs.Text();
-	rightLabel.font = "28px dimitriregular";
+	rightLabel.font = "28px Mont Heavy DEMO";
 	rightLabel.color = "#ffffff";
 	rightLabel.textAlign = "center";
 	rightLabel.textBaseline='alphabetic';
@@ -460,22 +476,24 @@ function buildGameCanvas(){
 	itemQuiz = new createjs.Bitmap(loader.getResult('itemExit')); // Reuse exit modal background
 	
 	quizTitleTxt = new createjs.Text();
-	quizTitleTxt.font = "30px dimitriregular";
+	quizTitleTxt.font = Math.min(30, canvasW/25) + "px Mont Heavy DEMO"; // Responsive font size
 	quizTitleTxt.color = "#2f2f2f";
 	quizTitleTxt.textAlign = "center";
 	quizTitleTxt.textBaseline='alphabetic';
 	quizTitleTxt.text = "FUEL QUIZ!";
 	quizTitleTxt.x = canvasW/2;
 	quizTitleTxt.y = canvasH/100 * 25;
+	quizTitleTxt.lineWidth = canvasW * 0.7; // Set max width for text wrapping
 	
 	quizQuestionTxt = new createjs.Text();
-	quizQuestionTxt.font = "24px dimitriregular";
+	quizQuestionTxt.font = Math.min(20, canvasW/35) + "px Mont Heavy DEMO"; // Responsive font size  
 	quizQuestionTxt.color = "#2f2f2f";
 	quizQuestionTxt.textAlign = "center";
 	quizQuestionTxt.textBaseline='alphabetic';
 	quizQuestionTxt.text = "Question will appear here";
 	quizQuestionTxt.x = canvasW/2;
 	quizQuestionTxt.y = canvasH/100 * 35;
+	quizQuestionTxt.lineWidth = canvasW * 0.8; // Set max width for text wrapping
 	
 	// Quiz option buttons (A, B only - 2 choices)
 	buttonQuizA = new createjs.Bitmap(loader.getResult('buttonCancel'));
@@ -487,6 +505,13 @@ function buildGameCanvas(){
 	centerReg(buttonQuizB);
 	buttonQuizB.x = canvasW/100 * 65; // Moved more center
 	buttonQuizB.y = canvasH/100 * 55;
+	
+	// Dynamic Continue Button for quiz results
+	buttonQuizContinue = new createjs.Bitmap(loader.getResult('buttonStart'));
+	centerReg(buttonQuizContinue);
+	buttonQuizContinue.x = canvasW/2;
+	buttonQuizContinue.y = canvasH/100 * 65;
+	buttonQuizContinue.visible = false; // Hidden by default
 	
 	buttonQuizC = new createjs.Bitmap(loader.getResult('buttonCancel'));
 	centerReg(buttonQuizC);
@@ -500,27 +525,40 @@ function buildGameCanvas(){
 	buttonQuizD.y = canvasH/100 * 65;
 	buttonQuizD.visible = false; // Hide D button
 	
-	// Quiz option labels (A, B only)
+	// Quiz option labels (A, B only) - Responsive text
 	labelA = new createjs.Text();
-	labelA.font = "20px dimitriregular";
+	labelA.font = Math.min(16, canvasW/45) + "px Mont Heavy DEMO"; // Responsive font size
 	labelA.color = "#ffffff";
 	labelA.textAlign = "center";
 	labelA.textBaseline='alphabetic';
 	labelA.text = "A";
 	labelA.x = buttonQuizA.x;
 	labelA.y = buttonQuizA.y + 5;
+	labelA.lineWidth = canvasW * 0.35; // Max width for wrapping
 	
 	labelB = new createjs.Text();
-	labelB.font = "20px dimitriregular";
+	labelB.font = Math.min(16, canvasW/45) + "px Mont Heavy DEMO"; // Responsive font size
 	labelB.color = "#ffffff";
 	labelB.textAlign = "center";
 	labelB.textBaseline='alphabetic';
 	labelB.text = "B";
 	labelB.x = buttonQuizB.x;
 	labelB.y = buttonQuizB.y + 5;
+	labelB.lineWidth = canvasW * 0.35; // Max width for wrapping
+	
+	// Continue Button Label
+	labelContinue = new createjs.Text();
+	labelContinue.font = Math.min(18, canvasW/40) + "px Mont Heavy DEMO"; // Responsive font size
+	labelContinue.color = "#ffffff";
+	labelContinue.textAlign = "center";
+	labelContinue.textBaseline='alphabetic';
+	labelContinue.text = "CONTINUE";
+	labelContinue.x = buttonQuizContinue.x;
+	labelContinue.y = buttonQuizContinue.y + 5;
+	labelContinue.visible = false; // Hidden by default
 	
 	labelC = new createjs.Text();
-	labelC.font = "20px dimitriregular";
+	labelC.font = "20px Mont Heavy DEMO";
 	labelC.color = "#ffffff";
 	labelC.textAlign = "center";
 	labelC.textBaseline='alphabetic';
@@ -530,7 +568,7 @@ function buildGameCanvas(){
 	labelC.visible = false; // Hide C label
 	
 	labelD = new createjs.Text();
-	labelD.font = "20px dimitriregular";
+	labelD.font = "20px Mont Heavy DEMO";
 	labelD.color = "#ffffff";
 	labelD.textAlign = "center";
 	labelD.textBaseline='alphabetic';
@@ -539,7 +577,7 @@ function buildGameCanvas(){
 	labelD.y = buttonQuizD.y + 5;
 	labelD.visible = false; // Hide D label
 	
-	quizContainer.addChild(itemQuiz, quizTitleTxt, quizQuestionTxt, buttonQuizA, buttonQuizB, buttonQuizC, buttonQuizD, labelA, labelB, labelC, labelD);
+	quizContainer.addChild(itemQuiz, quizTitleTxt, quizQuestionTxt, buttonQuizA, buttonQuizB, buttonQuizC, buttonQuizD, labelA, labelB, labelC, labelD, buttonQuizContinue, labelContinue);
 	quizContainer.visible = false;
 	
 	guideline = new createjs.Shape();
