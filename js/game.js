@@ -213,7 +213,7 @@ var currentLapTime = 0;
 
 const roadLengthData = {length:{none:0, short:25, medium:50, long:100},
 					  hill:{none:0, low:20, medium:40, high:60},
-					  curve:{none:0, easy:1.5, medium:2.5, hard:3.5, veryHard:4.5, extreme:6, ninety:8}};
+					  curve:{none:0, easy:0.8, medium:1.3, hard:1.8, veryHard:2.2, extreme:2.8, ninety:3.5}};
 
 const playerData = {score:0, displayScore:0};
 const gameData = {paused:true, fuel:0, fuelUpdate:false, accel:false, penalty:false, penaltyTime:0, brakeSound:false, accelSound:false, stopSound:false, ended:false};
