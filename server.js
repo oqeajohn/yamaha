@@ -8,7 +8,7 @@ const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const SECRET_KEY = 'yamaha-secret-key-change-this-in-production';
+const SECRET_KEY = process.env.SECRET_KEY || 'yamaha-secret-key-change-this-in-production';
 
 // Middleware
 app.use(cors());
@@ -23,10 +23,10 @@ app.get('/admin', (req, res) => {
 // Data directory
 const DATA_DIR = path.join(__dirname, 'admin', 'data');
 
-// Admin credentials (change these!)
+// Admin credentials (use environment variables in production)
 const ADMIN_CREDENTIALS = {
-    username: 'admin',
-    password: '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi' // password: password
+    username: process.env.ADMIN_USERNAME || 'admin',
+    password: process.env.ADMIN_PASSWORD_HASH || '$2a$10$XuNd1UJKxzZBbEEo0jrMg.dUDvzznKVPQMmTQ45Grtxra/GcVsdty' // password: WbaVlgny
 };
 
 // Helper functions
