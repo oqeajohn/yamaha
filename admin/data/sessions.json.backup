@@ -1,0 +1,62 @@
+{
+  "sessions": [
+    {
+      "id": 1,
+      "session_id": "a574c55ed5f26f74faab507fd10595bdaeecd7ffcbfa660c93aa0423f8d1d06d",
+      "start_time": "2025-10-26T14:51:01.953Z",
+      "end_time": "2025-10-26T14:52:24.426Z",
+      "final_score": 3634,
+      "fuel_remaining": 24,
+      "completed": 1,
+      "ip_address": "::1",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+    },
+    {
+      "id": 2,
+      "session_id": "bf42edd71145594f7832c513cd2dd014298e9bc340165b15530e10b0ee5bf53f",
+      "start_time": "2025-10-26T14:55:20.586Z",
+      "end_time": "2025-10-26T14:56:14.882Z",
+      "final_score": 2369,
+      "fuel_remaining": 0,
+      "completed": 0,
+      "ip_address": "::1",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+    },
+    {
+      "id": 3,
+      "session_id": "b21680ce04695604c7adc65f3c5ea81f10978a43fb61e6696128a8b22b873f5e",
+      "player_email": "johnalcantara.com@gmail.com",
+      "start_time": "2025-10-26T15:00:44.987Z",
+      "end_time": null,
+      "final_score": 0,
+      "fuel_remaining": 0,
+      "completed": 0,
+      "ip_address": "::1",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+    },
+    {
+      "id": 4,
+      "session_id": "5e8024e780057212835b489abd11e795e4b8d61eb27b9b71e960c2e432e9f9c7",
+      "player_email": "johnalcantara.com@gmail.com",
+      "start_time": "2025-10-26T15:00:54.885Z",
+      "end_time": "2025-10-26T15:02:26.487Z",
+      "final_score": 3390,
+      "fuel_remaining": 4,
+      "completed": 1,
+      "ip_address": "::1",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+    },
+    {
+      "id": 5,
+      "session_id": "845d39b3384e3e0d66be5de18e458f456b8643834d281993fd2ad62d275a0855",
+      "player_email": "johnalcantara.com@gmail.com",
+      "start_time": "2025-10-26T15:02:43.657Z",
+      "end_time": "2025-10-26T15:04:01.771Z",
+      "final_score": 3547,
+      "fuel_remaining": 56,
+      "completed": 1,
+      "ip_address": "::1",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+    }
+  ]
+}

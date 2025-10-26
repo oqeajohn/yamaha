@@ -7,7 +7,7 @@ var canvasH=0;
 
 // Mobile detection for performance optimization
 var isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-var outlineSize = isMobileDevice ? 2 : 6; // Reduce outline on mobile for better performance
+var outlineSize = isMobileDevice ? 2 : 6; // Moderate outline on mobile (2px vs 6px)
 
 /*!
  * 
@@ -19,24 +19,15 @@ function initGameCanvas(w,h){
 	gameCanvas.width = w;
 	gameCanvas.height = h;
 	
-	// Override getContext to add willReadFrequently for better performance
-	const originalGetContext = gameCanvas.getContext.bind(gameCanvas);
-	gameCanvas.getContext = function(type, attributes) {
-		if (type === '2d') {
-			attributes = attributes || {};
-			attributes.willReadFrequently = true;
-		}
-		return originalGetContext(type, attributes);
-	};
-	
 	canvasW=w;
 	canvasH=h;
-	stage = new createjs.Stage("gameCanvas",{ antialias: true });
+	stage = new createjs.Stage("gameCanvas"); // CreateJS handles its own optimization
 	
 	createjs.Touch.enable(stage);
 	stage.enableMouseOver(20);
 	stage.mouseMoveOutside = true;
 	
+	// Use standard 60 FPS - modern mobile browsers handle this well
 	createjs.Ticker.framerate = 60;
 	createjs.Ticker.addEventListener("tick", tick);	
 }
@@ -598,9 +589,9 @@ function buildGameCanvas(){
 	quizContainer.visible = false;
 	
 	// Quiz Buttons (Yes/No - no overlay)
-	// Calculate responsive font size and button scale
-	var quizFontSize = Math.min(40, canvasW * 0.05); // Scale font with screen width, max 40px
-	var quizLineWidth = canvasW * 0.85; // 85% of screen width for text
+	// Calculate responsive font size and button scale with proper margins for mobile
+	var quizFontSize = isMobileDevice ? Math.min(28, canvasW * 0.045) : Math.min(40, canvasW * 0.05); // Smaller font on mobile
+	var quizLineWidth = canvasW * 0.75; // 75% of screen width (more margins: 12.5% left + 12.5% right)
 	var buttonScale = Math.min(1, canvasW / 600); // Scale buttons for smaller screens
 	
 	// Question text shadow (outline)
@@ -611,9 +602,9 @@ function buildGameCanvas(){
 	quizButtonQuestionShadowTxt.textBaseline = "alphabetic";
 	quizButtonQuestionShadowTxt.outline = outlineSize + 2;
 	quizButtonQuestionShadowTxt.text = "";
-	quizButtonQuestionShadowTxt.x = canvasW/2;
-	quizButtonQuestionShadowTxt.y = canvasH/100 * 55;
-	quizButtonQuestionShadowTxt.lineWidth = quizLineWidth;
+	quizButtonQuestionShadowTxt.x = canvasW/2; // Centered
+	quizButtonQuestionShadowTxt.y = canvasH/100 * 50; // Moved higher for better mobile visibility
+	quizButtonQuestionShadowTxt.lineWidth = quizLineWidth; // With margins
 	
 	// Question text main
 	quizButtonQuestionTxt = new createjs.Text();
@@ -622,9 +613,9 @@ function buildGameCanvas(){
 	quizButtonQuestionTxt.textAlign = "center";
 	quizButtonQuestionTxt.textBaseline = "alphabetic";
 	quizButtonQuestionTxt.text = "";
-	quizButtonQuestionTxt.x = canvasW/2;
-	quizButtonQuestionTxt.y = canvasH/100 * 55;
-	quizButtonQuestionTxt.lineWidth = quizLineWidth;
+	quizButtonQuestionTxt.x = canvasW/2; // Centered
+	quizButtonQuestionTxt.y = canvasH/100 * 50; // Moved higher for better mobile visibility
+	quizButtonQuestionTxt.lineWidth = quizLineWidth; // With margins
 	
 	buttonYes = new createjs.Bitmap(loader.getResult('buttonYes'));
 	centerReg(buttonYes);

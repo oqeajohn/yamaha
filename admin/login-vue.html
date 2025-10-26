@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - Vue.js</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        #app {
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+        }
+        
+        .login-container {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .login-header h1 {
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .login-header p {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .form-group input.error {
+            border-color: #e74c3c;
+        }
+        
+        .error-message {
+            background: #fee;
+            color: #c00;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            border-left: 4px solid #c00;
+        }
+        
+        .btn-login {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .btn-login:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-login:active:not(:disabled) {
+            transform: translateY(0);
+        }
+        
+        .btn-login:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .loading {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            border: 2px solid #ffffff;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 0.8s linear infinite;
+            margin-right: 8px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .fade-enter-active, .fade-leave-active {
+            transition: opacity 0.3s;
+        }
+        
+        .fade-enter-from, .fade-leave-to {
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="login-container">
+            <div class="login-header">
+                <h1>Admin Panel</h1>
+                <p>Sign in to continue</p>
+            </div>
+            
+            <transition name="fade">
+                <div v-if="errorMessage" class="error-message">
+                    {{ errorMessage }}
+                </div>
+            </transition>
+            
+            <form @submit.prevent="handleLogin">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input 
+                        type="text" 
+                        id="username" 
+                        v-model="credentials.username"
+                        :class="{ error: hasError }"
+                        :disabled="loading"
+                        placeholder="Enter username"
+                        required
+                    >
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        v-model="credentials.password"
+                        :class="{ error: hasError }"
+                        :disabled="loading"
+                        placeholder="Enter password"
+                        required
+                    >
+                </div>
+                
+                <button type="submit" class="btn-login" :disabled="loading">
+                    <span v-if="loading" class="loading"></span>
+                    {{ loading ? 'Signing in...' : 'Sign In' }}
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const { createApp } = Vue;
+
+        createApp({
+            data() {
+                return {
+                    credentials: {
+                        username: '',
+                        password: ''
+                    },
+                    errorMessage: '',
+                    loading: false,
+                    hasError: false,
+                    apiUrl: 'http://localhost:3000/api'
+                }
+            },
+            methods: {
+                async handleLogin() {
+                    // Reset error state
+                    this.errorMessage = '';
+                    this.hasError = false;
+                    this.loading = true;
+
+                    try {
+                        const response = await fetch(`${this.apiUrl}/login`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(this.credentials)
+                        });
+
+                        const data = await response.json();
+
+                        if (data.success && data.token) {
+                            // Store token and username in localStorage
+                            localStorage.setItem('admin_token', data.token);
+                            localStorage.setItem('admin_username', this.credentials.username);
+                            
+                            // Redirect to dashboard
+                            window.location.href = 'dashboard-vue.html';
+                        } else {
+                            this.errorMessage = data.message || 'Invalid username or password';
+                            this.hasError = true;
+                        }
+                    } catch (error) {
+                        console.error('Login error:', error);
+                        this.errorMessage = 'Connection error. Make sure the server is running on port 3000.';
+                        this.hasError = true;
+                    } finally {
+                        this.loading = false;
+                    }
+                },
+                
+                checkExistingAuth() {
+                    const token = localStorage.getItem('admin_token');
+                    if (token) {
+                        // User already logged in, redirect to dashboard
+                        window.location.href = 'dashboard-vue.html';
+                    }
+                }
+            },
+            mounted() {
+                this.checkExistingAuth();
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>

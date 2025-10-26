@@ -4,36 +4,56 @@
       "id": 1,
       "section": "Helmet",
       "question": "Should you wear a helmet when riding a motorcycle?",
-      "options": ["Yes", "No"],
-      "correct": 0
+      "options": [
+        "Yes",
+        "No"
+      ],
+      "correct": 0,
+      "explanation": "Always wear a helmet for safety!!"
     },
     {
       "id": 2,
       "section": "Illegal U-turn",
       "question": "Is it okay to make an illegal U-turn when there's no police around?",
-      "options": ["Yes", "No"],
-      "correct": 1
+      "options": [
+        "Yes",
+        "No"
+      ],
+      "correct": 1,
+      "explanation": "Traffic rules exist for safety, not just enforcement."
     },
     {
       "id": 3,
       "section": "Lane Splitting",
       "question": "Is it safe to squeeze between two cars in tight spaces?",
-      "options": ["Yes", "No"],
-      "correct": 1
+      "options": [
+        "Yes",
+        "No"
+      ],
+      "correct": 1,
+      "explanation": "Lane splitting in tight spaces is dangerous."
     },
     {
       "id": 4,
       "section": "Speed Limits",
       "question": "Should you speed up when the road is empty?",
-      "options": ["Yes", "No"],
-      "correct": 1
+      "options": [
+        "Yes",
+        "No"
+      ],
+      "correct": 1,
+      "explanation": "Speed limits are set for safety regardless of traffic."
     },
     {
       "id": 5,
       "section": "Pedestrian Lane",
       "question": "Is it acceptable to cut through a pedestrian crossing to save time?",
-      "options": ["Yes", "No"],
-      "correct": 1
+      "options": [
+        "Yes",
+        "No"
+      ],
+      "correct": 1,
+      "explanation": "Always respect pedestrian crossings."
     }
   ]
 }

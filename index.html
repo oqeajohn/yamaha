@@ -64,6 +64,33 @@
                     </div>
                 </div>
                 <!-- QUIZ MODAL END -->
+                
+                <!-- EMAIL MODAL START -->
+                <div id="emailModal" class="email-modal" style="display: none;">
+                    <div class="email-container">
+                        <div class="email-header">
+                            <h2>Welcome to Sensible Meter!</h2>
+                            <p>Enter your email to start playing</p>
+                        </div>
+                        <div class="email-content">
+                            <form id="emailForm">
+                                <div class="form-group">
+                                    <input 
+                                        type="email" 
+                                        id="playerEmail" 
+                                        placeholder="your.email@example.com"
+                                        required
+                                    />
+                                </div>
+                                <div class="error-message" id="emailError" style="display: none;"></div>
+                                <button type="submit" class="btn-submit" id="emailSubmitBtn">
+                                    Start Playing
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- EMAIL MODAL END -->
             </div>
             <!-- CANVAS END-->
             

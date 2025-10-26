@@ -1,0 +1,76 @@
+{
+  "questions": [
+    {
+      "id": 1,
+      "section": "Helmet",
+      "question": "Should you wear a helmet when riding a motorcycle?",
+      "option_a": "Yes",
+      "option_b": "No",
+      "correct_answer": 0,
+      "explanation": "Always wear a helmet for safety!!",
+      "created_at": "2025-10-26 00:00:00",
+      "updated_at": "2025-10-26T14:50:45.038Z",
+      "active": 1
+    },
+    {
+      "id": 2,
+      "section": "Illegal U-turn",
+      "question": "Is it okay to make an illegal U-turn when there's no police around?",
+      "option_a": "Yes",
+      "option_b": "No",
+      "correct_answer": 1,
+      "explanation": "Traffic rules exist for safety, not just enforcement.",
+      "created_at": "2025-10-26 00:00:00",
+      "updated_at": "2025-10-26T08:55:54.186Z",
+      "active": 1
+    },
+    {
+      "id": 3,
+      "section": "Lane Splitting",
+      "question": "Is it safe to squeeze between two cars in tight spaces?",
+      "option_a": "Yes",
+      "option_b": "No",
+      "correct_answer": 1,
+      "explanation": "Lane splitting in tight spaces is dangerous.",
+      "created_at": "2025-10-26 00:00:00",
+      "updated_at": "2025-10-26T08:56:05.344Z",
+      "active": 1
+    },
+    {
+      "id": 4,
+      "section": "Speed Limits",
+      "question": "Should you speed up when the road is empty?",
+      "option_a": "Yes",
+      "option_b": "No",
+      "correct_answer": 1,
+      "explanation": "Speed limits are set for safety regardless of traffic.",
+      "created_at": "2025-10-26 00:00:00",
+      "updated_at": "2025-10-26T08:56:11.472Z",
+      "active": 1
+    },
+    {
+      "id": 5,
+      "section": "Pedestrian Lane",
+      "question": "Is it acceptable to cut through a pedestrian crossing to save time?",
+      "option_a": "Yes",
+      "option_b": "No",
+      "correct_answer": 1,
+      "explanation": "Always respect pedestrian crossings.",
+      "created_at": "2025-10-26 00:00:00",
+      "updated_at": "2025-10-26T08:56:21.977Z",
+      "active": 1
+    },
+    {
+      "id": 6,
+      "section": "Test",
+      "question": "TEST TEST TEST",
+      "option_a": "Yes",
+      "option_b": "No",
+      "correct_answer": 0,
+      "explanation": "TEST TEST",
+      "created_at": "2025-10-26T08:56:49.808Z",
+      "updated_at": "2025-10-26T08:56:49.808Z",
+      "active": 0
+    }
+  ]
+}

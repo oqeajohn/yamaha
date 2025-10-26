@@ -1,0 +1,22 @@
+{
+  "players": [
+    {
+      "email": "johnalcantara.com@gmail.com",
+      "registered_at": "2025-10-26T14:55:20.580Z",
+      "sessions": [
+        {
+          "session_id": "session_1761490946482_mfuejz11h",
+          "score": 3390,
+          "played_at": "2025-10-26T15:02:26.488Z"
+        },
+        {
+          "session_id": "session_1761491041765_suh33b4du",
+          "score": 3547,
+          "played_at": "2025-10-26T15:04:01.771Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-10-26T15:02:34.101Z"
+    }
+  ]
+}

@@ -16,10 +16,14 @@
  */
  
 //background assets - Philippine city theme with tropical lighting
+// Use smaller images on mobile for better performance
+var isMobileDevice = isMobileDevice || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+const backgroundSuffix = (typeof isMobileDevice !== 'undefined' && isMobileDevice) ? '_mobile' : '';
+
 const backgroundData = {
-	hills: { src:'assets/background_hills.png'}, // Manila/Makati/BGC skyline silhouette
-	sky:   { src:'assets/background_sky.png'},   // Bright tropical Philippine sky with golden hour lighting
-	trees: { src:'assets/background_trees.png'} // Foreground Filipino high-rise buildings and condominiums
+	hills: { src: 'assets/background_hills' + backgroundSuffix + '.png'}, // Manila/Makati/BGC skyline silhouette
+	sky:   { src: 'assets/background_sky' + backgroundSuffix + '.png'},   // Bright tropical Philippine sky with golden hour lighting
+	trees: { src: 'assets/background_trees' + backgroundSuffix + '.png'} // Foreground Filipino high-rise buildings and condominiums
 };
 
 //road assets - Philippine metropolitan highway with realistic cement/concrete road colors
@@ -193,15 +197,17 @@ const defaultData = {
 	turnSpeed:3.5
 };
 
-// Mobile detection and performance optimization
-var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+// Mobile detection is done in canvas.js (isMobileDevice variable)
+// Apply moderate optimizations for mobile devices
+var DISABLE_ROADSIDE_SPRITES = false; // Buildings now use sprite pooling - no longer need to disable!
 
-// Adjust settings for mobile devices
-if (isMobile) {
-	console.log('Mobile device detected - applying performance optimizations');
-	defaultData.drawDistance = 150; // Reduce draw distance from 300 to 150
-	defaultData.totalCars = 80; // Reduce AI cars from 200 to 80
-	defaultData.fieldOfView = 100; // Slightly reduce FOV
+if (typeof isMobileDevice !== 'undefined' && isMobileDevice) {
+	defaultData.drawDistance = 120;
+	defaultData.totalCars = 60;
+	defaultData.fieldOfView = 100;
+	roadData.fogDensity = 2.5;
+} else {
+	// Desktop uses default settings
 }
 				
 var worldData = {};
@@ -212,6 +218,18 @@ var sprites = null;
 var resolution = null;
 var currentLapTime = 0;
 
+// Pre-create background sprites to avoid cloning every frame (major performance optimization)
+var bgSky = null;
+var bgSkyMirror = null;
+var bgHills = null;
+var bgHillsMirror = null;
+var bgTrees = null;
+var bgTreesMirror = null;
+
+// Sprite pool for reusing sprites instead of cloning (MASSIVE performance improvement)
+var spritePool = {};
+var spritePoolSize = 50; // Number of pre-created sprites per type
+
 const roadLengthData = {length:{none:0, short:25, medium:50, long:100},
 					  hill:{none:0, low:20, medium:40, high:60},
 					  curve:{none:0, easy:0.8, medium:1.3, hard:1.8, veryHard:2.2, extreme:2.8, ninety:3.5}};
@@ -219,6 +237,13 @@ const roadLengthData = {length:{none:0, short:25, medium:50, long:100},
 const playerData = {score:0, displayScore:0};
 const gameData = {paused:true, fuel:0, fuelUpdate:false, accel:false, penalty:false, penaltyTime:0, brakeSound:false, accelSound:false, stopSound:false, ended:false, waitingAtTunnel:false};
 const keyData = {left:false, right:false, accelerate:false, brake:false};
+
+// Player Email System Variables
+var currentPlayer = null; // {email, registered_at, sessions, has_redirected}
+var playerEmail = null; // Stored email
+var emailModalActive = false; // Track if email modal is showing
+var currentSessionId = null; // Current game session ID for tracking
+const API_URL = 'http://localhost:3000/api';
 
 // T-Junction Modal System Variables
 var tJunctionPendingDirection = null; // 'left', 'right', or null
@@ -298,6 +323,15 @@ function showVictoryMessage() {
 	// Clear any existing game text and show victory message immediately
 	gameStatusContainer.visible = false;
 	
+	// End backend session tracking
+	endGameSession(playerData.score, gameData.fuel, true);
+	
+	// Record session for player
+	if (playerEmail) {
+		var sessionId = 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+		recordPlayerSession(sessionId, playerData.score);
+	}
+	
 	updateGameText("THANK YOU\n FOR PLAYING!", "#071c27", 80, 0);	
 	setTimeout(function() {
 		// Show final score
@@ -324,49 +358,76 @@ function showVictoryButtons() {
 	var buttonSpacing = 40;
 	var startY = canvasH / 2 + 100; // Position below the Final Score text
 	
-	// CLAIM PRIZE button
-	var claimPrizeButton = new createjs.Container();
+	// Check if player has already been redirected
+	var showClaimPrize = !currentPlayer || !currentPlayer.has_redirected;
 	
-	// Button background with gradient (left to right: #01cdee to #018bb0)
-	var claimPrizeBg = new createjs.Shape();
-	var gradient = claimPrizeBg.graphics.beginLinearGradientFill(
-		["#01cdee", "#018bb0"], 
-		[0, 1], 
-		0, 0, 
-		buttonWidth, 0
-	);
+	var yPosition = startY;
 	
-	// Draw main button shape with gradient (no rounded corners)
-	claimPrizeBg.graphics.drawRect(0, 0, buttonWidth, buttonHeight);
+	// CLAIM PRIZE button - only show if player hasn't been redirected
+	var claimPrizeButton = null;
+	var countdown = 5;
+	var countdownInterval = null;
 	
-	// Draw border as a rectangle outline with variable thickness
-	var claimPrizeBorder = new createjs.Shape();
-	
-	// Top and side borders - thicker (8px)
-	claimPrizeBorder.graphics.setStrokeStyle(8, "square", "miter").beginStroke("#2f302f");
-	claimPrizeBorder.graphics.drawRect(0, 0, buttonWidth, buttonHeight - 4);
-	
-	// Bottom border - 3 times thicker (24px)
-	claimPrizeBorder.graphics.setStrokeStyle(24, "butt").beginStroke("#2f302f");
-	claimPrizeBorder.graphics.moveTo(0, buttonHeight).lineTo(buttonWidth, buttonHeight);
-	
-	var claimPrizeText = new createjs.Text("CLAIM PRIZE", "bold 32px Mont Heavy DEMO", "#FFFFFF");
-	claimPrizeText.textAlign = "left";
-	claimPrizeText.textBaseline = "middle";
-	claimPrizeText.x = 30;
-	claimPrizeText.y = buttonHeight / 2;
-	
-	// Countdown timer positioned to the right of text
-	var claimPrizeTimer = new createjs.Text("(5)", "bold 28px Mont Heavy DEMO", "#FFFFFF");
-	claimPrizeTimer.textAlign = "right";
-	claimPrizeTimer.textBaseline = "middle";
-	claimPrizeTimer.x = buttonWidth - 30;
-	claimPrizeTimer.y = buttonHeight / 2;
-	
-	claimPrizeButton.addChild(claimPrizeBg, claimPrizeBorder, claimPrizeText, claimPrizeTimer);
-	claimPrizeButton.x = (canvasW - buttonWidth) / 2;
-	claimPrizeButton.y = startY;
-	claimPrizeButton.cursor = "pointer";
+	if (showClaimPrize) {
+		claimPrizeButton = new createjs.Container();
+		
+		// Button background with gradient (left to right: #01cdee to #018bb0)
+		var claimPrizeBg = new createjs.Shape();
+		var gradient = claimPrizeBg.graphics.beginLinearGradientFill(
+			["#01cdee", "#018bb0"], 
+			[0, 1], 
+			0, 0, 
+			buttonWidth, 0
+		);
+		
+		// Draw main button shape with gradient (no rounded corners)
+		claimPrizeBg.graphics.drawRect(0, 0, buttonWidth, buttonHeight);
+		
+		// Draw border as a rectangle outline with variable thickness
+		var claimPrizeBorder = new createjs.Shape();
+		
+		// Top and side borders - thicker (8px)
+		claimPrizeBorder.graphics.setStrokeStyle(8, "square", "miter").beginStroke("#2f302f");
+		claimPrizeBorder.graphics.drawRect(0, 0, buttonWidth, buttonHeight - 4);
+		
+		// Bottom border - 3 times thicker (24px)
+		claimPrizeBorder.graphics.setStrokeStyle(24, "butt").beginStroke("#2f302f");
+		claimPrizeBorder.graphics.moveTo(0, buttonHeight).lineTo(buttonWidth, buttonHeight);
+		
+		var claimPrizeText = new createjs.Text("CLAIM PRIZE", "bold 32px Mont Heavy DEMO", "#FFFFFF");
+		claimPrizeText.textAlign = "left";
+		claimPrizeText.textBaseline = "middle";
+		claimPrizeText.x = 30;
+		claimPrizeText.y = buttonHeight / 2;
+		
+		// Countdown timer positioned to the right of text
+		var claimPrizeTimer = new createjs.Text("(5)", "bold 28px Mont Heavy DEMO", "#FFFFFF");
+		claimPrizeTimer.textAlign = "right";
+		claimPrizeTimer.textBaseline = "middle";
+		claimPrizeTimer.x = buttonWidth - 30;
+		claimPrizeTimer.y = buttonHeight / 2;
+		
+		claimPrizeButton.addChild(claimPrizeBg, claimPrizeBorder, claimPrizeText, claimPrizeTimer);
+		claimPrizeButton.x = (canvasW - buttonWidth) / 2;
+		claimPrizeButton.y = yPosition;
+		claimPrizeButton.cursor = "pointer";
+		
+		// Add click handler
+		claimPrizeButton.addEventListener("click", function() {
+			playSound('soundClick');
+			clearInterval(countdownInterval);
+			
+			// Mark player as redirected
+			if (currentPlayer && currentPlayer.email) {
+				markPlayerAsRedirected(currentPlayer.email);
+			}
+			
+			window.location.href = "https://www.yamaha-motor.com.ph/";
+		});
+		
+		victoryButtonsContainer.addChild(claimPrizeButton);
+		yPosition += buttonHeight + buttonSpacing;
+	}
 	
 	// PLAY AGAIN button
 	var playAgainButton = new createjs.Container();
@@ -399,43 +460,62 @@ function showVictoryButtons() {
 	
 	playAgainButton.addChild(playAgainBg, playAgainBorder, playAgainText);
 	playAgainButton.x = (canvasW - buttonWidth) / 2;
-	playAgainButton.y = startY + buttonHeight + buttonSpacing;
+	playAgainButton.y = yPosition;
 	playAgainButton.cursor = "pointer";
-	
-	// Add click handlers
-	var countdown = 5;
-	var countdownInterval;
-	
-	claimPrizeButton.addEventListener("click", function() {
-		playSound('soundClick');
-		clearInterval(countdownInterval);
-		window.location.href = "https://www.yamaha.com";
-	});
 	
 	playAgainButton.addEventListener("click", function() {
 		playSound('soundClick');
-		clearInterval(countdownInterval);
+		if (countdownInterval) clearInterval(countdownInterval);
 		location.reload();
 	});
 	
 	// Add buttons to container
-	victoryButtonsContainer.addChild(claimPrizeButton, playAgainButton);
+	victoryButtonsContainer.addChild(playAgainButton);
 	victoryButtonsContainer.alpha = 0;
 	gameContainer.addChild(victoryButtonsContainer);
 	
 	// Fade in buttons
 	TweenMax.to(victoryButtonsContainer, 0.5, {alpha: 1});
 	
-	// Start countdown timer for Claim Prize button
-	countdownInterval = setInterval(function() {
-		countdown--;
-		claimPrizeTimer.text = "(" + countdown + ")";
-		if (countdown <= 0) {
-			clearInterval(countdownInterval);
-			// Auto redirect after countdown
-			window.location.href = "https://www.yamaha.com";
+	// Start countdown timer for Claim Prize button (if shown)
+	if (showClaimPrize && claimPrizeButton) {
+		countdownInterval = setInterval(function() {
+			countdown--;
+			claimPrizeTimer.text = "(" + countdown + ")";
+			if (countdown <= 0) {
+				clearInterval(countdownInterval);
+				
+				// Mark player as redirected
+				if (currentPlayer && currentPlayer.email) {
+					markPlayerAsRedirected(currentPlayer.email);
+				}
+				
+				// Auto redirect after countdown
+				window.location.href = "https://www.yamaha-motor.com.ph/";
+			}
+		}, 1000);
+	}
+}
+
+// Mark player as redirected in backend
+function markPlayerAsRedirected(email) {
+	fetch(`${API_URL}/players/${encodeURIComponent(email)}/redirect`, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
 		}
-	}, 1000);
+	}).then(response => response.json())
+	.then(data => {
+		console.log('Player marked as redirected:', data);
+		// Update local currentPlayer object
+		if (currentPlayer) {
+			currentPlayer.has_redirected = true;
+			currentPlayer.redirected_at = new Date().toISOString();
+		}
+	})
+	.catch(error => {
+		console.error('Error marking player as redirected:', error);
+	});
 }
 
 /*!
@@ -444,23 +524,68 @@ function showVictoryButtons() {
 
 // Load quiz questions from JSON
 function loadQuizQuestions() {
-	console.log('Loading quiz questions...'); // Debug log
-	$.getJSON('quiz-questions.json', function(data) {
-		quizQuestions = data.questions;
-		console.log('Quiz questions loaded successfully:', quizQuestions.length); // Debug log
+	console.log('Loading quiz questions from Node.js API...'); // Debug log
+	
+	// Try loading from Node.js API first
+	$.getJSON('http://localhost:3000/api/game/questions', function(data) {
+		if (data && data.success && data.questions) {
+			quizQuestions = data.questions;
+			console.log('Quiz questions loaded successfully from Node.js API:', quizQuestions.length);
+			console.log('Questions:', quizQuestions);
+		} else {
+			console.warn('Invalid response from API, trying fallback...');
+			tryFallbackSources();
+		}
+	}).fail(function(jqXHR, textStatus, errorThrown) {
+		console.warn('Failed to load from Node.js API, trying fallback sources...');
+		console.error('Error details:', textStatus, errorThrown);
+		tryFallbackSources();
+	});
+}
+
+// Fallback loading chain
+function tryFallbackSources() {
+	// Try loading from admin/data/questions.json as fallback
+	$.getJSON('admin/data/questions.json', function(data) {
+		// Transform admin format to game format
+		var activeQuestions = data.questions.filter(function(q) {
+			return q.active === 1;
+		});
+		
+		quizQuestions = activeQuestions.map(function(q) {
+			return {
+				id: q.id,
+				section: q.section,
+				question: q.question,
+				options: [q.option_a, q.option_b],
+				correct: q.correct_answer,
+				explanation: q.explanation || ''
+			};
+		});
+		
+		console.log('Quiz questions loaded from admin/data/questions.json:', quizQuestions.length);
 	}).fail(function() {
-		console.warn('Failed to load quiz questions, using fallback');
-		// Fallback questions if JSON fails to load
-		quizQuestions = [
-			{
-				"id": 1,
-				"question": "What is the capital of France?",
-				"options": ["London", "Paris", "Berlin", "Madrid"],
-				"correct": 1,
-				"explanation": "Paris is the capital and largest city of France."
-			}
-		];
-		console.log('Using fallback questions:', quizQuestions.length); // Debug log
+		console.warn('Failed to load from admin/data/questions.json, trying quiz-questions.json...');
+		
+		// Try loading from quiz-questions.json as final fallback
+		$.getJSON('quiz-questions.json', function(data) {
+			quizQuestions = data.questions;
+			console.log('Quiz questions loaded from quiz-questions.json:', quizQuestions.length);
+		}).fail(function() {
+			console.error('All sources failed, using hardcoded fallback');
+			// Hardcoded fallback questions if all sources fail
+			quizQuestions = [
+				{
+					"id": 1,
+					"section": "Safety",
+					"question": "Should you follow traffic rules?",
+					"options": ["Yes", "No"],
+					"correct": 0,
+					"explanation": "Always follow traffic rules for your safety!"
+				}
+			];
+			console.log('Using hardcoded fallback questions:', quizQuestions.length);
+		});
 	});
 }
 
@@ -905,7 +1030,7 @@ function buildGameButton(){
 	buttonStart.cursor = "pointer";
 	buttonStart.addEventListener("click", function(evt) {
 		playSound('soundClick');
-		goPage('game');
+		checkEmailBeforeStart();
 	});
 	
 	if(shareSettings.enable){
@@ -1148,6 +1273,238 @@ function positionShareButtons(){
 
 /*!
  * 
+ * EMAIL MODAL HANDLING - Check and capture player email before game starts
+ * 
+ */
+
+// Check if email exists in session, otherwise show modal
+function checkEmailBeforeStart() {
+	// Check sessionStorage first
+	var storedEmail = sessionStorage.getItem('playerEmail');
+	
+	if (storedEmail) {
+		// Email exists in session, load player data and start game
+		playerEmail = storedEmail;
+		loadPlayerData(storedEmail, function() {
+			goPage('game');
+		});
+	} else {
+		// No email in session, show email modal
+		showEmailModal();
+	}
+}
+
+// Show email modal
+function showEmailModal() {
+	var emailModal = document.getElementById('emailModal');
+	if (emailModal) {
+		emailModal.style.display = 'flex';
+		emailModalActive = true;
+		
+		// Set up form submission
+		var emailForm = document.getElementById('emailForm');
+		if (emailForm) {
+			emailForm.onsubmit = handleEmailSubmit;
+		}
+	}
+}
+
+// Hide email modal
+function hideEmailModal() {
+	var emailModal = document.getElementById('emailModal');
+	if (emailModal) {
+		emailModal.style.display = 'none';
+		emailModalActive = false;
+	}
+}
+
+// Handle email form submission
+function handleEmailSubmit(e) {
+	e.preventDefault();
+	
+	var emailInput = document.getElementById('playerEmail');
+	var errorDiv = document.getElementById('emailError');
+	var submitBtn = document.getElementById('emailSubmitBtn');
+	
+	var email = emailInput.value.trim();
+	
+	// Basic email validation
+	if (!email || !email.includes('@')) {
+		errorDiv.textContent = 'Please enter a valid email address';
+		errorDiv.style.display = 'block';
+		return;
+	}
+	
+	// Disable button while processing
+	submitBtn.disabled = true;
+	submitBtn.textContent = 'Loading...';
+	errorDiv.style.display = 'none';
+	
+	// Register or get player
+	fetch(`${API_URL}/players/register`, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify({ email: email })
+	})
+	.then(response => response.json())
+	.then(data => {
+		if (data.success) {
+			// Store email in sessionStorage
+			sessionStorage.setItem('playerEmail', email);
+			playerEmail = email;
+			currentPlayer = data.player;
+			
+			console.log('Player registered:', data.message);
+			
+			// Hide modal and start game
+			hideEmailModal();
+			goPage('game');
+		} else {
+			errorDiv.textContent = data.message || 'Registration failed';
+			errorDiv.style.display = 'block';
+			submitBtn.disabled = false;
+			submitBtn.textContent = 'Start Playing';
+		}
+	})
+	.catch(error => {
+		console.error('Error registering player:', error);
+		errorDiv.textContent = 'Connection error. Make sure server is running.';
+		errorDiv.style.display = 'block';
+		submitBtn.disabled = false;
+		submitBtn.textContent = 'Start Playing';
+	});
+}
+
+// Load player data from backend
+function loadPlayerData(email, callback) {
+	fetch(`${API_URL}/players/${encodeURIComponent(email)}`)
+	.then(response => response.json())
+	.then(data => {
+		if (data.success) {
+			currentPlayer = data.player;
+			console.log('Player data loaded:', currentPlayer);
+		}
+		if (callback) callback();
+	})
+	.catch(error => {
+		console.error('Error loading player data:', error);
+		if (callback) callback();
+	});
+}
+
+// Record session for player
+function recordPlayerSession(sessionId, score) {
+	if (!playerEmail) return;
+	
+	fetch(`${API_URL}/players/${encodeURIComponent(playerEmail)}/sessions`, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify({
+			session_id: sessionId,
+			score: score
+		})
+	})
+	.then(response => response.json())
+	.then(data => {
+		console.log('Session recorded for player:', data);
+	})
+	.catch(error => {
+		console.error('Error recording player session:', error);
+	});
+}
+
+// Start new game session with backend tracking
+function startGameSession() {
+	if (!playerEmail) {
+		console.warn('Cannot start session without player email');
+		return;
+	}
+	
+	fetch(`${API_URL}/sessions/start`, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify({
+			email: playerEmail
+		})
+	})
+	.then(response => response.json())
+	.then(data => {
+		if (data.success) {
+			currentSessionId = data.session_id;
+			console.log('Game session started:', currentSessionId);
+		}
+	})
+	.catch(error => {
+		console.error('Error starting game session:', error);
+	});
+}
+
+// Record answer to backend
+function recordAnswer(questionId, selectedAnswer, isCorrect) {
+	if (!currentSessionId || !playerEmail) {
+		console.warn('Cannot record answer without session ID or email');
+		return;
+	}
+	
+	fetch(`${API_URL}/sessions/answer`, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify({
+			session_id: currentSessionId,
+			email: playerEmail,
+			question_id: questionId,
+			selected_answer: selectedAnswer,
+			is_correct: isCorrect
+		})
+	})
+	.then(response => response.json())
+	.then(data => {
+		console.log('Answer recorded:', data);
+	})
+	.catch(error => {
+		console.error('Error recording answer:', error);
+	});
+}
+
+// End game session with final results
+function endGameSession(finalScore, fuelRemaining, completed) {
+	if (!currentSessionId || !playerEmail) {
+		console.warn('Cannot end session without session ID or email');
+		return;
+	}
+	
+	fetch(`${API_URL}/sessions/end`, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify({
+			session_id: currentSessionId,
+			email: playerEmail,
+			final_score: finalScore,
+			fuel_remaining: fuelRemaining,
+			completed: completed
+		})
+	})
+	.then(response => response.json())
+	.then(data => {
+		console.log('Game session ended:', data);
+	})
+	.catch(error => {
+		console.error('Error ending game session:', error);
+	});
+}
+
+/*!
+ * 
  * DISPLAY PAGES - This is the function that runs to display pages
  * 
  */
@@ -1314,6 +1671,9 @@ function startGame(){
 	gameData.stopSound = false;
 	gameData.ended = false;
 	
+	// Start backend session tracking
+	startGameSession();
+	
 	// Initialize and hide quiz modal
 	initializeQuizModal();
 	
@@ -1389,6 +1749,34 @@ function startGame(){
 	
 	defaultData.playerX = 0;
 	defaultData.speed = 0;
+	
+	// Initialize background sprites once (avoid cloning every frame for performance)
+	if (!bgSky) {
+		bgSky = $.background[backgroundData.sky.id].clone();
+		bgSkyMirror = $.background[backgroundData.sky.id].clone();
+		bgHills = $.background[backgroundData.hills.id].clone();
+		bgHillsMirror = $.background[backgroundData.hills.id].clone();
+		bgTrees = $.background[backgroundData.trees.id].clone();
+		bgTreesMirror = $.background[backgroundData.trees.id].clone();
+	}
+	
+	// Initialize sprite pool once (avoid cloning sprites every frame - HUGE performance boost)
+	if (Object.keys(spritePool).length === 0) {
+		var poolCount = 0;
+		for (var spriteKey in spritesData) {
+			if (spritesData[spriteKey].id) {
+				spritePool[spritesData[spriteKey].id] = [];
+				// Pre-create pool of sprites for each type
+				var poolSize = isMobileDevice ? 20 : 30; // Smaller pool on mobile
+				for (var i = 0; i < poolSize; i++) {
+					var sprite = $.sprites[spritesData[spriteKey].id].clone();
+					sprite.visible = false; // Hidden by default
+					spritePool[spritesData[spriteKey].id].push(sprite);
+					poolCount++;
+				}
+			}
+		}
+	}
 	
 	instructionShadowTxt.visible = instructionTxt.visible = false;
 	if(!isDesktop){
@@ -1982,17 +2370,15 @@ function renderWorld() {
 			renderSprite(defaultData.width, defaultData.height, resolution, roadData.width, sprites, car.sprite, spriteScale, spriteX, spriteY, -0.5, -1, segment.clip);
 		}
 	
-		for(i = 0 ; i < segment.sprites.length ; i++) {
-			sprite      = segment.sprites[i];
-			spriteScale = segment.p1.screen.scale;
-			spriteX     = segment.p1.screen.x + (spriteScale * sprite.offset * roadData.width * defaultData.width/2);
-			spriteY     = segment.p1.screen.y;
-			
-			if(sprite.active)
-				renderSprite(defaultData.width, defaultData.height, resolution, roadData.width, sprites, sprite.source, spriteScale, spriteX, spriteY, (sprite.offset < 0 ? -1 : 0), -1, segment.clip);
-		}
-
-		if(segment == playerSegment) {
+	for(i = 0 ; i < segment.sprites.length ; i++) {
+		sprite      = segment.sprites[i];
+		spriteScale = segment.p1.screen.scale;
+		spriteX     = segment.p1.screen.x + (spriteScale * sprite.offset * roadData.width * defaultData.width/2);
+		spriteY     = segment.p1.screen.y;
+		
+		if(sprite.active)
+			renderSprite(defaultData.width, defaultData.height, resolution, roadData.width, sprites, sprite.source, spriteScale, spriteX, spriteY, (sprite.offset < 0 ? -1 : 0), -1, segment.clip);
+	}		if(segment == playerSegment) {
 			renderPlayer(defaultData.width, defaultData.height, resolution, roadData.width, sprites, defaultData.speed/worldData.maxSpeed,
 						defaultData.cameraDepth/defaultData.playerZ,
 						defaultData.width/2,
@@ -2590,8 +2976,24 @@ function renderSegment(width, lanes, x1, y1, w1, x2, y2, w2, fog, color){
 }
 
 function renderBackground(background, width, height, layer, rotation, offset){
-	var newBackground = $.background[layer.id].clone();
-	var newBackgroundMirror = $.background[layer.id].clone();
+	// Use pre-created background sprites instead of cloning every frame (HUGE performance gain)
+	var newBackground, newBackgroundMirror;
+	
+	if (layer.id === backgroundData.sky.id) {
+		newBackground = bgSky;
+		newBackgroundMirror = bgSkyMirror;
+	} else if (layer.id === backgroundData.hills.id) {
+		newBackground = bgHills;
+		newBackgroundMirror = bgHillsMirror;
+	} else if (layer.id === backgroundData.trees.id) {
+		newBackground = bgTrees;
+		newBackgroundMirror = bgTreesMirror;
+	} else {
+		// Fallback to cloning for any unknown backgrounds
+		newBackground = $.background[layer.id].clone();
+		newBackgroundMirror = $.background[layer.id].clone();
+	}
+	
     rotation = rotation || 0;
     offset   = offset   || 0;
 	
@@ -2613,6 +3015,37 @@ function renderBackground(background, width, height, layer, rotation, offset){
 
 /*!
  * 
+ * GET SPRITE FROM POOL - Reuse pre-created sprites instead of cloning (massive performance gain)
+ * 
+ */
+var spritePoolIndex = {}; // Track which sprite to use next from each pool
+
+function getSpriteFromPool(spriteId) {
+	if (!spritePool[spriteId] || spritePool[spriteId].length === 0) {
+		// Fallback to cloning if pool doesn't exist
+		return $.sprites[spriteId].clone();
+	}
+	
+	// Initialize index for this sprite type if needed
+	if (!spritePoolIndex[spriteId]) {
+		spritePoolIndex[spriteId] = 0;
+	}
+	
+	// Get next sprite from pool (circular buffer)
+	var sprite = spritePool[spriteId][spritePoolIndex[spriteId]];
+	spritePoolIndex[spriteId] = (spritePoolIndex[spriteId] + 1) % spritePool[spriteId].length;
+	
+	// Reset sprite properties
+	sprite.visible = true;
+	sprite.alpha = 1;
+	sprite.scaleX = sprite.scaleY = 1;
+	sprite.rotation = 0;
+	
+	return sprite;
+}
+
+/*!
+ * 
  * RENDER SPRITE - Draw individual sprite (building, car, billboard, coin, etc.) on the canvas
  * Handles scaling, positioning, and height multipliers for 3D effect
  * 
@@ -2630,7 +3063,8 @@ function renderBackground(background, width, height, layer, rotation, offset){
  * @param {number} clipY - Y clipping for horizon effect
  */
 function renderSprite(width, height, resolution, roadWidth, sprites, sprite, scale, destX, destY, offsetX, offsetY, clipY){
-	var newSprite = $.sprites[sprite.id].clone();
+	// Use sprite pool instead of cloning - MAJOR performance improvement
+	var newSprite = getSpriteFromPool(sprite.id);
 	
 	// BUILDING HEIGHT MULTIPLIER - Make buildings appear taller for highway skyline effect
 	// Buildings are rendered 2.5x their actual height to create towering cityscape
@@ -2739,8 +3173,8 @@ function renderCar(width, height, resolution, roadWidth, sprites, sprite, scale,
 		
 		if(leftSmoke && defaultData.speed > 0){
 			var smokeSpriteL = smokeAnimate.clone();
-			smokeSpriteL.x = newSprite.x + (0 * sPercent);
-			smokeSpriteL.y = newSprite.y + ((90 + extraTop) * sPercent);
+			smokeSpriteL.x = newSprite.x + (-20 * sPercent);
+			smokeSpriteL.y = newSprite.y + ((200 + extraTop) * sPercent);
 			smokeSpriteL.scaleX = newSprite.scaleX;
 			smokeSpriteL.scaleY = newSprite.scaleY;
 			worldContainer.addChild(smokeSpriteL);
@@ -2748,8 +3182,8 @@ function renderCar(width, height, resolution, roadWidth, sprites, sprite, scale,
 		
 		if(rightSmoke && defaultData.speed > 0){
 			var smokeSpriteR = smokeAnimate.clone();
-			smokeSpriteR.x = newSprite.x + (180 * sPercent);
-			smokeSpriteR.y = newSprite.y + ((90 + extraTop) * sPercent);
+			smokeSpriteR.x = newSprite.x + (100 * sPercent);
+			smokeSpriteR.y = newSprite.y + ((200 + extraTop) * sPercent);
 			smokeSpriteR.scaleX = newSprite.scaleX;
 			smokeSpriteR.scaleY = newSprite.scaleY;
 			worldContainer.addChild(smokeSpriteR);
@@ -2890,6 +3324,9 @@ function endGame(){
 	if(!gameData.ended){
 		gameData.paused = true;
 		gameData.ended = true;
+		
+		// End backend session tracking (game over - not completed successfully)
+		endGameSession(playerData.score, gameData.fuel, false);
 		
 		keyData.left = keyData.right = keyData.accelerate = keyData.brake = false;
 		TweenMax.to(resultContainer, 1, {overwrite:true, onComplete:function(){
@@ -3242,6 +3679,9 @@ function handleQuizAnswer(selectedIndex) {
 	
 	const isCorrect = selectedIndex === currentQuizQuestion.correct;
 	console.log('Answer selected:', selectedIndex, 'Correct:', currentQuizQuestion.correct, 'Is correct:', isCorrect);
+	
+	// Record answer to backend
+	recordAnswer(currentQuizQuestion.id, selectedIndex, isCorrect);
 	
 	if (isCorrect) {
 		// Correct answer - add fuel/time

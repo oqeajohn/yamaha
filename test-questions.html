@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Questions Load</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .question {
+            background: #f5f5f5;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border-left: 4px solid #667eea;
+        }
+        .section {
+            color: #667eea;
+            font-weight: bold;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+        .options {
+            margin: 10px 0;
+        }
+        .correct {
+            color: #10b981;
+            font-weight: bold;
+        }
+        h1 {
+            color: #333;
+        }
+        .status {
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .success {
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #6ee7b7;
+        }
+        .error {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+        }
+    </style>
+</head>
+<body>
+    <h1>Quiz Questions Test</h1>
+    <div id="status"></div>
+    <div id="questions"></div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Test loading from get-questions.php
+            $.getJSON('get-questions.php', function(data) {
+                $('#status').html('<div class="status success">✓ Successfully loaded ' + data.questions.length + ' questions from admin panel!</div>');
+                
+                data.questions.forEach(function(q, index) {
+                    var correctOption = q.correct == 0 ? q.options[0] : q.options[1];
+                    var html = `
+                        <div class="question">
+                            <div class="section">${q.section}</div>
+                            <h3>Question ${index + 1}: ${q.question}</h3>
+                            <div class="options">
+                                <div>A) ${q.options[0]}</div>
+                                <div>B) ${q.options[1]}</div>
+                            </div>
+                            <div class="correct">Correct Answer: ${q.correct == 0 ? 'A' : 'B'} - ${correctOption}</div>
+                            ${q.explanation ? '<div><em>Explanation: ' + q.explanation + '</em></div>' : ''}
+                        </div>
+                    `;
+                    $('#questions').append(html);
+                });
+            }).fail(function(jqXHR, textStatus, error) {
+                $('#status').html('<div class="status error">✗ Failed to load questions: ' + textStatus + ' - ' + error + '</div>');
+                console.error('Error:', jqXHR, textStatus, error);
+            });
+        });
+    </script>
+</body>
+</html>
