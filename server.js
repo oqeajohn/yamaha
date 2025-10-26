@@ -528,7 +528,7 @@ app.post('/api/players/:email/sessions', async (req, res) => {
 });
 
 // Clear all sessions and answers (keep questions)
-app.delete('/api/clear-data', authMiddleware, async (req, res) => {
+app.delete('/api/clear-data', async (req, res) => {
     try {
         // Clear sessions
         await writeJSON('sessions.json', { sessions: [] });
