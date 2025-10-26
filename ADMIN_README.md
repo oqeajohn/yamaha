@@ -1,6 +1,409 @@
-# Yamaha Game Admin Panel (JSON-Based)
+# Yamaha Sensible Meter - Admin Panel
 
-A lightweight admin panel for managing quiz questions and tracking game sessions - **no database required!** Uses JSON files for storage.
+A modern Vue.js admin dashboard for managing quiz questions, tracking game sessions, monitoring player performance, and analyzing game analytics - powered by Node.js/Express backend with JSON storage.
+
+## ✨ Features
+
+### 1. **Modern Vue.js Dashboard**
+
+- ✅ Reactive UI with Vue.js 3
+- ✅ Beautiful gradient design
+- ✅ Smooth transitions and animations
+- ✅ Responsive layout
+- ✅ Tab-based navigation
+
+### 2. **Secure Authentication**
+
+- ✅ JWT token-based authentication
+- ✅ Bcrypt password hashing
+- ✅ Session management
+- ✅ Auto-logout on token expiration
+
+### 3. **Question Management (CRUD)**
+
+- ✅ Add new quiz questions
+- ✅ Edit existing questions
+- ✅ Delete questions (soft delete)
+- ✅ Set correct answers (A or B)
+- ✅ Add explanations
+- ✅ Auto-sync with game
+
+### 4. **Player Tracking**
+
+- ✅ Email-based player registration
+- ✅ Session history per player
+- ✅ Redirect tracking (one-time prize claim)
+- ✅ Multiple sessions per player
+
+### 5. **Session & Answer Tracking**
+
+- ✅ Record each game session with unique ID
+- ✅ Track all answers with email
+- ✅ Record correct/incorrect responses
+- ✅ Store final scores and completion status
+- ✅ IP address and user agent tracking
+- ✅ Timestamp for every action
+
+### 6. **Analytics Dashboard**
+
+- ✅ Total questions, sessions, players
+- ✅ Completion rate statistics
+- ✅ Overall accuracy percentage
+- ✅ Question performance metrics
+- ✅ Player performance analysis
+
+### 7. **Session Details Modal**
+
+- ✅ View complete session information
+- ✅ See all answers with question text
+- ✅ Color-coded correct/incorrect answers
+- ✅ Player email display
+- ✅ Timestamps for each answer
+
+## 🚀 Quick Start
+
+### Installation
+
+1. **Install Dependencies**
+
+   ```bash
+   npm install
+   ```
+
+2. **Start the Server**
+
+   ```bash
+   npm start
+   ```
+
+3. **Access the Admin Panel**
+   - Login: http://localhost:3000/admin/login-vue.html
+   - Dashboard: http://localhost:3000/admin/dashboard-vue.html
+
+### Default Credentials
+
+- **Username**: `admin`
+- **Password**: `WbaVlgny`
+
+⚠️ **Important**: Change the default password immediately! See [Changing Password](#changing-password) below.
+
+## 📂 Project Structure
+
+```
+yamaha/
+├── server.js                    # Node.js/Express backend API
+├── package.json                 # Dependencies and scripts
+├── admin/
+│   ├── login-vue.html          # Vue.js login page
+│   ├── dashboard-vue.html      # Vue.js admin dashboard
+│   └── data/                   # JSON data storage
+│       ├── questions.json      # Quiz questions
+│       ├── sessions.json       # Game sessions (with email)
+│       ├── answers.json        # Player answers (with email)
+│       └── players.json        # Player data & redirect status
+├── js/
+│   └── game.js                 # Game logic with email tracking
+├── index.html                  # Game entry point
+└── ADMIN_README.md            # This file
+```
+
+## 🔐 Changing Password
+
+### Method 1: Using the Password Generator (Recommended)
+
+```bash
+# Generate a new random password
+node -e "const bcrypt = require('bcryptjs'); const chars='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'; let pw=''; for(let i=0;i<8;i++) pw+=chars[Math.floor(Math.random()*chars.length)]; console.log('\n🔐 New Password:', pw); bcrypt.hash(pw, 10, (e,h) => console.log('📋 Hash:', h, '\n'));"
+```
+
+Copy the hash and update `server.js` (lines 27-30):
+
+```javascript
+const ADMIN_CREDENTIALS = {
+  username: "admin",
+  password: "YOUR_NEW_HASH_HERE",
+};
+```
+
+Then restart the server:
+
+```bash
+npm start
+```
+
+### Method 2: Using Environment Variables (Production)
+
+Set environment variables:
+
+```bash
+ADMIN_USERNAME=admin
+ADMIN_PASSWORD_HASH=your-bcrypt-hash-here
+```
+
+See `CHANGE_ADMIN_PASSWORD.md` for detailed instructions.
+
+## 📊 Using the Admin Panel
+
+### Dashboard Tab
+
+View key metrics:
+
+- Total Questions
+- Total Sessions
+- Completed Sessions
+- Overall Accuracy
+
+### Questions Tab
+
+**Add Question:**
+
+1. Click "Add New Question"
+2. Fill in:
+   - Section (e.g., "Helmet Safety")
+   - Question text
+   - Option A (defaults to "Yes")
+   - Option B (defaults to "No")
+   - Correct Answer (A or B)
+   - Explanation (optional)
+3. Click "Create"
+
+**Edit Question:**
+
+1. Click "Edit" on any question
+2. Modify fields
+3. Click "Update"
+
+**Delete Question:**
+
+1. Click "Delete"
+2. Confirm deletion
+
+### Sessions Tab
+
+View all game sessions with:
+
+- Session ID (first 12 characters)
+- Player Email
+- Start Time
+- Final Score
+- Completion Status
+
+**View Session Details:**
+
+1. Click "View Details" on any session
+2. Modal shows:
+   - Complete session info
+   - Player email
+   - All answers with questions
+   - Correct/incorrect indicators
+   - Timestamps
+
+### Analytics Tab
+
+See question performance:
+
+- Times Asked
+- Correct Answers
+- Accuracy %
+
+## 🎮 Game Integration
+
+The game automatically tracks:
+
+- Player email (one-time capture)
+- All game sessions
+- Every answer to each question
+- Final scores and completion
+
+### How It Works:
+
+1. **Player enters email** → Stored in `players.json` and browser session
+2. **Game starts** → Creates session in `sessions.json` with email
+3. **Player answers questions** → Each answer saved to `answers.json` with email
+4. **Game ends** → Session updated with final score
+5. **View in admin** → See all data linked by email and session ID
+
+## 💾 Data Storage
+
+All data is stored in JSON files in `admin/data/`:
+
+### questions.json
+
+```json
+{
+  "id": 1,
+  "section": "Helmet Safety",
+  "question": "Should you wear a helmet when riding?",
+  "option_a": "Yes",
+  "option_b": "No",
+  "correct_answer": 0,
+  "active": 1
+}
+```
+
+### sessions.json
+
+```json
+{
+  "id": 1,
+  "session_id": "crypto-random-id",
+  "player_email": "player@example.com",
+  "start_time": "2025-10-26T10:00:00Z",
+  "end_time": "2025-10-26T10:05:00Z",
+  "final_score": 15000,
+  "fuel_remaining": 20,
+  "completed": 1
+}
+```
+
+### answers.json
+
+```json
+{
+  "id": 1,
+  "session_id": "crypto-random-id",
+  "player_email": "player@example.com",
+  "question_id": 1,
+  "selected_answer": 0,
+  "is_correct": 1,
+  "answered_at": "2025-10-26T10:02:00Z"
+}
+```
+
+### players.json
+
+```json
+{
+  "email": "player@example.com",
+  "registered_at": "2025-10-26T10:00:00Z",
+  "sessions": ["session-id-1", "session-id-2"],
+  "has_redirected": false
+}
+```
+
+## 📈 Performance
+
+The JSON-based system works great for:
+
+- ✅ Up to 1,000 questions
+- ✅ Up to 50,000 game sessions
+- ✅ Up to 10,000 players
+- ✅ Low to medium traffic sites
+
+For high-traffic production sites, consider migrating to:
+
+- PostgreSQL
+- MongoDB
+- MySQL
+
+## 💾 Backup & Restore
+
+### Backup
+
+```bash
+cd admin/data
+tar -czf backup-$(date +%Y%m%d).tar.gz *.json
+```
+
+### Restore
+
+```bash
+cd admin/data
+tar -xzf backup-YYYYMMDD.tar.gz
+```
+
+### Automatic Backups
+
+JSON files include `.backup` versions created automatically on each save.
+
+## 🚀 Deployment
+
+### Deploy to Render.com (Free)
+
+1. Push code to GitHub
+2. Go to https://render.com
+3. Create new Web Service
+4. Connect repository
+5. Deploy automatically
+
+### Deploy to Hostinger
+
+See `HOSTINGER_DEPLOYMENT.md` for detailed instructions.
+
+### Environment Variables
+
+Set these in production:
+
+```
+PORT=3000
+NODE_ENV=production
+SECRET_KEY=your-random-secret-key
+ADMIN_USERNAME=admin
+ADMIN_PASSWORD_HASH=your-bcrypt-hash
+```
+
+## 🔒 Security Best Practices
+
+1. ✅ **Change default password** immediately
+2. ✅ **Use HTTPS** in production
+3. ✅ **Use environment variables** for credentials
+4. ✅ **Regular backups** of data folder
+5. ✅ **Keep dependencies updated**
+6. ✅ **Use strong passwords** (8+ characters, alphanumeric)
+
+## 🐛 Troubleshooting
+
+### Can't login to admin panel
+
+- Check server is running (`npm start`)
+- Verify credentials
+- Check browser console for errors
+- Clear browser cache
+
+### Sessions/answers not appearing
+
+- Check if server is running
+- Verify API URL in game files
+- Check browser Network tab for failed requests
+- Ensure data folder is writable
+
+### Email not showing in sessions
+
+- Server must be restarted after code changes
+- Check `playerEmail` variable in browser console
+- Verify session start API is being called
+
+### "Connection error" messages
+
+- Server must be running on port 3000
+- Check firewall settings
+- Verify API_URL in frontend files
+
+## 📚 Documentation
+
+- **Email Tracking Guide**: `EMAIL_TRACKING_GUIDE.md`
+- **Answer Tracking**: `ANSWER_TRACKING.md`
+- **Deployment Guide**: `DEPLOYMENT_GUIDE.md`
+- **Hostinger Guide**: `HOSTINGER_DEPLOYMENT.md`
+- **Password Change**: `CHANGE_ADMIN_PASSWORD.md`
+
+## 🆘 Support
+
+For issues:
+
+1. Check browser console (F12)
+2. Check server logs in terminal
+3. Verify file permissions on `admin/data/`
+4. Check JSON files are valid
+
+## 📄 License
+
+Part of the Yamaha Sensible Meter game project.
+
+---
+
+**Version**: 2.0 (Vue.js + Node.js)  
+**Updated**: October 2025
 
 ## Features
 
