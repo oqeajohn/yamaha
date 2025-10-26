@@ -243,7 +243,7 @@ var currentPlayer = null; // {email, registered_at, sessions, has_redirected}
 var playerEmail = null; // Stored email
 var emailModalActive = false; // Track if email modal is showing
 var currentSessionId = null; // Current game session ID for tracking
-const API_URL = 'http://localhost:3000/api';
+const API_URL = '/api';
 
 // T-Junction Modal System Variables
 var tJunctionPendingDirection = null; // 'left', 'right', or null
@@ -527,7 +527,7 @@ function loadQuizQuestions() {
 	console.log('Loading quiz questions from Node.js API...'); // Debug log
 	
 	// Try loading from Node.js API first
-	$.getJSON('http://localhost:3000/api/game/questions', function(data) {
+	$.getJSON('/api/game/questions', function(data) {
 		if (data && data.success && data.questions) {
 			quizQuestions = data.questions;
 			console.log('Quiz questions loaded successfully from Node.js API:', quizQuestions.length);
