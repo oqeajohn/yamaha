@@ -527,6 +527,27 @@ app.post('/api/players/:email/sessions', async (req, res) => {
     }
 });
 
+// Clear all sessions and answers (keep questions)
+app.delete('/api/clear-data', authMiddleware, async (req, res) => {
+    try {
+        // Clear sessions
+        await writeJSON('sessions.json', { sessions: [] });
+        
+        // Clear answers
+        await writeJSON('answers.json', { answers: [] });
+        
+        // Clear players
+        await writeJSON('players.json', { players: [] });
+        
+        res.json({
+            success: true, 
+            message: 'All sessions, answers, and players cleared successfully. Questions retained.'
+        });
+    } catch (error) {
+        res.status(500).json({success: false, message: error.message});
+    }
+});
+
 // Start server
 app.listen(PORT, () => {
     console.log(`🚀 Server running on http://localhost:${PORT}`);

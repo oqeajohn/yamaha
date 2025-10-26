@@ -7,7 +7,7 @@ Complete guide for deploying the Yamaha Sensible Meter game (HTML/JS + Vue Admin
 - **Game**: HTML/JS/Canvas (index.html, js/game.js, assets/)
 - **Admin Panel**: Vue.js (admin/dashboard-vue.html, admin/login-vue.html)
 - **Backend API**: Node.js/Express (server.js) on port 3000
-- **Data Storage**: JSON files (admin/data/*.json)
+- **Data Storage**: JSON files (admin/data/\*.json)
 
 ## 📋 Prerequisites
 
@@ -87,6 +87,7 @@ sudo nano .env
 ```
 
 Add this content:
+
 ```env
 PORT=3000
 NODE_ENV=production
@@ -138,6 +139,7 @@ server {
 Save and exit.
 
 Enable the site:
+
 ```bash
 sudo ln -s /etc/nginx/sites-available/yamaha /etc/nginx/sites-enabled/
 sudo nginx -t  # Test configuration
@@ -182,11 +184,13 @@ sudo ufw status
 ### 9. Test Your Deployment
 
 Visit your domain or VPS IP:
+
 - **Game**: http://yourdomain.com
 - **Admin Login**: http://yourdomain.com/admin/login-vue.html
 - **Admin Dashboard**: http://yourdomain.com/admin/dashboard-vue.html
 
 Test the API:
+
 ```bash
 curl http://yourdomain.com/api/questions
 ```
@@ -208,6 +212,7 @@ sudo certbot renew --dry-run
 ```
 
 After SSL setup, your site will be accessible via:
+
 - https://yourdomain.com (game)
 - https://yourdomain.com/admin/login-vue.html (admin)
 
@@ -262,11 +267,13 @@ pm2 logs yamaha-game
 ## 🔐 Security Best Practices
 
 1. **Change admin password** (already set in .env):
+
    ```bash
    node -e "const bcrypt = require('bcryptjs'); const chars='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'; let pw=''; for(let i=0;i<8;i++) pw+=chars[Math.floor(Math.random()*chars.length)]; console.log('\n🔐 New Password:', pw); bcrypt.hash(pw, 10, (e,h) => console.log('📋 Hash:', h, '\n'));"
    ```
 
 2. **Secure SSH**:
+
    ```bash
    # Disable root login
    sudo nano /etc/ssh/sshd_config
@@ -275,6 +282,7 @@ pm2 logs yamaha-game
    ```
 
 3. **Setup fail2ban** (blocks brute force attacks):
+
    ```bash
    sudo apt install fail2ban -y
    sudo systemctl enable fail2ban
@@ -282,12 +290,14 @@ pm2 logs yamaha-game
    ```
 
 4. **Backup data regularly**:
+
    ```bash
    # Create backup script
    sudo nano /usr/local/bin/backup-yamaha.sh
    ```
-   
+
    Add:
+
    ```bash
    #!/bin/bash
    DATE=$(date +%Y%m%d-%H%M%S)
@@ -295,8 +305,9 @@ pm2 logs yamaha-game
    # Keep only last 7 days of backups
    find /var/backups/yamaha-*.tar.gz -mtime +7 -delete
    ```
-   
+
    Make executable and schedule:
+
    ```bash
    sudo chmod +x /usr/local/bin/backup-yamaha.sh
    crontab -e
@@ -306,6 +317,7 @@ pm2 logs yamaha-game
 ## 🐛 Troubleshooting
 
 ### App not accessible
+
 ```bash
 # Check if Node.js is running
 pm2 status
@@ -319,6 +331,7 @@ sudo tail -f /var/log/nginx/error.log
 ```
 
 ### API endpoints return 502
+
 ```bash
 # Check if port 3000 is in use
 sudo lsof -i :3000
@@ -328,6 +341,7 @@ pm2 restart yamaha-game
 ```
 
 ### Permission issues with JSON files
+
 ```bash
 cd /var/www/yamaha
 sudo chown -R www-data:www-data admin/data/
@@ -335,6 +349,7 @@ sudo chmod -R 775 admin/data/
 ```
 
 ### SSL certificate issues
+
 ```bash
 # Renew manually
 sudo certbot renew
@@ -346,11 +361,13 @@ sudo certbot certificates
 ## 📈 Performance Optimization
 
 ### Enable Gzip compression in Nginx:
+
 ```bash
 sudo nano /etc/nginx/nginx.conf
 ```
 
 Add inside `http` block:
+
 ```nginx
 gzip on;
 gzip_vary on;
@@ -359,11 +376,13 @@ gzip_types text/plain text/css text/xml text/javascript application/x-javascript
 ```
 
 Restart Nginx:
+
 ```bash
 sudo systemctl restart nginx
 ```
 
 ### Monitor Resources:
+
 ```bash
 # Check CPU/Memory usage
 htop
@@ -378,11 +397,13 @@ pm2 monit
 ## 🎯 Access URLs
 
 After deployment:
+
 - **Game**: https://yourdomain.com
 - **Admin Login**: https://yourdomain.com/admin/login-vue.html
 - **Admin Dashboard**: https://yourdomain.com/admin/dashboard-vue.html
 
 Default credentials:
+
 - Username: `admin`
 - Password: `WbaVlgny` (or your custom password)
 
@@ -413,6 +434,7 @@ Default credentials:
 ---
 
 **Need help?** Check the logs:
+
 ```bash
 pm2 logs yamaha-game --lines 100
 ```
