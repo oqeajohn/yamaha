@@ -84,6 +84,15 @@
       "selected_answer": 1,
       "is_correct": 1,
       "answered_at": "2025-10-26T15:03:20.854Z"
+    },
+    {
+      "id": 11,
+      "session_id": "845d39b3384e3e0d66be5de18e458f456b8643834d281993fd2ad62d275a0855",
+      "player_email": "johnalcantara.com@gmail.com",
+      "question_id": 4,
+      "selected_answer": 1,
+      "is_correct": 1,
+      "answered_at": "2025-10-26T15:03:42.045Z"
     }
   ]
 }

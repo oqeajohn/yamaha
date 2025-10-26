@@ -65,12 +65,12 @@ const roadData = {
 
 //player assets
 const playerCarData = {
-	left: { src:'assets/car_left.png'},
-	right:   { src:'assets/car_right.png'},
+	left: { src:'assets/car_straight.png'},
+	right:   { src:'assets/car_straight.png'},
 	straight: { src:'assets/car_straight.png'},
-	up_left: { src:'assets/car_up_left.png'},
-	up_right:   { src:'assets/car_up_right.png'},
-	up_straight: { src:'assets/car_up_straight.png'}
+	up_left: { src:'assets/car_straight.png'},
+	up_right:   { src:'assets/car_straight.png'},
+	up_straight: { src:'assets/car_straight.png'}
 };
 
 //world assets - Philippine city environment with tropical architecture
@@ -3174,7 +3174,7 @@ function renderCar(width, height, resolution, roadWidth, sprites, sprite, scale,
 		if(leftSmoke && defaultData.speed > 0){
 			var smokeSpriteL = smokeAnimate.clone();
 			smokeSpriteL.x = newSprite.x + (-20 * sPercent);
-			smokeSpriteL.y = newSprite.y + ((200 + extraTop) * sPercent);
+			smokeSpriteL.y = newSprite.y + ((140 + extraTop) * sPercent);
 			smokeSpriteL.scaleX = newSprite.scaleX;
 			smokeSpriteL.scaleY = newSprite.scaleY;
 			worldContainer.addChild(smokeSpriteL);
@@ -3182,8 +3182,8 @@ function renderCar(width, height, resolution, roadWidth, sprites, sprite, scale,
 		
 		if(rightSmoke && defaultData.speed > 0){
 			var smokeSpriteR = smokeAnimate.clone();
-			smokeSpriteR.x = newSprite.x + (100 * sPercent);
-			smokeSpriteR.y = newSprite.y + ((200 + extraTop) * sPercent);
+			smokeSpriteR.x = newSprite.x + (70 * sPercent);
+			smokeSpriteR.y = newSprite.y + ((140 + extraTop) * sPercent);
 			smokeSpriteR.scaleX = newSprite.scaleX;
 			smokeSpriteR.scaleY = newSprite.scaleY;
 			worldContainer.addChild(smokeSpriteR);

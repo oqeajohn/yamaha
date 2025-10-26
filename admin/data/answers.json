@@ -93,6 +93,15 @@
       "selected_answer": 1,
       "is_correct": 1,
       "answered_at": "2025-10-26T15:03:42.045Z"
+    },
+    {
+      "id": 12,
+      "session_id": "5fa2de0205bef6cf03e2b8285184378176b24702f53d465d25cc07e3c65ac886",
+      "player_email": "dsada@hoo.com",
+      "question_id": 1,
+      "selected_answer": 0,
+      "is_correct": 1,
+      "answered_at": "2025-10-26T16:07:56.293Z"
     }
   ]
 }

@@ -17,6 +17,12 @@
       ],
       "has_redirected": true,
       "redirected_at": "2025-10-26T15:02:34.101Z"
+    },
+    {
+      "email": "dsada@hoo.com",
+      "registered_at": "2025-10-26T16:06:39.938Z",
+      "sessions": [],
+      "has_redirected": false
     }
   ]
 }
