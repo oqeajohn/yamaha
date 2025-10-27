@@ -422,7 +422,7 @@ function showVictoryButtons() {
 				markPlayerAsRedirected(currentPlayer.email);
 			}
 			
-			window.location.href = "https://www.yamaha-motor.com.ph/";
+			window.location.href = "https://www.yamaha-motor.com.ph/motorcycles/personal-commuter/mio-series/mio-gravis?utm_source=mio_gravis_lrt_activation&utm_medium=qr_code&utm_campaign=052025_miogravis&utm_content=the_sensible_choice";
 		});
 		
 		victoryButtonsContainer.addChild(claimPrizeButton);
@@ -491,7 +491,7 @@ function showVictoryButtons() {
 				}
 				
 				// Auto redirect after countdown
-				window.location.href = "https://www.yamaha-motor.com.ph/";
+				window.location.href = "https://www.yamaha-motor.com.ph/motorcycles/personal-commuter/mio-series/mio-gravis?utm_source=mio_gravis_lrt_activation&utm_medium=qr_code&utm_campaign=052025_miogravis&utm_content=the_sensible_choice";
 			}
 		}, 1000);
 	}
