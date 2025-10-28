@@ -2172,14 +2172,28 @@ function updateSprites() {
 						sprite.active = false;
 						addScore2();
 					}
-					// KAMOTE COINS - Show educational message (no score deduction)
+					// KAMOTE COINS - Deduct 100 points per hit (can go negative)
 					else if(sprite.source.id == 'COIN_KAMOTE1' || sprite.source.id == 'COIN_KAMOTE2' || 
 					         sprite.source.id == 'COIN_KAMOTE3' || sprite.source.id == 'COIN_KAMOTE4' || 
 					         sprite.source.id == 'COIN_KAMOTE5' || sprite.source.id == 'COIN_KAMOTE6'){
-						console.log('KAMOTE coin collision detected! Showing message...');
+						console.log('KAMOTE coin collision detected! Deducting 100 points...');
 						sprite.active = false;
-						showKamoteMessage(); // Show random message from admin panel
-						console.log('Kamote message displayed');
+						
+						// Deduct 100 points (allow negative values)
+						playerData.score -= 100;
+						
+						// Play sound and show -100 text
+						playSound('soundHit');
+						updateGameText('-100', '#ff0000', 80, 0); // Show -100 in red
+						
+						// Hide the text after 2 seconds
+						setTimeout(function() {
+							if (gameStatusContainer) {
+								gameStatusContainer.visible = false;
+							}
+						}, 2000);
+						
+						console.log('Score deducted. New score:', playerData.score);
 					}
 					// Note: FUEL/tunnel collision removed - now handled by look-ahead code above
 				}	
@@ -2890,6 +2904,7 @@ function resetSprites() {
 	// Dense highway cityscape - tall buildings lined up on both sides creating urban canyon effect
 	var lastBillboardPos = -1000; // Track last billboard position to avoid duplicates
 	var buildingCounter = 0; // Counter for building spacing
+	var tunnelPositions = [400, 900, 1400, 1900, 2400]; // Tunnel positions to avoid
 	
 	for(var n = 3 ; n < segments.length ; n += 2) { // Place sprites every 2 segments for continuous highway feel
 		var hasLeftBillboard = false;
@@ -2902,7 +2917,17 @@ function resetSprites() {
 			
 			// Check if this segment is close to a billboard position (within 2 segments)
 			var nearestBillboardPos = Math.round(n / billboardInterval) * billboardInterval;
-			if (Math.abs(n - nearestBillboardPos) <= 2 && nearestBillboardPos !== lastBillboardPos) {
+			
+			// Check if billboard would overlap with tunnel (within 20 segments)
+			var isTooCloseToTunnel = false;
+			for (var t = 0; t < tunnelPositions.length; t++) {
+				if (Math.abs(nearestBillboardPos - tunnelPositions[t]) < 20) {
+					isTooCloseToTunnel = true;
+					break;
+				}
+			}
+			
+			if (Math.abs(n - nearestBillboardPos) <= 2 && nearestBillboardPos !== lastBillboardPos && !isTooCloseToTunnel) {
 				// Determine which side based on billboard count (alternating)
 				var billboardCount = Math.floor(nearestBillboardPos / billboardInterval);
 				var isLeftSide = (billboardCount % 2 === 0); // Even = left, odd = right
