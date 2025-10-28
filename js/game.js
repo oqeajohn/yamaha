@@ -3015,7 +3015,7 @@ function resetCollectItems(){
 	// ROAD TUNNELS - Place tunnel/arc sprites that trigger quiz when player drives through
 	// Positioned at intervals along the highway like real tunnel checkpoints
 	// 5 tunnels for 5 questions, then a finish line checkpoint at the 6th position
-	var tunnelPositions = [400, 900, 1400, 1900, 2400]; // 5 quiz tunnels
+	var tunnelPositions = [300, 700, 1100, 1500, 1900]; // 5 quiz tunnels
 	for(var i = 0; i < tunnelPositions.length; i++) {
 		if (tunnelPositions[i] < segments.length) {
 			// Place tunnel arc centered on road (offset 0) so player drives through it
@@ -3024,7 +3024,7 @@ function resetCollectItems(){
 	}
 	
 	// FINISH LINE CHECKPOINT - 6th checkpoint with background_hills.png (same spacing as tunnels)
-	var finishCheckpoint = 2900; // Same interval after 5th tunnel
+	var finishCheckpoint = 2300; // Same interval after 5th tunnel
 	if (finishCheckpoint < segments.length) {
 		// Place finish line checkpoint centered on road
 		addSprite(finishCheckpoint, spritesData.FINISH_LINE, 0);
