@@ -269,12 +269,16 @@ async function viewSessionDetails(sessionId) {
         
         const details = data.details.map(d => {
             const question = questionsMap[d.question_id];
-            const selectedOption = d.selected_answer === 0 ? d.option_a : d.option_b;
-            const selectedLetter = d.selected_answer === 0 ? 'A' : 'B';
             
+            // Use question data for both selected and correct (to ensure consistency)
+            let selectedOption = '';
+            let selectedLetter = '';
             let correctLetter = '';
             let correctOption = '';
+            
             if (question) {
+                selectedLetter = d.selected_answer === 0 ? 'A' : 'B';
+                selectedOption = d.selected_answer === 0 ? question.option_a : question.option_b;
                 correctLetter = question.correct_answer === 0 ? 'A' : 'B';
                 correctOption = question.correct_answer === 0 ? question.option_a : question.option_b;
             }
