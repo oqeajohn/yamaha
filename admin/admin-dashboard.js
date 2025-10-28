@@ -277,10 +277,10 @@ async function viewSessionDetails(sessionId) {
             
             return `Question: ${d.question}\nSelected: ${selectedLetter} - ${selectedOption}\nCorrect Answer: ${correctLetter} - ${correctOption}\nStatus: ${d.is_correct ? '✓ Correct' : '✗ Wrong'}`;
         }).join('\n\n');
-        
-        alert('Session Details:\n\n' + details);
     }
 }
+
+// Load analytics
 
 // Load analytics
 async function loadAnalytics() {

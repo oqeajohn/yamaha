@@ -738,8 +738,8 @@
                                     {{ answer.selected_answer === 0 ? answer.option_a : answer.option_b }}
                                 </div>
                                 <div class="answer-selected" style="margin-top: 5px;">
-                                    <strong>Correct Answer:</strong> {{ answer.correct_answer === 0 ? 'A' : 'B' }} - 
-                                    {{ answer.correct_answer === 0 ? answer.option_a : answer.option_b }}
+                                    <strong>Correct Answer:</strong> {{ getCorrectAnswerLetter(answer) }} - 
+                                    {{ getCorrectAnswerOption(answer) }}
                                 </div>
                                 <div class="answer-selected" style="margin-top: 5px; color: #999; font-size: 12px;">
                                     {{ formatDate(answer.answered_at) }}
@@ -966,6 +966,26 @@
 
                 formatDate(dateString) {
                     return new Date(dateString).toLocaleString();
+                },
+
+                getCorrectAnswerLetter(answer) {
+                    // If the answer was correct, the selected answer is the correct one
+                    if (answer.is_correct === 1 || answer.is_correct === true) {
+                        return answer.selected_answer === 0 ? 'A' : 'B';
+                    } else {
+                        // If wrong, the correct answer is the opposite
+                        return answer.selected_answer === 0 ? 'B' : 'A';
+                    }
+                },
+
+                getCorrectAnswerOption(answer) {
+                    // If the answer was correct, the selected option is the correct one
+                    if (answer.is_correct === 1 || answer.is_correct === true) {
+                        return answer.selected_answer === 0 ? answer.option_a : answer.option_b;
+                    } else {
+                        // If wrong, the correct option is the opposite
+                        return answer.selected_answer === 0 ? answer.option_b : answer.option_a;
+                    }
                 },
 
                 checkAuth() {
