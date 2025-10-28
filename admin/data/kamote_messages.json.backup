@@ -1,0 +1,25 @@
+{
+  "messages": [
+    {
+      "id": 1,
+      "message": "Ouch! That's gotta hurt. Be more careful next time!",
+      "active": 1,
+      "created_at": "2025-10-27 00:00:00",
+      "updated_at": "2025-10-27T15:24:02.092Z"
+    },
+    {
+      "id": 2,
+      "message": "Whoa! Safety first, remember?",
+      "active": 1,
+      "created_at": "2025-10-27 00:00:00",
+      "updated_at": "2025-10-27 00:00:00"
+    },
+    {
+      "id": 3,
+      "message": "You hit something! Keep your eyes on the road next time.",
+      "active": 1,
+      "created_at": "2025-10-28T03:07:28.339Z",
+      "updated_at": "2025-10-28T03:07:28.339Z"
+    }
+  ]
+}

@@ -65,11 +65,11 @@ const roadData = {
 
 //player assets
 const playerCarData = {
-	left: { src:'assets/car_straight.png'},
-	right:   { src:'assets/car_straight.png'},
+	left: { src:'assets/car_left.png'},
+	right:   { src:'assets/car_right.png'},
 	straight: { src:'assets/car_straight.png'},
-	up_left: { src:'assets/car_straight.png'},
-	up_right:   { src:'assets/car_straight.png'},
+	up_left: { src:'assets/car_left.png'},
+	up_right:   { src:'assets/car_right.png'},
 	up_straight: { src:'assets/car_straight.png'}
 };
 
@@ -79,6 +79,7 @@ const spritesData = {
 	BILLBOARD02:{src:'assets/billboard_02.png'}, // Philippine brands advertisement (Ayala, BDO, etc.)
 	BILLBOARD03:{src:'assets/billboard_03.png'}, // Local business digital signage
 	BILLBOARD04:{src:'assets/billboard_04.png'}, // Local business digital signage
+	BILLBOARD05:{src:'assets/billboard_04.png'}, // Local business digital signage
 	BUILDING1:{src:'assets/bulding1.png'}, // Manila building 1
 	BUILDING2A:{src:'assets/building2a.png'}, // Manila building 2a
 	BUILDING2B:{src:'assets/Building2b.png'}, // Manila building 2b
@@ -102,6 +103,8 @@ const spritesData = {
 	COIN_KAMOTE4:{src:'assets/item_power_coin_kamote4.png'}, // Kamote coin (-700 score)
 	COIN_KAMOTE5:{src:'assets/item_power_coin_kamote5.png'}, // Kamote coin (-700 score)
 	COIN_KAMOTE6:{src:'assets/item_power_coin_kamote6.png'}, // Kamote coin (-700 score)
+	KAMOTE_POPUP:{src:'assets/kamote_pop_up.png'}, // Kamote popup image when hitting kamote coins
+	QUESTION_BACKGROUND:{src:'assets/question_background.png'}, // Background image for quiz questions
 	FUEL:{src:'assets/truss.png'},  // Road tunnel/arc that triggers quiz when player drives through it
 	FINISH_LINE:{src:'assets/finish.png'}  // Finish line checkpoint with Manila skyline background
 };
@@ -109,7 +112,7 @@ const spritesData = {
 // Sprite collections - grouped arrays for random selection during gameplay
 spritesData.CITYSCAPE = [spritesData.BUILDING1, spritesData.BUILDING2A, spritesData.BUILDING2B, spritesData.BUILDING3A, spritesData.BUILDING3B, spritesData.BUILDING4A, spritesData.BUILDING4B]; // All building types for urban skyline
 spritesData.CARS = [spritesData.CAR01, spritesData.CAR02, spritesData.CAR03, spritesData.CAR04, spritesData.JEEP01, spritesData.TRUCK01, spritesData.TRUCK02, spritesData.TRUCK03]; // Traffic vehicles (cars, jeepneys, trucks)
-spritesData.BILLBOARDS = [spritesData.BILLBOARD01, spritesData.BILLBOARD02, spritesData.BILLBOARD03, spritesData.BILLBOARD04]; // Advertisement billboards
+spritesData.BILLBOARDS = [spritesData.BILLBOARD01, spritesData.BILLBOARD02, spritesData.BILLBOARD03, spritesData.BILLBOARD04, spritesData.BILLBOARD05]; // Advertisement billboards
 spritesData.KAMOTE_COINS = [spritesData.COIN_KAMOTE1, spritesData.COIN_KAMOTE2, spritesData.COIN_KAMOTE3, spritesData.COIN_KAMOTE4, spritesData.COIN_KAMOTE5, spritesData.COIN_KAMOTE6]; // Penalty coins that subtract score
 
 const intructionDisplayText = 'Press W,A,S,D\n to navigate'; //instruction display text
@@ -238,6 +241,12 @@ const playerData = {score:0, displayScore:0};
 const gameData = {paused:true, fuel:0, fuelUpdate:false, accel:false, penalty:false, penaltyTime:0, brakeSound:false, accelSound:false, stopSound:false, ended:false, waitingAtTunnel:false};
 const keyData = {left:false, right:false, accelerate:false, brake:false};
 
+// Quiz Timer Variables
+var quizTimeLimit = 5; // 5 seconds to answer
+var quizTimeRemaining = 0;
+var quizTimerActive = false;
+var quizTimerInterval = null;
+
 // Player Email System Variables
 var currentPlayer = null; // {email, registered_at, sessions, has_redirected}
 var playerEmail = null; // Stored email
@@ -258,13 +267,16 @@ var quizQuestions = []; // Array to store quiz questions from JSON
 var currentQuizQuestion = null; // Current quiz question object
 var questionsAnswered = 0; // Number of questions answered (regardless of correct/wrong)
 var correctAnswers = 0; // Number of correct answers
-var maxQuestionsPerGame = 3; // Only 3 questions per game
+var maxQuestionsPerGame = 5; // 5 questions per game
 var selectedQuestions = []; // Randomized questions for this game session
 var finishAfterLastQuestion = false; // Flag to trigger finish line after last question
 var distanceToFinish = 200; // Distance to run after last question before finishing
 var showingFinishLine = false; // Flag to show finish line image
-var finishLineDelay = 5000; // Time to run after 3rd question (5 seconds)
+var finishLineDelay = 5000; // Time to run after 5th question (5 seconds)
 var finishLineOverlay = null; // Finish line overlay container
+
+// Kamote Popup System
+var kamotePopupContainer = null; // Kamote popup image container
 
 // Legacy finish line variables (for old system compatibility)
 var totalQuizzes = 5;
@@ -770,7 +782,9 @@ function displayHTMLQuizModal() {
 	optionB.onclick = function() { handleHTMLQuizAnswer(1); };
 	continueBtn.onclick = function() { hideHTMLQuizModal(); };
 	
-	// Show modal
+	// Show modal - ensure it's visible by setting styles
+	quizModal.style.display = 'flex';
+	quizModal.style.visibility = 'visible';
 	quizModal.classList.add('show');
 	quizModalActive = true;
 }
@@ -820,6 +834,10 @@ function handleHTMLQuizAnswer(optionIndex) {
 	var resultText = currentQuiz.explanation;
 	
 	if (isCorrect) {
+		// Correct answer: Add 500 points
+		playerData.score += 500;
+		console.log('Correct answer! Added 500 points. New score:', playerData.score);
+		
 		// Add fuel and increment completed questions
 		quizzesCompleted++;
 		correctAnswers++;
@@ -829,20 +847,24 @@ function handleHTMLQuizAnswer(optionIndex) {
 		
 		var remaining = totalQuizzes - questionsAnswered;
 		if (remaining <= 0) {
-			resultText += "\n\nAll scenarios completed! Head to the finish line!";
+			resultText += "\n\n+500 POINTS! All scenarios completed! Head to the finish line!";
 			console.log('ALL QUIZZES ANSWERED! Player can now finish the game.'); // Debug log
 		} else {
-			resultText += "\n\n" + remaining + " more scenarios to go!";
+			resultText += "\n\n+500 POINTS! " + remaining + " more scenarios to go!";
 		}
 	} else {
+		// Incorrect answer: Add 250 points
+		playerData.score += 250;
+		console.log('Incorrect answer! Added 250 points. New score:', playerData.score);
+		
 		// Still increment quizzesCompleted so player can finish even with wrong answers
 		quizzesCompleted++;
 		
 		var remaining = totalQuizzes - questionsAnswered;
 		if (remaining <= 0) {
-			resultText += "\n\nWrong answer! But all scenarios completed - head to the finish line!";
+			resultText += "\n\n+250 POINTS. Wrong answer! But all scenarios completed - head to the finish line!";
 		} else {
-			resultText += "\n\nWrong answer! Your time is running low... " + remaining + " more scenarios to go!";
+			resultText += "\n\n+250 POINTS. Wrong answer! Your time is running low... " + remaining + " more scenarios to go!";
 		}
 		console.log('Wrong answer given. Quiz count still progresses:', quizzesCompleted + '/' + totalQuizzes); // Debug log
 	}
@@ -864,6 +886,8 @@ function hideHTMLQuizModal() {
 	var quizModal = document.getElementById('quizModal');
 	if (quizModal) {
 		quizModal.classList.remove('show');
+		quizModal.style.display = 'none';
+		quizModal.style.visibility = 'hidden';
 	}
 	
 	// Resume game but keep car stopped
@@ -1852,7 +1876,8 @@ function updateGame(){
 			togglePenaltyTimer(true);
 		}
 		
-		playerData.score += Math.floor((5 * Math.round(defaultData.speed/500)) * .03);
+		// Score is now only awarded from quiz answers (500 for correct, 250 for incorrect)
+		// Removed: playerData.score += Math.floor((5 * Math.round(defaultData.speed/500)) * .03);
 		updateGameStatus();
 	}
 }
@@ -1863,11 +1888,12 @@ function updateGame(){
  * 
  */
 function updateFuel(){
-	// Re-enabled fuel system for quiz collection - but respect quiz pause
+	// Fuel is now unlimited - fuel bar will remain full
+	// Timer only applies to quiz questions (5 seconds to answer)
+	/*
 	if(defaultData.speed > 0 && !gameData.fuelUpdate && !gameData.paused){
 		gameData.fuelUpdate = true;
 		TweenMax.to(fuelData, fuelData.updateTime, {overwrite:true, onComplete:function(){
-			// Double-check we're not paused before decreasing fuel
 			if (!gameData.paused) {
 				gameData.fuel -= fuelData.decrease;
 				gameData.fuel = gameData.fuel < 0 ? 0 : gameData.fuel;
@@ -1877,6 +1903,7 @@ function updateFuel(){
 			updateGameStatus();
 		}});
 	}
+	*/
 }
 
 /*!
@@ -2161,14 +2188,14 @@ function updateSprites() {
 						sprite.active = false;
 						addScore2();
 					}
-					// KAMOTE COINS - Subtract 700 points (penalty items to avoid)
+					// KAMOTE COINS - Show educational message (no score deduction)
 					else if(sprite.source.id == 'COIN_KAMOTE1' || sprite.source.id == 'COIN_KAMOTE2' || 
 					         sprite.source.id == 'COIN_KAMOTE3' || sprite.source.id == 'COIN_KAMOTE4' || 
 					         sprite.source.id == 'COIN_KAMOTE5' || sprite.source.id == 'COIN_KAMOTE6'){
-						console.log('KAMOTE coin collision detected! Current score:', playerData.score);
+						console.log('KAMOTE coin collision detected! Showing message...');
 						sprite.active = false;
-						subtractScore(); // Deduct 700 points
-						console.log('Score after kamote collision:', playerData.score);
+						showKamoteMessage(); // Show random message from admin panel
+						console.log('Kamote message displayed');
 					}
 					// Note: FUEL/tunnel collision removed - now handled by look-ahead code above
 				}	
@@ -2659,8 +2686,52 @@ function resetGame(){
 		finishLineOverlay.alpha = 0;
 	}
 	
+	// Hide quiz buttons if visible
+	if (quizButtonContainer && quizButtonContainer.visible) {
+		quizButtonContainer.visible = false;
+		quizButtonContainer.alpha = 0;
+		if (quizButtonQuestionTxt) quizButtonQuestionTxt.text = "";
+		if (quizButtonQuestionShadowTxt) quizButtonQuestionShadowTxt.text = "";
+		if (quizButtonBackground) quizButtonBackground.visible = false;
+	}
+	
+	// Show game status container (score)
+	if (gameStatusContainer) {
+		gameStatusContainer.visible = true;
+	}
+	
 	// Reset game state
 	showingFinishLine = false;
+	gameData.ended = false;
+	gameData.waitingAtTunnel = false;
+	gameData.paused = true; // Will be unpaused by startGame()
+	
+	// Reset quiz/question state
+	questionsAnswered = 0;
+	correctAnswers = 0;
+	currentQuizQuestion = null;
+	finishAfterLastQuestion = false;
+	
+	// Reset quiz timer
+	quizTimerActive = false;
+	quizTimeRemaining = 0;
+	if (quizTimerInterval) {
+		clearInterval(quizTimerInterval);
+		quizTimerInterval = null;
+	}
+	
+	// Reset player score
+	playerData.score = 0;
+	playerData.displayScore = 0;
+	
+	// Reset player position to start
+	defaultData.position = 0;
+	defaultData.speed = 0;
+	defaultData.playerX = 0;
+	
+	// Reset legacy quiz variables
+	quizzesCompleted = 0;
+	gameWon = false;
 	
 	resetWorld();
 	resetRoad();	
@@ -2817,24 +2888,38 @@ function resetRoad() {
  */
 function resetSprites() {
 	// Dense highway cityscape - tall buildings lined up on both sides creating urban canyon effect
+	var lastBillboardPos = -1000; // Track last billboard position to avoid duplicates
+	
 	for(var n = 3 ; n < segments.length ; n += 2) { // Place sprites every 2 segments for continuous highway feel
 		var hasLeftBillboard = false;
 		var hasRightBillboard = false;
 		
-		// BILLBOARDS - Check first if billboards should appear (1% chance per side)
+		// BILLBOARDS - Place billboards at consistent intervals, alternating left and right
 		// Billboards are placed closer to road and render in front of buildings
 		if (spritesData.BILLBOARDS && spritesData.BILLBOARDS.length > 0) {
-			// Left side billboard (closer to road than buildings)
-			if (Math.random() < 0.01) {
-				var leftBBOffset = -0.8; // Position between road center and left buildings
-				addSprite(n, randomChoice([spritesData.BILLBOARD01, spritesData.BILLBOARD03]), leftBBOffset);
-				hasLeftBillboard = true; // Flag to prevent building spawn on this side
-			}
-			// Right side billboard
-			if (Math.random() < 0.01) {
-				var rightBBOffset = 0.8; // Position between road center and right buildings
-				addSprite(n, randomChoice([spritesData.BILLBOARD02, spritesData.BILLBOARD04]), rightBBOffset);
-				hasRightBillboard = true; // Flag to prevent building spawn on this side
+			var billboardInterval = 100; // Constant distance between billboards
+			
+			// Check if this segment is close to a billboard position (within 2 segments)
+			var nearestBillboardPos = Math.round(n / billboardInterval) * billboardInterval;
+			if (Math.abs(n - nearestBillboardPos) <= 2 && nearestBillboardPos !== lastBillboardPos) {
+				// Determine which side based on billboard count (alternating)
+				var billboardCount = Math.floor(nearestBillboardPos / billboardInterval);
+				var isLeftSide = (billboardCount % 2 === 0); // Even = left, odd = right
+				
+				if (isLeftSide) {
+					// Left side billboard
+					var leftBBOffset = -0.8; // Position between road center and left buildings
+					addSprite(n, randomChoice([spritesData.BILLBOARD01, spritesData.BILLBOARD03]), leftBBOffset);
+					hasLeftBillboard = true; // Flag to prevent building spawn on this side
+				} else {
+					// Right side billboard
+					var rightBBOffset = 0.8; // Position between road center and right buildings
+					addSprite(n, randomChoice([spritesData.BILLBOARD02, spritesData.BILLBOARD04, spritesData.BILLBOARD05]), rightBBOffset);
+					hasRightBillboard = true; // Flag to prevent building spawn on this side
+				}
+				
+				// Mark this billboard position as used
+				lastBillboardPos = nearestBillboardPos;
 			}
 		}
 		
@@ -2866,12 +2951,12 @@ function resetCollectItems(){
 		var curSegment = segments[n];
 		for(var s = 0 ; s < curSegment.sprites.length ; s++) {
 			var sprite  = curSegment.sprites[s];
-			// Remove all coin types and tunnel/arc items
+			// Remove all coin types, tunnel/arc items, and finish line
 			if(sprite.source.id == 'COIN' || sprite.source.id == 'COIN2' || 
 			   sprite.source.id == 'COIN_KAMOTE1' || sprite.source.id == 'COIN_KAMOTE2' || 
 			   sprite.source.id == 'COIN_KAMOTE3' || sprite.source.id == 'COIN_KAMOTE4' || 
 			   sprite.source.id == 'COIN_KAMOTE5' || sprite.source.id == 'COIN_KAMOTE6' || 
-			   sprite.source.id == 'FUEL'){
+			   sprite.source.id == 'FUEL' || sprite.source.id == 'FINISH_LINE'){
 				curSegment.sprites.splice(s,1);
 				s--;
 			}
@@ -2880,8 +2965,8 @@ function resetCollectItems(){
 	
 	// ROAD TUNNELS - Place tunnel/arc sprites that trigger quiz when player drives through
 	// Positioned at intervals along the highway like real tunnel checkpoints
-	// Only 3 tunnels for 3 questions, then a finish line checkpoint at the 4th position
-	var tunnelPositions = [400, 900, 1400]; // 3 quiz tunnels
+	// 5 tunnels for 5 questions, then a finish line checkpoint at the 6th position
+	var tunnelPositions = [400, 900, 1400, 1900, 2400]; // 5 quiz tunnels
 	for(var i = 0; i < tunnelPositions.length; i++) {
 		if (tunnelPositions[i] < segments.length) {
 			// Place tunnel arc centered on road (offset 0) so player drives through it
@@ -2889,8 +2974,8 @@ function resetCollectItems(){
 		}
 	}
 	
-	// FINISH LINE CHECKPOINT - 4th checkpoint with background_hills.png (same spacing as tunnels)
-	var finishCheckpoint = 1900; // Same interval after 3rd tunnel
+	// FINISH LINE CHECKPOINT - 6th checkpoint with background_hills.png (same spacing as tunnels)
+	var finishCheckpoint = 2900; // Same interval after 5th tunnel
 	if (finishCheckpoint < segments.length) {
 		// Place finish line checkpoint centered on road
 		addSprite(finishCheckpoint, spritesData.FINISH_LINE, 0);
@@ -3252,6 +3337,7 @@ function addScore2(){
  * Subtract score for collecting KAMOTE coin (-700 points penalty)
  * Plays hit sound and displays red negative score text
  * Prevents score from going below zero
+ * DEPRECATED: Now replaced by showKamoteMessage() which displays thought bubble instead
  */
 function subtractScore(){
 	console.log('subtractScore called! Score before:', playerData.score);
@@ -3265,6 +3351,69 @@ function subtractScore(){
 	console.log('Final score:', playerData.score);
 	// Display red text showing score penalty
 	updateGameText('-100 SCORE', '#ff0000', 70, 1);
+}
+
+/**
+ * Show random kamote message when hitting kamote coin
+ * Displays dynamic message from admin panel as a thought bubble
+ * Does NOT deduct score - just shows educational message
+ */
+function showKamoteMessage(){
+	console.log('showKamoteMessage called - displaying kamote popup image');
+	console.log('Loader result for KAMOTE_POPUP:', loader.getResult('KAMOTE_POPUP'));
+	console.log('canvasContainer:', canvasContainer);
+	
+	// Play sound effect
+	playSound('soundHit');
+	
+	// Create popup container if it doesn't exist
+	if (!kamotePopupContainer) {
+		console.log('Creating new kamotePopupContainer');
+		kamotePopupContainer = new createjs.Container();
+		kamotePopupContainer.visible = false;
+		kamotePopupContainer.alpha = 0;
+		
+		// Create kamote popup image
+		var kamoteImage = loader.getResult('KAMOTE_POPUP');
+		console.log('Kamote image loaded:', kamoteImage);
+		
+		if (!kamoteImage) {
+			console.error('KAMOTE_POPUP image not found in loader!');
+			return;
+		}
+		
+		var kamotePopup = new createjs.Bitmap(kamoteImage);
+		kamotePopup.x = canvasW / 2;
+		kamotePopup.y = canvasH * 0.3; // 30% from top (10% margin + image space)
+		centerReg(kamotePopup);
+		
+		// Scale image to fit nicely on screen (responsive)
+		var targetWidth = Math.min(canvasW * 0.5, 400); // 50% of screen width, max 400px
+		var scale = targetWidth / kamotePopup.image.width;
+		kamotePopup.scaleX = kamotePopup.scaleY = scale;
+		
+		console.log('Kamote popup created at position:', kamotePopup.x, kamotePopup.y, 'scale:', scale);
+		
+		kamotePopupContainer.addChild(kamotePopup);
+		
+		// Add to canvasContainer (top level) so it appears above everything
+		canvasContainer.addChild(kamotePopupContainer);
+		console.log('Kamote popup container added to canvasContainer');
+	}
+	
+	console.log('Showing kamote popup...');
+	// Show popup with fade in animation
+	kamotePopupContainer.visible = true;
+	TweenMax.killTweensOf(kamotePopupContainer);
+	TweenMax.to(kamotePopupContainer, 0.3, {alpha: 1, onComplete: function() {
+		console.log('Kamote popup fade in complete, alpha:', kamotePopupContainer.alpha);
+	}});
+	
+	// Hide after 1.5 seconds with fade out
+	TweenMax.to(kamotePopupContainer, 0.3, {alpha: 0, delay: 1.5, onComplete: function() {
+		kamotePopupContainer.visible = false;
+		console.log('Kamote popup hidden');
+	}});
 }
 
 /**
@@ -3287,35 +3436,120 @@ function updateGameStatus(){
 	//score
 	scoreTxt.text = scoreShadowTxt.text = scoreData.text.replace('[NUMBER]', addCommas(playerData.score));
 	
-	//fuel - Show actual fuel level
-	var fuelPercent = (gameData.fuel / fuelData.total) * (fuelData.bar.width - (fuelData.bar.space*2));
+	//fuel - Keep fuel bar full (unlimited fuel)
+	var fuelPercent = fuelData.bar.width - (fuelData.bar.space*2); // Always full
 	fuelBarFill.graphics.clear();
 	fuelBarFill.graphics.beginFill(fuelData.bar.fillColor).drawRect(0, 0, fuelPercent, fuelData.bar.height - (fuelData.bar.space * 4));
 	
-	// Re-enabled fuel warnings and game over
+	// Fuel warnings and game over disabled - fuel is unlimited
+	// Timer only applies to quiz questions
+	/*
 	if(gameData.fuel < (fuelData.total/100 * 25) && !gameData.penalty){
 		updateGameText(statusData.lowFuel.text, statusData.lowFuel.color, statusData.lowFuel.size, 0);
 	}
 	
-	//game over - fuel check re-enabled
 	if(!gameData.paused && gameData.fuel <= 0){
 		updateGameText(statusData.noFuel.text, statusData.noFuel.color, statusData.noFuel.size, 0);	
 		endGame();	
 	}
+	*/
 }
 
-function updateGameText(text, color, size, delay){
+function updateGameText(text, color, size, delay, showBackground){
 	gameStatusContainer.visible = true;
 	
+	// Calculate responsive max width with margins (80% of screen width with min 300px and max 600px)
+	var maxWidth = Math.min(Math.max(canvasW * 0.8, 300), 600);
+	
+	// Set font first to measure text correctly
 	gameStatusTxt.font = size+"px Mont Heavy DEMO";
 	gameStatusShadowTxt.font = size+"px Mont Heavy DEMO";
 	gameStatusTxt.color = color;
+	
+	// Set initial text to measure
+	gameStatusTxt.text = text;
+	var textWidth = gameStatusTxt.getMeasuredWidth();
+	
+	// If text is too wide, wrap it
+	if (textWidth > maxWidth) {
+		var words = text.split(' ');
+		var lines = [];
+		var currentLine = '';
+		
+		for (var i = 0; i < words.length; i++) {
+			var testLine = currentLine + (currentLine ? ' ' : '') + words[i];
+			gameStatusTxt.text = testLine;
+			var testWidth = gameStatusTxt.getMeasuredWidth();
+			
+			if (testWidth > maxWidth && currentLine !== '') {
+				lines.push(currentLine);
+				currentLine = words[i];
+			} else {
+				currentLine = testLine;
+			}
+		}
+		if (currentLine) {
+			lines.push(currentLine);
+		}
+		
+		text = lines.join('\n');
+	}
+	
+	// Set final wrapped text
 	gameStatusTxt.text = text;
 	gameStatusShadowTxt.text = text;
+	
+	// Only show background for kamote messages and questions (when showBackground is true)
+	if (showBackground) {
+		// Measure final text dimensions for background box
+		var textBounds = gameStatusTxt.getBounds();
+		if (!textBounds) {
+			// If bounds not available, estimate from text metrics
+			var measuredWidth = gameStatusTxt.getMeasuredWidth();
+			var lineCount = text.split('\n').length;
+			var lineHeight = gameStatusTxt.getMeasuredLineHeight();
+			textBounds = {
+				width: measuredWidth,
+				height: lineHeight * lineCount,
+				x: -measuredWidth / 2, // Center aligned text
+				y: -lineHeight * lineCount // Alphabetic baseline
+			};
+		}
+		
+		// Draw responsive text box background with equal padding
+		var padding = 25; // Padding around text
+		var boxWidth = textBounds.width + (padding * 2);
+		var boxHeight = textBounds.height + (padding * 2);
+		
+		// Calculate position relative to text position (canvasH/100 * 30)
+		// textBounds.y is negative (above baseline), textBounds.height is total height
+		var textCenterY = (canvasH / 100 * 30) + textBounds.y + (textBounds.height / 2);
+		
+		var boxX = (canvasW / 2) - (boxWidth / 2);
+		var boxY = textCenterY - (boxHeight / 2);
+		
+		gameStatusBackground.graphics.clear();
+		gameStatusBackground.visible = true;
+		
+		// Draw rounded rectangle with semi-transparent white background
+		gameStatusBackground.graphics
+			.beginFill('rgba(255, 255, 255, 0.5)') // White with 95% opacity - more opaque for better readability
+			.drawRoundRect(boxX, boxY, boxWidth, boxHeight, 15); // 15px rounded corners
+		
+		// Draw border/outline for game-like text box effect
+		gameStatusBackground.graphics
+			.setStrokeStyle(3)
+			.beginStroke('rgba(45, 72, 80, 0.4)') // Yamaha blue tinted border with opacity
+			.drawRoundRect(boxX, boxY, boxWidth, boxHeight, 15);
+	} else {
+		// Hide background for other messages (score, fuel, etc.)
+		gameStatusBackground.visible = false;
+	}
 	
 	if(delay > 0){
 		TweenMax.to(gameStatusContainer, delay, {overwrite:true, onComplete:function(){
 			gameStatusContainer.visible = false;
+			gameStatusBackground.visible = false;
 		}});
 	}
 }
@@ -3561,9 +3795,101 @@ function showQuizButtons() {
 	
 	// Set the question text
 	if (quizButtonQuestionTxt && quizButtonQuestionShadowTxt) {
+		// Set question text (without timer - timer is separate now)
 		quizButtonQuestionTxt.text = currentQuizQuestion.question;
 		quizButtonQuestionShadowTxt.text = currentQuizQuestion.question;
 		console.log('Question text set to:', currentQuizQuestion.question);
+		
+		// Position and scale the background image
+		if (quizButtonBackground) {
+			// Calculate responsive scaling
+			var maxWidth = Math.min(canvasW * 0.9, 800); // Max 90% width or 800px
+			var maxHeight = canvasH * 0.4; // Max 40% of screen height
+			
+			var imageWidth = quizButtonBackground.image.width;
+			var imageHeight = quizButtonBackground.image.height;
+			
+			// Scale to fit within constraints while maintaining aspect ratio
+			var scale = Math.min(maxWidth / imageWidth, maxHeight / imageHeight, 1);
+			quizButtonBackground.scaleX = quizButtonBackground.scaleY = scale;
+			
+			// Position background in upper portion of screen
+			quizButtonBackground.x = canvasW / 2;
+			quizButtonBackground.y = canvasH * 0.25; // 25% from top
+			quizButtonBackground.visible = true;
+			
+			// Get scaled dimensions
+			var scaledWidth = imageWidth * scale;
+			var scaledHeight = imageHeight * scale;
+			
+			// Define text area within the background (maximize available space)
+			var textMaxWidth = scaledWidth * 0.85; // 85% of background width for text
+			var textMaxHeight = scaledHeight * 0.8; // 80% of background height for text
+			
+			// Smart font sizing - start with a larger base size and adjust
+			var baseFontSize = Math.min(scaledHeight * 0.12, 60); // Base on image size, max 60px
+			var fontSize = baseFontSize;
+			var textFits = false;
+			
+			// Try decreasing font sizes until text fits
+			for (var testSize = fontSize; testSize >= 24; testSize -= 2) {
+				quizButtonQuestionTxt.font = 'bold ' + testSize + 'px Mont Heavy DEMO';
+				quizButtonQuestionShadowTxt.font = 'bold ' + testSize + 'px Mont Heavy DEMO';
+				quizButtonQuestionTxt.lineWidth = textMaxWidth;
+				quizButtonQuestionShadowTxt.lineWidth = textMaxWidth;
+				
+				// Measure text bounds
+				var textBounds = quizButtonQuestionTxt.getBounds();
+				if (!textBounds) {
+					textBounds = {
+						height: quizButtonQuestionTxt.getMeasuredLineHeight() * (currentQuizQuestion.question.split('\n').length || 1)
+					};
+				}
+				
+				// Check if text fits within available height
+				if (textBounds.height <= textMaxHeight) {
+					fontSize = testSize;
+					textFits = true;
+					break;
+				}
+			}
+			
+			// If still doesn't fit, use minimum size
+			if (!textFits) {
+				fontSize = 24;
+				quizButtonQuestionTxt.font = 'bold ' + fontSize + 'px Mont Heavy DEMO';
+				quizButtonQuestionShadowTxt.font = 'bold ' + fontSize + 'px Mont Heavy DEMO';
+			}
+			
+			console.log('Question font size:', fontSize, 'Text area:', textMaxWidth, 'x', textMaxHeight);
+			
+			// Position question text inside the background image (centered)
+			quizButtonQuestionTxt.lineWidth = textMaxWidth;
+			quizButtonQuestionShadowTxt.lineWidth = textMaxWidth;
+			quizButtonQuestionTxt.x = canvasW / 2;
+			quizButtonQuestionShadowTxt.x = canvasW / 2;
+			quizButtonQuestionTxt.y = quizButtonBackground.y;
+			quizButtonQuestionShadowTxt.y = quizButtonBackground.y;
+			
+			// Position buttons below the background image
+			var buttonY = quizButtonBackground.y + (scaledHeight / 2) + 80; // 80px below image
+			if (buttonYes) buttonYes.y = buttonY;
+			if (buttonNo) buttonNo.y = buttonY;
+			
+			// Position timer bar above the background image
+			if (quizTimerBarBackground && quizTimerBarEmpty && quizTimerBarFill) {
+				var timerY = quizButtonBackground.y - (scaledHeight / 2) - 30; // Above image
+				quizTimerBarBackground.x = canvasW / 2 - 150; // Center (300px / 2)
+				quizTimerBarBackground.y = timerY;
+				quizTimerBarEmpty.x = quizTimerBarBackground.x + 2;
+				quizTimerBarEmpty.y = quizTimerBarBackground.y + 2;
+				quizTimerBarFill.x = quizTimerBarBackground.x + 2;
+				quizTimerBarFill.y = quizTimerBarBackground.y + 2;
+				// Draw initial full bar (green)
+				quizTimerBarFill.graphics.clear();
+				quizTimerBarFill.graphics.beginFill('#00ff00').drawRect(0, 0, 296, 16);
+			}
+		}
 	} else {
 		console.error('Question text elements not found!');
 		console.log('quizButtonQuestionTxt:', quizButtonQuestionTxt);
@@ -3573,6 +3899,50 @@ function showQuizButtons() {
 	// Pause the game
 	gameData.paused = true;
 	console.log('Game paused for quiz');
+	
+	// Start 5-second quiz timer
+	quizTimeRemaining = quizTimeLimit;
+	quizTimerActive = true;
+	
+	// Clear any existing timer
+	if (quizTimerInterval) {
+		clearInterval(quizTimerInterval);
+	}
+	
+	// Start countdown timer (updates every 100ms for smooth display)
+	quizTimerInterval = setInterval(function() {
+		if (quizTimerActive && quizTimerBarFill) {
+			quizTimeRemaining -= 0.1;
+			
+			// Update timer bar fill (green to red gradient)
+			var timePercent = quizTimeRemaining / quizTimeLimit;
+			var barWidth = 296 * timePercent; // Max width is 296
+			
+			// Color transition: green -> yellow -> red
+			var barColor = '#00ff00'; // Green
+			if (timePercent < 0.5) {
+				barColor = '#ffff00'; // Yellow
+			}
+			if (timePercent < 0.25) {
+				barColor = '#ff0000'; // Red
+			}
+			
+			quizTimerBarFill.graphics.clear();
+			quizTimerBarFill.graphics.beginFill(barColor).drawRect(0, 0, barWidth, 16);
+			
+			// Time's up!
+			if (quizTimeRemaining <= 0) {
+				clearInterval(quizTimerInterval);
+				quizTimerActive = false;
+				
+				// Auto-fail: select the wrong answer (opposite of correct answer)
+				// If correct is 0, select 1; if correct is 1, select 0
+				var wrongAnswer = currentQuizQuestion.correct === 0 ? 1 : 0;
+				console.log('Time\'s up! Auto-failing quiz question with wrong answer:', wrongAnswer);
+				handleQuizAnswer(wrongAnswer);
+			}
+		}
+	}, 100);
 	
 	// Show buttons
 	if (quizButtonContainer) {
@@ -3596,6 +3966,20 @@ function hideQuizButtons() {
 			if (quizButtonQuestionTxt && quizButtonQuestionShadowTxt) {
 				quizButtonQuestionTxt.text = "";
 				quizButtonQuestionShadowTxt.text = "";
+				// Reset positions to original
+				quizButtonQuestionTxt.y = canvasH/100 * 50;
+				quizButtonQuestionShadowTxt.y = canvasH/100 * 50;
+			}
+			// Clear timer bar
+			if (quizTimerBarFill) {
+				quizTimerBarFill.graphics.clear();
+			}
+			// Reset button positions
+			if (buttonYes) buttonYes.y = canvasH/100 * 70;
+			if (buttonNo) buttonNo.y = canvasH/100 * 70;
+			// Hide background
+			if (quizButtonBackground) {
+				quizButtonBackground.visible = false;
 			}
 		}});
 	}
@@ -3677,6 +4061,13 @@ function handleQuizAnswer(selectedIndex) {
 		return;
 	}
 	
+	// Stop the quiz timer
+	quizTimerActive = false;
+	if (quizTimerInterval) {
+		clearInterval(quizTimerInterval);
+		quizTimerInterval = null;
+	}
+	
 	const isCorrect = selectedIndex === currentQuizQuestion.correct;
 	console.log('Answer selected:', selectedIndex, 'Correct:', currentQuizQuestion.correct, 'Is correct:', isCorrect);
 	
@@ -3684,17 +4075,21 @@ function handleQuizAnswer(selectedIndex) {
 	recordAnswer(currentQuizQuestion.id, selectedIndex, isCorrect);
 	
 	if (isCorrect) {
-		// Correct answer - add fuel/time
+		// Correct answer - add 500 points
+		playerData.score += 500;
 		correctAnswers++;
-		gameData.fuel = Math.min(gameData.fuel + 50, fuelData.total);
+		console.log('Correct answer! Added 500 points. New score:', playerData.score, 'Correct answers:', correctAnswers);
+		
+		// No fuel bonus needed (fuel is unlimited)
 		playSound('soundCollectFuel');
-		updateGameText('+TIME', '#39b54a', 70, 1);
-		console.log('Correct answer! Added fuel. Correct answers:', correctAnswers);
+		updateGameText('+500 POINTS', '#029202ff', 60, 1.5, false);
 	} else {
-		// Wrong answer - no fuel bonus (penalty is lack of fuel gain + time pressure)
+		// Incorrect answer - add 250 points
+		playerData.score += 250;
+		console.log('Incorrect answer! Added 250 points. New score:', playerData.score, 'Correct answers:', correctAnswers);
+		
 		playSound('soundHit');
-		updateGameText('WRONG', '#ec3e34', 70, 1);
-		console.log('Wrong answer! No fuel bonus. Correct answers:', correctAnswers);
+		updateGameText('+250 POINTS', '#ff0000', 60, 1.5, false);
 	}
 	
 	// Increment questions answered count

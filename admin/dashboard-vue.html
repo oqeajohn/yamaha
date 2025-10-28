@@ -541,6 +541,7 @@
                 <div v-else class="loading">No questions yet. Add your first question!</div>
             </div>
 
+
             <!-- Sessions Tab -->
             <div v-if="currentTab === 'sessions'">
                 <div style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
@@ -863,6 +864,7 @@
                         this.analytics = data.analytics;
                     }
                 },
+
 
                 openQuestionModal(question = null) {
                     if (question) {

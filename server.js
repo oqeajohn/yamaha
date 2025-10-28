@@ -237,6 +237,102 @@ app.get('/api/game/questions', async (req, res) => {
     }
 });
 
+// Get active kamote messages for game
+app.get('/api/game/kamote-messages', async (req, res) => {
+    try {
+        const data = await readJSON('kamote_messages.json');
+        const activeMessages = (data.messages || []).filter(m => m.active === 1);
+        res.json({success: true, messages: activeMessages});
+    } catch (error) {
+        res.status(500).json({success: false, error: 'Failed to load kamote messages'});
+    }
+});
+
+// ===== KAMOTE MESSAGES ROUTES (Admin) =====
+
+app.get('/api/kamote-messages', authenticateToken, async (req, res) => {
+    try {
+        const data = await readJSON('kamote_messages.json');
+        res.json({success: true, messages: data.messages || []});
+    } catch (error) {
+        res.status(500).json({success: false, message: error.message});
+    }
+});
+
+app.post('/api/kamote-messages', authenticateToken, async (req, res) => {
+    try {
+        const { message, active } = req.body;
+        
+        if (!message) {
+            return res.status(400).json({success: false, message: 'Message is required'});
+        }
+        
+        const data = await readJSON('kamote_messages.json');
+        const newId = getNextId(data.messages || []);
+        
+        const newMessage = {
+            id: newId,
+            message: message,
+            active: active !== undefined ? active : 1,
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString()
+        };
+        
+        if (!data.messages) data.messages = [];
+        data.messages.push(newMessage);
+        
+        await writeJSON('kamote_messages.json', data);
+        
+        res.json({success: true, message: 'Kamote message added successfully', kamoteMessage: newMessage});
+    } catch (error) {
+        res.status(500).json({success: false, message: error.message});
+    }
+});
+
+app.put('/api/kamote-messages/:id', authenticateToken, async (req, res) => {
+    try {
+        const messageId = parseInt(req.params.id);
+        const { message, active } = req.body;
+        
+        const data = await readJSON('kamote_messages.json');
+        const messageIndex = data.messages.findIndex(m => m.id === messageId);
+        
+        if (messageIndex === -1) {
+            return res.status(404).json({success: false, message: 'Kamote message not found'});
+        }
+        
+        if (message !== undefined) data.messages[messageIndex].message = message;
+        if (active !== undefined) data.messages[messageIndex].active = active;
+        data.messages[messageIndex].updated_at = new Date().toISOString();
+        
+        await writeJSON('kamote_messages.json', data);
+        
+        res.json({success: true, message: 'Kamote message updated successfully', kamoteMessage: data.messages[messageIndex]});
+    } catch (error) {
+        res.status(500).json({success: false, message: error.message});
+    }
+});
+
+app.delete('/api/kamote-messages/:id', authenticateToken, async (req, res) => {
+    try {
+        const messageId = parseInt(req.params.id);
+        
+        const data = await readJSON('kamote_messages.json');
+        const messageIndex = data.messages.findIndex(m => m.id === messageId);
+        
+        if (messageIndex === -1) {
+            return res.status(404).json({success: false, message: 'Kamote message not found'});
+        }
+        
+        data.messages.splice(messageIndex, 1);
+        await writeJSON('kamote_messages.json', data);
+        
+        res.json({success: true, message: 'Kamote message deleted successfully'});
+    } catch (error) {
+        res.status(500).json({success: false, message: error.message});
+    }
+});
+
 // ===== SESSION TRACKING ROUTES =====
 
 app.post('/api/sessions/start', async (req, res) => {

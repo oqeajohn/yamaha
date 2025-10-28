@@ -45,11 +45,11 @@ var itemTJunction, tJunctionTitleTxt, buttonTurnLeft, buttonTurnRight, tJunction
 var itemQuiz, quizTitleTxt, quizQuestionTxt, buttonQuizA, buttonQuizB, buttonQuizC, buttonQuizD, buttonQuizContinue;
 var labelA, labelB, labelC, labelD, labelContinue; // Quiz option labels
 // Quiz Button Variables (no overlay)
-var buttonYes, buttonNo, currentQuizQuestion, quizButtonQuestionTxt, quizButtonQuestionShadowTxt;
+var buttonYes, buttonNo, currentQuizQuestion, quizButtonQuestionTxt, quizButtonQuestionShadowTxt, quizButtonBackground, quizTimerBarBackground, quizTimerBarEmpty, quizTimerBarFill;
 $.share = {};
 
 var statusContainer, gameStatusContainer, worldContainer;
-var buttonStart,smokeAnimate,fireData,fireAnimate,scoreTxt,scoreShadowTxt,fuelTxt,fuelShadowTxt,fuelBarBackground,fuelBarEmpty,fuelBarFill,gameStatusTxt,gameStatusShadowTxt,instructionTxt,instructionShadowTxt,itemTouchUp,itemTouchDown,itemTouchLeft,itemTouchRight,resultTitleShadowTxt,resultScoreTxt,resultScoreShadowTxt,resultScoreDescTxt,resultScoreDescShadowTxt,resultShareShadowTxt;
+var buttonStart,smokeAnimate,fireData,fireAnimate,scoreTxt,scoreShadowTxt,fuelTxt,fuelShadowTxt,fuelBarBackground,fuelBarEmpty,fuelBarFill,gameStatusTxt,gameStatusShadowTxt,gameStatusBackground,instructionTxt,instructionShadowTxt,itemTouchUp,itemTouchDown,itemTouchLeft,itemTouchRight,resultTitleShadowTxt,resultScoreTxt,resultScoreShadowTxt,resultScoreDescTxt,resultScoreDescShadowTxt,resultShareShadowTxt;
 $.sprites = {};
 $.background = {};
 
@@ -74,6 +74,10 @@ function buildGameCanvas(){
 	statusContainer = new createjs.Container();
 	gameStatusContainer = new createjs.Container();
 	worldContainer = new createjs.Container();
+	
+	// Create text box background for game status messages
+	gameStatusBackground = new createjs.Shape();
+	gameStatusBackground.visible = false;
 	
 	bg = new createjs.Bitmap(loader.getResult('background'));
 	logo = new createjs.Bitmap(loader.getResult('logo'));
@@ -617,6 +621,30 @@ function buildGameCanvas(){
 	quizButtonQuestionTxt.y = canvasH/100 * 50; // Moved higher for better mobile visibility
 	quizButtonQuestionTxt.lineWidth = quizLineWidth; // With margins
 	
+	// Quiz timer bar (similar to fuel bar)
+	quizTimerBarBackground = new createjs.Shape();
+	quizTimerBarBackground.graphics.beginFill('#000000').drawRect(0, 0, 300, 20);
+	quizTimerBarBackground.x = canvasW/2 - 150; // Center horizontally
+	quizTimerBarBackground.y = canvasH/100 * 15 - 100; // Above background
+	
+	quizTimerBarEmpty = new createjs.Shape();
+	quizTimerBarEmpty.graphics.beginFill('#333333').drawRect(0, 0, 296, 16);
+	quizTimerBarEmpty.x = quizTimerBarBackground.x + 2;
+	quizTimerBarEmpty.y = quizTimerBarBackground.y + 2;
+	
+	quizTimerBarFill = new createjs.Shape();
+	quizTimerBarFill.x = quizTimerBarBackground.x + 2;
+	quizTimerBarFill.y = quizTimerBarBackground.y + 2;
+	
+	// Quiz button background (image instead of shape)
+	quizButtonBackground = new createjs.Bitmap(loader.getResult('QUESTION_BACKGROUND'));
+	quizButtonBackground.visible = false;
+	centerReg(quizButtonBackground);
+	
+	// White transparent background for text area (inside the question background)
+	quizTextBackground = new createjs.Shape();
+	quizTextBackground.visible = false;
+	
 	buttonYes = new createjs.Bitmap(loader.getResult('buttonYes'));
 	centerReg(buttonYes);
 	createHitarea(buttonYes);
@@ -631,15 +659,15 @@ function buildGameCanvas(){
 	buttonNo.y = canvasH/100 * 70;
 	buttonNo.scaleX = buttonNo.scaleY = buttonScale;
 	
-	quizButtonContainer.addChild(quizButtonQuestionShadowTxt, quizButtonQuestionTxt, buttonYes, buttonNo);
+	quizButtonContainer.addChild(quizButtonBackground, quizTextBackground, quizTimerBarBackground, quizTimerBarEmpty, quizTimerBarFill, quizButtonQuestionShadowTxt, quizButtonQuestionTxt, buttonYes, buttonNo);
 	quizButtonContainer.visible = false;
 	
 	guideline = new createjs.Shape();
 	
 	mainContainer.addChild(logo, buttonStart);
-	gameStatusContainer.addChild(gameStatusShadowTxt, gameStatusTxt);
+	gameStatusContainer.addChild(gameStatusBackground, gameStatusShadowTxt, gameStatusTxt);
 	gameContainer.addChild(smokeAnimate, fireAnimate, gameStatusContainer, statusContainer, instructionShadowTxt, instructionTxt, itemTouchUp, itemTouchDown, itemTouchLeft, itemTouchRight);
-	statusContainer.addChild(scoreShadowTxt, scoreTxt, fuelShadowTxt, fuelTxt, fuelBarBackground, fuelBarEmpty, fuelBarFill);
+	statusContainer.addChild(scoreShadowTxt, scoreTxt); // Removed fuel/time UI elements
 	resultContainer.addChild(resultTitleShadowTxt, resultTitleTxt, resultScoreDescShadowTxt, resultScoreDescTxt, resultScoreShadowTxt, resultScoreTxt, buttonRestart, shareContainer, shareSaveContainer);
 	
 	canvasContainer.addChild(bg, worldContainer, mainContainer, gameContainer, resultContainer, exitContainer, tJunctionContainer, quizContainer, quizButtonContainer, optionsContainer, buttonSettings, guideline);
