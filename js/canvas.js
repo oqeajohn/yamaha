@@ -38,7 +38,7 @@ var guideline, bg, bgP, logo, logoP;
 var itemExit, itemExitP, popTitleTxt, popDescTxt, buttonConfirm, buttonCancel;
 var itemResult, itemResultP, buttonContinue, resultTitleTxt, resultDescTxt, buttonShare, buttonSave;
 var resultTitleOutlineTxt,resultDescOutlineTxt,resultShareTxt,resultShareOutlineTxt,popTitleOutlineTxt,popDescOutlineTxt;
-var buttonSettings, buttonFullscreen, buttonSoundOn, buttonSoundOff, buttonMusicOn, buttonMusicOff, buttonExit;
+var buttonSettings, buttonSoundOn, buttonSoundOff, buttonMusicOn, buttonMusicOff, buttonExit;
 // T-Junction Modal Variables
 var itemTJunction, tJunctionTitleTxt, buttonTurnLeft, buttonTurnRight, tJunctionPendingDirection;
 // Quiz Modal Variables
@@ -49,7 +49,7 @@ var buttonYes, buttonNo, currentQuizQuestion, quizButtonQuestionTxt, quizButtonQ
 $.share = {};
 
 var statusContainer, gameStatusContainer, worldContainer;
-var buttonStart,smokeAnimate,fireData,fireAnimate,scoreTxt,scoreShadowTxt,fuelTxt,fuelShadowTxt,fuelBarBackground,fuelBarEmpty,fuelBarFill,gameStatusTxt,gameStatusShadowTxt,gameStatusBackground,instructionTxt,instructionShadowTxt,itemTouchUp,itemTouchDown,itemTouchLeft,itemTouchRight,resultTitleShadowTxt,resultScoreTxt,resultScoreShadowTxt,resultScoreDescTxt,resultScoreDescShadowTxt,resultShareShadowTxt;
+var buttonStart,smokeAnimate,fireData,fireAnimate,scoreTxt,scoreShadowTxt,fuelTxt,fuelShadowTxt,fuelBarBackground,fuelBarEmpty,fuelBarFill,gameStatusTxt,gameStatusShadowTxt,gameStatusBackground,instructionTxt,instructionShadowTxt,itemTouchUp,itemTouchLeft,itemTouchRight,resultTitleShadowTxt,resultScoreTxt,resultScoreShadowTxt,resultScoreDescTxt,resultScoreDescShadowTxt,resultShareShadowTxt;
 $.sprites = {};
 $.background = {};
 
@@ -259,9 +259,7 @@ function buildGameCanvas(){
 	itemTouchUp = new createjs.Bitmap(loader.getResult('itemTouchUp'));
 	centerReg(itemTouchUp);
 	createHitarea(itemTouchUp);
-	itemTouchDown = new createjs.Bitmap(loader.getResult('itemTouchDown'));
-	centerReg(itemTouchDown);
-	createHitarea(itemTouchDown);
+	
 	itemTouchLeft = new createjs.Bitmap(loader.getResult('itemTouchLeft'));
 	centerReg(itemTouchLeft);
 	createHitarea(itemTouchLeft);
@@ -269,7 +267,7 @@ function buildGameCanvas(){
 	centerReg(itemTouchRight);
 	createHitarea(itemTouchRight);
 	
-	itemTouchUp.alpha = itemTouchDown.alpha = itemTouchLeft.alpha = itemTouchRight.alpha = .2;
+	itemTouchUp.alpha = itemTouchLeft.alpha = itemTouchRight.alpha = .2;
 	
 	//result
 	resultTitleTxt = new createjs.Text();
@@ -386,8 +384,6 @@ function buildGameCanvas(){
 	buttonRestart.y = canvasH/100 * 80;
 	
 	//option
-	buttonFullscreen = new createjs.Bitmap(loader.getResult('buttonFullscreen'));
-	centerReg(buttonFullscreen);
 	buttonSoundOn = new createjs.Bitmap(loader.getResult('buttonSoundOn'));
 	centerReg(buttonSoundOn);
 	buttonSoundOff = new createjs.Bitmap(loader.getResult('buttonSoundOff'));
@@ -404,7 +400,6 @@ function buildGameCanvas(){
 	buttonSettings = new createjs.Bitmap(loader.getResult('buttonSettings'));
 	centerReg(buttonSettings);
 	
-	createHitarea(buttonFullscreen);
 	createHitarea(buttonSoundOn);
 	createHitarea(buttonSoundOff);
 	createHitarea(buttonMusicOn);
@@ -412,7 +407,7 @@ function buildGameCanvas(){
 	createHitarea(buttonExit);
 	createHitarea(buttonSettings);
 	optionsContainer = new createjs.Container();
-	optionsContainer.addChild(buttonFullscreen, buttonSoundOn, buttonSoundOff, buttonMusicOn, buttonMusicOff, buttonExit);
+	optionsContainer.addChild(buttonSoundOn, buttonSoundOff, buttonMusicOn, buttonMusicOff, buttonExit);
 	optionsContainer.visible = false;
 	
 	//exit
@@ -666,7 +661,7 @@ function buildGameCanvas(){
 	
 	mainContainer.addChild(logo, buttonStart);
 	gameStatusContainer.addChild(gameStatusBackground, gameStatusShadowTxt, gameStatusTxt);
-	gameContainer.addChild(smokeAnimate, fireAnimate, gameStatusContainer, statusContainer, instructionShadowTxt, instructionTxt, itemTouchUp, itemTouchDown, itemTouchLeft, itemTouchRight);
+	gameContainer.addChild(smokeAnimate, fireAnimate, gameStatusContainer, statusContainer, instructionShadowTxt, instructionTxt, itemTouchUp, itemTouchLeft, itemTouchRight);
 	statusContainer.addChild(scoreShadowTxt, scoreTxt); // Removed fuel/time UI elements
 	resultContainer.addChild(resultTitleShadowTxt, resultTitleTxt, resultScoreDescShadowTxt, resultScoreDescTxt, resultScoreShadowTxt, resultScoreTxt, buttonRestart, shareContainer, shareSaveContainer);
 	
@@ -717,34 +712,22 @@ function resizeCanvas(){
 		if (typeof buttonMusicOn != "undefined") {
 			buttonMusicOn.x = buttonMusicOff.x = buttonSettings.x;
 			buttonMusicOn.y = buttonMusicOff.y = buttonSettings.y+(distanceNum*2);
-			buttonMusicOn.x = buttonMusicOff.x;
-			buttonMusicOn.y = buttonMusicOff.y = buttonSettings.y+(distanceNum*2);
-			nextCount = 2;
-		}else{
-			nextCount = 1;
-		}
-		buttonFullscreen.x = buttonSettings.x;
-		buttonFullscreen.y = buttonSettings.y+(distanceNum*(nextCount+1));
+		buttonMusicOn.x = buttonMusicOff.x;
+		buttonMusicOn.y = buttonMusicOff.y = buttonSettings.y+(distanceNum*2);
+		nextCount = 2;
+	}else{
+		nextCount = 1;
+	}
 
-		if(curPage == 'main' || curPage == 'result'){
-			buttonExit.visible = false;			
-			buttonFullscreen.x = buttonSettings.x;
-			buttonFullscreen.y = buttonSettings.y+(distanceNum*(nextCount+1));
-		}else{
-			buttonExit.visible = true;			
-			buttonExit.x = buttonSettings.x;
-			buttonExit.y = buttonSettings.y+(distanceNum*(nextCount+2));
-		}
-		
-		/*itemTouchUp.x = offset.x + 90;
-		itemTouchDown.x = offset.x + 90;
-		itemTouchDown.y = canvasH - (offset.y + 90);
-		itemTouchUp.y = itemTouchDown.y - 140;*/
-		
-		itemTouchUp.x = (offset.x + 90)
+	if(curPage == 'main' || curPage == 'result'){
+		buttonExit.visible = false;			
+	}else{
+		buttonExit.visible = true;			
+		buttonExit.x = buttonSettings.x;
+		buttonExit.y = buttonSettings.y+(distanceNum*(nextCount+1));
+	}
+			itemTouchUp.x = (offset.x + 90)
 		itemTouchUp.y = canvasH - (offset.y + 90);
-		itemTouchDown.x = itemTouchUp.x + 110;
-		itemTouchDown.y = itemTouchUp.y;
 		
 		itemTouchRight.x = canvasW - (offset.x + 90)
 		itemTouchRight.y = canvasH - (offset.y + 90);

@@ -983,10 +983,10 @@ function buildGameButton(){
 		}
 	}
 
-	itemTouchUp.visible = itemTouchDown.visible = itemTouchLeft.visible = itemTouchRight.visible = false;
+	itemTouchUp.visible = itemTouchLeft.visible = itemTouchRight.visible = false;
 	
 	if(!isDesktop){
-		itemTouchUp.visible = itemTouchDown.visible = itemTouchLeft.visible = itemTouchRight.visible = true;
+		itemTouchUp.visible = itemTouchLeft.visible = itemTouchRight.visible = true;
 		
 	itemTouchUp.addEventListener("mousedown", function(evt) {
 		if(gameData.paused){
@@ -999,17 +999,6 @@ function buildGameButton(){
 		if(keyData.accelerate){
 			keyData.accelerate = false;	
 		}
-	});
-	
-	itemTouchDown.addEventListener("mousedown", function(evt) {
-		if(gameData.paused){
-			return;	
-		}
-		keyData.brake = true;
-	});		itemTouchDown.addEventListener("pressup", function(evt) {
-			if(keyData.brake){
-				keyData.brake = false;	
-			}
 	});
 	
 	itemTouchLeft.addEventListener("mousedown", function(evt) {
@@ -1095,11 +1084,6 @@ function buildGameButton(){
 			toggleMusicMute(false);
 		});
 	}
-	
-	buttonFullscreen.cursor = "pointer";
-	buttonFullscreen.addEventListener("click", function(evt) {
-		toggleFullScreen();
-	});
 	
 	buttonExit.cursor = "pointer";
 	buttonExit.addEventListener("click", function(evt) {
