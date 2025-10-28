@@ -37,7 +37,7 @@ async function readJSON(filename) {
         return JSON.parse(data);
     } catch (error) {
         console.error(`Error reading ${filename}:`, error);
-        return filename === 'questions.json' ? {questions: []} :
+        return filename === 'qs.json' ? {questions: []} :
                filename === 'sessions.json' ? {sessions: []} :
                {answers: []};
     }
@@ -69,7 +69,7 @@ function getNextId(items) {
 
 async function updateQuizJSON() {
     try {
-        const data = await readJSON('questions.json');
+        const data = await readJSON('qs.json');
         const activeQuestions = (data.questions || []).filter(q => q.active === 1);
         
         const gameQuestions = activeQuestions.map(q => ({
@@ -130,7 +130,7 @@ app.post('/api/logout', (req, res) => {
 
 app.get('/api/questions', authenticateToken, async (req, res) => {
     try {
-        const data = await readJSON('questions.json');
+        const data = await readJSON('qs.json');
         const activeQuestions = (data.questions || []).filter(q => q.active === 1);
         res.json({success: true, questions: activeQuestions});
     } catch (error) {
@@ -140,7 +140,7 @@ app.get('/api/questions', authenticateToken, async (req, res) => {
 
 app.post('/api/questions', authenticateToken, async (req, res) => {
     try {
-        const data = await readJSON('questions.json');
+        const data = await readJSON('qs.json');
         const newQuestion = {
             id: getNextId(data.questions || []),
             section: req.body.section,
@@ -156,7 +156,7 @@ app.post('/api/questions', authenticateToken, async (req, res) => {
         
         data.questions = data.questions || [];
         data.questions.push(newQuestion);
-        await writeJSON('questions.json', data);
+        await writeJSON('qs.json', data);
         await updateQuizJSON();
         
         res.json({success: true, message: 'Question added successfully', question: newQuestion});
@@ -167,7 +167,7 @@ app.post('/api/questions', authenticateToken, async (req, res) => {
 
 app.put('/api/questions/:id', authenticateToken, async (req, res) => {
     try {
-        const data = await readJSON('questions.json');
+        const data = await readJSON('qs.json');
         const questionId = parseInt(req.params.id);
         const index = data.questions.findIndex(q => q.id === questionId);
         
@@ -186,7 +186,7 @@ app.put('/api/questions/:id', authenticateToken, async (req, res) => {
             updated_at: new Date().toISOString()
         };
         
-        await writeJSON('questions.json', data);
+        await writeJSON('qs.json', data);
         await updateQuizJSON();
         
         res.json({success: true, message: 'Question updated successfully'});
@@ -197,7 +197,7 @@ app.put('/api/questions/:id', authenticateToken, async (req, res) => {
 
 app.delete('/api/questions/:id', authenticateToken, async (req, res) => {
     try {
-        const data = await readJSON('questions.json');
+        const data = await readJSON('qs.json');
         const questionId = parseInt(req.params.id);
         const index = data.questions.findIndex(q => q.id === questionId);
         
@@ -206,7 +206,7 @@ app.delete('/api/questions/:id', authenticateToken, async (req, res) => {
         }
         
         data.questions[index].active = 0;
-        await writeJSON('questions.json', data);
+        await writeJSON('qs.json', data);
         await updateQuizJSON();
         
         res.json({success: true, message: 'Question deleted successfully'});
@@ -219,7 +219,7 @@ app.delete('/api/questions/:id', authenticateToken, async (req, res) => {
 
 app.get('/api/game/questions', async (req, res) => {
     try {
-        const data = await readJSON('questions.json');
+        const data = await readJSON('qs.json');
         const activeQuestions = (data.questions || []).filter(q => q.active === 1);
         
         const gameQuestions = activeQuestions.map(q => ({
@@ -431,7 +431,7 @@ app.get('/api/sessions', authenticateToken, async (req, res) => {
 app.get('/api/sessions/:session_id/details', authenticateToken, async (req, res) => {
     try {
         const answersData = await readJSON('answers.json');
-        const questionsData = await readJSON('questions.json');
+        const questionsData = await readJSON('qs.json');
         
         const sessionAnswers = (answersData.answers || [])
             .filter(a => a.session_id === req.params.session_id);
@@ -454,7 +454,7 @@ app.get('/api/sessions/:session_id/details', authenticateToken, async (req, res)
 
 app.get('/api/analytics', authenticateToken, async (req, res) => {
     try {
-        const questionsData = await readJSON('questions.json');
+        const questionsData = await readJSON('qs.json');
         const answersData = await readJSON('answers.json');
         
         const analytics = (questionsData.questions || [])
@@ -488,7 +488,7 @@ app.get('/api/analytics', authenticateToken, async (req, res) => {
 
 app.get('/api/stats', authenticateToken, async (req, res) => {
     try {
-        const questionsData = await readJSON('questions.json');
+        const questionsData = await readJSON('qs.json');
         const sessionsData = await readJSON('sessions.json');
         const answersData = await readJSON('answers.json');
         

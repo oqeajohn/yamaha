@@ -571,8 +571,8 @@ function loadQuizQuestions() {
 
 // Fallback loading chain
 function tryFallbackSources() {
-	// Try loading from admin/data/questions.json as fallback
-	$.getJSON('admin/data/questions.json', function(data) {
+	// Try loading from admin/data/qs.json as fallback
+	$.getJSON('admin/data/qs.json', function(data) {
 		// Transform admin format to game format
 		var activeQuestions = data.questions.filter(function(q) {
 			return q.active === 1;
@@ -589,9 +589,9 @@ function tryFallbackSources() {
 			};
 		});
 		
-		console.log('Quiz questions loaded from admin/data/questions.json:', quizQuestions.length);
+		console.log('Quiz questions loaded from admin/data/qs.json:', quizQuestions.length);
 	}).fail(function() {
-		console.warn('Failed to load from admin/data/questions.json, trying quiz-questions.json...');
+		console.warn('Failed to load from admin/data/qs.json, trying quiz-questions.json...');
 		
 		// Try loading from quiz-questions.json as final fallback
 		$.getJSON('quiz-questions.json', function(data) {
