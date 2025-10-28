@@ -2189,7 +2189,8 @@ function updateSprites() {
 					// KAMOTE COINS - Deduct 100 points per hit (can go negative)
 					else if(sprite.source.id == 'COIN_KAMOTE1' || sprite.source.id == 'COIN_KAMOTE2' || 
 					         sprite.source.id == 'COIN_KAMOTE3' || sprite.source.id == 'COIN_KAMOTE4' || 
-					         sprite.source.id == 'COIN_KAMOTE5' || sprite.source.id == 'COIN_KAMOTE6'){
+					         sprite.source.id == 'COIN_KAMOTE5' || sprite.source.id == 'COIN_KAMOTE6' ||
+							 sprite.source.id == 'COIN_KAMOTE7'){
 						console.log('KAMOTE coin collision detected! Deducting 100 points...');
 						sprite.active = false;
 						
@@ -3006,6 +3007,7 @@ function resetCollectItems(){
 			   sprite.source.id == 'COIN_KAMOTE1' || sprite.source.id == 'COIN_KAMOTE2' || 
 			   sprite.source.id == 'COIN_KAMOTE3' || sprite.source.id == 'COIN_KAMOTE4' || 
 			   sprite.source.id == 'COIN_KAMOTE5' || sprite.source.id == 'COIN_KAMOTE6' || 
+			   sprite.source.id == 'COIN_KAMOTE7' ||
 			   sprite.source.id == 'FUEL' || sprite.source.id == 'FINISH_LINE'){
 				curSegment.sprites.splice(s,1);
 				s--;

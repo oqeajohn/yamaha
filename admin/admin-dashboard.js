@@ -253,10 +253,35 @@ function displaySessions(sessions) {
 async function viewSessionDetails(sessionId) {
     const data = await apiRequest(`/sessions/${sessionId}/details`);
     if (data && data.success) {
-        const details = data.details.map(d => 
-            `Question: ${d.question}\nAnswer: ${d.selected_answer === 0 ? 'A' : 'B'}\nCorrect: ${d.is_correct ? 'Yes' : 'No'}`
-        ).join('\n\n');
-        alert('Session Details:\n\n' + details || 'No answers recorded for this session.');
+        if (data.details.length === 0) {
+            alert('No answers recorded for this session.');
+            return;
+        }
+        
+        // Get question data to find correct answers
+        const questionsData = await apiRequest('/questions');
+        const questionsMap = {};
+        if (questionsData && questionsData.success) {
+            questionsData.questions.forEach(q => {
+                questionsMap[q.id] = q;
+            });
+        }
+        
+        const details = data.details.map(d => {
+            const question = questionsMap[d.question_id];
+            const selectedOption = d.selected_answer === 0 ? d.option_a : d.option_b;
+            const selectedLetter = d.selected_answer === 0 ? 'A' : 'B';
+            
+            let correctLetter = '';
+            let correctOption = '';
+            if (question) {
+                correctLetter = question.correct_answer === 0 ? 'A' : 'B';
+                correctOption = question.correct_answer === 0 ? question.option_a : question.option_b;
+            }
+            
+            return `Question: ${d.question}\nSelected: ${selectedLetter} - ${selectedOption}\nCorrect Answer: ${correctLetter} - ${correctOption}\nStatus: ${d.is_correct ? '✓ Correct' : '✗ Wrong'}`;
+        }).join('\n\n');
+        
     }
 }
 
