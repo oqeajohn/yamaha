@@ -265,7 +265,7 @@ async function viewSessionDetails(sessionId) {
             
             // Determine what the correct answer was based on is_correct flag
             let correctLetter, correctOption;
-            if (d.is_correct) {
+            if (d.is_correct === 1 || d.is_correct === true) {
                 // If they got it correct, the selected answer was the correct one
                 correctLetter = selectedLetter;
                 correctOption = selectedOption;
@@ -278,6 +278,7 @@ async function viewSessionDetails(sessionId) {
             return `Question: ${d.question}\nSelected: ${selectedLetter} - ${selectedOption}\nCorrect Answer: ${correctLetter} - ${correctOption}\nStatus: ${d.is_correct ? '✓ Correct' : '✗ Wrong'}`;
         }).join('\n\n');
         
+        alert('Session Details:\n\n' + details);
     }
 }
 
