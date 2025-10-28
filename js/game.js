@@ -3802,8 +3802,8 @@ function showQuizButtons() {
 		
 		// Position and scale the background image
 		if (quizButtonBackground) {
-			// Calculate responsive scaling
-			var maxWidth = Math.min(canvasW * 0.9, 800); // Max 90% width or 800px
+			// Calculate responsive scaling with proper margins
+			var maxWidth = Math.min(canvasW * 0.8, 800); // Max 80% width (10% margin each side) or 800px
 			var maxHeight = canvasH * 0.4; // Max 40% of screen height
 			
 			var imageWidth = quizButtonBackground.image.width;
