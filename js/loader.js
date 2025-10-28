@@ -138,7 +138,9 @@ function handleFileError(evt) {
  * 
  */
 function handleProgress() {
-	$('#mainLoader span').html(Math.round(loader.progress/1*100)+'%');
+	var percent = Math.round(loader.progress/1*100);
+	$('#mainLoader span').html(percent);
+	$('#progressBar').css('width', percent + '%');
 }
 
 /*!
@@ -147,8 +149,16 @@ function handleProgress() {
  * 
  */
 function handleComplete() {
-	toggleLoader(false);
-	initMain();
+	// Ensure progress bar reaches 100% before hiding
+	var percent = 100;
+	$('#mainLoader span').html(percent);
+	$('#progressBar').css('width', percent + '%');
+	
+	// Wait for progress bar animation to complete before hiding loader
+	setTimeout(function() {
+		toggleLoader(false);
+		initMain();
+	}, 500); // 500ms delay to show 100% completion
 };
 
 /*!
