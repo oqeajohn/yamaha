@@ -2947,13 +2947,17 @@ function resetSprites() {
 				
 				if (isLeftSide) {
 					// Left side billboard
-					var leftBBOffset = -0.8; // Position between road center and left buildings
-					addSprite(n, randomChoice([spritesData.BILLBOARD01, spritesData.BILLBOARD03, spritesData.BILLBOARD11, spritesData.BILLBOARD12, spritesData.BILLBOARD13, spritesData.BILLBOARD14, spritesData.BILLBOARD15, spritesData.BILLBOARD16]), leftBBOffset);
+					var selectedBillboard = randomChoice([spritesData.BILLBOARD01, spritesData.BILLBOARD03, spritesData.BILLBOARD11, spritesData.BILLBOARD12, spritesData.BILLBOARD13, spritesData.BILLBOARD14, spritesData.BILLBOARD15, spritesData.BILLBOARD16]);
+					// Landscape billboards (15-18) are positioned closer to road
+					var leftBBOffset = (selectedBillboard === spritesData.BILLBOARD15 || selectedBillboard === spritesData.BILLBOARD16) ? -0.5 : -0.8;
+					addSprite(n, selectedBillboard, leftBBOffset);
 					hasLeftBillboard = true; // Flag to prevent building spawn on this side
 				} else {
 					// Right side billboard
-					var rightBBOffset = 0.8; // Position between road center and right buildings
-					addSprite(n, randomChoice([spritesData.BILLBOARD02, spritesData.BILLBOARD04, spritesData.BILLBOARD05, spritesData.BILLBOARD06, spritesData.BILLBOARD07, spritesData.BILLBOARD08, spritesData.BILLBOARD10, spritesData.BILLBOARD17, spritesData.BILLBOARD18]), rightBBOffset);
+					var selectedBillboard = randomChoice([spritesData.BILLBOARD02, spritesData.BILLBOARD04, spritesData.BILLBOARD05, spritesData.BILLBOARD06, spritesData.BILLBOARD07, spritesData.BILLBOARD08, spritesData.BILLBOARD10, spritesData.BILLBOARD17, spritesData.BILLBOARD18]);
+					// Landscape billboards (15-18) are positioned closer to road
+					var rightBBOffset = (selectedBillboard === spritesData.BILLBOARD17 || selectedBillboard === spritesData.BILLBOARD18) ? 0.5 : 0.8;
+					addSprite(n, selectedBillboard, rightBBOffset);
 					hasRightBillboard = true; // Flag to prevent building spawn on this side
 				}
 				
