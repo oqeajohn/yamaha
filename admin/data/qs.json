@@ -4,137 +4,205 @@
       "id": 1,
       "section": "Helmet",
       "question": "Should you wear a helmet when riding a motorcycle?",
-      "options": ["Yes", "No"],
-      "correct": 0,
-      "explanation": "Always wear a helmet for safety!!"
+      "explanation": "Always wear a helmet for safety!!",
+      "option_a": "Yes",
+      "option_b": "No",
+      "correct_answer": 0,
+      "created_at": "2025-10-29T00:00:00.000Z",
+      "updated_at": "2025-10-29T00:00:00.000Z",
+      "active": 1
     },
     {
       "id": 2,
       "section": "Illegal U-turn",
       "question": "Is it okay to make an illegal U-turn when there's no police around?",
-      "options": ["Yes", "No"],
-      "correct": 1,
-      "explanation": "Traffic rules exist for safety, not just enforcement."
+      "explanation": "Traffic rules exist for safety, not just enforcement.",
+      "option_a": "Yes",
+      "option_b": "No",
+      "correct_answer": 1,
+      "created_at": "2025-10-29T00:00:00.000Z",
+      "updated_at": "2025-10-29T00:00:00.000Z",
+      "active": 1
     },
     {
       "id": 3,
       "section": "Lane Splitting",
       "question": "Is it safe to squeeze between two cars in tight spaces?",
-      "options": ["Yes", "No"],
-      "correct": 1,
-      "explanation": "Lane splitting in tight spaces is dangerous."
+      "explanation": "Lane splitting in tight spaces is dangerous.",
+      "option_a": "Yes",
+      "option_b": "No",
+      "correct_answer": 1,
+      "created_at": "2025-10-29T00:00:00.000Z",
+      "updated_at": "2025-10-29T00:00:00.000Z",
+      "active": 1
     },
     {
       "id": 4,
       "section": "Speed Limits",
       "question": "Should you speed up when the road is empty?",
-      "options": ["Yes", "No"],
-      "correct": 1,
-      "explanation": "Speed limits are set for safety regardless of traffic."
+      "explanation": "Speed limits are set for safety regardless of traffic.",
+      "option_a": "Yes",
+      "option_b": "No",
+      "correct_answer": 1,
+      "created_at": "2025-10-29T00:00:00.000Z",
+      "updated_at": "2025-10-29T00:00:00.000Z",
+      "active": 1
     },
     {
       "id": 5,
       "section": "Pedestrian Lane",
       "question": "Is it acceptable to cut through a pedestrian crossing to save time?",
-      "options": ["Yes", "No"],
-      "correct": 1,
-      "explanation": "Always respect pedestrian crossings."
+      "explanation": "Always respect pedestrian crossings.",
+      "option_a": "Yes",
+      "option_b": "No",
+      "correct_answer": 1,
+      "created_at": "2025-10-29T00:00:00.000Z",
+      "updated_at": "2025-10-29T00:00:00.000Z",
+      "active": 1
     },
     {
       "id": 8,
       "section": "DTI Helmet",
       "question": "Should you wear a DTI-approved helmet every ride?",
-      "options": ["Yes", "No"],
-      "correct": 0,
-      "explanation": "It has been tested and certified to provide adequate protection for motorcycle riders and passengers."
+      "explanation": "It has been tested and certified to provide adequate protection for motorcycle riders and passengers.",
+      "option_a": "Yes",
+      "option_b": "No",
+      "correct_answer": 0,
+      "created_at": "2025-10-29T00:00:00.000Z",
+      "updated_at": "2025-10-29T00:00:00.000Z",
+      "active": 1
     },
     {
       "id": 9,
       "section": "Counterflow",
       "question": "Is counterflowing a faster and safer option?",
-      "options": ["Yes", "No"],
-      "correct": 1,
-      "explanation": ""
+      "explanation": "",
+      "option_a": "Yes",
+      "option_b": "No",
+      "correct_answer": 1,
+      "created_at": "2025-10-29T00:00:00.000Z",
+      "updated_at": "2025-10-29T00:00:00.000Z",
+      "active": 1
     },
     {
       "id": 10,
       "section": "Overtaking",
       "question": "Is overtaking allowed on a solid yellow line?",
-      "options": ["Yes", "No"],
-      "correct": 1,
-      "explanation": ""
+      "explanation": "",
+      "option_a": "Yes",
+      "option_b": "No",
+      "correct_answer": 1,
+      "created_at": "2025-10-29T00:00:00.000Z",
+      "updated_at": "2025-10-29T00:00:00.000Z",
+      "active": 1
     },
     {
       "id": 11,
       "section": "Distance",
       "question": "Should you keep a 3-second distance from the vehicle in front?",
-      "options": ["Yes", "No"],
-      "correct": 0,
-      "explanation": ""
+      "explanation": "",
+      "option_a": "Yes",
+      "option_b": "No",
+      "correct_answer": 0,
+      "created_at": "2025-10-29T00:00:00.000Z",
+      "updated_at": "2025-10-29T00:00:00.000Z",
+      "active": 1
     },
     {
       "id": 12,
       "section": "Phone Usage",
       "question": "Is it okay to text or use your phone while riding?",
-      "options": ["Yes", "No"],
-      "correct": 1,
-      "explanation": ""
+      "explanation": "",
+      "option_a": "Yes",
+      "option_b": "No",
+      "correct_answer": 1,
+      "created_at": "2025-10-29T00:00:00.000Z",
+      "updated_at": "2025-10-29T00:00:00.000Z",
+      "active": 1
     },
     {
       "id": 13,
       "section": "Lights",
       "question": "Should your headlight be turned on even during daytime?",
-      "options": ["Yes", "No"],
-      "correct": 0,
-      "explanation": ""
+      "explanation": "",
+      "option_a": "Yes",
+      "option_b": "No",
+      "correct_answer": 0,
+      "created_at": "2025-10-29T00:00:00.000Z",
+      "updated_at": "2025-10-29T00:00:00.000Z",
+      "active": 1
     },
     {
       "id": 14,
       "section": "Yellow Box",
       "question": "Should you stop or enter the yellow box without completely clearing the intersection?",
-      "options": ["Yes", "No"],
-      "correct": 1,
-      "explanation": ""
+      "explanation": "",
+      "option_a": "Yes",
+      "option_b": "No",
+      "correct_answer": 1,
+      "created_at": "2025-10-29T00:00:00.000Z",
+      "updated_at": "2025-10-29T00:00:00.000Z",
+      "active": 1
     },
     {
       "id": 15,
       "section": "Wearing of helmet",
       "question": "Can you remove your helmet once traffic stops?",
-      "options": ["Yes", "No"],
-      "correct": 1,
-      "explanation": ""
+      "explanation": "",
+      "option_a": "Yes",
+      "option_b": "No",
+      "correct_answer": 1,
+      "created_at": "2025-10-29T00:00:00.000Z",
+      "updated_at": "2025-10-29T00:00:00.000Z",
+      "active": 1
     },
     {
       "id": 16,
       "section": "Helmet for Passenger",
-      "question": "Is it okay to ride without a license if you “just know how to ride”?",
-      "options": ["Yes", "No"],
-      "correct": 1,
-      "explanation": ""
+      "question": "Is it okay to ride without a license if you \u201cjust know how to ride\u201d?",
+      "explanation": "",
+      "option_a": "Yes",
+      "option_b": "No",
+      "correct_answer": 1,
+      "created_at": "2025-10-29T00:00:00.000Z",
+      "updated_at": "2025-10-29T00:00:00.000Z",
+      "active": 1
     },
     {
       "id": 17,
       "section": "Check the motorycle",
       "question": "Should you check your brakes, tires, and lights before every ride?",
-      "options": ["Yes", "No"],
-      "correct": 0,
-      "explanation": ""
+      "explanation": "",
+      "option_a": "Yes",
+      "option_b": "No",
+      "correct_answer": 0,
+      "created_at": "2025-10-29T00:00:00.000Z",
+      "updated_at": "2025-10-29T00:00:00.000Z",
+      "active": 1
     },
     {
       "id": 18,
       "section": "Road Rage",
       "question": "Is road rage a sensible response to reckless drivers?",
-      "options": ["Yes", "No"],
-      "correct": 1,
-      "explanation": ""
+      "explanation": "",
+      "option_a": "Yes",
+      "option_b": "No",
+      "correct_answer": 1,
+      "created_at": "2025-10-29T00:00:00.000Z",
+      "updated_at": "2025-10-29T00:00:00.000Z",
+      "active": 1
     },
     {
       "id": 19,
       "section": "Pedestrian crossing",
       "question": "Does a Pedestrian Crossing sign mean you should slow down and give way?",
-      "options": ["Yes", "No"],
-      "correct": 0,
-      "explanation": ""
+      "explanation": "",
+      "option_a": "Yes",
+      "option_b": "No",
+      "correct_answer": 0,
+      "created_at": "2025-10-29T00:00:00.000Z",
+      "updated_at": "2025-10-29T00:00:00.000Z",
+      "active": 1
     }
   ]
 }
