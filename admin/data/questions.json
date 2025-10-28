@@ -4,73 +4,137 @@
       "id": 1,
       "section": "Helmet",
       "question": "Should you wear a helmet when riding a motorcycle?",
-      "option_a": "Yes",
-      "option_b": "No",
-      "correct_answer": 0,
-      "explanation": "Always wear a helmet for safety!!",
-      "created_at": "2025-10-26 00:00:00",
-      "updated_at": "2025-10-26T14:50:45.038Z",
-      "active": 1
+      "options": ["Yes", "No"],
+      "correct": 0,
+      "explanation": "Always wear a helmet for safety!!"
     },
     {
       "id": 2,
       "section": "Illegal U-turn",
       "question": "Is it okay to make an illegal U-turn when there's no police around?",
-      "option_a": "Yes",
-      "option_b": "No",
-      "correct_answer": 1,
-      "explanation": "Traffic rules exist for safety, not just enforcement.",
-      "created_at": "2025-10-26 00:00:00",
-      "updated_at": "2025-10-26T08:55:54.186Z",
-      "active": 1
+      "options": ["Yes", "No"],
+      "correct": 1,
+      "explanation": "Traffic rules exist for safety, not just enforcement."
     },
     {
       "id": 3,
       "section": "Lane Splitting",
       "question": "Is it safe to squeeze between two cars in tight spaces?",
-      "option_a": "Yes",
-      "option_b": "No",
-      "correct_answer": 1,
-      "explanation": "Lane splitting in tight spaces is dangerous.",
-      "created_at": "2025-10-26 00:00:00",
-      "updated_at": "2025-10-26T08:56:05.344Z",
-      "active": 1
+      "options": ["Yes", "No"],
+      "correct": 1,
+      "explanation": "Lane splitting in tight spaces is dangerous."
     },
     {
       "id": 4,
       "section": "Speed Limits",
       "question": "Should you speed up when the road is empty?",
-      "option_a": "Yes",
-      "option_b": "No",
-      "correct_answer": 1,
-      "explanation": "Speed limits are set for safety regardless of traffic.",
-      "created_at": "2025-10-26 00:00:00",
-      "updated_at": "2025-10-26T08:56:11.472Z",
-      "active": 1
+      "options": ["Yes", "No"],
+      "correct": 1,
+      "explanation": "Speed limits are set for safety regardless of traffic."
     },
     {
       "id": 5,
       "section": "Pedestrian Lane",
       "question": "Is it acceptable to cut through a pedestrian crossing to save time?",
-      "option_a": "Yes",
-      "option_b": "No",
-      "correct_answer": 1,
-      "explanation": "Always respect pedestrian crossings.",
-      "created_at": "2025-10-26 00:00:00",
-      "updated_at": "2025-10-26T08:56:21.977Z",
-      "active": 1
+      "options": ["Yes", "No"],
+      "correct": 1,
+      "explanation": "Always respect pedestrian crossings."
     },
     {
-      "id": 6,
-      "section": "Test",
-      "question": "TEST TEST TEST",
-      "option_a": "Yes",
-      "option_b": "No",
-      "correct_answer": 0,
-      "explanation": "TEST TEST",
-      "created_at": "2025-10-26T08:56:49.808Z",
-      "updated_at": "2025-10-26T08:56:49.808Z",
-      "active": 0
+      "id": 8,
+      "section": "DTI Helmet",
+      "question": "Should you wear a DTI-approved helmet every ride?",
+      "options": ["Yes", "No"],
+      "correct": 0,
+      "explanation": "It has been tested and certified to provide adequate protection for motorcycle riders and passengers."
+    },
+    {
+      "id": 9,
+      "section": "Counterflow",
+      "question": "Is counterflowing a faster and safer option?",
+      "options": ["Yes", "No"],
+      "correct": 1,
+      "explanation": ""
+    },
+    {
+      "id": 10,
+      "section": "Overtaking",
+      "question": "Is overtaking allowed on a solid yellow line?",
+      "options": ["Yes", "No"],
+      "correct": 1,
+      "explanation": ""
+    },
+    {
+      "id": 11,
+      "section": "Distance",
+      "question": "Should you keep a 3-second distance from the vehicle in front?",
+      "options": ["Yes", "No"],
+      "correct": 0,
+      "explanation": ""
+    },
+    {
+      "id": 12,
+      "section": "Phone Usage",
+      "question": "Is it okay to text or use your phone while riding?",
+      "options": ["Yes", "No"],
+      "correct": 1,
+      "explanation": ""
+    },
+    {
+      "id": 13,
+      "section": "Lights",
+      "question": "Should your headlight be turned on even during daytime?",
+      "options": ["Yes", "No"],
+      "correct": 0,
+      "explanation": ""
+    },
+    {
+      "id": 14,
+      "section": "Yellow Box",
+      "question": "Should you stop or enter the yellow box without completely clearing the intersection?",
+      "options": ["Yes", "No"],
+      "correct": 1,
+      "explanation": ""
+    },
+    {
+      "id": 15,
+      "section": "Wearing of helmet",
+      "question": "Can you remove your helmet once traffic stops?",
+      "options": ["Yes", "No"],
+      "correct": 1,
+      "explanation": ""
+    },
+    {
+      "id": 16,
+      "section": "Helmet for Passenger",
+      "question": "Is it okay to ride without a license if you “just know how to ride”?",
+      "options": ["Yes", "No"],
+      "correct": 1,
+      "explanation": ""
+    },
+    {
+      "id": 17,
+      "section": "Check the motorycle",
+      "question": "Should you check your brakes, tires, and lights before every ride?",
+      "options": ["Yes", "No"],
+      "correct": 0,
+      "explanation": ""
+    },
+    {
+      "id": 18,
+      "section": "Road Rage",
+      "question": "Is road rage a sensible response to reckless drivers?",
+      "options": ["Yes", "No"],
+      "correct": 1,
+      "explanation": ""
+    },
+    {
+      "id": 19,
+      "section": "Pedestrian crossing",
+      "question": "Does a Pedestrian Crossing sign mean you should slow down and give way?",
+      "options": ["Yes", "No"],
+      "correct": 0,
+      "explanation": ""
     }
   ]
 }
