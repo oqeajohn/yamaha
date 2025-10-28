@@ -258,29 +258,21 @@ async function viewSessionDetails(sessionId) {
             return;
         }
         
-        // Get question data to find correct answers
-        const questionsData = await apiRequest('/questions');
-        const questionsMap = {};
-        if (questionsData && questionsData.success) {
-            questionsData.questions.forEach(q => {
-                questionsMap[q.id] = q;
-            });
-        }
-        
         const details = data.details.map(d => {
-            const question = questionsMap[d.question_id];
+            // Use the options as they were at the time of answering (from the answer record)
+            const selectedLetter = d.selected_answer === 0 ? 'A' : 'B';
+            const selectedOption = d.selected_answer === 0 ? d.option_a : d.option_b;
             
-            // Use question data for both selected and correct (to ensure consistency)
-            let selectedOption = '';
-            let selectedLetter = '';
-            let correctLetter = '';
-            let correctOption = '';
-            
-            if (question) {
-                selectedLetter = d.selected_answer === 0 ? 'A' : 'B';
-                selectedOption = d.selected_answer === 0 ? question.option_a : question.option_b;
-                correctLetter = question.correct_answer === 0 ? 'A' : 'B';
-                correctOption = question.correct_answer === 0 ? question.option_a : question.option_b;
+            // Determine what the correct answer was based on is_correct flag
+            let correctLetter, correctOption;
+            if (d.is_correct) {
+                // If they got it correct, the selected answer was the correct one
+                correctLetter = selectedLetter;
+                correctOption = selectedOption;
+            } else {
+                // If they got it wrong, the correct answer is the other option
+                correctLetter = d.selected_answer === 0 ? 'B' : 'A';
+                correctOption = d.selected_answer === 0 ? d.option_b : d.option_a;
             }
             
             return `Question: ${d.question}\nSelected: ${selectedLetter} - ${selectedOption}\nCorrect Answer: ${correctLetter} - ${correctOption}\nStatus: ${d.is_correct ? '✓ Correct' : '✗ Wrong'}`;
