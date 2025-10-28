@@ -2387,7 +2387,23 @@ function renderWorld() {
 		spriteX     = segment.p1.screen.x + (spriteScale * sprite.offset * roadData.width * defaultData.width/2);
 		spriteY     = segment.p1.screen.y;
 		
-		if(sprite.active)
+		// Only render buildings if they're close enough (prevents far-distance rendering bug)
+		// Check if sprite is a building type by checking if it's in the cityscape array
+		var isBuilding = sprite.source && (
+			sprite.source.id === 'BUILDING1' || 
+			sprite.source.id === 'BUILDING2A' || 
+			sprite.source.id === 'BUILDING2B' || 
+			sprite.source.id === 'BUILDING3A' || 
+			sprite.source.id === 'BUILDING3B' || 
+			sprite.source.id === 'BUILDING4A' || 
+			sprite.source.id === 'BUILDING4B'
+		);
+		
+		// Render buildings only if they're within reasonable distance (prevents desktop bug)
+		// n represents distance from player - smaller n = closer
+		var shouldRender = sprite.active && (!isBuilding || n < 150); // Buildings render only within 150 segments
+		
+		if(shouldRender)
 			renderSprite(defaultData.width, defaultData.height, resolution, roadData.width, sprites, sprite.source, spriteScale, spriteX, spriteY, (sprite.offset < 0 ? -1 : 0), -1, segment.clip);
 	}		if(segment == playerSegment) {
 			renderPlayer(defaultData.width, defaultData.height, resolution, roadData.width, sprites, defaultData.speed/worldData.maxSpeed,
@@ -2873,6 +2889,7 @@ function resetRoad() {
 function resetSprites() {
 	// Dense highway cityscape - tall buildings lined up on both sides creating urban canyon effect
 	var lastBillboardPos = -1000; // Track last billboard position to avoid duplicates
+	var buildingCounter = 0; // Counter for building spacing
 	
 	for(var n = 3 ; n < segments.length ; n += 2) { // Place sprites every 2 segments for continuous highway feel
 		var hasLeftBillboard = false;
@@ -2905,22 +2922,28 @@ function resetSprites() {
 				// Mark this billboard position as used
 				lastBillboardPos = nearestBillboardPos;
 			}
-		}
-		
-		// BUILDINGS - Only spawn if no billboard on that side
-		// Buildings are positioned further from road, appearing behind billboards when both exist
-		if (!hasLeftBillboard) {
-			var leftDistance = -1.5; // Further left creates highway corridor effect
-			addSprite(n, randomChoice([spritesData.BUILDING1, spritesData.BUILDING2A, spritesData.BUILDING3B, spritesData.BUILDING4A]), leftDistance);
-		}
-		
-		if (!hasRightBillboard) {
-			var rightDistance = 1.5; // Further right creates highway corridor effect
-			addSprite(n, randomChoice([spritesData.BUILDING1, spritesData.BUILDING2B, spritesData.BUILDING3A, spritesData.BUILDING3B, spritesData.BUILDING4B]), rightDistance);
+	}
+	
+	// BUILDINGS - Dense cityscape with buildings next to each other (no gaps)
+	// Buildings render only at close distance to prevent desktop rendering bugs
+	// Position them close to road for urban highway feel
+	
+	if (!hasLeftBillboard) {
+		var leftBuilding = randomChoice([spritesData.BUILDING1, spritesData.BUILDING2A, spritesData.BUILDING3B, spritesData.BUILDING4A]);
+		if (leftBuilding && leftBuilding.src) {
+			var leftDistance = -1.3; // Close to road edge for visibility
+			addSprite(n, leftBuilding, leftDistance);
 		}
 	}
 	
-	resetCollectItems(); // Place coins, fuel, and finish line
+	if (!hasRightBillboard) {
+		var rightBuilding = randomChoice([spritesData.BUILDING1, spritesData.BUILDING2B, spritesData.BUILDING3A, spritesData.BUILDING3B, spritesData.BUILDING4B]);
+		if (rightBuilding && rightBuilding.src) {
+			var rightDistance = 1.3; // Close to road edge for visibility
+			addSprite(n, rightBuilding, rightDistance);
+		}
+	}
+}	resetCollectItems(); // Place coins, fuel, and finish line
 }
 
 /*!
