@@ -116,6 +116,7 @@ const spritesData = {
 	COIN_KAMOTE4:{src:'assets/item_power_coin_kamote4.png'}, // Kamote coin (-700 score)
 	COIN_KAMOTE5:{src:'assets/item_power_coin_kamote5.png'}, // Kamote coin (-700 score)
 	COIN_KAMOTE6:{src:'assets/item_power_coin_kamote6.png'}, // Kamote coin (-700 score)
+	COIN_KAMOTE7:{src:'assets/item_power_coin_kamote7.png'}, // Kamote coin (-700 score)
 	KAMOTE_POPUP:{src:'assets/kamote_pop_up.png'}, // Kamote popup image when hitting kamote coins
 	QUESTION_BACKGROUND:{src:'assets/question_background.png'}, // Background image for quiz questions
 	FUEL:{src:'assets/truss.png'},  // Road tunnel/arc that triggers quiz when player drives through it
@@ -126,7 +127,7 @@ const spritesData = {
 spritesData.CITYSCAPE = [spritesData.BUILDING1, spritesData.BUILDING2A, spritesData.BUILDING2B, spritesData.BUILDING3A, spritesData.BUILDING3B, spritesData.BUILDING4A, spritesData.BUILDING4B]; // All building types for urban skyline
 spritesData.CARS = [spritesData.CAR01, spritesData.CAR02, spritesData.CAR03, spritesData.CAR04, spritesData.JEEP01, spritesData.TRUCK01, spritesData.TRUCK02, spritesData.TRUCK03]; // Traffic vehicles (cars, jeepneys, trucks)
 spritesData.BILLBOARDS = [spritesData.BILLBOARD01, spritesData.BILLBOARD02, spritesData.BILLBOARD03, spritesData.BILLBOARD04, spritesData.BILLBOARD05, spritesData.BILLBOARD06, spritesData.BILLBOARD07, spritesData.BILLBOARD08, spritesData.BILLBOARD09, spritesData.BILLBOARD10, spritesData.BILLBOARD11, spritesData.BILLBOARD12, spritesData.BILLBOARD13, spritesData.BILLBOARD14, spritesData.BILLBOARD15, spritesData.BILLBOARD16, spritesData.BILLBOARD17, spritesData.BILLBOARD18]; // Advertisement billboards
-spritesData.KAMOTE_COINS = [spritesData.COIN_KAMOTE1, spritesData.COIN_KAMOTE2, spritesData.COIN_KAMOTE3, spritesData.COIN_KAMOTE4, spritesData.COIN_KAMOTE5, spritesData.COIN_KAMOTE6]; // Penalty coins that subtract score
+spritesData.KAMOTE_COINS = [spritesData.COIN_KAMOTE1, spritesData.COIN_KAMOTE2, spritesData.COIN_KAMOTE3, spritesData.COIN_KAMOTE4, spritesData.COIN_KAMOTE5, spritesData.COIN_KAMOTE6, spritesData.COIN_KAMOTE7]; // Penalty coins that subtract score
 
 const intructionDisplayText = 'Press W,A,S,D\n to navigate'; //instruction display text
 
