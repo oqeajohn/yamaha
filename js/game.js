@@ -79,7 +79,7 @@ const spritesData = {
 	BILLBOARD02:{src:'assets/billboard_02.png'}, // Philippine brands advertisement (Ayala, BDO, etc.)
 	BILLBOARD03:{src:'assets/billboard_03.png'}, // Local business digital signage
 	BILLBOARD04:{src:'assets/billboard_04.png'}, // Local business digital signage
-	BILLBOARD05:{src:'assets/billboard_04.png'}, // Local business digital signage
+	BILLBOARD05:{src:'assets/billboard_05.png'}, // Local business digital signage
 	BUILDING1:{src:'assets/bulding1.png'}, // Manila building 1
 	BUILDING2A:{src:'assets/building2a.png'}, // Manila building 2a
 	BUILDING2B:{src:'assets/Building2b.png'}, // Manila building 2b
