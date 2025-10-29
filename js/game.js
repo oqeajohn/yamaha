@@ -520,10 +520,8 @@ function showVictoryMessage() {
 	
 	gameContainer.addChild(endScreenContainer);
 	
-	// Show victory buttons after a short delay
-	setTimeout(function() {
-		showVictoryButtons();
-	}, 1000);
+	// Show victory buttons immediately (no delay)
+	showVictoryButtons();
 }
 
 /**
@@ -549,29 +547,35 @@ function showVictoryButtons() {
 	if (showClaimPrize) {
 		var startSurveyButton = new createjs.Bitmap(loader.getResult('buttonStartSurvey'));
 		
-		// Scale button responsively
-		var btnScale = Math.min(canvasW * 0.4 / startSurveyButton.image.naturalWidth, 0.8);
-		startSurveyButton.scaleX = startSurveyButton.scaleY = btnScale;
-		
-		// Center the button
-		startSurveyButton.x = (canvasW - startSurveyButton.image.naturalWidth * btnScale) / 2;
-		startSurveyButton.y = buttonY;
-		startSurveyButton.cursor = "pointer";
-		
-		// Add click handler
-		startSurveyButton.addEventListener("click", function() {
-			playSound('soundClick');
+		// Check if button image loaded properly
+		if (!startSurveyButton.image || !startSurveyButton.image.naturalWidth) {
+			console.error('Start Survey button image failed to load!');
+		} else {
+			// Scale button responsively
+			var btnScale = Math.min(canvasW * 0.4 / startSurveyButton.image.naturalWidth, 0.8);
+			startSurveyButton.scaleX = startSurveyButton.scaleY = btnScale;
 			
-			// Mark player as redirected
-			if (currentPlayer && currentPlayer.email) {
-				markPlayerAsRedirected(currentPlayer.email);
-			}
+			// Center the button
+			startSurveyButton.x = (canvasW - startSurveyButton.image.naturalWidth * btnScale) / 2;
+			startSurveyButton.y = buttonY;
+			startSurveyButton.cursor = "pointer";
 			
-			// Open survey in iframe modal
-			openSurveyIframe("https://www.yamaha-motor.com.ph/motorcycles/personal-commuter/mio-series/mio-gravis?utm_source=mio_gravis_lrt_activation&utm_medium=qr_code&utm_campaign=052025_miogravis&utm_content=the_sensible_choice");
-		});
-		
-		victoryButtonsContainer.addChild(startSurveyButton);
+			// Add click handler
+			startSurveyButton.addEventListener("click", function() {
+				playSound('soundClick');
+				
+				// Mark player as redirected
+				if (currentPlayer && currentPlayer.email) {
+					markPlayerAsRedirected(currentPlayer.email);
+				}
+				
+				// Open survey in iframe modal
+				openSurveyIframe("https://www.yamaha-motor.com.ph/motorcycles/personal-commuter/mio-series/mio-gravis?utm_source=mio_gravis_lrt_activation&utm_medium=qr_code&utm_campaign=052025_miogravis&utm_content=the_sensible_choice");
+			});
+			
+			victoryButtonsContainer.addChild(startSurveyButton);
+			console.log('Start Survey button added at x:', startSurveyButton.x, 'y:', startSurveyButton.y, 'scale:', btnScale);
+		}
 	}
 	
 	// Responsive font size for "Think you can do better?" text
@@ -589,27 +593,34 @@ function showVictoryButtons() {
 	// PLAY AGAIN button (using play_again.png)
 	var playAgainButton = new createjs.Bitmap(loader.getResult('buttonPlayAgain'));
 	
-	// Scale button responsively
-	var btnScale2 = Math.min(canvasW * 0.4 / playAgainButton.image.naturalWidth, 0.8);
-	playAgainButton.scaleX = playAgainButton.scaleY = btnScale2;
-	
-	// Center the button below the "Think you can do better?" text
-	playAgainButton.x = (canvasW - playAgainButton.image.naturalWidth * btnScale2) / 2;
-	playAgainButton.y = thinkBetterY + thinkFontSize * 1.5 + 5;
-	playAgainButton.cursor = "pointer";
-	
-	playAgainButton.addEventListener("click", function() {
-		playSound('soundClick');
-		location.reload();
-	});
-	
-	// Add buttons to container
-	victoryButtonsContainer.addChild(playAgainButton);
-	victoryButtonsContainer.alpha = 0;
+	// Check if button image loaded properly
+	if (!playAgainButton.image || !playAgainButton.image.naturalWidth) {
+		console.error('Play Again button image failed to load!');
+	} else {
+		// Scale button responsively
+		var btnScale2 = Math.min(canvasW * 0.4 / playAgainButton.image.naturalWidth, 0.8);
+		playAgainButton.scaleX = playAgainButton.scaleY = btnScale2;
+		
+		// Center the button below the "Think you can do better?" text
+		playAgainButton.x = (canvasW - playAgainButton.image.naturalWidth * btnScale2) / 2;
+		playAgainButton.y = thinkBetterY + thinkFontSize * 1.5 + 5;
+		playAgainButton.cursor = "pointer";
+		
+		playAgainButton.addEventListener("click", function() {
+			playSound('soundClick');
+			location.reload();
+		});
+		
+		// Add buttons to container
+		victoryButtonsContainer.addChild(playAgainButton);
+		console.log('Play Again button added at x:', playAgainButton.x, 'y:', playAgainButton.y, 'scale:', btnScale2);
+	}
+	victoryButtonsContainer.alpha = 1; // Show immediately, no animation
 	gameContainer.addChild(victoryButtonsContainer);
 	
-	// Fade in buttons
-	TweenMax.to(victoryButtonsContainer, 0.5, {alpha: 1});
+	console.log('Victory buttons created and added to stage');
+	console.log('Start Survey button:', showClaimPrize ? 'visible' : 'hidden');
+	console.log('Play Again button: visible');
 }
 
 // Mark player as redirected in backend
