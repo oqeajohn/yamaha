@@ -210,11 +210,38 @@ const defaultData = {
 // Apply moderate optimizations for mobile devices
 var DISABLE_ROADSIDE_SPRITES = false; // Buildings now use sprite pooling - no longer need to disable!
 
+// Detect low-end mobile devices (less than 2GB RAM or older devices)
+var isLowEndDevice = false;
 if (typeof isMobileDevice !== 'undefined' && isMobileDevice) {
-	defaultData.drawDistance = 120;
-	defaultData.totalCars = 60;
-	defaultData.fieldOfView = 100;
-	roadData.fogDensity = 2.5;
+	// Check for device memory API (if available)
+	if (navigator.deviceMemory && navigator.deviceMemory < 2) {
+		isLowEndDevice = true;
+	}
+	// Check for older Android devices (user agent detection)
+	var ua = navigator.userAgent.toLowerCase();
+	if (ua.indexOf('android') > -1) {
+		var androidVersion = parseFloat(ua.slice(ua.indexOf('android') + 8));
+		if (androidVersion < 7) {
+			isLowEndDevice = true;
+		}
+	}
+}
+
+if (typeof isMobileDevice !== 'undefined' && isMobileDevice) {
+	if (isLowEndDevice) {
+		// AGGRESSIVE optimization for low-end devices
+		defaultData.drawDistance = 80; // Significantly reduced draw distance
+		defaultData.totalCars = 30; // Fewer AI cars
+		defaultData.fieldOfView = 90; // Narrower field of view
+		roadData.fogDensity = 3.5; // More fog to hide reduced draw distance
+		DISABLE_ROADSIDE_SPRITES = true; // Disable buildings on very low-end devices
+	} else {
+		// Standard mobile optimization
+		defaultData.drawDistance = 120;
+		defaultData.totalCars = 60;
+		defaultData.fieldOfView = 100;
+		roadData.fogDensity = 2.5;
+	}
 } else {
 	// Desktop uses default settings
 }
@@ -237,7 +264,8 @@ var bgTreesMirror = null;
 
 // Sprite pool for reusing sprites instead of cloning (MASSIVE performance improvement)
 var spritePool = {};
-var spritePoolSize = 50; // Number of pre-created sprites per type
+// Adjust sprite pool size based on device capability
+var spritePoolSize = isLowEndDevice ? 15 : (isMobileDevice ? 25 : 50); // Number of pre-created sprites per type
 
 const roadLengthData = {length:{none:0, short:25, medium:50, long:100},
 					  hill:{none:0, low:20, medium:40, high:60},

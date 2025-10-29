@@ -27,8 +27,17 @@ function initGameCanvas(w,h){
 	stage.enableMouseOver(20);
 	stage.mouseMoveOutside = true;
 	
-	// Use standard 60 FPS - modern mobile browsers handle this well
-	createjs.Ticker.framerate = 60;
+	// Adaptive frame rate based on device capability
+	// Low-end devices use 30 FPS for better performance
+	// Standard mobile uses 45 FPS as a balance
+	// Desktop uses full 60 FPS
+	var targetFPS = 60;
+	if (typeof isLowEndDevice !== 'undefined' && isLowEndDevice) {
+		targetFPS = 30; // Low-end devices
+	} else if (typeof isMobileDevice !== 'undefined' && isMobileDevice) {
+		targetFPS = 45; // Standard mobile devices
+	}
+	createjs.Ticker.framerate = targetFPS;
 	createjs.Ticker.addEventListener("tick", tick);	
 }
 
