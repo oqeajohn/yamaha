@@ -23,24 +23,6 @@ function initGameCanvas(w,h){
 	canvasH=h;
 	stage = new createjs.Stage("gameCanvas"); // CreateJS handles its own optimization
 	
-	// Get canvas 2D context for high-quality rendering settings
-	const ctx = gameCanvas.getContext('2d');
-	if (ctx) {
-		// Enable high-quality image smoothing for better graphics in Chrome
-		ctx.imageSmoothingEnabled = true;
-		ctx.imageSmoothingQuality = 'high'; // Use highest quality smoothing
-		// Browser-specific smoothing settings
-		if (ctx.webkitImageSmoothingEnabled !== undefined) {
-			ctx.webkitImageSmoothingEnabled = true;
-		}
-		if (ctx.mozImageSmoothingEnabled !== undefined) {
-			ctx.mozImageSmoothingEnabled = true;
-		}
-		if (ctx.msImageSmoothingEnabled !== undefined) {
-			ctx.msImageSmoothingEnabled = true;
-		}
-	}
-	
 	createjs.Touch.enable(stage);
 	stage.enableMouseOver(20);
 	stage.mouseMoveOutside = true;
@@ -716,19 +698,6 @@ function resizeCanvas(){
 	
 	gameCanvas.width = stageW * dpr;
 	gameCanvas.height = stageH * dpr;
-	
-	// Reapply high-quality smoothing after canvas resize (Chrome needs this)
-	const ctx = gameCanvas.getContext('2d');
-	if (ctx) {
-		ctx.imageSmoothingEnabled = true;
-		ctx.imageSmoothingQuality = 'high';
-		if (ctx.webkitImageSmoothingEnabled !== undefined) {
-			ctx.webkitImageSmoothingEnabled = true;
-		}
-		if (ctx.mozImageSmoothingEnabled !== undefined) {
-			ctx.mozImageSmoothingEnabled = true;
-		}
-	}
 	
  	if(canvasContainer!=undefined){
 		stage.scaleX = stage.scaleY = dpr;
