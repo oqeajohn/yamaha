@@ -452,6 +452,34 @@ app.get('/api/sessions/:session_id/details', authenticateToken, async (req, res)
     }
 });
 
+app.delete('/api/sessions/:session_id', authenticateToken, async (req, res) => {
+    try {
+        const sessionId = req.params.session_id;
+        
+        // Delete session from sessions.json
+        const sessionsData = await readJSON('sessions.json');
+        const originalSessionsCount = sessionsData.sessions.length;
+        sessionsData.sessions = sessionsData.sessions.filter(s => s.session_id !== sessionId);
+        await writeJSON('sessions.json', sessionsData);
+        
+        // Delete related answers from answers.json
+        const answersData = await readJSON('answers.json');
+        const originalAnswersCount = answersData.answers.length;
+        answersData.answers = answersData.answers.filter(a => a.session_id !== sessionId);
+        await writeJSON('answers.json', answersData);
+        
+        const sessionsDeleted = originalSessionsCount - sessionsData.sessions.length;
+        const answersDeleted = originalAnswersCount - answersData.answers.length;
+        
+        res.json({
+            success: true, 
+            message: `Session deleted successfully (${sessionsDeleted} session, ${answersDeleted} answers removed)`
+        });
+    } catch (error) {
+        res.status(500).json({success: false, message: error.message});
+    }
+});
+
 app.get('/api/analytics', authenticateToken, async (req, res) => {
     try {
         const questionsData = await readJSON('qs.json');

@@ -578,8 +578,11 @@
                                     </span>
                                 </td>
                                 <td>
-                                    <button class="btn btn-sm btn-primary" @click="viewSessionDetails(s.session_id)">
+                                    <button class="btn btn-sm btn-primary" @click="viewSessionDetails(s.session_id)" style="margin-right: 5px;">
                                         View Details
+                                    </button>
+                                    <button class="btn btn-sm btn-danger" @click="deleteSession(s.session_id)" title="Delete this session">
+                                        🗑️ Delete
                                     </button>
                                 </td>
                             </tr>
@@ -940,6 +943,23 @@
                     this.showSessionModal = false;
                     this.sessionDetails = null;
                     this.sessionAnswers = [];
+                },
+
+                async deleteSession(sessionId) {
+                    if (!confirm(`Are you sure you want to delete this session?\n\nSession ID: ${sessionId.substring(0, 12)}...\n\nThis action cannot be undone.`)) {
+                        return;
+                    }
+
+                    const data = await this.apiRequest(`/sessions/${sessionId}`, {
+                        method: 'DELETE'
+                    });
+
+                    if (data && data.success) {
+                        alert('✅ Session deleted successfully');
+                        // Remove the session from the list
+                        this.sessions = this.sessions.filter(s => s.session_id !== sessionId);
+                        await this.loadStats();
+                    }
                 },
 
                 async clearAllData() {
