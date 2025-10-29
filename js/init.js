@@ -76,6 +76,23 @@ function checkBrowser(){
 		browserSupport=true;
 	}
 	
+	// Block desktop/laptop devices - only allow mobile phones, tablets, and iPads
+	if(isDesktop){
+		$('#notSupportHolder .notSupport').html('This game is only available on mobile devices.<br/><br/>Please access this game using your smartphone, tablet, or iPad.');
+		$('#notSupportHolder').css({
+			'display': 'block',
+			'position': 'fixed',
+			'top': '50%',
+			'left': '50%',
+			'transform': 'translate(-50%, -50%)',
+			'z-index': '9999',
+			'background': 'rgba(0, 0, 0, 0.9)',
+			'padding': '40px',
+			'border-radius': '10px'
+		});
+		return;
+	}
+	
 	if(browserSupport && checkGameVersion()){
 		if(!isLoaded){
 			isLoaded=true;
