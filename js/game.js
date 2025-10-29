@@ -78,21 +78,13 @@ const spritesData = {
 	BILLBOARD01:{src:'assets/billboard_01.png'}, // Jollibee, SM, Globe telecommunications billboard
 	BILLBOARD02:{src:'assets/billboard_02.png'}, // Philippine brands advertisement (Ayala, BDO, etc.)
 	BILLBOARD03:{src:'assets/billboard_03.png'}, // Local business digital signage
-	BILLBOARD04:{src:'assets/billboard_04.png'}, // Local business digital signage
-	BILLBOARD05:{src:'assets/billboard_05.png'}, // Local business digital signage
-	BILLBOARD06:{src:'assets/billboard_06.png'}, // Local business digital signage
-	BILLBOARD07:{src:'assets/billboard_07.png'}, // Local business digital signage
-	BILLBOARD08:{src:'assets/billboard_08.png'}, // Local business digital signage
-	BILLBOARD09:{src:'assets/billboard_09.png'}, // Local business digital signage
-	BILLBOARD10:{src:'assets/billboard_10.png'}, // Local business digital signage
-	BILLBOARD11:{src:'assets/billboard_11.png'}, // Local business digital signage
-	BILLBOARD12:{src:'assets/billboard_12.png'}, // Local business digital signage
-	BILLBOARD13:{src:'assets/billboard_13.png'}, // Local business digital signage
-	BILLBOARD14:{src:'assets/billboard_14.png'},
 	BILLBOARD15:{src:'assets/billboard_15.png'},
 	BILLBOARD16:{src:'assets/billboard_16.png'},
 	BILLBOARD17:{src:'assets/billboard_17.png'},
 	BILLBOARD18:{src:'assets/billboard_18.png'},
+	BILLBOARD19:{src:'assets/billboard_19.png'},
+	BILLBOARD20:{src:'assets/billboard_20.png'},
+	BILLBOARD21:{src:'assets/billboard_21.png'},
 	BUILDING1:{src:'assets/bulding1.png'}, // Manila building 1
 	BUILDING2A:{src:'assets/building2a.png'}, // Manila building 2a
 	BUILDING2B:{src:'assets/Building2b.png'}, // Manila building 2b
@@ -126,7 +118,7 @@ const spritesData = {
 // Sprite collections - grouped arrays for random selection during gameplay
 spritesData.CITYSCAPE = [spritesData.BUILDING1, spritesData.BUILDING2A, spritesData.BUILDING2B, spritesData.BUILDING3A, spritesData.BUILDING3B, spritesData.BUILDING4A, spritesData.BUILDING4B]; // All building types for urban skyline
 spritesData.CARS = [spritesData.CAR01, spritesData.CAR02, spritesData.CAR03, spritesData.CAR04, spritesData.JEEP01, spritesData.TRUCK01, spritesData.TRUCK02, spritesData.TRUCK03]; // Traffic vehicles (cars, jeepneys, trucks)
-spritesData.BILLBOARDS = [spritesData.BILLBOARD01, spritesData.BILLBOARD02, spritesData.BILLBOARD03, spritesData.BILLBOARD04, spritesData.BILLBOARD05, spritesData.BILLBOARD06, spritesData.BILLBOARD07, spritesData.BILLBOARD08, spritesData.BILLBOARD09, spritesData.BILLBOARD10, spritesData.BILLBOARD11, spritesData.BILLBOARD12, spritesData.BILLBOARD13, spritesData.BILLBOARD14, spritesData.BILLBOARD15, spritesData.BILLBOARD16, spritesData.BILLBOARD17, spritesData.BILLBOARD18]; // Advertisement billboards
+spritesData.BILLBOARDS = [spritesData.BILLBOARD01, spritesData.BILLBOARD02, spritesData.BILLBOARD03, spritesData.BILLBOARD15, spritesData.BILLBOARD16, spritesData.BILLBOARD17, spritesData.BILLBOARD18, spritesData.BILLBOARD19, spritesData.BILLBOARD20, spritesData.BILLBOARD21]; // Advertisement billboards
 spritesData.KAMOTE_COINS = [spritesData.COIN_KAMOTE1, spritesData.COIN_KAMOTE2, spritesData.COIN_KAMOTE3, spritesData.COIN_KAMOTE4, spritesData.COIN_KAMOTE5, spritesData.COIN_KAMOTE6, spritesData.COIN_KAMOTE7]; // Penalty coins that subtract score
 
 const intructionDisplayText = 'Press W,A,S,D\n to navigate'; //instruction display text
@@ -2949,14 +2941,14 @@ function resetSprites() {
 				
 				if (isLeftSide) {
 					// Left side billboard
-					var selectedBillboard = randomChoice([spritesData.BILLBOARD01, spritesData.BILLBOARD03, spritesData.BILLBOARD11, spritesData.BILLBOARD12, spritesData.BILLBOARD13, spritesData.BILLBOARD14, spritesData.BILLBOARD15, spritesData.BILLBOARD16]);
+					var selectedBillboard = randomChoice([spritesData.BILLBOARD01, spritesData.BILLBOARD03, spritesData.BILLBOARD15, spritesData.BILLBOARD16, spritesData.BILLBOARD19, spritesData.BILLBOARD20]);
 					// Landscape billboards (15-18) are positioned closer to road
 					var leftBBOffset = (selectedBillboard === spritesData.BILLBOARD15 || selectedBillboard === spritesData.BILLBOARD16) ? -0.5 : -0.8;
 					addSprite(n, selectedBillboard, leftBBOffset);
 					hasLeftBillboard = true; // Flag to prevent building spawn on this side
 				} else {
 					// Right side billboard
-					var selectedBillboard = randomChoice([spritesData.BILLBOARD02, spritesData.BILLBOARD04, spritesData.BILLBOARD05, spritesData.BILLBOARD06, spritesData.BILLBOARD07, spritesData.BILLBOARD08, spritesData.BILLBOARD10, spritesData.BILLBOARD17, spritesData.BILLBOARD18]);
+					var selectedBillboard = randomChoice([spritesData.BILLBOARD02, spritesData.BILLBOARD17, spritesData.BILLBOARD18, spritesData.BILLBOARD21]);
 					// Landscape billboards (15-18) are positioned closer to road
 					var rightBBOffset = (selectedBillboard === spritesData.BILLBOARD17 || selectedBillboard === spritesData.BILLBOARD18) ? 0.5 : 0.8;
 					addSprite(n, selectedBillboard, rightBBOffset);
