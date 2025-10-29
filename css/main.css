@@ -34,7 +34,7 @@ html{ -webkit-user-select: none; -ms-user-select: none; user-select: none; backg
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: #000;
+    background: linear-gradient(to bottom, #87CEEB 0%, #B0E2FF 30%, #5F9EA0 60%, #2F4F4F 100%);
 }
 
 #mainLoader img {
