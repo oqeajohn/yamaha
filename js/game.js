@@ -516,7 +516,7 @@ function showVictoryMessage() {
 	currentY += Math.ceil(prize2Text.getMeasuredHeight()) + spacing3 - 2;
 	
 	// "*Until supplies last" text
-	var suppliesText = new createjs.Text("*Until supplies last", "bold " + fontSize3 + "px Mont Heavy DEMO", "#666666");
+	var suppliesText = new createjs.Text("*Until supplies last", "bold " + fontSize3 + "px Mont Heavy DEMO", "#071c27");
 	suppliesText.textAlign = "center";
 	suppliesText.textBaseline = "top";
 	suppliesText.x = canvasW / 2;
