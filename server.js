@@ -26,7 +26,7 @@ const DATA_DIR = path.join(__dirname, 'admin', 'data');
 // Admin credentials (use environment variables in production)
 const ADMIN_CREDENTIALS = {
     username: process.env.ADMIN_USERNAME || 'admin',
-    password: process.env.ADMIN_PASSWORD_HASH || '$2a$10$XuNd1UJKxzZBbEEo0jrMg.dUDvzznKVPQMmTQ45Grtxra/GcVsdty' // password: WbaVlgny
+    password: process.env.ADMIN_PASSWORD_HASH || '$2b$10$qslIgU87Hw/v2cIPxRLWN.VpUjNx4/XKwHUBRdoQZ0TInBN5A7UgC' // password: YamahaAdmin2024@Prod
 };
 
 // Helper functions
