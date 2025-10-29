@@ -2236,7 +2236,7 @@ function updateSprites() {
 		}
 	}
 
-	defaultData.playerX = getLimit(defaultData.playerX, -2, 2);// dont ever let it go too far out of bound
+	defaultData.playerX = getLimit(defaultData.playerX, -1, 1);// keep player within road boundaries
 	defaultData.speed = getLimit(defaultData.speed, 0, worldData.maxSpeed); // or exceed defaultData.maxSpeed
 	
 	defaultData.skyOffset  = getIncrease(defaultData.skyOffset,  defaultData.skySpeed  * playerSegment.curve * (defaultData.position-startPosition)/defaultData.segmentLength, 1);
