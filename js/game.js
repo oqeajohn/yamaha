@@ -78,13 +78,16 @@ const spritesData = {
 	BILLBOARD01:{src:'assets/billboard_01.png'}, // Jollibee, SM, Globe telecommunications billboard
 	BILLBOARD02:{src:'assets/billboard_02.png'}, // Philippine brands advertisement (Ayala, BDO, etc.)
 	BILLBOARD03:{src:'assets/billboard_03.png'}, // Local business digital signage
-	BILLBOARD15:{src:'assets/billboard_15.png'},
-	BILLBOARD16:{src:'assets/billboard_16.png'},
-	BILLBOARD17:{src:'assets/billboard_17.png'},
-	BILLBOARD18:{src:'assets/billboard_18.png'},
-	BILLBOARD19:{src:'assets/billboard_19.png'},
-	BILLBOARD20:{src:'assets/billboard_20.png'},
-	BILLBOARD21:{src:'assets/billboard_21.png'},
+	BILLBOARD04:{src:'assets/billboard_04.png'}, // Cebu Pacific airline ad billboard
+	BILLBOARD05:{src:'assets/billboard_05.png'}, // Philippine fast food chain billboard
+	BILLBOARD06:{src:'assets/billboard_06.png'}, // Philippine fast food chain billboard
+	BILLBOARD07:{src:'assets/billboard_07.png'}, // Philippine fast food chain billboard
+	BILLBOARD08:{src:'assets/billboard_08.png'}, // Philippine fast food chain billboard
+	BILLBOARD09:{src:'assets/billboard_09.png'}, // Philippine fast food chain billboard
+	BILLBOARD10:{src:'assets/billboard_10.png'}, // Philippine fast food chain billboard
+	BILLBOARD11:{src:'assets/billboard_11.png'}, // Philippine telecom ad billboard
+	BILLBOARD12:{src:'assets/billboard_12.png'}, // Philippine beverage ad billboard
+	BILLBOARD13:{src:'assets/billboard_13.png'}, // Philippine snack food ad billboard
 	BUILDING1:{src:'assets/bulding1.png'}, // Manila building 1
 	BUILDING2A:{src:'assets/building2a.png'}, // Manila building 2a
 	BUILDING2B:{src:'assets/Building2b.png'}, // Manila building 2b
@@ -118,7 +121,7 @@ const spritesData = {
 // Sprite collections - grouped arrays for random selection during gameplay
 spritesData.CITYSCAPE = [spritesData.BUILDING1, spritesData.BUILDING2A, spritesData.BUILDING2B, spritesData.BUILDING3A, spritesData.BUILDING3B, spritesData.BUILDING4A, spritesData.BUILDING4B]; // All building types for urban skyline
 spritesData.CARS = [spritesData.CAR01, spritesData.CAR02, spritesData.CAR03, spritesData.CAR04, spritesData.JEEP01, spritesData.TRUCK01, spritesData.TRUCK02, spritesData.TRUCK03]; // Traffic vehicles (cars, jeepneys, trucks)
-spritesData.BILLBOARDS = [spritesData.BILLBOARD01, spritesData.BILLBOARD02, spritesData.BILLBOARD03, spritesData.BILLBOARD15, spritesData.BILLBOARD16, spritesData.BILLBOARD17, spritesData.BILLBOARD18, spritesData.BILLBOARD19, spritesData.BILLBOARD20, spritesData.BILLBOARD21]; // Advertisement billboards
+spritesData.BILLBOARDS = [spritesData.BILLBOARD01, spritesData.BILLBOARD02, spritesData.BILLBOARD03, spritesData.BILLBOARD04, spritesData.BILLBOARD05, spritesData.BILLBOARD06, spritesData.BILLBOARD07, spritesData.BILLBOARD08, spritesData.BILLBOARD09, spritesData.BILLBOARD10, spritesData.BILLBOARD11, spritesData.BILLBOARD12, spritesData.BILLBOARD13]; // Advertisement billboards
 spritesData.KAMOTE_COINS = [spritesData.COIN_KAMOTE1, spritesData.COIN_KAMOTE2, spritesData.COIN_KAMOTE3, spritesData.COIN_KAMOTE4, spritesData.COIN_KAMOTE5, spritesData.COIN_KAMOTE6, spritesData.COIN_KAMOTE7]; // Penalty coins that subtract score
 
 const intructionDisplayText = 'Press W,A,S,D\n to navigate'; //instruction display text
@@ -272,7 +275,7 @@ const roadLengthData = {length:{none:0, short:25, medium:50, long:100},
 					  curve:{none:0, easy:0.8, medium:1.3, hard:1.8, veryHard:2.2, extreme:2.8, ninety:3.5}};
 
 const playerData = {score:0, displayScore:0};
-const gameData = {paused:true, fuel:0, fuelUpdate:false, accel:false, penalty:false, penaltyTime:0, brakeSound:false, accelSound:false, stopSound:false, ended:false, waitingAtTunnel:false};
+const gameData = {paused:true, fuel:0, fuelUpdate:false, accel:false, penalty:false, penaltyTime:0, brakeSound:false, accelSound:false, stopSound:false, ended:false, waitingAtTunnel:false, wasOffRoad:false};
 const keyData = {left:false, right:false, accelerate:false, brake:false};
 
 // Quiz Timer Variables
@@ -382,43 +385,138 @@ function showVictoryMessage() {
 	var endScreenContainer = new createjs.Container();
 	endScreenContainer.name = "endScreenContainer";
 	
-	// Add the end.png background image
+	// Add the end.png background image - scale to fit width first
 	var endBackground = new createjs.Bitmap(loader.getResult('endBackground'));
-	var bgScale = Math.min(canvasW / endBackground.image.naturalWidth, canvasH / endBackground.image.naturalHeight);
+	
+	// Always scale to fit canvas dimensions, using whichever is more restrictive
+	var scaleX = canvasW / endBackground.image.naturalWidth;
+	var scaleY = canvasH / endBackground.image.naturalHeight;
+	var bgScale = Math.min(scaleX, scaleY); // Use the smaller scale to ensure it fits
+	
 	endBackground.scaleX = endBackground.scaleY = bgScale;
 	endBackground.x = (canvasW - endBackground.image.naturalWidth * bgScale) / 2;
 	endBackground.y = (canvasH - endBackground.image.naturalHeight * bgScale) / 2;
 	endScreenContainer.addChild(endBackground);
 	
-	// Add text with proper margins for the blank space
-	var textY = endBackground.y + (endBackground.image.naturalHeight * bgScale * 0.2); // Position in upper portion
-	var textWidth = endBackground.image.naturalWidth * bgScale * 0.8; // 80% width for margins
+	// Calculate responsive sizing based on both width and height
+	var availableHeight = endBackground.image.naturalHeight * bgScale * 0.85; // 85% of background height
+	var startY = endBackground.y + (endBackground.image.naturalHeight * bgScale * 0.18); // Start at 18% to position in white space
 	
-	// "THANK YOU FOR PLAYING!" text
-	var thankYouText = new createjs.Text("THANK YOU FOR PLAYING!", "bold 48px Mont Heavy DEMO", "#071c27");
+	// Text width based on SCREEN width with margins (not image width)
+	var textMargin = canvasW * 0.1; // 10% margin on each side
+	var textWidth = canvasW - (textMargin * 2); // 80% of screen width
+	var textLeftX = textMargin; // Left edge for left-aligned text
+	
+	// Responsive font sizes - smaller to fit everything
+	var fontSize1 = Math.min(Math.floor(canvasW * 0.038), Math.floor(canvasH * 0.045)); // Title
+	var fontSize2 = Math.min(Math.floor(canvasW * 0.028), Math.floor(canvasH * 0.032)); // Headers
+	var fontSize3 = Math.min(Math.floor(canvasW * 0.022), Math.floor(canvasH * 0.025)); // Body text
+	
+	var spacing1 = Math.floor(fontSize1 * 0.8);
+	var spacing2 = Math.floor(fontSize2 * 0.6);
+	var spacing3 = Math.floor(fontSize3 * 0.5);
+	
+	var currentY = startY;
+	
+	// "Thank you for playing! Awesome prizes awaits!" text
+	var thankYouText = new createjs.Text("Thank you for playing!\nAwesome prizes awaits!", "bold " + fontSize1 + "px Mont Heavy DEMO", "#071c27");
 	thankYouText.textAlign = "center";
 	thankYouText.textBaseline = "top";
 	thankYouText.x = canvasW / 2;
-	thankYouText.y = textY;
+	thankYouText.y = currentY;
 	thankYouText.lineWidth = textWidth;
+	thankYouText.lineHeight = fontSize1 * 1.1;
 	endScreenContainer.addChild(thankYouText);
+	currentY += fontSize1 * 2.2 + spacing1;
 	
-	// "You can claim your prize after submitting a short survey" text
-	var surveyText = new createjs.Text("You can claim your prize after submitting a short survey", "bold 32px Mont Heavy DEMO", "#071c27");
-	surveyText.textAlign = "center";
-	surveyText.textBaseline = "top";
-	surveyText.x = canvasW / 2;
-	surveyText.y = textY + 120;
-	surveyText.lineWidth = textWidth;
-	endScreenContainer.addChild(surveyText);
+	// "Here's how to claim your prize:" text
+	var claimText = new createjs.Text("Here's how to claim your prize:", "bold " + fontSize2 + "px Mont Heavy DEMO", "#071c27");
+	claimText.textAlign = "center";
+	claimText.textBaseline = "top";
+	claimText.x = canvasW / 2;
+	claimText.y = currentY;
+	claimText.lineWidth = textWidth;
+	endScreenContainer.addChild(claimText);
+	currentY += fontSize2 * 1.2 + spacing2;
 	
-	// Add final score text
-	var scoreText = new createjs.Text("FINAL SCORE: " + addCommas(playerData.score), "bold 40px Mont Heavy DEMO", "#008cb1");
+	// Step 1
+	var step1Text = new createjs.Text("1. Take a screenshot of this page.", "bold " + fontSize3 + "px Mont Heavy DEMO", "#071c27");
+	step1Text.textAlign = "center";
+	step1Text.textBaseline = "top";
+	step1Text.x = canvasW / 2;
+	step1Text.y = currentY;
+	step1Text.lineWidth = textWidth;
+	endScreenContainer.addChild(step1Text);
+	currentY += fontSize3 * 1.2 + spacing3;
+	
+	// Step 2
+	var step2Text = new createjs.Text("2. Complete the survey by clicking the button below.", "bold " + fontSize3 + "px Mont Heavy DEMO", "#071c27");
+	step2Text.textAlign = "center";
+	step2Text.textBaseline = "top";
+	step2Text.x = canvasW / 2;
+	step2Text.y = currentY;
+	step2Text.lineWidth = textWidth;
+	endScreenContainer.addChild(step2Text);
+	currentY += Math.ceil(step2Text.getMeasuredHeight()) + spacing3;
+	
+	// Store Y position for button placement
+	endScreenContainer.buttonY = currentY;
+	
+	// Reserve space for button (responsive height)
+	var buttonSpace = Math.floor(canvasH * 0.08);
+	currentY += buttonSpace;
+	
+	// Step 3
+	var step3Text = new createjs.Text("3. Take a screenshot of the successfully recorded survey response.", "bold " + fontSize3 + "px Mont Heavy DEMO", "#071c27");
+	step3Text.textAlign = "center";
+	step3Text.textBaseline = "top";
+	step3Text.x = canvasW / 2;
+	step3Text.y = currentY;
+	step3Text.lineWidth = textWidth;
+	endScreenContainer.addChild(step3Text);
+	currentY += Math.ceil(step3Text.getMeasuredHeight()) + spacing3;
+	
+	// Step 4
+	var step4Text = new createjs.Text("4. Present the both screenshots of this page and the successfully recorded survey response.", "bold " + fontSize3 + "px Mont Heavy DEMO", "#071c27");
+	step4Text.textAlign = "center";
+	step4Text.textBaseline = "top";
+	step4Text.x = canvasW / 2;
+	step4Text.y = currentY;
+	step4Text.lineWidth = textWidth;
+	endScreenContainer.addChild(step4Text);
+	currentY += Math.ceil(step4Text.getMeasuredHeight()) + spacing1;
+	
+	// Score text
+	var scoreText = new createjs.Text("Score: " + addCommas(playerData.score), "bold " + fontSize2 + "px Mont Heavy DEMO", "#008cb1");
 	scoreText.textAlign = "center";
 	scoreText.textBaseline = "top";
 	scoreText.x = canvasW / 2;
-	scoreText.y = textY + 240;
+	scoreText.y = currentY;
+	scoreText.lineWidth = textWidth;
 	endScreenContainer.addChild(scoreText);
+	currentY += fontSize2 * 1.2 + spacing2;
+	
+	// Prize tiers
+	var prize1Text = new createjs.Text("2,500 points = T-shirt + Single ticket journey", "bold " + fontSize3 + "px Mont Heavy DEMO", playerData.score >= 2500 ? "#666666" : "#ff6b00");
+	prize1Text.textAlign = "center";
+	prize1Text.textBaseline = "top";
+	prize1Text.x = canvasW / 2;
+	prize1Text.y = currentY;
+	prize1Text.lineWidth = textWidth;
+	endScreenContainer.addChild(prize1Text);
+	currentY += Math.ceil(prize1Text.getMeasuredHeight()) + spacing3 - 2;
+	
+	var prize2Text = new createjs.Text("Under 2,500 = Single ticket journey", "bold " + fontSize3 + "px Mont Heavy DEMO", playerData.score < 2500 ? "#666666" : "#ff6b00");
+	prize2Text.textAlign = "center";
+	prize2Text.textBaseline = "top";
+	prize2Text.x = canvasW / 2;
+	prize2Text.y = currentY;
+	prize2Text.lineWidth = textWidth;
+	endScreenContainer.addChild(prize2Text);
+	currentY += Math.ceil(prize2Text.getMeasuredHeight()) + spacing1;
+	
+	// Store the Y position for "Think you can do better?" text
+	endScreenContainer.thinkBetterY = currentY;
 	
 	gameContainer.addChild(endScreenContainer);
 	
@@ -429,7 +527,7 @@ function showVictoryMessage() {
 }
 
 /**
- * Show victory buttons (Claim Prize and Play Again)
+ * Show victory buttons (Start Survey and Play Again)
  */
 function showVictoryButtons() {
 	// Create container for victory buttons
@@ -438,99 +536,70 @@ function showVictoryButtons() {
 	
 	// Get the end screen container to position buttons relative to it
 	var endScreenContainer = gameContainer.getChildByName("endScreenContainer");
-	var endBackground = endScreenContainer ? endScreenContainer.getChildAt(0) : null;
-	
-	// Calculate button positions - place below the score text
-	var startY = canvasH / 2 + 60; // Position below the score text
-	var buttonSpacing = 30;
+	var buttonY = endScreenContainer.buttonY || canvasH / 2;
+	var thinkBetterY = endScreenContainer.thinkBetterY || canvasH - 100;
 	
 	// Check if player has already been redirected
 	var showClaimPrize = !currentPlayer || !currentPlayer.has_redirected;
 	
-	var yPosition = startY;
+	// Responsive button sizing
+	var buttonScale = Math.min(canvasW * 0.4 / 300, 1); // Smaller buttons to fit
 	
 	// START SURVEY button (using start_survey.png) - only show if player hasn't been redirected
-	var startSurveyButton = null;
-	var countdown = 5;
-	var countdownInterval = null;
-	
 	if (showClaimPrize) {
-		startSurveyButton = new createjs.Bitmap(loader.getResult('buttonStartSurvey'));
+		var startSurveyButton = new createjs.Bitmap(loader.getResult('buttonStartSurvey'));
 		
 		// Scale button responsively
-		var btnScale = Math.min(canvasW * 0.6 / startSurveyButton.image.naturalWidth, 1);
+		var btnScale = Math.min(canvasW * 0.4 / startSurveyButton.image.naturalWidth, 0.8);
 		startSurveyButton.scaleX = startSurveyButton.scaleY = btnScale;
 		
 		// Center the button
 		startSurveyButton.x = (canvasW - startSurveyButton.image.naturalWidth * btnScale) / 2;
-		startSurveyButton.y = yPosition;
+		startSurveyButton.y = buttonY;
 		startSurveyButton.cursor = "pointer";
 		
 		// Add click handler
 		startSurveyButton.addEventListener("click", function() {
 			playSound('soundClick');
-			clearInterval(countdownInterval);
 			
 			// Mark player as redirected
 			if (currentPlayer && currentPlayer.email) {
 				markPlayerAsRedirected(currentPlayer.email);
 			}
 			
-			// Open survey in iframe modal instead of redirecting
+			// Open survey in iframe modal
 			openSurveyIframe("https://www.yamaha-motor.com.ph/motorcycles/personal-commuter/mio-series/mio-gravis?utm_source=mio_gravis_lrt_activation&utm_medium=qr_code&utm_campaign=052025_miogravis&utm_content=the_sensible_choice");
 		});
 		
 		victoryButtonsContainer.addChild(startSurveyButton);
-		
-		// Position countdown text below the start survey button
-		var countdownText = new createjs.Text("You will be automatically redirected to the survey in " + countdown + " seconds", "bold 24px Mont Heavy DEMO", "#071c27");
-		countdownText.textAlign = "center";
-		countdownText.textBaseline = "top";
-		countdownText.x = canvasW / 2;
-		countdownText.y = startSurveyButton.y + (startSurveyButton.image.naturalHeight * btnScale) + 15; // 15px below button
-		countdownText.lineWidth = canvasW * 0.8; // Allow text wrapping
-		victoryButtonsContainer.addChild(countdownText);
-		
-		yPosition += startSurveyButton.image.naturalHeight * btnScale + 60 + buttonSpacing; // Extra space for countdown text
-		
-		// Start countdown timer
-		countdownInterval = setInterval(function() {
-			countdown--;
-			
-			// Use singular "second" when countdown is 1, otherwise "seconds"
-			var secondText = countdown === 1 ? "second" : "seconds";
-			countdownText.text = "You will be automatically redirected to the survey in " + countdown + " " + secondText;
-			
-			// Redirect immediately after showing 1 second (don't show 0)
-			if (countdown <= 1) {
-				clearInterval(countdownInterval);
-				
-				// Mark player as redirected
-				if (currentPlayer && currentPlayer.email) {
-					markPlayerAsRedirected(currentPlayer.email);
-				}
-				
-				// Auto open survey in iframe modal after countdown
-				openSurveyIframe("https://www.yamaha-motor.com.ph/motorcycles/personal-commuter/mio-series/mio-gravis?utm_source=mio_gravis_lrt_activation&utm_medium=qr_code&utm_campaign=052025_miogravis&utm_content=the_sensible_choice");
-			}
-		}, 1000);
 	}
+	
+	// Responsive font size for "Think you can do better?" text
+	var thinkFontSize = Math.min(Math.floor(canvasW * 0.025), Math.floor(canvasH * 0.028));
+	
+	// "Think you can do better?" text before Play Again button
+	var thinkBetterText = new createjs.Text("Think you can do better?", "bold " + thinkFontSize + "px Mont Heavy DEMO", "#071c27");
+	thinkBetterText.textAlign = "center";
+	thinkBetterText.textBaseline = "top";
+	thinkBetterText.x = canvasW / 2;
+	thinkBetterText.y = thinkBetterY;
+	thinkBetterText.lineWidth = canvasW * 0.8;
+	victoryButtonsContainer.addChild(thinkBetterText);
 	
 	// PLAY AGAIN button (using play_again.png)
 	var playAgainButton = new createjs.Bitmap(loader.getResult('buttonPlayAgain'));
 	
 	// Scale button responsively
-	var btnScale2 = Math.min(canvasW * 0.6 / playAgainButton.image.naturalWidth, 1);
+	var btnScale2 = Math.min(canvasW * 0.4 / playAgainButton.image.naturalWidth, 0.8);
 	playAgainButton.scaleX = playAgainButton.scaleY = btnScale2;
 	
-	// Center the button
+	// Center the button below the "Think you can do better?" text
 	playAgainButton.x = (canvasW - playAgainButton.image.naturalWidth * btnScale2) / 2;
-	playAgainButton.y = yPosition;
+	playAgainButton.y = thinkBetterY + thinkFontSize * 1.5 + 5;
 	playAgainButton.cursor = "pointer";
 	
 	playAgainButton.addEventListener("click", function() {
 		playSound('soundClick');
-		if (countdownInterval) clearInterval(countdownInterval);
 		location.reload();
 	});
 	
@@ -582,6 +651,7 @@ function openSurveyIframe(url) {
 }
 
 // Close survey iframe modal
+// Close survey iframe modal
 function closeSurveyIframe() {
 	const iframe = document.getElementById('surveyIframe');
 	const modal = document.getElementById('surveyIframeModal');
@@ -589,9 +659,7 @@ function closeSurveyIframe() {
 	if (iframe && modal) {
 		modal.style.display = 'none';
 		iframe.src = '';
-		
-		// Update the end screen text to show redemption instructions
-		updateEndScreenForRedemption();
+		// Don't update the text - keep the original end screen as is
 	}
 }
 
@@ -2271,6 +2339,19 @@ function updateSprites() {
 		if (defaultData.speed > defaultData.offRoadLimit)
 			defaultData.speed = getAccelerate(defaultData.speed, defaultData.offRoadDecel, dt);
 		
+		// Deduct 25 points for hitting the side of the road (only once per off-road event)
+		if (!gameData.wasOffRoad) {
+			playerData.score -= 25;
+			playSound('soundTickOver');
+			updateGameText('-25', '#ff0000', 50, 0);
+			setTimeout(function() {
+				if (gameStatusContainer) {
+					gameStatusContainer.visible = false;
+				}
+			}, 1500);
+			gameData.wasOffRoad = true; // Mark that we're off-road
+		}
+		
 		for(n = 0 ; n < playerSegment.sprites.length ; n++) {
 			sprite  = playerSegment.sprites[n];
 			spriteW = sprite.source.w * defaultData.scale;
@@ -2280,6 +2361,9 @@ function updateSprites() {
 				break;
 			}
 		}
+	} else {
+		// Player is back on the road, reset the off-road flag
+		gameData.wasOffRoad = false;
 	}
 	
 	// TUNNEL DETECTION - Always check for upcoming tunnels (even when paused)
@@ -2360,6 +2444,7 @@ function updateSprites() {
 						
 						// Play sound and show -100 text
 						playSound('soundHit');
+						playSound('soundTickOver');
 						updateGameText('-100', '#ff0000', 80, 0); // Show -100 in red
 						
 						// Hide the text after 2 seconds
@@ -2390,8 +2475,19 @@ function updateSprites() {
 		if (defaultData.speed > car.speed) {
 			if (getOverlap(defaultData.playerX, playerW, car.offset, carW, 0.8)) {
 				playSound('soundImpact');
+				playSound('soundTickOver');
 				defaultData.speed    = car.speed * (car.speed/defaultData.speed);
 				defaultData.position = getIncrease(car.z, -defaultData.playerZ, defaultData.trackLength);
+				
+				// Deduct 50 points for hitting a car
+				playerData.score -= 50;
+				updateGameText('-50', '#ff0000', 60, 0);
+				setTimeout(function() {
+					if (gameStatusContainer) {
+						gameStatusContainer.visible = false;
+					}
+				}, 1500);
+				
 				break;
 			}
 		}
@@ -3110,16 +3206,16 @@ function resetSprites() {
 				
 				if (isLeftSide) {
 					// Left side billboard
-					var selectedBillboard = randomChoice([spritesData.BILLBOARD01, spritesData.BILLBOARD03, spritesData.BILLBOARD15, spritesData.BILLBOARD16, spritesData.BILLBOARD19, spritesData.BILLBOARD20]);
+					var selectedBillboard = randomChoice([spritesData.BILLBOARD01, spritesData.BILLBOARD03, spritesData.BILLBOARD04, spritesData.BILLBOARD05, spritesData.BILLBOARD06, spritesData.BILLBOARD07, spritesData.BILLBOARD08]);
 					// Landscape billboards (15-18) are positioned closer to road
-					var leftBBOffset = (selectedBillboard === spritesData.BILLBOARD15 || selectedBillboard === spritesData.BILLBOARD16) ? -0.5 : -0.8;
+					var leftBBOffset = (selectedBillboard === spritesData.BILLBOARD04 || selectedBillboard === spritesData.BILLBOARD05 || selectedBillboard === spritesData.BILLBOARD06 || selectedBillboard === spritesData.BILLBOARD07 || selectedBillboard === spritesData.BILLBOARD08) ? -0.1 : -0.8;
 					addSprite(n, selectedBillboard, leftBBOffset);
 					hasLeftBillboard = true; // Flag to prevent building spawn on this side
 				} else {
 					// Right side billboard
-					var selectedBillboard = randomChoice([spritesData.BILLBOARD02, spritesData.BILLBOARD17, spritesData.BILLBOARD18, spritesData.BILLBOARD21]);
+					var selectedBillboard = randomChoice([spritesData.BILLBOARD02, spritesData.BILLBOARD09, spritesData.BILLBOARD10, spritesData.BILLBOARD11, spritesData.BILLBOARD12, spritesData.BILLBOARD13]);
 					// Landscape billboards (15-18) are positioned closer to road
-					var rightBBOffset = (selectedBillboard === spritesData.BILLBOARD17 || selectedBillboard === spritesData.BILLBOARD18) ? 0.5 : 0.8;
+					var rightBBOffset = (selectedBillboard === spritesData.BILLBOARD09 || selectedBillboard === spritesData.BILLBOARD10 || selectedBillboard === spritesData.BILLBOARD11 || selectedBillboard === spritesData.BILLBOARD12 || selectedBillboard === spritesData.BILLBOARD13) ? 0.1 : 0.8;
 					addSprite(n, selectedBillboard, rightBBOffset);
 					hasRightBillboard = true; // Flag to prevent building spawn on this side
 				}
