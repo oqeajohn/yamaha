@@ -350,16 +350,54 @@ function showVictoryMessage() {
 		recordPlayerSession(sessionId, playerData.score);
 	}
 	
-	updateGameText("THANK YOU\n FOR PLAYING!", "#071c27", 80, 0);	
+	// Create end screen container with background
+	var endScreenContainer = new createjs.Container();
+	endScreenContainer.name = "endScreenContainer";
+	
+	// Add the end.png background image
+	var endBackground = new createjs.Bitmap(loader.getResult('endBackground'));
+	var bgScale = Math.min(canvasW / endBackground.image.naturalWidth, canvasH / endBackground.image.naturalHeight);
+	endBackground.scaleX = endBackground.scaleY = bgScale;
+	endBackground.x = (canvasW - endBackground.image.naturalWidth * bgScale) / 2;
+	endBackground.y = (canvasH - endBackground.image.naturalHeight * bgScale) / 2;
+	endScreenContainer.addChild(endBackground);
+	
+	// Add text with proper margins for the blank space
+	var textY = endBackground.y + (endBackground.image.naturalHeight * bgScale * 0.2); // Position in upper portion
+	var textWidth = endBackground.image.naturalWidth * bgScale * 0.8; // 80% width for margins
+	
+	// "THANK YOU FOR PLAYING!" text
+	var thankYouText = new createjs.Text("THANK YOU FOR PLAYING!", "bold 48px Mont Heavy DEMO", "#071c27");
+	thankYouText.textAlign = "center";
+	thankYouText.textBaseline = "top";
+	thankYouText.x = canvasW / 2;
+	thankYouText.y = textY;
+	thankYouText.lineWidth = textWidth;
+	endScreenContainer.addChild(thankYouText);
+	
+	// "You can claim your prize after submitting a short survey" text
+	var surveyText = new createjs.Text("You can claim your prize after submitting a short survey", "bold 32px Mont Heavy DEMO", "#071c27");
+	surveyText.textAlign = "center";
+	surveyText.textBaseline = "top";
+	surveyText.x = canvasW / 2;
+	surveyText.y = textY + 120;
+	surveyText.lineWidth = textWidth;
+	endScreenContainer.addChild(surveyText);
+	
+	// Add final score text
+	var scoreText = new createjs.Text("FINAL SCORE: " + addCommas(playerData.score), "bold 40px Mont Heavy DEMO", "#008cb1");
+	scoreText.textAlign = "center";
+	scoreText.textBaseline = "top";
+	scoreText.x = canvasW / 2;
+	scoreText.y = textY + 240;
+	endScreenContainer.addChild(scoreText);
+	
+	gameContainer.addChild(endScreenContainer);
+	
+	// Show victory buttons after a short delay
 	setTimeout(function() {
-		// Show final score
-		updateGameText("Final Score: \n" + addCommas(playerData.score), "#008cb1", 80, 0);
-		
-		// Show victory buttons after score is displayed
-		setTimeout(function() {
-			showVictoryButtons();
-		}, 500);
-	}, 2000);
+		showVictoryButtons();
+	}, 1000);
 }
 
 /**
@@ -370,68 +408,38 @@ function showVictoryButtons() {
 	var victoryButtonsContainer = new createjs.Container();
 	victoryButtonsContainer.name = "victoryButtonsContainer";
 	
-	// Calculate button positions - place below Final Score text
-	var buttonWidth = 400;
-	var buttonHeight = 80;
-	var buttonSpacing = 40;
-	var startY = canvasH / 2 + 100; // Position below the Final Score text
+	// Get the end screen container to position buttons relative to it
+	var endScreenContainer = gameContainer.getChildByName("endScreenContainer");
+	var endBackground = endScreenContainer ? endScreenContainer.getChildAt(0) : null;
+	
+	// Calculate button positions - place below the score text
+	var startY = canvasH / 2 + 60; // Position below the score text
+	var buttonSpacing = 30;
 	
 	// Check if player has already been redirected
 	var showClaimPrize = !currentPlayer || !currentPlayer.has_redirected;
 	
 	var yPosition = startY;
 	
-	// CLAIM PRIZE button - only show if player hasn't been redirected
-	var claimPrizeButton = null;
+	// START SURVEY button (using start_survey.png) - only show if player hasn't been redirected
+	var startSurveyButton = null;
 	var countdown = 5;
 	var countdownInterval = null;
 	
 	if (showClaimPrize) {
-		claimPrizeButton = new createjs.Container();
+		startSurveyButton = new createjs.Bitmap(loader.getResult('buttonStartSurvey'));
 		
-		// Button background with gradient (left to right: #01cdee to #018bb0)
-		var claimPrizeBg = new createjs.Shape();
-		var gradient = claimPrizeBg.graphics.beginLinearGradientFill(
-			["#01cdee", "#018bb0"], 
-			[0, 1], 
-			0, 0, 
-			buttonWidth, 0
-		);
+		// Scale button responsively
+		var btnScale = Math.min(canvasW * 0.6 / startSurveyButton.image.naturalWidth, 1);
+		startSurveyButton.scaleX = startSurveyButton.scaleY = btnScale;
 		
-		// Draw main button shape with gradient (no rounded corners)
-		claimPrizeBg.graphics.drawRect(0, 0, buttonWidth, buttonHeight);
-		
-		// Draw border as a rectangle outline with variable thickness
-		var claimPrizeBorder = new createjs.Shape();
-		
-		// Top and side borders - thicker (8px)
-		claimPrizeBorder.graphics.setStrokeStyle(8, "square", "miter").beginStroke("#2f302f");
-		claimPrizeBorder.graphics.drawRect(0, 0, buttonWidth, buttonHeight - 4);
-		
-		// Bottom border - 3 times thicker (24px)
-		claimPrizeBorder.graphics.setStrokeStyle(24, "butt").beginStroke("#2f302f");
-		claimPrizeBorder.graphics.moveTo(0, buttonHeight).lineTo(buttonWidth, buttonHeight);
-		
-		var claimPrizeText = new createjs.Text("CLAIM PRIZE", "bold 32px Mont Heavy DEMO", "#FFFFFF");
-		claimPrizeText.textAlign = "left";
-		claimPrizeText.textBaseline = "middle";
-		claimPrizeText.x = 30;
-		claimPrizeText.y = buttonHeight / 2;
-		
-		// Countdown timer positioned to the right of text
-		var claimPrizeTimer = new createjs.Text("(5)", "bold 28px Mont Heavy DEMO", "#FFFFFF");
-		claimPrizeTimer.textAlign = "right";
-		claimPrizeTimer.textBaseline = "middle";
-		claimPrizeTimer.x = buttonWidth - 30;
-		claimPrizeTimer.y = buttonHeight / 2;
-		
-		claimPrizeButton.addChild(claimPrizeBg, claimPrizeBorder, claimPrizeText, claimPrizeTimer);
-		claimPrizeButton.x = (canvasW - buttonWidth) / 2;
-		claimPrizeButton.y = yPosition;
-		claimPrizeButton.cursor = "pointer";
+		// Center the button
+		startSurveyButton.x = (canvasW - startSurveyButton.image.naturalWidth * btnScale) / 2;
+		startSurveyButton.y = yPosition;
+		startSurveyButton.cursor = "pointer";
 		
 		// Add click handler
-		claimPrizeButton.addEventListener("click", function() {
+		startSurveyButton.addEventListener("click", function() {
 			playSound('soundClick');
 			clearInterval(countdownInterval);
 			
@@ -443,41 +451,51 @@ function showVictoryButtons() {
 			window.location.href = "https://www.yamaha-motor.com.ph/motorcycles/personal-commuter/mio-series/mio-gravis?utm_source=mio_gravis_lrt_activation&utm_medium=qr_code&utm_campaign=052025_miogravis&utm_content=the_sensible_choice";
 		});
 		
-		victoryButtonsContainer.addChild(claimPrizeButton);
-		yPosition += buttonHeight + buttonSpacing;
+		victoryButtonsContainer.addChild(startSurveyButton);
+		
+		// Position countdown text below the start survey button
+		var countdownText = new createjs.Text("You will be automatically redirected to the survey in " + countdown + " seconds", "bold 24px Mont Heavy DEMO", "#071c27");
+		countdownText.textAlign = "center";
+		countdownText.textBaseline = "top";
+		countdownText.x = canvasW / 2;
+		countdownText.y = startSurveyButton.y + (startSurveyButton.image.naturalHeight * btnScale) + 15; // 15px below button
+		countdownText.lineWidth = canvasW * 0.8; // Allow text wrapping
+		victoryButtonsContainer.addChild(countdownText);
+		
+		yPosition += startSurveyButton.image.naturalHeight * btnScale + 60 + buttonSpacing; // Extra space for countdown text
+		
+		// Start countdown timer
+		countdownInterval = setInterval(function() {
+			countdown--;
+			
+			// Use singular "second" when countdown is 1, otherwise "seconds"
+			var secondText = countdown === 1 ? "second" : "seconds";
+			countdownText.text = "You will be automatically redirected to the survey in " + countdown + " " + secondText;
+			
+			// Redirect immediately after showing 1 second (don't show 0)
+			if (countdown <= 1) {
+				clearInterval(countdownInterval);
+				
+				// Mark player as redirected
+				if (currentPlayer && currentPlayer.email) {
+					markPlayerAsRedirected(currentPlayer.email);
+				}
+				
+				// Auto redirect after countdown
+				window.location.href = "https://www.yamaha-motor.com.ph/motorcycles/personal-commuter/mio-series/mio-gravis?utm_source=mio_gravis_lrt_activation&utm_medium=qr_code&utm_campaign=052025_miogravis&utm_content=the_sensible_choice";
+			}
+		}, 1000);
 	}
 	
-	// PLAY AGAIN button
-	var playAgainButton = new createjs.Container();
+	// PLAY AGAIN button (using play_again.png)
+	var playAgainButton = new createjs.Bitmap(loader.getResult('buttonPlayAgain'));
 	
-	// Button background with gradient (left to right: #01cdee to #018bb0)
-	var playAgainBg = new createjs.Shape();
-	playAgainBg.graphics.beginLinearGradientFill(
-		["#01cdee", "#018bb0"], 
-		[0, 1], 
-		0, 0, 
-		buttonWidth, 0
-	).drawRect(0, 0, buttonWidth, buttonHeight);
+	// Scale button responsively
+	var btnScale2 = Math.min(canvasW * 0.6 / playAgainButton.image.naturalWidth, 1);
+	playAgainButton.scaleX = playAgainButton.scaleY = btnScale2;
 	
-	// Draw border as a rectangle outline with variable thickness
-	var playAgainBorder = new createjs.Shape();
-	
-	// Top and side borders - thicker (8px)
-	playAgainBorder.graphics.setStrokeStyle(8, "square", "miter").beginStroke("#2f302f");
-	playAgainBorder.graphics.drawRect(0, 0, buttonWidth, buttonHeight - 4);
-	
-	// Bottom border - 3 times thicker (24px)
-	playAgainBorder.graphics.setStrokeStyle(24, "butt").beginStroke("#2f302f");
-	playAgainBorder.graphics.moveTo(0, buttonHeight).lineTo(buttonWidth, buttonHeight);
-	
-	var playAgainText = new createjs.Text("PLAY AGAIN", "bold 32px Mont Heavy DEMO", "#FFFFFF");
-	playAgainText.textAlign = "center";
-	playAgainText.textBaseline = "middle";
-	playAgainText.x = buttonWidth / 2;
-	playAgainText.y = buttonHeight / 2;
-	
-	playAgainButton.addChild(playAgainBg, playAgainBorder, playAgainText);
-	playAgainButton.x = (canvasW - buttonWidth) / 2;
+	// Center the button
+	playAgainButton.x = (canvasW - playAgainButton.image.naturalWidth * btnScale2) / 2;
 	playAgainButton.y = yPosition;
 	playAgainButton.cursor = "pointer";
 	
@@ -494,25 +512,6 @@ function showVictoryButtons() {
 	
 	// Fade in buttons
 	TweenMax.to(victoryButtonsContainer, 0.5, {alpha: 1});
-	
-	// Start countdown timer for Claim Prize button (if shown)
-	if (showClaimPrize && claimPrizeButton) {
-		countdownInterval = setInterval(function() {
-			countdown--;
-			claimPrizeTimer.text = "(" + countdown + ")";
-			if (countdown <= 0) {
-				clearInterval(countdownInterval);
-				
-				// Mark player as redirected
-				if (currentPlayer && currentPlayer.email) {
-					markPlayerAsRedirected(currentPlayer.email);
-				}
-				
-				// Auto redirect after countdown
-				window.location.href = "https://www.yamaha-motor.com.ph/motorcycles/personal-commuter/mio-series/mio-gravis?utm_source=mio_gravis_lrt_activation&utm_medium=qr_code&utm_campaign=052025_miogravis&utm_content=the_sensible_choice";
-			}
-		}, 1000);
-	}
 }
 
 // Mark player as redirected in backend
@@ -1049,7 +1048,18 @@ function buildGameButton(){
 	buttonStart.cursor = "pointer";
 	buttonStart.addEventListener("click", function(evt) {
 		playSound('soundClick');
-		checkEmailBeforeStart();
+		
+		// TEST MODE: Hold Shift + Click to show end screen directly
+		if (evt.nativeEvent && evt.nativeEvent.shiftKey) {
+			console.log('Test mode activated - showing end screen');
+			playerData.score = 12500; // Test score
+			goPage('game');
+			setTimeout(function() {
+				showVictoryMessage();
+			}, 100);
+		} else {
+			checkEmailBeforeStart();
+		}
 	});
 	
 	if(shareSettings.enable){

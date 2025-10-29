@@ -53,7 +53,11 @@
 			{src:'assets/button_settings.png', id:'buttonSettings'},
 			
 			{src:'assets/yes.png', id:'buttonYes'},
-			{src:'assets/no.png', id:'buttonNo'}];
+			{src:'assets/no.png', id:'buttonNo'},
+			
+			{src:'assets/end.png', id:'endBackground'},
+			{src:'assets/start_survey.png', id:'buttonStartSurvey'},
+			{src:'assets/play_again.png', id:'buttonPlayAgain'}];
 	
 	for(var key in spritesData) {
 		if(spritesData[key].src != undefined)

@@ -26,7 +26,20 @@ function initMain(){
 	playMusicLoop('musicGame');
 	setSoundLoopVolume('soundEngine', 0);
 	
-	goPage('main');
+	// Check if we're in test mode for the end screen
+	var urlParams = new URLSearchParams(window.location.search);
+	if (urlParams.get('testEndScreen') === 'true') {
+		// Show game container and trigger victory screen for testing
+		goPage('game');
+		setTimeout(function() {
+			// Set a test score
+			playerData.score = 12500;
+			showVictoryMessage();
+		}, 500);
+	} else {
+		goPage('main');
+	}
+	
 	resizeCanvas();
 }
 
