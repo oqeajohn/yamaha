@@ -412,3 +412,72 @@ canvas{ position:fixed;}
         max-width: 95%;
     }
 }
+
+/*-- Survey Iframe Modal -- */
+.survey-iframe-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+}
+
+.survey-iframe-modal.show {
+    display: flex;
+}
+
+.survey-iframe-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    background: white;
+}
+
+.survey-iframe-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 10001;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    border: 2px solid white;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    font-family: 'Mont Heavy DEMO', Arial, sans-serif;
+}
+
+.survey-iframe-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+}
+
+.survey-iframe-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+@media (max-width: 600px) {
+    .survey-iframe-close {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+        top: 5px;
+        right: 5px;
+    }
+}

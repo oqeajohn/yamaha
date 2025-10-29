@@ -476,7 +476,8 @@ function showVictoryButtons() {
 				markPlayerAsRedirected(currentPlayer.email);
 			}
 			
-			window.location.href = "https://www.yamaha-motor.com.ph/motorcycles/personal-commuter/mio-series/mio-gravis?utm_source=mio_gravis_lrt_activation&utm_medium=qr_code&utm_campaign=052025_miogravis&utm_content=the_sensible_choice";
+			// Open survey in iframe modal instead of redirecting
+			openSurveyIframe("https://www.yamaha-motor.com.ph/motorcycles/personal-commuter/mio-series/mio-gravis?utm_source=mio_gravis_lrt_activation&utm_medium=qr_code&utm_campaign=052025_miogravis&utm_content=the_sensible_choice");
 		});
 		
 		victoryButtonsContainer.addChild(startSurveyButton);
@@ -509,8 +510,8 @@ function showVictoryButtons() {
 					markPlayerAsRedirected(currentPlayer.email);
 				}
 				
-				// Auto redirect after countdown
-				window.location.href = "https://www.yamaha-motor.com.ph/motorcycles/personal-commuter/mio-series/mio-gravis?utm_source=mio_gravis_lrt_activation&utm_medium=qr_code&utm_campaign=052025_miogravis&utm_content=the_sensible_choice";
+				// Auto open survey in iframe modal after countdown
+				openSurveyIframe("https://www.yamaha-motor.com.ph/motorcycles/personal-commuter/mio-series/mio-gravis?utm_source=mio_gravis_lrt_activation&utm_medium=qr_code&utm_campaign=052025_miogravis&utm_content=the_sensible_choice");
 			}
 		}, 1000);
 	}
@@ -561,6 +562,130 @@ function markPlayerAsRedirected(email) {
 	.catch(error => {
 		console.error('Error marking player as redirected:', error);
 	});
+}
+
+// Open survey in iframe modal
+function openSurveyIframe(url) {
+	// Mark player as redirected
+	if (currentPlayer && currentPlayer.email) {
+		markPlayerAsRedirected(currentPlayer.email);
+	}
+	
+	// Set iframe URL and show modal
+	const iframe = document.getElementById('surveyIframe');
+	const modal = document.getElementById('surveyIframeModal');
+	
+	if (iframe && modal) {
+		iframe.src = url;
+		modal.style.display = 'flex';
+	}
+}
+
+// Close survey iframe modal
+function closeSurveyIframe() {
+	const iframe = document.getElementById('surveyIframe');
+	const modal = document.getElementById('surveyIframeModal');
+	
+	if (iframe && modal) {
+		modal.style.display = 'none';
+		iframe.src = '';
+		
+		// Update the end screen text to show redemption instructions
+		updateEndScreenForRedemption();
+	}
+}
+
+// Update end screen to show prize redemption instructions
+function updateEndScreenForRedemption() {
+	var endScreenContainer = gameContainer.getChildByName("endScreenContainer");
+	if (!endScreenContainer) return;
+	
+	// Remove the buttons container
+	var victoryButtonsContainer = gameContainer.getChildByName("victoryButtonsContainer");
+	if (victoryButtonsContainer) {
+		gameContainer.removeChild(victoryButtonsContainer);
+	}
+	
+	// Remove all children except the background (first child)
+	while (endScreenContainer.children.length > 1) {
+		endScreenContainer.removeChildAt(1);
+	}
+	
+	// Get background for positioning reference
+	var endBackground = endScreenContainer.children[0];
+	var bgScale = Math.min(canvasW / endBackground.image.naturalWidth, canvasH / endBackground.image.naturalHeight);
+	var textWidth = endBackground.image.naturalWidth * bgScale * 0.75; // Narrower for better margins
+	
+	// Calculate total height of all content to center vertically
+	var spacing1 = Math.floor(canvasW * 0.08); // Space after "Congratulations!"
+	var spacing2 = Math.floor(canvasW * 0.1);  // Space after instructions
+	var spacing3 = Math.floor(canvasW * 0.08); // Space after score
+	var spacing4 = Math.floor(canvasW * 0.06); // Space between prize tiers
+	
+	// Estimate total content height
+	var totalContentHeight = Math.floor(canvasW * 0.06) + spacing1 + 
+	                         Math.floor(canvasW * 0.028) * 3 + spacing2 + 
+	                         Math.floor(canvasW * 0.05) + spacing3 + 
+	                         Math.floor(canvasW * 0.032) + spacing4 + 
+	                         Math.floor(canvasW * 0.032);
+	
+	// Start Y position to center all content
+	var textY = (canvasH - totalContentHeight) / 2;
+	
+	// "Congratulations!" text
+	var congratsText = new createjs.Text("Congratulations!", "bold " + Math.floor(canvasW * 0.06) + "px Mont Heavy DEMO", "#071c27");
+	congratsText.textAlign = "center";
+	congratsText.textBaseline = "top";
+	congratsText.x = canvasW / 2;
+	congratsText.y = textY;
+	congratsText.lineWidth = textWidth;
+	endScreenContainer.addChild(congratsText);
+	
+	// Instructions text
+	var fontSize = Math.floor(canvasW * 0.028);
+	var instructionsText = new createjs.Text("Please take a screenshot and present this to our counter at the Yamaha Monumento station.", "bold " + fontSize + "px Mont Heavy DEMO", "#071c27");
+	instructionsText.textAlign = "center";
+	instructionsText.textBaseline = "top";
+	instructionsText.x = canvasW / 2;
+	instructionsText.y = textY + spacing1;
+	instructionsText.lineWidth = textWidth;
+	endScreenContainer.addChild(instructionsText);
+	
+	// Calculate actual height of instructions text (multi-line)
+	var instructionsHeight = Math.ceil(instructionsText.getMeasuredHeight());
+	
+	// Score text
+	var scoreText = new createjs.Text("Score: " + addCommas(playerData.score), "bold " + Math.floor(canvasW * 0.05) + "px Mont Heavy DEMO", "#008cb1");
+	scoreText.textAlign = "center";
+	scoreText.textBaseline = "top";
+	scoreText.x = canvasW / 2;
+	scoreText.y = textY + spacing1 + instructionsHeight + spacing2;
+	scoreText.lineWidth = textWidth;
+	endScreenContainer.addChild(scoreText);
+	
+	// Prize tier 1 text (2,500 points)
+	var prize1Text = new createjs.Text("2,500 points = T-shirt + Single ticket journey", "bold " + Math.floor(canvasW * 0.032) + "px Mont Heavy DEMO", playerData.score >= 2500 ? "#666666" : "#ff6b00");
+	prize1Text.textAlign = "center";
+	prize1Text.textBaseline = "top";
+	prize1Text.x = canvasW / 2;
+	prize1Text.y = textY + spacing1 + instructionsHeight + spacing2 + Math.floor(canvasW * 0.05) + spacing3;
+	prize1Text.lineWidth = textWidth;
+	endScreenContainer.addChild(prize1Text);
+	
+	// Prize tier 2 text (Under 2,500)
+	var prize1Height = Math.ceil(prize1Text.getMeasuredHeight());
+	var prize2Text = new createjs.Text("Under 2,500 = Single ticket journey", "bold " + Math.floor(canvasW * 0.032) + "px Mont Heavy DEMO", playerData.score < 2500 ? "#666666" : "#ff6b00");
+	prize2Text.textAlign = "center";
+	prize2Text.textBaseline = "top";
+	prize2Text.x = canvasW / 2;
+	prize2Text.y = textY + spacing1 + instructionsHeight + spacing2 + Math.floor(canvasW * 0.05) + spacing3 + prize1Height + spacing4;
+	prize2Text.lineWidth = textWidth;
+	endScreenContainer.addChild(prize2Text);
+	
+	// Add a subtle animation to draw attention
+	createjs.Tween.get(congratsText, {loop: true})
+		.to({scaleX: 1.05, scaleY: 1.05}, 1000, createjs.Ease.quadInOut)
+		.to({scaleX: 1, scaleY: 1}, 1000, createjs.Ease.quadInOut);
 }
 
 /*!
@@ -1089,6 +1214,12 @@ function buildGameButton(){
 			checkEmailBeforeStart();
 		}
 	});
+	
+	// Add event listener for survey iframe close button
+	const surveyCloseBtn = document.getElementById('surveyIframeClose');
+	if (surveyCloseBtn) {
+		surveyCloseBtn.addEventListener('click', closeSurveyIframe);
+	}
 	
 	if(shareSettings.enable){
 		buttonShare.cursor = "pointer";
