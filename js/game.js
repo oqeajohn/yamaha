@@ -463,7 +463,7 @@ function showVictoryMessage() {
 	endScreenContainer.buttonY = currentY;
 	
 	// Reserve space for button (responsive height)
-	var buttonSpace = Math.floor(canvasH * 0.08);
+	var buttonSpace = Math.floor(canvasH * 0.05);
 	currentY += buttonSpace;
 	
 	// Step 3
@@ -477,7 +477,7 @@ function showVictoryMessage() {
 	currentY += Math.ceil(step3Text.getMeasuredHeight()) + spacing3;
 	
 	// Step 4
-	var step4Text = new createjs.Text("4. Present both screenshots of this page and the successfully recorded survey response.", "bold " + fontSize3 + "px Mont Heavy DEMO", "#071c27");
+	var step4Text = new createjs.Text("4. Present both screenshots of this page\n and the successfully recorded survey response.", "bold " + fontSize3 + "px Mont Heavy DEMO", "#071c27");
 	step4Text.textAlign = "center";
 	step4Text.textBaseline = "top";
 	step4Text.x = canvasW / 2;
@@ -513,7 +513,17 @@ function showVictoryMessage() {
 	prize2Text.y = currentY;
 	prize2Text.lineWidth = textWidth;
 	endScreenContainer.addChild(prize2Text);
-	currentY += Math.ceil(prize2Text.getMeasuredHeight()) + spacing1;
+	currentY += Math.ceil(prize2Text.getMeasuredHeight()) + spacing3 - 2;
+	
+	// "*Until supplies last" text
+	var suppliesText = new createjs.Text("*Until supplies last", "bold " + fontSize3 + "px Mont Heavy DEMO", "#666666");
+	suppliesText.textAlign = "center";
+	suppliesText.textBaseline = "top";
+	suppliesText.x = canvasW / 2;
+	suppliesText.y = currentY;
+	suppliesText.lineWidth = textWidth;
+	endScreenContainer.addChild(suppliesText);
+	currentY += Math.ceil(suppliesText.getMeasuredHeight()) + spacing1;
 	
 	// Store the Y position for "Think you can do better?" text
 	endScreenContainer.thinkBetterY = currentY;
@@ -551,8 +561,8 @@ function showVictoryButtons() {
 		if (!startSurveyButton.image || !startSurveyButton.image.naturalWidth) {
 			console.error('Start Survey button image failed to load!');
 		} else {
-			// Scale button responsively
-			var btnScale = Math.min(canvasW * 0.4 / startSurveyButton.image.naturalWidth, 0.8);
+			// Scale button responsively - made smaller (0.3 instead of 0.4, max 0.65 instead of 0.8)
+			var btnScale = Math.min(canvasW * 0.3 / startSurveyButton.image.naturalWidth, 0.65);
 			startSurveyButton.scaleX = startSurveyButton.scaleY = btnScale;
 			
 			// Center the button
