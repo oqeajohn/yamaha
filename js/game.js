@@ -477,7 +477,7 @@ function showVictoryMessage() {
 	currentY += Math.ceil(step3Text.getMeasuredHeight()) + spacing3;
 	
 	// Step 4
-	var step4Text = new createjs.Text("4. Present the both screenshots of this page and the successfully recorded survey response.", "bold " + fontSize3 + "px Mont Heavy DEMO", "#071c27");
+	var step4Text = new createjs.Text("4. Present both screenshots of this page and the successfully recorded survey response.", "bold " + fontSize3 + "px Mont Heavy DEMO", "#071c27");
 	step4Text.textAlign = "center";
 	step4Text.textBaseline = "top";
 	step4Text.x = canvasW / 2;
