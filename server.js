@@ -480,6 +480,28 @@ app.delete('/api/sessions/:session_id', authenticateToken, async (req, res) => {
     }
 });
 
+app.post('/api/backup-sessions', authenticateToken, async (req, res) => {
+    try {
+        const filepath = path.join(DATA_DIR, 'sessions.json');
+        const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+        const backupPath = path.join(DATA_DIR, `sessions_backup_${timestamp}.json`);
+        
+        // Copy current sessions.json to timestamped backup
+        await fs.copyFile(filepath, backupPath);
+        
+        // Also update the regular .backup file
+        await fs.copyFile(filepath, `${filepath}.backup`);
+        
+        res.json({
+            success: true, 
+            message: `Backup created successfully: sessions_backup_${timestamp}.json`,
+            timestamp
+        });
+    } catch (error) {
+        res.status(500).json({success: false, message: error.message});
+    }
+});
+
 app.get('/api/analytics', authenticateToken, async (req, res) => {
     try {
         const questionsData = await readJSON('qs.json');
