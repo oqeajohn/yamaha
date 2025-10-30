@@ -419,8 +419,7 @@ app.get('/api/sessions', authenticateToken, async (req, res) => {
     try {
         const data = await readJSON('sessions.json');
         const sessions = (data.sessions || [])
-            .sort((a, b) => new Date(b.start_time) - new Date(a.start_time))
-            .slice(0, 100);
+            .sort((a, b) => new Date(b.start_time) - new Date(a.start_time));
         
         res.json({success: true, sessions});
     } catch (error) {
