@@ -467,7 +467,7 @@ function showVictoryMessage() {
 	currentY += buttonSpace;
 	
 	// Step 3
-	var step3Text = new createjs.Text("3. Take a screenshot of the successfully recorded survey response.", "bold " + fontSize3 + "px Mont Heavy DEMO", "#071c27");
+	var step3Text = new createjs.Text("3. Take a screenshot of the survey thank you page.", "bold " + fontSize3 + "px Mont Heavy DEMO", "#071c27");
 	step3Text.textAlign = "center";
 	step3Text.textBaseline = "top";
 	step3Text.x = canvasW / 2;
@@ -477,7 +477,7 @@ function showVictoryMessage() {
 	currentY += Math.ceil(step3Text.getMeasuredHeight()) + spacing3;
 	
 	// Step 4
-	var step4Text = new createjs.Text("4. Present both screenshots of this page\n and the successfully recorded survey response.", "bold " + fontSize3 + "px Mont Heavy DEMO", "#071c27");
+	var step4Text = new createjs.Text("4. Present both screenshots of this page\n and the survey thank you page.", "bold " + fontSize3 + "px Mont Heavy DEMO", "#071c27");
 	step4Text.textAlign = "center";
 	step4Text.textBaseline = "top";
 	step4Text.x = canvasW / 2;
@@ -2108,7 +2108,6 @@ function updateGame(){
 		if(defaultData.speed > 0){
 			if(gameData.penalty){
 				gameData.penalty = false;
-				togglePenaltyTimer(false);
 			}
 			
 			if(!gameData.accel){
@@ -2118,11 +2117,8 @@ function updateGame(){
 			}
 		}
 		
-		//timeout
-		if(defaultData.speed == 0 && gameData.accel && !gameData.penalty){
-			gameData.penalty = true;
-			togglePenaltyTimer(true);
-		}
+		// Removed: Timeout/idle penalty when speed is 0
+		// Players can now stay idle without penalty
 		
 		// Score is now only awarded from quiz answers (500 for correct, 250 for incorrect)
 		// Removed: playerData.score += Math.floor((5 * Math.round(defaultData.speed/500)) * .03);
@@ -4231,48 +4227,20 @@ function showQuizButtons() {
 	console.log('Game paused for quiz');
 	
 	// Start 5-second quiz timer
-	quizTimeRemaining = quizTimeLimit;
-	quizTimerActive = true;
+	// Quiz timer disabled - players can take their time to answer
+	quizTimerActive = false;
+	quizTimeRemaining = 0;
 	
 	// Clear any existing timer
 	if (quizTimerInterval) {
 		clearInterval(quizTimerInterval);
+		quizTimerInterval = null;
 	}
 	
-	// Start countdown timer (updates every 100ms for smooth display)
-	quizTimerInterval = setInterval(function() {
-		if (quizTimerActive && quizTimerBarFill) {
-			quizTimeRemaining -= 0.1;
-			
-			// Update timer bar fill (green to red gradient)
-			var timePercent = quizTimeRemaining / quizTimeLimit;
-			var barWidth = 296 * timePercent; // Max width is 296
-			
-			// Color transition: green -> yellow -> red
-			var barColor = '#00ff00'; // Green
-			if (timePercent < 0.5) {
-				barColor = '#ffff00'; // Yellow
-			}
-			if (timePercent < 0.25) {
-				barColor = '#ff0000'; // Red
-			}
-			
-			quizTimerBarFill.graphics.clear();
-			quizTimerBarFill.graphics.beginFill(barColor).drawRect(0, 0, barWidth, 16);
-			
-			// Time's up!
-			if (quizTimeRemaining <= 0) {
-				clearInterval(quizTimerInterval);
-				quizTimerActive = false;
-				
-				// Auto-fail: select the wrong answer (opposite of correct answer)
-				// If correct is 0, select 1; if correct is 1, select 0
-				var wrongAnswer = currentQuizQuestion.correct === 0 ? 1 : 0;
-				console.log('Time\'s up! Auto-failing quiz question with wrong answer:', wrongAnswer);
-				handleQuizAnswer(wrongAnswer);
-			}
-		}
-	}, 100);
+	// Hide timer bar
+	if (quizTimerBarBackground) quizTimerBarBackground.visible = false;
+	if (quizTimerBarEmpty) quizTimerBarEmpty.visible = false;
+	if (quizTimerBarFill) quizTimerBarFill.visible = false;
 	
 	// Show buttons
 	if (quizButtonContainer) {
