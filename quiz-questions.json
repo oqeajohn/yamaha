@@ -1,0 +1,334 @@
+{
+  "questions": [
+    {
+      "id": 1,
+      "section": "Helmet",
+      "question": "Should you wear a helmet when riding a motorcycle?",
+      "options": [
+        "Yes",
+        "No"
+      ],
+      "correct": 0,
+      "explanation": "Always wear a helmet for safety!!"
+    },
+    {
+      "id": 2,
+      "section": "Illegal U-turn",
+      "question": "Is it okay to make an illegal U-turn when there's no police around?",
+      "options": [
+        "Yes",
+        "No"
+      ],
+      "correct": 1,
+      "explanation": "Traffic rules exist for safety, not just enforcement."
+    },
+    {
+      "id": 3,
+      "section": "Lane Splitting",
+      "question": "Is it safe to squeeze between two cars in tight spaces?",
+      "options": [
+        "Yes",
+        "No"
+      ],
+      "correct": 1,
+      "explanation": "Lane splitting in tight spaces is dangerous."
+    },
+    {
+      "id": 20,
+      "section": "DTI Helmet",
+      "question": "Should you wear a DTI-approved helmet every ride?",
+      "options": [
+        "Yes",
+        "No"
+      ],
+      "correct": 0,
+      "explanation": ""
+    },
+    {
+      "id": 21,
+      "section": "Counterflow",
+      "question": "Is counterflowing a faster and safer option?",
+      "options": [
+        "Yes",
+        "No"
+      ],
+      "correct": 1,
+      "explanation": ""
+    },
+    {
+      "id": 22,
+      "section": "Signal Light",
+      "question": "You should use your signal light at least 5 seconds before changing lanes.",
+      "options": [
+        "Yes",
+        "No"
+      ],
+      "correct": 0,
+      "explanation": ""
+    },
+    {
+      "id": 23,
+      "section": "Overtaking",
+      "question": "Is overtaking allowed on a solid yellow line?",
+      "options": [
+        "Yes",
+        "No"
+      ],
+      "correct": 1,
+      "explanation": ""
+    },
+    {
+      "id": 24,
+      "section": "3 second distance",
+      "question": "Should you keep a 3-second distance from the vehicle in front?",
+      "options": [
+        "Yes",
+        "No"
+      ],
+      "correct": 0,
+      "explanation": ""
+    },
+    {
+      "id": 25,
+      "section": "Phone usage",
+      "question": "Is it okay to text or use your phone while riding?",
+      "options": [
+        "Yes",
+        "No"
+      ],
+      "correct": 1,
+      "explanation": ""
+    },
+    {
+      "id": 26,
+      "section": "Headlight",
+      "question": "Should your headlight be turned on even during the daytime?",
+      "options": [
+        "Yes",
+        "No"
+      ],
+      "correct": 0,
+      "explanation": ""
+    },
+    {
+      "id": 27,
+      "section": "Yellow Box",
+      "question": "Should you stop or enter the yellow box without completely clearing the intersection?",
+      "options": [
+        "Yes",
+        "No"
+      ],
+      "correct": 1,
+      "explanation": ""
+    },
+    {
+      "id": 28,
+      "section": "Helmet Removal",
+      "question": "Can you remove your helmet once traffic stops?",
+      "options": [
+        "Yes",
+        "No"
+      ],
+      "correct": 1,
+      "explanation": ""
+    },
+    {
+      "id": 29,
+      "section": "Helmet for Passenger",
+      "question": "Should your passenger wear their own helmet too?",
+      "options": [
+        "Yes",
+        "No"
+      ],
+      "correct": 0,
+      "explanation": ""
+    },
+    {
+      "id": 30,
+      "section": "License",
+      "question": "Is it okay to ride even without a license?",
+      "options": [
+        "Yes",
+        "No"
+      ],
+      "correct": 1,
+      "explanation": ""
+    },
+    {
+      "id": 31,
+      "section": "Motorcycle check",
+      "question": "Should you check your brakes, tires, and lights before every ride?",
+      "options": [
+        "Yes",
+        "No"
+      ],
+      "correct": 0,
+      "explanation": ""
+    },
+    {
+      "id": 32,
+      "section": "Road Rage",
+      "question": "Is road rage a sensible response to reckless drivers?",
+      "options": [
+        "Yes",
+        "No"
+      ],
+      "correct": 1,
+      "explanation": ""
+    },
+    {
+      "id": 33,
+      "section": "Lane area",
+      "question": "Should you stay on the rightmost lane when riding on main roads?",
+      "options": [
+        "Yes",
+        "No"
+      ],
+      "correct": 0,
+      "explanation": ""
+    },
+    {
+      "id": 34,
+      "section": "Overtake",
+      "question": "Can you still overtake when you see a No Overtaking sign?",
+      "options": [
+        "Yes",
+        "No"
+      ],
+      "correct": 1,
+      "explanation": ""
+    },
+    {
+      "id": 35,
+      "section": "Stop Sign",
+      "question": "Should you always stop completely at a “Stop” sign, even if no one’s around?",
+      "options": [
+        "Yes",
+        "No"
+      ],
+      "correct": 0,
+      "explanation": ""
+    },
+    {
+      "id": 36,
+      "section": "Pedestrian Crossing",
+      "question": "Does a “Pedestrian Crossing” sign mean you should slow down and give way?",
+      "options": [
+        "Yes",
+        "No"
+      ],
+      "correct": 0,
+      "explanation": ""
+    },
+    {
+      "id": 37,
+      "section": "No Parking",
+      "question": "Is it okay to park beside a “No Parking” sign if you won’t stay long?",
+      "options": [
+        "Yes",
+        "No"
+      ],
+      "correct": 1,
+      "explanation": ""
+    },
+    {
+      "id": 38,
+      "section": "U turn arrow",
+      "question": "Does a “U-Turn Arrow” sign mean a U-turn is allowed at that point?",
+      "options": [
+        "Yes",
+        "No"
+      ],
+      "correct": 0,
+      "explanation": ""
+    },
+    {
+      "id": 39,
+      "section": "60 kmh",
+      "question": "Does a “Speed Limit 60” sign mean you can go beyond 60 km/h?",
+      "options": [
+        "Yes",
+        "No"
+      ],
+      "correct": 1,
+      "explanation": ""
+    },
+    {
+      "id": 40,
+      "section": "No entry",
+      "question": "Is it okay to ignore a “No Entry” sign if the road looks clear?",
+      "options": [
+        "Yes",
+        "No"
+      ],
+      "correct": 1,
+      "explanation": ""
+    },
+    {
+      "id": 41,
+      "section": "Merge",
+      "question": "Does a “Merge/Junction” sign warn you about incoming traffic?",
+      "options": [
+        "Yes",
+        "No"
+      ],
+      "correct": 0,
+      "explanation": ""
+    },
+    {
+      "id": 42,
+      "section": "Enforcer",
+      "question": "Should you always follow traffic enforcers’ hand signals, even if they differ from the traffic light?",
+      "options": [
+        "Yes",
+        "No"
+      ],
+      "correct": 0,
+      "explanation": ""
+    },
+    {
+      "id": 43,
+      "section": "Slippery when wet",
+      "question": "Does a “Slippery when wet” sign mean you need to slow down?",
+      "options": [
+        "Yes",
+        "No"
+      ],
+      "correct": 0,
+      "explanation": ""
+    },
+    {
+      "id": 44,
+      "section": "School zone",
+      "question": "Does a “School Zone” sign mean you should reduce speed?",
+      "options": [
+        "Yes",
+        "No"
+      ],
+      "correct": 0,
+      "explanation": ""
+    },
+    {
+      "id": 45,
+      "section": "Horn",
+      "question": "Should you honk continuously when you see a Blow Your Horn sign?",
+      "options": [
+        "Yes",
+        "No"
+      ],
+      "correct": 1,
+      "explanation": ""
+    },
+    {
+      "id": 46,
+      "section": "One Way",
+      "question": "Does a “One Way” sign mean you can go both directions carefully?",
+      "options": [
+        "Yes",
+        "No"
+      ],
+      "correct": 1,
+      "explanation": ""
+    }
+  ]
+}
