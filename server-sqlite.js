@@ -394,7 +394,22 @@ app.post('/api/sessions/end', async (req, res) => {
 
 app.get('/api/sessions', authenticateToken, async (req, res) => {
     try {
-        const sessions = await allQuery('SELECT * FROM sessions ORDER BY id DESC');
+        const sessions = await allQuery(`
+            SELECT 
+                id,
+                session_id,
+                player_email,
+                strftime('%Y-%m-%dT%H:%M:%f', start_time) || 'Z' as start_time,
+                strftime('%Y-%m-%dT%H:%M:%f', end_time) || 'Z' as end_time,
+                final_score,
+                fuel_remaining,
+                completed,
+                ip_address,
+                user_agent,
+                strftime('%Y-%m-%dT%H:%M:%f', created_at) || 'Z' as created_at
+            FROM sessions 
+            ORDER BY id DESC
+        `);
         res.json({success: true, sessions});
     } catch (error) {
         res.status(500).json({success: false, message: error.message});
@@ -404,7 +419,17 @@ app.get('/api/sessions', authenticateToken, async (req, res) => {
 app.get('/api/sessions/:session_id/details', authenticateToken, async (req, res) => {
     try {
         const details = await allQuery(
-            `SELECT a.*, q.question, q.option_a, q.option_b
+            `SELECT 
+                a.id,
+                a.session_id,
+                a.player_email,
+                a.question_id,
+                a.selected_answer,
+                a.is_correct,
+                strftime('%Y-%m-%dT%H:%M:%f', a.answered_at) || 'Z' as answered_at,
+                q.question, 
+                q.option_a, 
+                q.option_b
              FROM answers a
              LEFT JOIN questions q ON a.question_id = q.id
              WHERE a.session_id = ?`,
