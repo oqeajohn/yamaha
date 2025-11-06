@@ -3,9 +3,8 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const fs = require('fs').promises;
+const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
-const { getDatabase } = require('./admin/data/database');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -16,31 +15,20 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static(__dirname));
 
-// Initialize database
-let db;
-(async () => {
-    try {
-        db = getDatabase();
-        await db.connect();
-        console.log('✓ Connected to SQLite database');
-    } catch (error) {
-        console.error('Failed to connect to database:', error);
-        process.exit(1);
-    }
-})();
-
-// Graceful shutdown
-process.on('SIGINT', async () => {
-    console.log('\nShutting down gracefully...');
-    if (db) {
-        await db.close();
-    }
-    process.exit(0);
-});
-
 // Serve Vue.js admin panel
 app.get('/admin', (req, res) => {
     res.redirect('/admin/login-vue.html');
+});
+
+// Database setup
+const DB_PATH = path.join(__dirname, 'admin', 'data', 'yamaha.db');
+const db = new sqlite3.Database(DB_PATH, (err) => {
+    if (err) {
+        console.error('❌ Error opening database:', err.message);
+    } else {
+        console.log('✅ Connected to SQLite database');
+        initializeDatabase();
+    }
 });
 
 // Admin credentials (use environment variables in production)
@@ -49,26 +37,98 @@ const ADMIN_CREDENTIALS = {
     password: process.env.ADMIN_PASSWORD_HASH || '$2b$10$qslIgU87Hw/v2cIPxRLWN.VpUjNx4/XKwHUBRdoQZ0TInBN5A7UgC' // password: YamahaAdmin2024@Prod
 };
 
-// Helper function to update quiz JSON file for the game
-async function updateQuizJSON() {
-    try {
-        const questions = await db.getAllQuestions();
-        
-        const gameQuestions = questions.map(q => ({
-            id: parseInt(q.id),
-            section: q.section,
-            question: q.question,
-            options: [q.option_a, q.option_b],
-            correct: parseInt(q.correct_answer),
-            explanation: q.explanation || ''
-        }));
-        
-        const quizData = {questions: gameQuestions};
-        const quizFile = path.join(__dirname, 'quiz-questions.json');
-        await fs.writeFile(quizFile, JSON.stringify(quizData, null, 2));
-    } catch (error) {
-        console.error('Error updating quiz JSON:', error);
-    }
+// Initialize database tables
+function initializeDatabase() {
+    db.serialize(() => {
+        // Questions table
+        db.run(`CREATE TABLE IF NOT EXISTS questions (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            section TEXT NOT NULL,
+            question TEXT NOT NULL,
+            option_a TEXT NOT NULL,
+            option_b TEXT NOT NULL,
+            correct_answer INTEGER NOT NULL,
+            explanation TEXT,
+            created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+            updated_at TEXT DEFAULT CURRENT_TIMESTAMP,
+            active INTEGER DEFAULT 1
+        )`);
+
+        // Sessions table
+        db.run(`CREATE TABLE IF NOT EXISTS sessions (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            session_id TEXT UNIQUE NOT NULL,
+            player_email TEXT,
+            start_time TEXT DEFAULT CURRENT_TIMESTAMP,
+            end_time TEXT,
+            final_score INTEGER DEFAULT 0,
+            fuel_remaining INTEGER DEFAULT 0,
+            completed INTEGER DEFAULT 0,
+            ip_address TEXT,
+            user_agent TEXT
+        )`);
+
+        // Answers table
+        db.run(`CREATE TABLE IF NOT EXISTS answers (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            session_id TEXT NOT NULL,
+            player_email TEXT,
+            question_id INTEGER NOT NULL,
+            selected_answer INTEGER NOT NULL,
+            is_correct INTEGER NOT NULL,
+            answered_at TEXT DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY (session_id) REFERENCES sessions(session_id),
+            FOREIGN KEY (question_id) REFERENCES questions(id)
+        )`);
+
+        // Players table
+        db.run(`CREATE TABLE IF NOT EXISTS players (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            email TEXT UNIQUE NOT NULL,
+            registered_at TEXT DEFAULT CURRENT_TIMESTAMP,
+            has_redirected INTEGER DEFAULT 0,
+            redirected_at TEXT
+        )`);
+
+        // Kamote messages table
+        db.run(`CREATE TABLE IF NOT EXISTS kamote_messages (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            message TEXT NOT NULL,
+            active INTEGER DEFAULT 1,
+            created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+            updated_at TEXT DEFAULT CURRENT_TIMESTAMP
+        )`);
+
+        console.log('✅ Database tables initialized');
+    });
+}
+
+// Database helper functions
+function runQuery(sql, params = []) {
+    return new Promise((resolve, reject) => {
+        db.run(sql, params, function(err) {
+            if (err) reject(err);
+            else resolve({ id: this.lastID, changes: this.changes });
+        });
+    });
+}
+
+function getQuery(sql, params = []) {
+    return new Promise((resolve, reject) => {
+        db.get(sql, params, (err, row) => {
+            if (err) reject(err);
+            else resolve(row);
+        });
+    });
+}
+
+function allQuery(sql, params = []) {
+    return new Promise((resolve, reject) => {
+        db.all(sql, params, (err, rows) => {
+            if (err) reject(err);
+            else resolve(rows);
+        });
+    });
 }
 
 // Auth middleware
@@ -92,394 +152,470 @@ function authenticateToken(req, res, next) {
 // ===== AUTH ROUTES =====
 
 app.post('/api/login', async (req, res) => {
-    try {
-        const {username, password} = req.body;
+    const {username, password} = req.body;
+    
+    if (username === ADMIN_CREDENTIALS.username && 
+        await bcrypt.compare(password, ADMIN_CREDENTIALS.password)) {
         
-        if (username === ADMIN_CREDENTIALS.username && await bcrypt.compare(password, ADMIN_CREDENTIALS.password)) {
-            const token = jwt.sign({username}, SECRET_KEY, {expiresIn: '24h'});
-            res.json({success: true, token});
-        } else {
-            res.status(401).json({success: false, message: 'Invalid credentials'});
-        }
-    } catch (error) {
-        res.status(500).json({success: false, message: 'Server error'});
+        const token = jwt.sign({username}, SECRET_KEY, {expiresIn: '24h'});
+        res.json({success: true, token, username});
+    } else {
+        res.status(401).json({success: false, message: 'Invalid credentials'});
     }
 });
 
 app.post('/api/logout', (req, res) => {
-    res.json({success: true, message: 'Logged out successfully'});
+    res.json({success: true, message: 'Logged out'});
 });
 
-// ===== QUESTION ROUTES =====
+// ===== QUESTIONS ROUTES =====
 
 app.get('/api/questions', authenticateToken, async (req, res) => {
     try {
-        const questions = await db.getAllQuestions();
+        const questions = await allQuery('SELECT * FROM questions WHERE active = 1 ORDER BY id');
         res.json({success: true, questions});
     } catch (error) {
-        res.status(500).json({success: false, message: 'Error fetching questions'});
+        res.status(500).json({success: false, message: error.message});
     }
 });
 
 app.post('/api/questions', authenticateToken, async (req, res) => {
     try {
-        const {section, question, explanation, option_a, option_b, correct_answer} = req.body;
+        const { section, question, option_a, option_b, correct_answer, explanation } = req.body;
         
-        if (!section || !question || !option_a || !option_b || correct_answer === undefined) {
-            return res.status(400).json({success: false, message: 'Missing required fields'});
-        }
+        const result = await runQuery(
+            `INSERT INTO questions (section, question, option_a, option_b, correct_answer, explanation, created_at, updated_at)
+             VALUES (?, ?, ?, ?, ?, ?, datetime('now'), datetime('now'))`,
+            [section, question, option_a, option_b, correct_answer, explanation || '']
+        );
         
-        const result = await db.createQuestion({
-            section,
-            question,
-            explanation,
-            option_a,
-            option_b,
-            correct_answer: parseInt(correct_answer)
-        });
-        
-        await updateQuizJSON();
-        
-        res.json({
-            success: true,
-            message: 'Question added successfully',
-            question: {id: result.id}
-        });
+        const newQuestion = await getQuery('SELECT * FROM questions WHERE id = ?', [result.id]);
+        res.json({success: true, message: 'Question added successfully', question: newQuestion});
     } catch (error) {
-        console.error('Error adding question:', error);
-        res.status(500).json({success: false, message: 'Error adding question'});
+        res.status(500).json({success: false, message: error.message});
     }
 });
 
 app.put('/api/questions/:id', authenticateToken, async (req, res) => {
     try {
-        const id = parseInt(req.params.id);
-        const {section, question, explanation, option_a, option_b, correct_answer} = req.body;
+        const { section, question, option_a, option_b, correct_answer, explanation } = req.body;
+        const questionId = parseInt(req.params.id);
         
-        const existing = await db.getQuestionById(id);
-        if (!existing) {
-            return res.status(404).json({success: false, message: 'Question not found'});
-        }
-        
-        await db.updateQuestion(id, {
-            section,
-            question,
-            explanation,
-            option_a,
-            option_b,
-            correct_answer: parseInt(correct_answer)
-        });
-        
-        await updateQuizJSON();
+        await runQuery(
+            `UPDATE questions 
+             SET section = ?, question = ?, option_a = ?, option_b = ?, 
+                 correct_answer = ?, explanation = ?, updated_at = datetime('now')
+             WHERE id = ?`,
+            [section, question, option_a, option_b, correct_answer, explanation || '', questionId]
+        );
         
         res.json({success: true, message: 'Question updated successfully'});
     } catch (error) {
-        console.error('Error updating question:', error);
-        res.status(500).json({success: false, message: 'Error updating question'});
+        res.status(500).json({success: false, message: error.message});
     }
 });
 
 app.delete('/api/questions/:id', authenticateToken, async (req, res) => {
     try {
-        const id = parseInt(req.params.id);
-        
-        const existing = await db.getQuestionById(id);
-        if (!existing) {
-            return res.status(404).json({success: false, message: 'Question not found'});
-        }
-        
-        await db.deleteQuestion(id);
-        await updateQuizJSON();
-        
+        const questionId = parseInt(req.params.id);
+        await runQuery('UPDATE questions SET active = 0 WHERE id = ?', [questionId]);
         res.json({success: true, message: 'Question deleted successfully'});
     } catch (error) {
-        console.error('Error deleting question:', error);
-        res.status(500).json({success: false, message: 'Error deleting question'});
+        res.status(500).json({success: false, message: error.message});
     }
 });
 
-// ===== GAME ROUTES =====
+// ===== PUBLIC ROUTES (for game) =====
 
 app.get('/api/game/questions', async (req, res) => {
     try {
-        const questions = await db.getAllQuestions();
+        const questions = await allQuery('SELECT * FROM questions WHERE active = 1');
         
         const gameQuestions = questions.map(q => ({
-            id: parseInt(q.id),
+            id: q.id,
             section: q.section,
             question: q.question,
             options: [q.option_a, q.option_b],
-            correct: parseInt(q.correct_answer),
+            correct: q.correct_answer,
             explanation: q.explanation || ''
         }));
         
-        res.json({success: true, questions: gameQuestions});
+        res.json({questions: gameQuestions});
     } catch (error) {
-        console.error('Error fetching questions:', error);
-        res.status(500).json({success: false, message: 'Error fetching questions'});
+        res.status(500).json({error: 'Failed to load questions'});
     }
 });
 
-// Kamote messages - still using JSON for now
-const DATA_DIR = path.join(__dirname, 'admin', 'data');
-
-async function readJSON(filename) {
-    try {
-        const filepath = path.join(DATA_DIR, filename);
-        const data = await fs.readFile(filepath, 'utf8');
-        return JSON.parse(data);
-    } catch (error) {
-        console.error(`Error reading ${filename}:`, error);
-        return {messages: []};
-    }
-}
-
-async function writeJSON(filename, data) {
-    try {
-        const filepath = path.join(DATA_DIR, filename);
-        await fs.copyFile(filepath, `${filepath}.backup`).catch(() => {});
-        await fs.writeFile(filepath, JSON.stringify(data, null, 2));
-        return true;
-    } catch (error) {
-        console.error(`Error writing ${filename}:`, error);
-        throw error;
-    }
-}
-
+// Get active kamote messages for game
 app.get('/api/game/kamote-messages', async (req, res) => {
     try {
-        const data = await readJSON('kamote_messages.json');
-        const activeMessages = (data.messages || []).filter(m => m.active === 1);
-        res.json({success: true, messages: activeMessages});
+        const messages = await allQuery('SELECT * FROM kamote_messages WHERE active = 1');
+        res.json({success: true, messages});
     } catch (error) {
-        res.status(500).json({success: false, message: 'Error fetching messages'});
+        res.status(500).json({success: false, error: 'Failed to load kamote messages'});
     }
 });
+
+// ===== KAMOTE MESSAGES ROUTES (Admin) =====
 
 app.get('/api/kamote-messages', authenticateToken, async (req, res) => {
     try {
-        const data = await readJSON('kamote_messages.json');
-        res.json({success: true, messages: data.messages || []});
+        const messages = await allQuery('SELECT * FROM kamote_messages ORDER BY id');
+        res.json({success: true, messages});
     } catch (error) {
-        res.status(500).json({success: false, message: 'Error fetching messages'});
+        res.status(500).json({success: false, message: error.message});
     }
 });
 
 app.post('/api/kamote-messages', authenticateToken, async (req, res) => {
     try {
-        const {message} = req.body;
+        const { message, active } = req.body;
+        
         if (!message) {
             return res.status(400).json({success: false, message: 'Message is required'});
         }
         
-        const data = await readJSON('kamote_messages.json');
-        const messages = data.messages || [];
-        const nextId = messages.length > 0 ? Math.max(...messages.map(m => m.id)) + 1 : 1;
+        const result = await runQuery(
+            `INSERT INTO kamote_messages (message, active, created_at, updated_at)
+             VALUES (?, ?, datetime('now'), datetime('now'))`,
+            [message, active !== undefined ? active : 1]
+        );
         
-        const newMessage = {
-            id: nextId,
-            message,
-            active: 1,
-            created_at: new Date().toISOString()
-        };
-        
-        messages.push(newMessage);
-        await writeJSON('kamote_messages.json', {messages});
-        
-        res.json({success: true, message: 'Message added successfully', data: newMessage});
+        const newMessage = await getQuery('SELECT * FROM kamote_messages WHERE id = ?', [result.id]);
+        res.json({success: true, message: 'Kamote message added successfully', kamoteMessage: newMessage});
     } catch (error) {
-        res.status(500).json({success: false, message: 'Error adding message'});
+        res.status(500).json({success: false, message: error.message});
     }
 });
 
 app.put('/api/kamote-messages/:id', authenticateToken, async (req, res) => {
     try {
-        const id = parseInt(req.params.id);
-        const {message, active} = req.body;
+        const messageId = parseInt(req.params.id);
+        const { message, active } = req.body;
         
-        const data = await readJSON('kamote_messages.json');
-        const messages = data.messages || [];
-        const index = messages.findIndex(m => m.id === id);
+        const updates = [];
+        const params = [];
         
-        if (index === -1) {
-            return res.status(404).json({success: false, message: 'Message not found'});
+        if (message !== undefined) {
+            updates.push('message = ?');
+            params.push(message);
+        }
+        if (active !== undefined) {
+            updates.push('active = ?');
+            params.push(active);
         }
         
-        if (message !== undefined) messages[index].message = message;
-        if (active !== undefined) messages[index].active = active;
+        updates.push("updated_at = datetime('now')");
+        params.push(messageId);
         
-        await writeJSON('kamote_messages.json', {messages});
-        res.json({success: true, message: 'Message updated successfully'});
+        await runQuery(
+            `UPDATE kamote_messages SET ${updates.join(', ')} WHERE id = ?`,
+            params
+        );
+        
+        const updatedMessage = await getQuery('SELECT * FROM kamote_messages WHERE id = ?', [messageId]);
+        res.json({success: true, message: 'Kamote message updated successfully', kamoteMessage: updatedMessage});
     } catch (error) {
-        res.status(500).json({success: false, message: 'Error updating message'});
+        res.status(500).json({success: false, message: error.message});
     }
 });
 
 app.delete('/api/kamote-messages/:id', authenticateToken, async (req, res) => {
     try {
-        const id = parseInt(req.params.id);
-        const data = await readJSON('kamote_messages.json');
-        const messages = data.messages || [];
-        const index = messages.findIndex(m => m.id === id);
-        
-        if (index === -1) {
-            return res.status(404).json({success: false, message: 'Message not found'});
-        }
-        
-        messages[index].active = 0;
-        await writeJSON('kamote_messages.json', {messages});
-        res.json({success: true, message: 'Message deleted successfully'});
+        const messageId = parseInt(req.params.id);
+        await runQuery('DELETE FROM kamote_messages WHERE id = ?', [messageId]);
+        res.json({success: true, message: 'Kamote message deleted successfully'});
     } catch (error) {
-        res.status(500).json({success: false, message: 'Error deleting message'});
+        res.status(500).json({success: false, message: error.message});
     }
 });
 
-// ===== SESSION ROUTES =====
+// ===== SESSION TRACKING ROUTES =====
 
 app.post('/api/sessions/start', async (req, res) => {
     try {
-        const {player_email, ip_address, user_agent} = req.body;
+        const { email } = req.body;
+        const sessionId = require('crypto').randomBytes(32).toString('hex');
         
-        if (!player_email) {
-            return res.status(400).json({success: false, message: 'Player email is required'});
-        }
+        await runQuery(
+            `INSERT INTO sessions (session_id, player_email, start_time, ip_address, user_agent)
+             VALUES (?, ?, datetime('now'), ?, ?)`,
+            [sessionId, email || null, req.ip, req.headers['user-agent']]
+        );
         
-        const crypto = require('crypto');
-        const session_id = crypto.randomBytes(32).toString('hex');
-        
-        const result = await db.createSession({
-            session_id,
-            player_email,
-            start_time: new Date().toISOString(),
-            ip_address,
-            user_agent
-        });
-        
-        res.json({success: true, session_id});
+        res.json({success: true, session_id: sessionId});
     } catch (error) {
-        console.error('Error starting session:', error);
-        res.status(500).json({success: false, message: 'Error starting session'});
+        res.status(500).json({success: false, message: error.message});
     }
 });
 
 app.post('/api/sessions/answer', async (req, res) => {
     try {
-        const {session_id, player_email, question_id, selected_answer, is_correct} = req.body;
+        const {session_id, question_id, selected_answer, is_correct, email} = req.body;
         
-        if (!session_id || !player_email || question_id === undefined || selected_answer === undefined) {
-            return res.status(400).json({success: false, message: 'Missing required fields'});
-        }
-        
-        await db.createAnswer({
-            session_id,
-            player_email,
-            question_id: parseInt(question_id),
-            selected_answer: parseInt(selected_answer),
-            is_correct: is_correct ? 1 : 0,
-            answered_at: new Date().toISOString()
-        });
+        await runQuery(
+            `INSERT INTO answers (session_id, player_email, question_id, selected_answer, is_correct, answered_at)
+             VALUES (?, ?, ?, ?, ?, datetime('now'))`,
+            [session_id, email || null, question_id, selected_answer, is_correct ? 1 : 0]
+        );
         
         res.json({success: true, message: 'Answer recorded'});
     } catch (error) {
-        console.error('Error recording answer:', error);
-        res.status(500).json({success: false, message: 'Error recording answer'});
+        res.status(500).json({success: false, message: error.message});
     }
 });
 
 app.post('/api/sessions/end', async (req, res) => {
     try {
-        const {session_id, final_score, fuel_remaining} = req.body;
+        const {session_id, final_score, fuel_remaining, completed, email} = req.body;
         
-        if (!session_id) {
-            return res.status(400).json({success: false, message: 'Session ID is required'});
+        const updates = ['end_time = datetime(\'now\')', 'final_score = ?', 'fuel_remaining = ?', 'completed = ?'];
+        const params = [final_score, fuel_remaining, completed ? 1 : 0];
+        
+        if (email) {
+            updates.push('player_email = ?');
+            params.push(email);
         }
         
-        await db.updateSession(session_id, {
-            end_time: new Date().toISOString(),
-            final_score: parseInt(final_score) || 0,
-            fuel_remaining: parseInt(fuel_remaining) || 0,
-            completed: 1
-        });
+        params.push(session_id);
         
-        res.json({success: true, message: 'Session ended successfully'});
+        await runQuery(
+            `UPDATE sessions SET ${updates.join(', ')} WHERE session_id = ?`,
+            params
+        );
+        
+        res.json({success: true, message: 'Session ended'});
     } catch (error) {
-        console.error('Error ending session:', error);
-        res.status(500).json({success: false, message: 'Error ending session'});
+        res.status(500).json({success: false, message: error.message});
     }
 });
 
+// ===== ADMIN ANALYTICS ROUTES =====
+
 app.get('/api/sessions', authenticateToken, async (req, res) => {
     try {
-        const sessions = await db.getAllSessions();
+        const sessions = await allQuery('SELECT * FROM sessions ORDER BY start_time DESC');
         res.json({success: true, sessions});
     } catch (error) {
-        console.error('Error fetching sessions:', error);
-        res.status(500).json({success: false, message: 'Error fetching sessions'});
+        res.status(500).json({success: false, message: error.message});
     }
 });
 
 app.get('/api/sessions/:session_id/details', authenticateToken, async (req, res) => {
     try {
-        const {session_id} = req.params;
+        const details = await allQuery(
+            `SELECT a.*, q.question, q.option_a, q.option_b
+             FROM answers a
+             LEFT JOIN questions q ON a.question_id = q.id
+             WHERE a.session_id = ?`,
+            [req.params.session_id]
+        );
         
-        const session = await db.getSessionById(session_id);
-        if (!session) {
-            return res.status(404).json({success: false, message: 'Session not found'});
-        }
-        
-        const answers = await db.getAnswersBySession(session_id);
-        
-        res.json({
-            success: true,
-            session,
-            answers
-        });
+        res.json({success: true, details});
     } catch (error) {
-        console.error('Error fetching session details:', error);
-        res.status(500).json({success: false, message: 'Error fetching session details'});
+        res.status(500).json({success: false, message: error.message});
     }
 });
 
 app.delete('/api/sessions/:session_id', authenticateToken, async (req, res) => {
     try {
-        const {session_id} = req.params;
+        const sessionId = req.params.session_id;
         
-        const session = await db.getSessionById(session_id);
-        if (!session) {
-            return res.status(404).json({success: false, message: 'Session not found'});
-        }
+        // Delete related answers
+        const answersResult = await runQuery('DELETE FROM answers WHERE session_id = ?', [sessionId]);
         
-        await db.deleteSession(session_id);
-        res.json({success: true, message: 'Session deleted successfully'});
+        // Delete session
+        const sessionResult = await runQuery('DELETE FROM sessions WHERE session_id = ?', [sessionId]);
+        
+        res.json({
+            success: true, 
+            message: `Session deleted successfully (${sessionResult.changes} session, ${answersResult.changes} answers removed)`
+        });
     } catch (error) {
-        console.error('Error deleting session:', error);
-        res.status(500).json({success: false, message: 'Error deleting session'});
+        res.status(500).json({success: false, message: error.message});
     }
 });
 
-// ===== ANALYTICS ROUTES =====
+app.post('/api/backup-sessions', authenticateToken, async (req, res) => {
+    try {
+        // SQLite databases can be backed up by copying the file
+        const fs = require('fs').promises;
+        const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+        const backupPath = path.join(__dirname, 'admin', 'data', `yamaha_backup_${timestamp}.db`);
+        
+        await fs.copyFile(DB_PATH, backupPath);
+        
+        res.json({
+            success: true, 
+            message: `Database backup created: yamaha_backup_${timestamp}.db`,
+            timestamp
+        });
+    } catch (error) {
+        res.status(500).json({success: false, message: error.message});
+    }
+});
 
 app.get('/api/analytics', authenticateToken, async (req, res) => {
     try {
-        const stats = await db.getSessionStats();
-        const leaderboard = await db.getLeaderboard(10);
-        const questionStats = await db.getQuestionStats();
+        const analytics = await allQuery(
+            `SELECT 
+                q.id,
+                q.section,
+                q.question,
+                COUNT(a.id) as times_asked,
+                SUM(CASE WHEN a.is_correct = 1 THEN 1 ELSE 0 END) as correct_count,
+                ROUND(
+                    CAST(SUM(CASE WHEN a.is_correct = 1 THEN 1 ELSE 0 END) AS FLOAT) / 
+                    CAST(COUNT(a.id) AS FLOAT) * 100, 
+                    1
+                ) as accuracy
+             FROM questions q
+             LEFT JOIN answers a ON q.id = a.question_id
+             WHERE q.active = 1
+             GROUP BY q.id
+             ORDER BY times_asked DESC`
+        );
+        
+        res.json({success: true, analytics});
+    } catch (error) {
+        res.status(500).json({success: false, message: error.message});
+    }
+});
+
+// ===== STATISTICS =====
+
+app.get('/api/stats', authenticateToken, async (req, res) => {
+    try {
+        const totalQuestions = await getQuery('SELECT COUNT(*) as count FROM questions WHERE active = 1');
+        const totalSessions = await getQuery('SELECT COUNT(*) as count FROM sessions');
+        const completedSessions = await getQuery('SELECT COUNT(*) as count FROM sessions WHERE completed = 1');
+        const totalAnswers = await getQuery('SELECT COUNT(*) as count FROM answers');
+        const correctAnswers = await getQuery('SELECT COUNT(*) as count FROM answers WHERE is_correct = 1');
         
         res.json({
             success: true,
             stats: {
-                totalSessions: stats.total_sessions,
-                completedSessions: stats.completed_sessions,
-                averageScore: Math.round(stats.avg_score || 0),
-                highestScore: stats.max_score || 0
-            },
-            leaderboard,
-            questionStats
+                total_questions: totalQuestions.count,
+                total_sessions: totalSessions.count,
+                completed_sessions: completedSessions.count,
+                total_answers: totalAnswers.count,
+                correct_answers: correctAnswers.count
+            }
         });
     } catch (error) {
-        console.error('Error fetching analytics:', error);
-        res.status(500).json({success: false, message: 'Error fetching analytics'});
+        res.status(500).json({success: false, message: error.message});
     }
+});
+
+// ===== PLAYER MANAGEMENT =====
+
+app.post('/api/players/register', async (req, res) => {
+    try {
+        const { email } = req.body;
+        
+        if (!email || !email.includes('@')) {
+            return res.status(400).json({success: false, message: 'Valid email is required'});
+        }
+        
+        // Check if player exists
+        let player = await getQuery('SELECT * FROM players WHERE email = ?', [email]);
+        
+        if (player) {
+            res.json({
+                success: true, 
+                player: player,
+                message: 'Welcome back!'
+            });
+        } else {
+            // New player
+            await runQuery(
+                'INSERT INTO players (email, registered_at) VALUES (?, datetime(\'now\'))',
+                [email]
+            );
+            
+            player = await getQuery('SELECT * FROM players WHERE email = ?', [email]);
+            
+            res.json({
+                success: true, 
+                player: player,
+                message: 'Registration successful!'
+            });
+        }
+    } catch (error) {
+        res.status(500).json({success: false, message: error.message});
+    }
+});
+
+app.get('/api/players/:email', async (req, res) => {
+    try {
+        const player = await getQuery('SELECT * FROM players WHERE email = ?', [req.params.email]);
+        
+        if (player) {
+            res.json({success: true, player});
+        } else {
+            res.status(404).json({success: false, message: 'Player not found'});
+        }
+    } catch (error) {
+        res.status(500).json({success: false, message: error.message});
+    }
+});
+
+app.post('/api/players/:email/redirect', async (req, res) => {
+    try {
+        const { email } = req.params;
+        
+        await runQuery(
+            'UPDATE players SET has_redirected = 1, redirected_at = datetime(\'now\') WHERE email = ?',
+            [email]
+        );
+        
+        res.json({success: true, message: 'Redirect recorded'});
+    } catch (error) {
+        res.status(500).json({success: false, message: error.message});
+    }
+});
+
+app.post('/api/players/:email/sessions', async (req, res) => {
+    try {
+        const { email } = req.params;
+        const { session_id, score } = req.body;
+        
+        // In SQLite, we track sessions in the sessions table with player_email
+        // This endpoint is kept for API compatibility but doesn't need to do anything
+        // since sessions are already linked to players via email in the sessions table
+        
+        res.json({success: true, message: 'Session recorded'});
+    } catch (error) {
+        res.status(500).json({success: false, message: error.message});
+    }
+});
+
+// Clear all sessions and answers (keep questions)
+app.delete('/api/clear-data', async (req, res) => {
+    try {
+        await runQuery('DELETE FROM answers');
+        await runQuery('DELETE FROM sessions');
+        await runQuery('DELETE FROM players');
+        
+        res.json({
+            success: true, 
+            message: 'All sessions, answers, and players cleared successfully. Questions retained.'
+        });
+    } catch (error) {
+        res.status(500).json({success: false, message: error.message});
+    }
+});
+
+// Graceful shutdown
+process.on('SIGINT', () => {
+    db.close((err) => {
+        if (err) {
+            console.error('❌ Error closing database:', err.message);
+        } else {
+            console.log('✅ Database connection closed');
+        }
+        process.exit(0);
+    });
 });
 
 // Start server
@@ -487,5 +623,5 @@ app.listen(PORT, () => {
     console.log(`🚀 Server running on http://localhost:${PORT}`);
     console.log(`📊 Admin API ready (SQLite)`);
     console.log(`🎮 Game API ready`);
-    updateQuizJSON();
+    console.log(`💾 Database: ${DB_PATH}`);
 });

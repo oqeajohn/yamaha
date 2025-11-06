@@ -1,118 +1,77 @@
 #!/bin/bash
 
-# Yamaha Server Switcher
-# Switch between JSON and SQLite database backends
+###############################################################################
+# Database Switcher for Yamaha Game
+# Allows easy switching between JSON and SQLite on VPS
+###############################################################################
 
-show_status() {
-    if [ -f "server.js" ]; then
-        if grep -q "getDatabase" server.js 2>/dev/null; then
-            echo "📊 Current: SQLite Database"
-        else
-            echo "📄 Current: JSON Files"
-        fi
-    else
-        echo "⚠️  No server.js found"
-    fi
-}
-
-switch_to_sqlite() {
-    echo "🔄 Switching to SQLite..."
-    
-    # Stop server
-    pkill -f "node server.js" 2>/dev/null
-    
-    # Check if files exist
-    if [ ! -f "server-sqlite.js" ]; then
-        echo "❌ Error: server-sqlite.js not found"
-        exit 1
-    fi
-    
-    # Backup current server.js if it's the JSON version
-    if [ -f "server.js" ] && ! grep -q "getDatabase" server.js 2>/dev/null; then
-        echo "📦 Backing up current server.js to server-json-backup.js"
-        cp server.js server-json-backup.js
-    fi
-    
-    # Switch to SQLite
-    cp server-sqlite.js server.js
-    
-    echo "✅ Switched to SQLite database"
-    echo "   Database: admin/data/yamaha.db"
+if [ "$#" -ne 2 ]; then
+    echo "Usage: $0 <database-type> <vps-host>"
     echo ""
-    echo "To start server: node server.js"
-}
-
-switch_to_json() {
-    echo "🔄 Switching to JSON..."
-    
-    # Stop server
-    pkill -f "node server.js" 2>/dev/null
-    
-    # Check if backup exists
-    if [ ! -f "server-json-backup.js" ]; then
-        echo "❌ Error: server-json-backup.js not found"
-        echo "   Cannot restore JSON version"
-        exit 1
-    fi
-    
-    # Backup current server.js if it's the SQLite version
-    if grep -q "getDatabase" server.js 2>/dev/null; then
-        echo "📦 Current SQLite version backed up (already in server-sqlite.js)"
-    fi
-    
-    # Switch to JSON
-    cp server-json-backup.js server.js
-    
-    echo "✅ Switched to JSON files"
-    echo "   Data directory: admin/data/"
+    echo "Database types:"
+    echo "  json    - Use JSON file database (server.js)"
+    echo "  sqlite  - Use SQLite database (server-sqlite.js)"
     echo ""
-    echo "To start server: node server.js"
-}
+    echo "Example:"
+    echo "  $0 sqlite 123.45.67.89"
+    echo "  $0 json yourdomain.com"
+    exit 1
+fi
 
-start_server() {
-    if [ -f "server.js" ]; then
-        echo "🚀 Starting server..."
-        node server.js
-    else
-        echo "❌ Error: server.js not found"
-        exit 1
-    fi
-}
+DB_TYPE=$1
+VPS_HOST=$2
+VPS_USER="root"
+APP_NAME="yamaha-game"
 
-show_help() {
-    echo "Yamaha Server Switcher"
-    echo ""
-    echo "Usage: $0 <command>"
-    echo ""
-    echo "Commands:"
-    echo "  status        Show current database backend"
-    echo "  sqlite        Switch to SQLite database"
-    echo "  json          Switch to JSON files"
-    echo "  start         Start the server"
-    echo ""
-    echo "Examples:"
-    echo "  $0 status"
-    echo "  $0 sqlite"
-    echo "  $0 json"
-    echo "  $0 start"
-}
-
-case "$1" in
-    status)
-        show_status
+case $DB_TYPE in
+    json)
+        SERVER_FILE="server.js"
+        DB_NAME="JSON files"
         ;;
     sqlite)
-        switch_to_sqlite
-        ;;
-    json)
-        switch_to_json
-        ;;
-    start)
-        show_status
-        echo ""
-        start_server
+        SERVER_FILE="server-sqlite.js"
+        DB_NAME="SQLite database"
         ;;
     *)
-        show_help
+        echo "❌ Invalid database type: $DB_TYPE"
+        echo "Use 'json' or 'sqlite'"
+        exit 1
         ;;
 esac
+
+echo "🔄 Switching to $DB_NAME on $VPS_HOST..."
+echo ""
+
+ssh $VPS_USER@$VPS_HOST << ENDSSH
+set -e
+
+cd /var/www/yamaha
+
+echo "⏹️  Stopping current server..."
+pm2 stop $APP_NAME 2>/dev/null || true
+pm2 delete $APP_NAME 2>/dev/null || true
+
+echo "🚀 Starting with $SERVER_FILE..."
+pm2 start $SERVER_FILE --name $APP_NAME
+
+echo "💾 Saving PM2 configuration..."
+pm2 save
+
+echo ""
+echo "✅ Successfully switched to $DB_NAME"
+echo ""
+echo "📊 Current status:"
+pm2 status $APP_NAME
+
+echo ""
+echo "📝 Recent logs:"
+pm2 logs $APP_NAME --lines 10 --nostream
+
+ENDSSH
+
+echo ""
+echo "✅ Database switch complete!"
+echo "🌐 Your app: http://$VPS_HOST"
+echo ""
+echo "Monitor logs with:"
+echo "  ssh $VPS_USER@$VPS_HOST 'pm2 logs $APP_NAME'"

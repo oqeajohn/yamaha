@@ -5,7 +5,13 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
+    "start:sqlite": "node server-sqlite.js",
     "dev": "nodemon server.js",
+    "dev:sqlite": "nodemon server-sqlite.js",
+    "migrate": "cd admin/data && node migrate-to-sqlite.js",
+    "sync": "cd admin/data && node sync-json-to-sqlite.js",
+    "generate-answers": "cd admin/data && node generate-missing-answers.js",
+    "adjust-helmet": "cd admin/data && node adjust-helmet-answers.js",
     "build": "vite build"
   },
   "keywords": [

@@ -1,237 +1,84 @@
-╔═══════════════════════════════════════════════════════════════╗
-║                                                               ║
-║   🚀 DEPLOY SQLITE TO HOSTINGER VPS - QUICK REFERENCE       ║
-║                                                               ║
-╚═══════════════════════════════════════════════════════════════╝
+# 🚀 Quick VPS Deployment to SQLite
 
-┌───────────────────────────────────────────────────────────────┐
-│  📋 PREREQUISITES                                             │
-└───────────────────────────────────────────────────────────────┘
+## The Problem
+Your VPS is running `server.js` (JSON database) instead of `server-sqlite.js` (SQLite database).
 
-  ✓ SSH access to your VPS
-  ✓ Node.js application running via PM2
-  ✓ Current data in /var/www/yamaha/admin/data/*.json
+## The Fix - 3 Steps
 
+### 1️⃣ Update Deployment Script
+```bash
+nano deploy-to-vps.sh
+```
+Change line 11:
+```bash
+VPS_HOST="YOUR_VPS_IP_HERE"  # e.g., "123.45.67.89"
+```
 
-┌───────────────────────────────────────────────────────────────┐
-│  🎯 OPTION 1: AUTOMATED DEPLOYMENT (EASIEST!)                │
-└───────────────────────────────────────────────────────────────┘
+### 2️⃣ Deploy to VPS
+```bash
+./deploy-to-vps.sh
+```
 
-  From your Mac terminal:
-  
-    cd /Users/johnalcantara/Documents/yamaha
-    ./deploy-to-vps.sh
-  
-  The script will:
-    1. Upload all necessary files
-    2. Create backup of current data
-    3. Install sqlite3 package
-    4. Run migration
-    5. Switch to SQLite server
-    6. Restart application
-  
-  ⏱️  Total time: ~5-10 minutes
-  ⚡ Downtime: ~2-3 minutes
+### 3️⃣ Verify It's Working
+```bash
+ssh root@YOUR_VPS_IP 'pm2 logs yamaha-game --lines 20'
+```
 
+Look for:
+```
+✅ Connected to SQLite database
+📊 Admin API ready (SQLite)
+💾 Database: /var/www/yamaha/admin/data/yamaha.db
+```
 
-┌───────────────────────────────────────────────────────────────┐
-│  🔧 OPTION 2: MANUAL DEPLOYMENT                              │
-└───────────────────────────────────────────────────────────────┘
+## ✅ Done!
+Your VPS is now using SQLite instead of JSON files.
 
-  Step 1: Upload files via SCP
-  ────────────────────────────────────────────────────────────
-  
-    scp admin/data/database.js root@YOUR_VPS_IP:/var/www/yamaha/admin/data/
-    scp admin/data/migrate-to-sqlite.js root@YOUR_VPS_IP:/var/www/yamaha/admin/data/
-    scp server-sqlite.js root@YOUR_VPS_IP:/var/www/yamaha/
-    scp db-query.sh root@YOUR_VPS_IP:/var/www/yamaha/
-    scp switch-db.sh root@YOUR_VPS_IP:/var/www/yamaha/
-    scp test-sqlite.sh root@YOUR_VPS_IP:/var/www/yamaha/
-  
-  
-  Step 2: SSH into VPS
-  ────────────────────────────────────────────────────────────
-  
-    ssh root@YOUR_VPS_IP
-    cd /var/www/yamaha
-  
-  
-  Step 3: Backup current data
-  ────────────────────────────────────────────────────────────
-  
-    DATE=$(date +%Y%m%d_%H%M%S)
-    mkdir -p /var/backups/yamaha-$DATE
-    cp admin/data/*.json /var/backups/yamaha-$DATE/
-  
-  
-  Step 4: Install sqlite3
-  ────────────────────────────────────────────────────────────
-  
-    npm install sqlite3
-  
-  
-  Step 5: Stop application
-  ────────────────────────────────────────────────────────────
-  
-    pm2 stop yamaha-game
-  
-  
-  Step 6: Run migration
-  ────────────────────────────────────────────────────────────
-  
-    cd admin/data
-    node migrate-to-sqlite.js
-    cd ../..
-  
-  
-  Step 7: Switch to SQLite server
-  ────────────────────────────────────────────────────────────
-  
-    cp server.js server-json-backup.js
-    cp server-sqlite.js server.js
-  
-  
-  Step 8: Restart application
-  ────────────────────────────────────────────────────────────
-  
-    pm2 restart yamaha-game
-    pm2 save
-  
-  
-  Step 9: Verify deployment
-  ────────────────────────────────────────────────────────────
-  
-    ./test-sqlite.sh
-    pm2 logs yamaha-game
+---
 
+## Alternative: Manual Deployment
 
-┌───────────────────────────────────────────────────────────────┐
-│  🧪 TESTING AFTER DEPLOYMENT                                 │
-└───────────────────────────────────────────────────────────────┘
+### On VPS:
+```bash
+ssh root@YOUR_VPS_IP
 
-  On VPS:
-  
-    cd /var/www/yamaha
-    ./test-sqlite.sh              # Run full test suite
-    ./db-query.sh stats           # Check database stats
-    pm2 logs yamaha-game          # View logs
-    pm2 status                    # Check status
-  
-  In Browser:
-  
-    https://yourdomain.com        # Test game
-    https://yourdomain.com/admin  # Test admin dashboard
+# Navigate to app directory
+cd /var/www/yamaha
 
+# Stop current server
+pm2 stop yamaha-game
+pm2 delete yamaha-game
 
-┌───────────────────────────────────────────────────────────────┐
-│  🔄 ROLLBACK (IF NEEDED)                                     │
-└───────────────────────────────────────────────────────────────┘
+# Start SQLite server
+pm2 start server-sqlite.js --name yamaha-game
+pm2 save
 
-  On VPS:
-  
-    pm2 stop yamaha-game
-    cp server-json-backup.js server.js
-    pm2 restart yamaha-game
-  
-  Your JSON files are safe in:
-    - /var/backups/yamaha-TIMESTAMP/
-    - /var/www/yamaha/admin/data/json-backup/
+# Check logs
+pm2 logs yamaha-game
+```
 
+---
 
-┌───────────────────────────────────────────────────────────────┐
-│  📊 POST-DEPLOYMENT MONITORING                               │
-└───────────────────────────────────────────────────────────────┘
+## Files Created
+- ✅ `server-sqlite.js` - SQLite server (was empty, now complete)
+- ✅ `admin/data/migrate-to-sqlite.js` - Migration script
+- ✅ `deploy-to-vps.sh` - Automated deployment
+- ✅ `SQLITE_MIGRATION_COMPLETE.md` - Full documentation
 
-  Check application logs:
-    pm2 logs yamaha-game --lines 100
-  
-  Monitor in real-time:
-    pm2 monit
-  
-  View database stats:
-    ./db-query.sh stats
-  
-  View leaderboard:
-    ./db-query.sh leaderboard 10
-  
-  Create manual backup:
-    ./db-query.sh backup
+## Useful Commands
+```bash
+# View VPS logs
+ssh root@YOUR_VPS_IP 'pm2 logs yamaha-game'
 
+# Restart VPS app
+ssh root@YOUR_VPS_IP 'pm2 restart yamaha-game'
 
-┌───────────────────────────────────────────────────────────────┐
-│  🛠️  TROUBLESHOOTING                                         │
-└───────────────────────────────────────────────────────────────┘
+# Check PM2 status
+ssh root@YOUR_VPS_IP 'pm2 status'
 
-  Database locked error:
-    pm2 restart yamaha-game
-  
-  Permission issues:
-    sudo chown -R www-data:www-data /var/www/yamaha/admin/data/
-    sudo chmod 664 /var/www/yamaha/admin/data/yamaha.db
-  
-  Server won't start:
-    pm2 logs yamaha-game --err
-    npm install sqlite3
-  
-  Missing database file:
-    cd /var/www/yamaha/admin/data
-    node migrate-to-sqlite.js
+# Check database file
+ssh root@YOUR_VPS_IP 'ls -lh /var/www/yamaha/admin/data/yamaha.db'
+```
 
-
-┌───────────────────────────────────────────────────────────────┐
-│  📚 DOCUMENTATION                                            │
-└───────────────────────────────────────────────────────────────┘
-
-  Full deployment guide:
-    HOSTINGER_SQLITE_DEPLOYMENT.md
-  
-  Quick start:
-    QUICKSTART_SQLITE.md
-  
-  Database guide:
-    DATABASE_README.md
-  
-  Original VPS setup:
-    HOSTINGER_VPS_DEPLOYMENT.md
-
-
-┌───────────────────────────────────────────────────────────────┐
-│  ✅ SUCCESS CHECKLIST                                        │
-└───────────────────────────────────────────────────────────────┘
-
-  After deployment, verify:
-  
-  [ ] Files uploaded to VPS
-  [ ] sqlite3 package installed
-  [ ] Backup created
-  [ ] Migration completed successfully
-  [ ] Server switched to SQLite
-  [ ] Application restarted
-  [ ] Game works in browser
-  [ ] Admin dashboard accessible
-  [ ] Analytics displaying correctly
-  [ ] Leaderboard showing data
-  [ ] No errors in pm2 logs
-
-
-┌───────────────────────────────────────────────────────────────┐
-│  🎯 KEY BENEFITS                                             │
-└───────────────────────────────────────────────────────────────┘
-
-  ✅ 3x faster query performance
-  ✅ Better reliability (no JSON corruption)
-  ✅ Advanced analytics with SQL
-  ✅ Better concurrent user support
-  ✅ ACID-compliant transactions
-  ✅ Easy backup and maintenance
-
-
-╔═══════════════════════════════════════════════════════════════╗
-║                                                               ║
-║  📞 QUICK HELP                                               ║
-║                                                               ║
-║  Automated:  ./deploy-to-vps.sh                             ║
-║  Manual:     See HOSTINGER_SQLITE_DEPLOYMENT.md             ║
-║  Support:    pm2 logs yamaha-game                           ║
-║                                                               ║
-╚═══════════════════════════════════════════════════════════════╝
+## Need Help?
+See `SQLITE_MIGRATION_COMPLETE.md` for detailed documentation.

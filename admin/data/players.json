@@ -1068,9 +1068,15 @@
           "session_id": "session_1761797164770_3ucyqecih",
           "score": 2400,
           "played_at": "2025-10-30T04:06:05.132Z"
+        },
+        {
+          "session_id": "session_1762140183777_03oy374me",
+          "score": 2500,
+          "played_at": "2025-11-03T03:23:04.320Z"
         }
       ],
-      "has_redirected": false
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T03:23:15.440Z"
     },
     {
       "email": "yogiearboleda00@gmail.com",
@@ -1143,6 +1149,21 @@
           "session_id": "session_1761799025493_0k2xqts6g",
           "score": 2500,
           "played_at": "2025-10-30T04:38:39.498Z"
+        },
+        {
+          "session_id": "session_1762140628898_5z4obs1uk",
+          "score": 2250,
+          "played_at": "2025-11-03T03:32:01.973Z"
+        },
+        {
+          "session_id": "session_1762140920283_rnxc2yqbs",
+          "score": 2150,
+          "played_at": "2025-11-03T03:36:52.638Z"
+        },
+        {
+          "session_id": "session_1762141176124_g2e06qwr9",
+          "score": 2500,
+          "played_at": "2025-11-03T03:41:08.621Z"
         }
       ],
       "has_redirected": true,
@@ -1174,6 +1195,16 @@
           "session_id": "session_1761799553682_9hj4rzvqy",
           "score": 2500,
           "played_at": "2025-10-30T04:45:55.204Z"
+        },
+        {
+          "session_id": "session_1762139632191_b0rxpcxbo",
+          "score": 2150,
+          "played_at": "2025-11-03T03:13:54.091Z"
+        },
+        {
+          "session_id": "session_1762139841574_i8c7mzjsr",
+          "score": 2500,
+          "played_at": "2025-11-03T03:17:23.085Z"
         }
       ],
       "has_redirected": true,
@@ -1777,6 +1808,11 @@
           "session_id": "session_1761804833510_hqrzva2w7",
           "score": 2500,
           "played_at": "2025-10-30T06:13:49.187Z"
+        },
+        {
+          "session_id": "session_1761842952792_kkv2v6rna",
+          "score": 2500,
+          "played_at": "2025-10-30T16:49:08.833Z"
         }
       ],
       "has_redirected": true,
@@ -1796,6 +1832,11 @@
           "session_id": "session_1761804070126_zmerobfmk",
           "score": 1975,
           "played_at": "2025-10-30T06:01:10.398Z"
+        },
+        {
+          "session_id": "session_1761927052526_qrdoi4va4",
+          "score": 2250,
+          "played_at": "2025-10-31T16:10:52.694Z"
         }
       ],
       "has_redirected": false
@@ -2638,10 +2679,4814 @@
           "session_id": "session_1761815210659_yhrm291qo",
           "score": 2175,
           "played_at": "2025-10-30T09:06:50.975Z"
+        },
+        {
+          "session_id": "session_1761856831079_w3hblqq6v",
+          "score": 2425,
+          "played_at": "2025-10-30T20:40:31.233Z"
+        },
+        {
+          "session_id": "session_1761857323009_mta9yffng",
+          "score": 2500,
+          "played_at": "2025-10-30T20:48:43.173Z"
         }
       ],
       "has_redirected": true,
       "redirected_at": "2025-10-30T09:07:09.832Z"
+    },
+    {
+      "email": "bong0998@gmail.com",
+      "registered_at": "2025-10-30T11:19:39.786Z",
+      "sessions": [
+        {
+          "session_id": "session_1761823330134_f1j64w9br",
+          "score": 1900,
+          "played_at": "2025-10-30T11:22:10.364Z"
+        }
+      ],
+      "has_redirected": false
+    },
+    {
+      "email": "auronueva@gmail.com",
+      "registered_at": "2025-10-30T11:54:18.291Z",
+      "sessions": [],
+      "has_redirected": false
+    },
+    {
+      "email": "gareth1990@gmail.com",
+      "registered_at": "2025-10-30T12:13:57.002Z",
+      "sessions": [],
+      "has_redirected": false
+    },
+    {
+      "email": "geraldromulo29@gmail.com",
+      "registered_at": "2025-10-30T12:25:58.673Z",
+      "sessions": [
+        {
+          "session_id": "session_1761827380337_ald7gim6b",
+          "score": 2325,
+          "played_at": "2025-10-30T12:29:40.378Z"
+        },
+        {
+          "session_id": "session_1761827620865_q7m5leh2t",
+          "score": 2475,
+          "played_at": "2025-10-30T12:33:40.922Z"
+        },
+        {
+          "session_id": "session_1761827882517_sz5e8v2a2",
+          "score": 2250,
+          "played_at": "2025-10-30T12:38:02.553Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-10-30T12:38:18.350Z"
+    },
+    {
+      "email": "johnvienne.agdeppa@gmail.com",
+      "registered_at": "2025-10-30T13:15:44.570Z",
+      "sessions": [
+        {
+          "session_id": "session_1761830313393_hb75bdo3g",
+          "score": 2350,
+          "played_at": "2025-10-30T13:18:33.675Z"
+        },
+        {
+          "session_id": "session_1761830524899_zvsui93o8",
+          "score": 2425,
+          "played_at": "2025-10-30T13:22:05.106Z"
+        },
+        {
+          "session_id": "session_1761830704526_qop82shpu",
+          "score": 2500,
+          "played_at": "2025-10-30T13:25:05.069Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-10-30T13:25:13.469Z"
+    },
+    {
+      "email": "gorivillegas@gmail.com",
+      "registered_at": "2025-10-30T14:53:27.108Z",
+      "sessions": [
+        {
+          "session_id": "session_1761836165379_5la8ulm85",
+          "score": 2225,
+          "played_at": "2025-10-30T14:56:05.548Z"
+        }
+      ],
+      "has_redirected": false
+    },
+    {
+      "email": "pinonluke@gmail.com",
+      "registered_at": "2025-10-30T15:29:32.593Z",
+      "sessions": [
+        {
+          "session_id": "session_1761838349419_4ykefvotz",
+          "score": 2450,
+          "played_at": "2025-10-30T15:32:29.713Z"
+        },
+        {
+          "session_id": "session_1761838565920_6jdrltxy1",
+          "score": 2500,
+          "played_at": "2025-10-30T15:36:06.219Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-10-30T15:36:39.909Z"
+    },
+    {
+      "email": "wayeth17@gmail.com",
+      "registered_at": "2025-10-31T01:44:06.491Z",
+      "sessions": [
+        {
+          "session_id": "session_1761875249816_wjxbofkwn",
+          "score": 2400,
+          "played_at": "2025-10-31T01:47:30.584Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-10-31T01:48:07.778Z"
+    },
+    {
+      "email": "ilovejan@gmail.com",
+      "registered_at": "2025-10-31T08:10:19.587Z",
+      "sessions": [],
+      "has_redirected": false
+    },
+    {
+      "email": "gpr201254@gmail.com",
+      "registered_at": "2025-10-31T22:31:43.675Z",
+      "sessions": [
+        {
+          "session_id": "session_1761950434845_lbni4ef19",
+          "score": 1925,
+          "played_at": "2025-10-31T22:37:35.092Z"
+        },
+        {
+          "session_id": "session_1761950767209_w6tzx480m",
+          "score": 1800,
+          "played_at": "2025-10-31T22:43:07.472Z"
+        },
+        {
+          "session_id": "session_1761951158806_syfsmj0r0",
+          "score": 2500,
+          "played_at": "2025-10-31T22:49:39.075Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-10-31T22:54:39.091Z"
+    },
+    {
+      "email": "lealyn.salen14@gmail.com",
+      "registered_at": "2025-11-01T00:22:33.392Z",
+      "sessions": [
+        {
+          "session_id": "session_1761956822918_qlidqhthu",
+          "score": 2025,
+          "played_at": "2025-11-01T00:27:01.788Z"
+        },
+        {
+          "session_id": "session_1761957062323_p3trv0yh3",
+          "score": 2150,
+          "played_at": "2025-11-01T00:31:01.254Z"
+        }
+      ],
+      "has_redirected": false
+    },
+    {
+      "email": "kimezra89@gmail.com",
+      "registered_at": "2025-11-01T02:52:10.644Z",
+      "sessions": [
+        {
+          "session_id": "session_1761965720055_foxybtm45",
+          "score": 2100,
+          "played_at": "2025-11-01T02:55:20.476Z"
+        }
+      ],
+      "has_redirected": false
+    },
+    {
+      "email": "rjgadinggan1991@gmail.com",
+      "registered_at": "2025-11-01T05:16:45.564Z",
+      "sessions": [
+        {
+          "session_id": "session_1761974365395_s2noo0t53",
+          "score": 2375,
+          "played_at": "2025-11-01T05:19:26.081Z"
+        }
+      ],
+      "has_redirected": false
+    },
+    {
+      "email": "rayoliver26@gmail.com",
+      "registered_at": "2025-11-01T07:32:01.576Z",
+      "sessions": [
+        {
+          "session_id": "session_1761982499350_djs5y01c0",
+          "score": 2425,
+          "played_at": "2025-11-01T07:34:59.680Z"
+        }
+      ],
+      "has_redirected": false
+    },
+    {
+      "email": "keideemendoza24@gmail.com",
+      "registered_at": "2025-11-01T10:35:32.175Z",
+      "sessions": [],
+      "has_redirected": false
+    },
+    {
+      "email": "lealyn.salen@gmail.com",
+      "registered_at": "2025-11-01T12:19:18.136Z",
+      "sessions": [
+        {
+          "session_id": "session_1761999763750_a03zir0u3",
+          "score": 2250,
+          "played_at": "2025-11-01T12:22:42.720Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-01T12:23:01.268Z"
+    },
+    {
+      "email": "macabantingatan@gmail.com",
+      "registered_at": "2025-11-01T13:18:22.056Z",
+      "sessions": [
+        {
+          "session_id": "session_1762003274524_enzpc4vmt",
+          "score": 2400,
+          "played_at": "2025-11-01T13:21:14.619Z"
+        }
+      ],
+      "has_redirected": false
+    },
+    {
+      "email": "jasperbatowaan@gmail.com",
+      "registered_at": "2025-11-01T16:10:26.880Z",
+      "sessions": [
+        {
+          "session_id": "session_1762013618494_osoq499ap",
+          "score": 2000,
+          "played_at": "2025-11-01T16:13:39.194Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-01T16:13:47.105Z"
+    },
+    {
+      "email": "kcfelicilda@gmail.com",
+      "registered_at": "2025-11-01T18:02:17.487Z",
+      "sessions": [
+        {
+          "session_id": "session_1762020349628_4t4vxgi83",
+          "score": 2425,
+          "played_at": "2025-11-01T18:05:51.398Z"
+        }
+      ],
+      "has_redirected": false
+    },
+    {
+      "email": "masteryiee123@gmail.com",
+      "registered_at": "2025-11-02T00:21:29.934Z",
+      "sessions": [
+        {
+          "session_id": "session_1762043236701_c5sz425fp",
+          "score": 2325,
+          "played_at": "2025-11-02T00:27:17.590Z"
+        }
+      ],
+      "has_redirected": false
+    },
+    {
+      "email": "vinceangelobinuya@gmail.com",
+      "registered_at": "2025-11-02T04:49:16.903Z",
+      "sessions": [
+        {
+          "session_id": "session_1762059236132_z3j5ftqfc",
+          "score": 2425,
+          "played_at": "2025-11-02T04:53:56.388Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-02T04:54:34.819Z"
+    },
+    {
+      "email": "akosikc@gmail.com",
+      "registered_at": "2025-11-02T08:16:26.139Z",
+      "sessions": [],
+      "has_redirected": false
+    },
+    {
+      "email": "Michael16balbin@gmail.com",
+      "registered_at": "2025-11-02T09:13:43.601Z",
+      "sessions": [
+        {
+          "session_id": "session_1762075129219_6cmdregjp",
+          "score": 2150,
+          "played_at": "2025-11-02T09:18:49.016Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-02T09:19:34.231Z"
+    },
+    {
+      "email": "yang.magpantay16@gmail.com",
+      "registered_at": "2025-11-02T09:28:00.693Z",
+      "sessions": [
+        {
+          "session_id": "session_1762075858503_9cto7kd3p",
+          "score": 2275,
+          "played_at": "2025-11-02T09:30:58.917Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-02T09:31:50.496Z"
+    },
+    {
+      "email": "elaine.esguerra115@gmail.com",
+      "registered_at": "2025-11-02T11:32:04.829Z",
+      "sessions": [
+        {
+          "session_id": "session_1762083328006_77kz9ro17",
+          "score": 1650,
+          "played_at": "2025-11-02T11:35:27.922Z"
+        },
+        {
+          "session_id": "session_1762083567703_9o16flq0s",
+          "score": 2475,
+          "played_at": "2025-11-02T11:39:27.892Z"
+        },
+        {
+          "session_id": "session_1762083963776_zzadn4j8s",
+          "score": 2500,
+          "played_at": "2025-11-02T11:46:04.061Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-02T11:39:46.672Z"
+    },
+    {
+      "email": "michael16balbin@gmail.com",
+      "registered_at": "2025-11-02T11:56:50.584Z",
+      "sessions": [
+        {
+          "session_id": "session_1762084780506_rtyztxk74",
+          "score": 2250,
+          "played_at": "2025-11-02T11:59:40.286Z"
+        },
+        {
+          "session_id": "session_1762085019259_slvgvjpnu",
+          "score": 2275,
+          "played_at": "2025-11-02T12:03:39.028Z"
+        }
+      ],
+      "has_redirected": false
+    },
+    {
+      "email": "johnjhesterjimenez@gmail.com",
+      "registered_at": "2025-11-02T15:48:46.325Z",
+      "sessions": [
+        {
+          "session_id": "session_1762098674592_693iiin5j",
+          "score": 2075,
+          "played_at": "2025-11-02T15:51:14.661Z"
+        },
+        {
+          "session_id": "session_1762098847309_f25xmpxha",
+          "score": 2350,
+          "played_at": "2025-11-02T15:54:07.386Z"
+        }
+      ],
+      "has_redirected": false
+    },
+    {
+      "email": "ajihsu08@gmail.com",
+      "registered_at": "2025-11-02T22:34:25.394Z",
+      "sessions": [],
+      "has_redirected": false
+    },
+    {
+      "email": "christopherleyte@gmail.com",
+      "registered_at": "2025-11-02T23:47:15.523Z",
+      "sessions": [
+        {
+          "session_id": "session_1762127442098_yu8f0ffq4",
+          "score": 2400,
+          "played_at": "2025-11-02T23:50:42.036Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-02T23:52:00.789Z"
+    },
+    {
+      "email": "ffdvvv@gmail.com",
+      "registered_at": "2025-11-03T01:12:27.885Z",
+      "sessions": [],
+      "has_redirected": false
+    },
+    {
+      "email": "hff@gmail.com",
+      "registered_at": "2025-11-03T01:31:07.744Z",
+      "sessions": [
+        {
+          "session_id": "session_1762133658148_yx973r4b1",
+          "score": 2175,
+          "played_at": "2025-11-03T01:34:18.702Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T01:34:25.720Z"
+    },
+    {
+      "email": "fjquinlog@gmail.com",
+      "registered_at": "2025-11-03T01:36:44.334Z",
+      "sessions": [
+        {
+          "session_id": "session_1762134026878_p3f02o8yi",
+          "score": 1675,
+          "played_at": "2025-11-03T01:40:28.087Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T01:40:31.655Z"
+    },
+    {
+      "email": "mj4407162@gmail.com",
+      "registered_at": "2025-11-03T01:38:51.346Z",
+      "sessions": [
+        {
+          "session_id": "session_1762134089774_jztjhcc18",
+          "score": 2050,
+          "played_at": "2025-11-03T01:41:30.696Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T01:41:36.185Z"
+    },
+    {
+      "email": "vicanthonygemerga47@gmail.com",
+      "registered_at": "2025-11-03T01:39:11.156Z",
+      "sessions": [
+        {
+          "session_id": "session_1762134179300_g3yfsmbnf",
+          "score": 1325,
+          "played_at": "2025-11-03T01:43:00.858Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T01:43:09.391Z"
+    },
+    {
+      "email": "ladoreymart0509@gmail.com",
+      "registered_at": "2025-11-03T01:40:19.948Z",
+      "sessions": [
+        {
+          "session_id": "session_1762134515822_2ome44q83",
+          "score": 2025,
+          "played_at": "2025-11-03T01:48:36.287Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T01:49:26.041Z"
+    },
+    {
+      "email": "arjayyamson0@gmail.com",
+      "registered_at": "2025-11-03T01:42:34.210Z",
+      "sessions": [
+        {
+          "session_id": "session_1762134340644_5m9im181d",
+          "score": 1775,
+          "played_at": "2025-11-03T01:45:40.868Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T01:45:47.779Z"
+    },
+    {
+      "email": "jaymen258@gmail.com",
+      "registered_at": "2025-11-03T01:42:59.930Z",
+      "sessions": [
+        {
+          "session_id": "session_1762134387622_dsbk8qd1m",
+          "score": 2125,
+          "played_at": "2025-11-03T01:46:29.307Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T01:46:36.860Z"
+    },
+    {
+      "email": "kevincarillo993@gmail.com",
+      "registered_at": "2025-11-03T01:43:02.365Z",
+      "sessions": [
+        {
+          "session_id": "session_1762134457885_3gd22k3ps",
+          "score": 1775,
+          "played_at": "2025-11-03T01:47:39.069Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T01:47:50.503Z"
+    },
+    {
+      "email": "Lizmikay05@gmail.com",
+      "registered_at": "2025-11-03T01:44:13.183Z",
+      "sessions": [
+        {
+          "session_id": "session_1762134508912_y48z7yfy1",
+          "score": 2200,
+          "played_at": "2025-11-03T01:48:29.399Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T01:48:31.569Z"
+    },
+    {
+      "email": "akoycecil29@gmail.com",
+      "registered_at": "2025-11-03T01:44:55.935Z",
+      "sessions": [],
+      "has_redirected": false
+    },
+    {
+      "email": "noviejanen@gmail.com",
+      "registered_at": "2025-11-03T01:45:07.099Z",
+      "sessions": [],
+      "has_redirected": false
+    },
+    {
+      "email": "ynsontroyo869@gmail.com",
+      "registered_at": "2025-11-03T01:46:01.209Z",
+      "sessions": [
+        {
+          "session_id": "session_1762134522325_rqkep2xqe",
+          "score": 1100,
+          "played_at": "2025-11-03T01:48:45.034Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T01:49:09.482Z"
+    },
+    {
+      "email": "nbikelnb2@gmail.com",
+      "registered_at": "2025-11-03T01:47:02.984Z",
+      "sessions": [
+        {
+          "session_id": "session_1762134596432_s9ngxa9nk",
+          "score": 2475,
+          "played_at": "2025-11-03T01:49:57.005Z"
+        },
+        {
+          "session_id": "session_1762134805501_aq62xiunr",
+          "score": 2500,
+          "played_at": "2025-11-03T01:53:25.985Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T01:53:38.584Z"
+    },
+    {
+      "email": "cdamasco69@gmail.com",
+      "registered_at": "2025-11-03T01:47:26.607Z",
+      "sessions": [
+        {
+          "session_id": "session_1762134606082_n4acrwgo3",
+          "score": 1900,
+          "played_at": "2025-11-03T01:50:06.490Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T01:50:29.566Z"
+    },
+    {
+      "email": "raphaeldeguia56@gmail.com",
+      "registered_at": "2025-11-03T01:47:39.188Z",
+      "sessions": [
+        {
+          "session_id": "session_1762134622035_yqbwvl1o6",
+          "score": 2325,
+          "played_at": "2025-11-03T01:50:22.258Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T01:50:24.888Z"
+    },
+    {
+      "email": "rowenayagong42@gmail.com",
+      "registered_at": "2025-11-03T01:48:36.348Z",
+      "sessions": [
+        {
+          "session_id": "session_1762134994888_rldv0horg",
+          "score": 1550,
+          "played_at": "2025-11-03T01:56:35.314Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T01:57:32.638Z"
+    },
+    {
+      "email": "codillo.johnny@gmail.com",
+      "registered_at": "2025-11-03T01:50:11.923Z",
+      "sessions": [
+        {
+          "session_id": "session_1762136121150_launpotrv",
+          "score": 1450,
+          "played_at": "2025-11-03T02:15:21.684Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T02:15:32.771Z"
+    },
+    {
+      "email": "virginiazorilla34@gmail.com",
+      "registered_at": "2025-11-03T01:50:12.544Z",
+      "sessions": [],
+      "has_redirected": false
+    },
+    {
+      "email": "elrichmaxinnes@gmail.com",
+      "registered_at": "2025-11-03T01:51:10.895Z",
+      "sessions": [],
+      "has_redirected": false
+    },
+    {
+      "email": "yannitala1402@gmail.com",
+      "registered_at": "2025-11-03T01:51:27.898Z",
+      "sessions": [
+        {
+          "session_id": "session_1762134921226_6912l3661",
+          "score": 2400,
+          "played_at": "2025-11-03T01:55:21.975Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T01:55:35.858Z"
+    },
+    {
+      "email": "tbp.acuesta@gmail.com",
+      "registered_at": "2025-11-03T01:54:12.454Z",
+      "sessions": [],
+      "has_redirected": false
+    },
+    {
+      "email": "cj.bantilan13@gmail.com",
+      "registered_at": "2025-11-03T01:54:28.216Z",
+      "sessions": [
+        {
+          "session_id": "session_1762135039012_c5d9h08rf",
+          "score": 2125,
+          "played_at": "2025-11-03T01:57:19.374Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T01:57:25.510Z"
+    },
+    {
+      "email": "adriansanding0419@gmail.com",
+      "registered_at": "2025-11-03T01:55:04.633Z",
+      "sessions": [
+        {
+          "session_id": "session_1762135796923_59pirsv60",
+          "score": 1275,
+          "played_at": "2025-11-03T02:09:57.903Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T02:10:26.515Z"
+    },
+    {
+      "email": "dairenesanchezmungcal@gmail.com",
+      "registered_at": "2025-11-03T01:55:25.197Z",
+      "sessions": [
+        {
+          "session_id": "session_1762135396881_j2aptcy9k",
+          "score": 2150,
+          "played_at": "2025-11-03T02:03:17.432Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T02:03:20.972Z"
+    },
+    {
+      "email": "michellegeronimo0918@gmail.com",
+      "registered_at": "2025-11-03T01:55:32.728Z",
+      "sessions": [],
+      "has_redirected": false
+    },
+    {
+      "email": "danicafyumang@gmail.com",
+      "registered_at": "2025-11-03T01:55:37.587Z",
+      "sessions": [
+        {
+          "session_id": "session_1762135117997_ke9g64kya",
+          "score": 1475,
+          "played_at": "2025-11-03T01:58:38.284Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T01:58:41.327Z"
+    },
+    {
+      "email": "pimenteljam2@gmail.com",
+      "registered_at": "2025-11-03T01:55:39.564Z",
+      "sessions": [
+        {
+          "session_id": "session_1762135133670_it6yctly5",
+          "score": 2300,
+          "played_at": "2025-11-03T01:58:53.859Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T01:59:04.119Z"
+    },
+    {
+      "email": "marlowetongol18@gmail.com",
+      "registered_at": "2025-11-03T01:55:46.365Z",
+      "sessions": [
+        {
+          "session_id": "session_1762135168023_vsf2957tz",
+          "score": 1650,
+          "played_at": "2025-11-03T01:59:28.365Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T01:59:36.621Z"
+    },
+    {
+      "email": "leaalcantarasoriano@gmail.com",
+      "registered_at": "2025-11-03T01:55:48.863Z",
+      "sessions": [],
+      "has_redirected": false
+    },
+    {
+      "email": "adelleespaguera@gmail.com",
+      "registered_at": "2025-11-03T01:56:13.325Z",
+      "sessions": [
+        {
+          "session_id": "session_1762135328865_mr1nc3jg1",
+          "score": 1550,
+          "played_at": "2025-11-03T02:01:02.375Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T02:01:09.684Z"
+    },
+    {
+      "email": "wels25nabasca@gmail.com",
+      "registered_at": "2025-11-03T01:56:33.678Z",
+      "sessions": [
+        {
+          "session_id": "session_1762135153650_1z8g9gjv0",
+          "score": 1375,
+          "played_at": "2025-11-03T01:59:14.775Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T01:59:44.300Z"
+    },
+    {
+      "email": "bantuasmg@gmail.com",
+      "registered_at": "2025-11-03T01:58:19.868Z",
+      "sessions": [
+        {
+          "session_id": "session_1762135579238_xwtltrba5",
+          "score": 1925,
+          "played_at": "2025-11-03T02:06:32.952Z"
+        }
+      ],
+      "has_redirected": false
+    },
+    {
+      "email": "jayveedaray8@gmail.com",
+      "registered_at": "2025-11-03T02:06:17.378Z",
+      "sessions": [
+        {
+          "session_id": "session_1762135805132_ishk08dj4",
+          "score": 1975,
+          "played_at": "2025-11-03T02:10:06.198Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T02:10:10.980Z"
+    },
+    {
+      "email": "michaeldimalaluan@gmail.com",
+      "registered_at": "2025-11-03T02:08:17.513Z",
+      "sessions": [
+        {
+          "session_id": "session_1762136139838_1dpg3b1zs",
+          "score": 2450,
+          "played_at": "2025-11-03T02:11:29.393Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T02:11:33.193Z"
+    },
+    {
+      "email": "awasthan22@gmail.com",
+      "registered_at": "2025-11-03T02:08:21.397Z",
+      "sessions": [
+        {
+          "session_id": "session_1762135874555_xvajhklyo",
+          "score": 2000,
+          "played_at": "2025-11-03T02:11:16.306Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T02:11:23.426Z"
+    },
+    {
+      "email": "noelestomaguio0715@gmail.com",
+      "registered_at": "2025-11-03T02:08:23.797Z",
+      "sessions": [
+        {
+          "session_id": "session_1762136033844_gsopd5qcw",
+          "score": 1925,
+          "played_at": "2025-11-03T02:13:54.509Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T02:13:59.731Z"
+    },
+    {
+      "email": "miyaganda090@gmail.com",
+      "registered_at": "2025-11-03T02:09:49.539Z",
+      "sessions": [
+        {
+          "session_id": "session_1762136096714_28rvubqwx",
+          "score": 1350,
+          "played_at": "2025-11-03T02:14:58.022Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T02:15:03.584Z"
+    },
+    {
+      "email": "lacanilaonicole8@gmail.com",
+      "registered_at": "2025-11-03T02:10:30.116Z",
+      "sessions": [
+        {
+          "session_id": "session_1762136032909_6fpsyr8u5",
+          "score": 2350,
+          "played_at": "2025-11-03T02:13:53.434Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T02:14:36.009Z"
+    },
+    {
+      "email": "emmylyndc13@gmail.com",
+      "registered_at": "2025-11-03T02:10:35.153Z",
+      "sessions": [],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T02:13:30.984Z"
+    },
+    {
+      "email": "daisyrofriguez0629@gmail.com",
+      "registered_at": "2025-11-03T02:10:50.395Z",
+      "sessions": [
+        {
+          "session_id": "session_1762136087826_26a74ts3y",
+          "score": 1575,
+          "played_at": "2025-11-03T02:14:48.187Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T02:14:50.145Z"
+    },
+    {
+      "email": "francismatrence@gmail.com",
+      "registered_at": "2025-11-03T02:11:05.115Z",
+      "sessions": [
+        {
+          "session_id": "session_1762136061354_xyvm0ergu",
+          "score": 2175,
+          "played_at": "2025-11-03T02:14:22.869Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T02:14:25.033Z"
+    },
+    {
+      "email": "cyroman@yahoo.com",
+      "registered_at": "2025-11-03T02:12:35.390Z",
+      "sessions": [
+        {
+          "session_id": "session_1762136204174_mhp41hj6n",
+          "score": 2425,
+          "played_at": "2025-11-03T02:16:45.559Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T02:17:05.458Z"
+    },
+    {
+      "email": "bertfloridalo84@gmail.com",
+      "registered_at": "2025-11-03T02:12:46.505Z",
+      "sessions": [
+        {
+          "session_id": "session_1762136146427_h6re977dw",
+          "score": 1800,
+          "played_at": "2025-11-03T02:15:47.653Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T02:16:02.184Z"
+    },
+    {
+      "email": "casinogina242@gmail.com",
+      "registered_at": "2025-11-03T02:14:18.899Z",
+      "sessions": [
+        {
+          "session_id": "session_1762136293069_mfvinmiy3",
+          "score": 1950,
+          "played_at": "2025-11-03T02:18:13.355Z"
+        }
+      ],
+      "has_redirected": false
+    },
+    {
+      "email": "ccocching@gmaol.com",
+      "registered_at": "2025-11-03T02:18:00.839Z",
+      "sessions": [
+        {
+          "session_id": "session_1762136445146_96tdeboh3",
+          "score": 1550,
+          "played_at": "2025-11-03T02:20:45.426Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T02:20:47.497Z"
+    },
+    {
+      "email": "noblemariecassandra@gmail.com",
+      "registered_at": "2025-11-03T02:18:23.277Z",
+      "sessions": [
+        {
+          "session_id": "session_1762136512904_d8ik3ed7d",
+          "score": 2225,
+          "played_at": "2025-11-03T02:21:53.449Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T02:22:00.921Z"
+    },
+    {
+      "email": "aldrinezen007@gmail.com",
+      "registered_at": "2025-11-03T02:21:24.618Z",
+      "sessions": [
+        {
+          "session_id": "session_1762136669344_bxkrfzyxe",
+          "score": 2225,
+          "played_at": "2025-11-03T02:24:29.798Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T02:24:33.593Z"
+    },
+    {
+      "email": "nica13514@gmail.com",
+      "registered_at": "2025-11-03T02:21:55.025Z",
+      "sessions": [
+        {
+          "session_id": "session_1762137044943_99fknuhzr",
+          "score": 2250,
+          "played_at": "2025-11-03T02:30:47.092Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T02:30:51.888Z"
+    },
+    {
+      "email": "ezrabilaro91@gmail.com",
+      "registered_at": "2025-11-03T02:22:37.313Z",
+      "sessions": [
+        {
+          "session_id": "session_1762136731696_3jusz398j",
+          "score": 1575,
+          "played_at": "2025-11-03T02:25:32.248Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T02:25:34.366Z"
+    },
+    {
+      "email": "jporcega1209@gmail.com",
+      "registered_at": "2025-11-03T02:22:50.121Z",
+      "sessions": [
+        {
+          "session_id": "session_1762136740979_ktz9xjvxe",
+          "score": 2025,
+          "played_at": "2025-11-03T02:25:41.789Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T02:25:43.509Z"
+    },
+    {
+      "email": "wenatacaisan7@yahho.com",
+      "registered_at": "2025-11-03T02:23:11.955Z",
+      "sessions": [],
+      "has_redirected": false
+    },
+    {
+      "email": "crystalhoneygrahics@gmail.com",
+      "registered_at": "2025-11-03T02:23:18.483Z",
+      "sessions": [
+        {
+          "session_id": "session_1762136761826_vvx75latg",
+          "score": 2125,
+          "played_at": "2025-11-03T02:26:02.281Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T02:26:37.970Z"
+    },
+    {
+      "email": "hlbroso@gmail.com",
+      "registered_at": "2025-11-03T02:23:18.799Z",
+      "sessions": [
+        {
+          "session_id": "session_1762136787157_yupni5r4j",
+          "score": 1775,
+          "played_at": "2025-11-03T02:26:27.342Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T02:26:33.605Z"
+    },
+    {
+      "email": "glennreyes1969@gmail.com",
+      "registered_at": "2025-11-03T02:23:33.419Z",
+      "sessions": [
+        {
+          "session_id": "session_1762136993784_fvoo7gm9i",
+          "score": 2475,
+          "played_at": "2025-11-03T02:29:54.810Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T02:30:12.340Z"
+    },
+    {
+      "email": "kathrinadu@gmail.com",
+      "registered_at": "2025-11-03T02:23:37.124Z",
+      "sessions": [],
+      "has_redirected": false
+    },
+    {
+      "email": "yap.simeona@gmail.com",
+      "registered_at": "2025-11-03T02:23:51.946Z",
+      "sessions": [],
+      "has_redirected": false
+    },
+    {
+      "email": "lopezmaryjane714@gmail.com",
+      "registered_at": "2025-11-03T02:24:46.935Z",
+      "sessions": [
+        {
+          "session_id": "session_1762136922077_1shzsubmv",
+          "score": 1450,
+          "played_at": "2025-11-03T02:28:43.181Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T02:28:48.372Z"
+    },
+    {
+      "email": "miya21eryne@gmail.com",
+      "registered_at": "2025-11-03T02:25:08.322Z",
+      "sessions": [
+        {
+          "session_id": "session_1762136912333_cek4cgjcw",
+          "score": 1725,
+          "played_at": "2025-11-03T02:28:32.832Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T02:28:37.275Z"
+    },
+    {
+      "email": "nolascojunelle@gmail.com",
+      "registered_at": "2025-11-03T02:25:31.180Z",
+      "sessions": [
+        {
+          "session_id": "session_1762136897080_seuri8i5q",
+          "score": 2250,
+          "played_at": "2025-11-03T02:28:17.220Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T02:28:21.980Z"
+    },
+    {
+      "email": "charmdelaluna@gmail.com",
+      "registered_at": "2025-11-03T02:27:01.433Z",
+      "sessions": [
+        {
+          "session_id": "session_1762137027842_vn0yq75e6",
+          "score": 2375,
+          "played_at": "2025-11-03T02:30:30.676Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T02:30:36.922Z"
+    },
+    {
+      "email": "rommerescano01@gmail.com",
+      "registered_at": "2025-11-03T02:27:31.572Z",
+      "sessions": [
+        {
+          "session_id": "session_1762137082538_3aofpv86f",
+          "score": 2100,
+          "played_at": "2025-11-03T02:31:23.474Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T02:31:36.143Z"
+    },
+    {
+      "email": "martglenpascuasmgd@gmail.com",
+      "registered_at": "2025-11-03T02:27:37.657Z",
+      "sessions": [
+        {
+          "session_id": "session_1762137084169_vl6va8n9u",
+          "score": 2050,
+          "played_at": "2025-11-03T02:31:25.717Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T02:31:34.855Z"
+    },
+    {
+      "email": "hahernandez110805@gmail.com",
+      "registered_at": "2025-11-03T02:29:01.099Z",
+      "sessions": [
+        {
+          "session_id": "session_1762137089593_8zvjs7nvj",
+          "score": 2250,
+          "played_at": "2025-11-03T02:31:32.842Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T02:31:32.943Z"
+    },
+    {
+      "email": "villapd07@gmail.com",
+      "registered_at": "2025-11-03T02:29:51.383Z",
+      "sessions": [
+        {
+          "session_id": "session_1762137330844_oynvr5n7s",
+          "score": 1825,
+          "played_at": "2025-11-03T02:35:31.419Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T02:35:35.833Z"
+    },
+    {
+      "email": "htiafcruz1@gmail.co",
+      "registered_at": "2025-11-03T02:30:15.555Z",
+      "sessions": [
+        {
+          "session_id": "session_1762137531325_f5te0b0km",
+          "score": 1300,
+          "played_at": "2025-11-03T02:38:52.121Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T02:39:02.731Z"
+    },
+    {
+      "email": "wilfredobahandianonjr@yahoo.com",
+      "registered_at": "2025-11-03T02:30:56.523Z",
+      "sessions": [
+        {
+          "session_id": "session_1762137346362_k0yx9pb7f",
+          "score": 2225,
+          "played_at": "2025-11-03T02:35:46.198Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T02:36:08.264Z"
+    },
+    {
+      "email": "micalauron8@gmail.com",
+      "registered_at": "2025-11-03T02:32:05.957Z",
+      "sessions": [
+        {
+          "session_id": "session_1762148055924_6kbbaw0zh",
+          "score": 1625,
+          "played_at": "2025-11-03T02:35:30.911Z"
+        }
+      ],
+      "has_redirected": false
+    },
+    {
+      "email": "kristoffcredo@gmail.com",
+      "registered_at": "2025-11-03T02:33:47.846Z",
+      "sessions": [
+        {
+          "session_id": "session_1762137449616_8xlnm2jb5",
+          "score": 2325,
+          "played_at": "2025-11-03T02:37:30.306Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T02:37:46.096Z"
+    },
+    {
+      "email": "sctr.aubreymarielao@gmail.com",
+      "registered_at": "2025-11-03T02:33:59.047Z",
+      "sessions": [],
+      "has_redirected": false
+    },
+    {
+      "email": "viviangabani15@gmail.com",
+      "registered_at": "2025-11-03T02:34:41.643Z",
+      "sessions": [
+        {
+          "session_id": "session_1762137448505_ryaqu70ln",
+          "score": 1975,
+          "played_at": "2025-11-03T02:37:27.885Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T02:37:37.973Z"
+    },
+    {
+      "email": "princessrazon692@gmail.com",
+      "registered_at": "2025-11-03T02:34:57.778Z",
+      "sessions": [
+        {
+          "session_id": "session_1762137500048_f0xnlzfmm",
+          "score": 2450,
+          "played_at": "2025-11-03T02:38:19.706Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T02:38:31.795Z"
+    },
+    {
+      "email": "rodeliosambranorazon@gmail.com",
+      "registered_at": "2025-11-03T02:35:41.765Z",
+      "sessions": [
+        {
+          "session_id": "session_1762137657487_5b6oy4jqi",
+          "score": 1625,
+          "played_at": "2025-11-03T02:40:57.974Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T02:41:03.059Z"
+    },
+    {
+      "email": "sherhine06@gmail.com",
+      "registered_at": "2025-11-03T02:35:55.565Z",
+      "sessions": [
+        {
+          "session_id": "session_1762137523247_vwk11mknc",
+          "score": 1850,
+          "played_at": "2025-11-03T02:38:42.951Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T02:38:48.789Z"
+    },
+    {
+      "email": "mayann10jiah@gmail.com",
+      "registered_at": "2025-11-03T02:35:55.630Z",
+      "sessions": [
+        {
+          "session_id": "session_1762137544248_qffiqrxo2",
+          "score": 1775,
+          "played_at": "2025-11-03T02:39:03.991Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T02:39:21.365Z"
+    },
+    {
+      "email": "shaira.skvl@gmail.com",
+      "registered_at": "2025-11-03T02:36:11.762Z",
+      "sessions": [
+        {
+          "session_id": "session_1762137585752_kecsy7rvy",
+          "score": 2175,
+          "played_at": "2025-11-03T02:39:46.212Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T02:39:49.660Z"
+    },
+    {
+      "email": "dominadorfeliciano210@gmail.com",
+      "registered_at": "2025-11-03T02:36:49.429Z",
+      "sessions": [
+        {
+          "session_id": "session_1762137629883_i6jldgdy4",
+          "score": 2025,
+          "played_at": "2025-11-03T02:40:29.952Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T02:40:33.613Z"
+    },
+    {
+      "email": "pjlizie1207@gmail.com",
+      "registered_at": "2025-11-03T02:37:11.732Z",
+      "sessions": [
+        {
+          "session_id": "session_1762137617644_2vdb88nd0",
+          "score": 1775,
+          "played_at": "2025-11-03T02:40:18.343Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T02:40:59.693Z"
+    },
+    {
+      "email": "Jenly423@gmail.com",
+      "registered_at": "2025-11-03T02:38:23.620Z",
+      "sessions": [
+        {
+          "session_id": "session_1762137688983_4yh9gtjp9",
+          "score": 2200,
+          "played_at": "2025-11-03T02:41:29.259Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T02:41:54.416Z"
+    },
+    {
+      "email": "joejepaulagas@gmail.com",
+      "registered_at": "2025-11-03T02:39:12.279Z",
+      "sessions": [
+        {
+          "session_id": "session_1762137782865_aa1ou7t4c",
+          "score": 2425,
+          "played_at": "2025-11-03T02:43:03.055Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T02:44:03.275Z"
+    },
+    {
+      "email": "gasparjohnray1@mail.com",
+      "registered_at": "2025-11-03T02:39:46.511Z",
+      "sessions": [
+        {
+          "session_id": "session_1762137815411_mmozmbw9b",
+          "score": 1550,
+          "played_at": "2025-11-03T02:43:35.998Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T02:44:24.185Z"
+    },
+    {
+      "email": "monicapena718@gmail.com",
+      "registered_at": "2025-11-03T02:41:10.043Z",
+      "sessions": [
+        {
+          "session_id": "session_1762138128562_x33jc9mj2",
+          "score": 2475,
+          "played_at": "2025-11-03T02:48:50.090Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T02:49:01.080Z"
+    },
+    {
+      "email": "renn.perillo04@gmail.com",
+      "registered_at": "2025-11-03T02:46:55.695Z",
+      "sessions": [
+        {
+          "session_id": "session_1762138329554_u0yzmq7ub",
+          "score": 2200,
+          "played_at": "2025-11-03T02:52:10.132Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T02:52:22.781Z"
+    },
+    {
+      "email": "mbagallon@hotmail.com",
+      "registered_at": "2025-11-03T02:50:52.839Z",
+      "sessions": [],
+      "has_redirected": false
+    },
+    {
+      "email": "nikkajuano@gmail.com",
+      "registered_at": "2025-11-03T02:57:35.467Z",
+      "sessions": [
+        {
+          "session_id": "session_1762138829553_sd6a63zdo",
+          "score": 2325,
+          "played_at": "2025-11-03T03:00:30.031Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T03:00:32.745Z"
+    },
+    {
+      "email": "jcrisrogelio26@gmail.com",
+      "registered_at": "2025-11-03T02:57:59.021Z",
+      "sessions": [
+        {
+          "session_id": "session_1762138840877_r2s96v34x",
+          "score": 2350,
+          "played_at": "2025-11-03T03:00:41.266Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T03:00:46.259Z"
+    },
+    {
+      "email": "juanolloydtarcena@gmail.com",
+      "registered_at": "2025-11-03T02:58:25.138Z",
+      "sessions": [
+        {
+          "session_id": "session_1762138878008_emxm4skfm",
+          "score": 1825,
+          "played_at": "2025-11-03T03:01:18.437Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T03:01:35.171Z"
+    },
+    {
+      "email": "gelliannisip.mihca@gmail.com",
+      "registered_at": "2025-11-03T03:02:06.215Z",
+      "sessions": [
+        {
+          "session_id": "session_1762139203642_cebzxnf4q",
+          "score": 2100,
+          "played_at": "2025-11-03T03:06:43.299Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T03:06:45.099Z"
+    },
+    {
+      "email": "jamesmorphymorial@gmail.com",
+      "registered_at": "2025-11-03T03:03:45.603Z",
+      "sessions": [],
+      "has_redirected": false
+    },
+    {
+      "email": "mabalon693@gmail.com",
+      "registered_at": "2025-11-03T03:03:46.185Z",
+      "sessions": [
+        {
+          "session_id": "session_1762139227304_eecvpei8c",
+          "score": 2275,
+          "played_at": "2025-11-03T03:07:07.950Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T03:07:46.214Z"
+    },
+    {
+      "email": "maelem00@gmail.com",
+      "registered_at": "2025-11-03T03:03:55.331Z",
+      "sessions": [
+        {
+          "session_id": "session_1762139189147_x6vnwjw3i",
+          "score": 1875,
+          "played_at": "2025-11-03T03:06:29.708Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T03:06:31.163Z"
+    },
+    {
+      "email": "marceleazar27@gmail.com",
+      "registered_at": "2025-11-03T03:04:10.579Z",
+      "sessions": [],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T03:16:00.110Z"
+    },
+    {
+      "email": "marklloydcorrel5@gmail.com",
+      "registered_at": "2025-11-03T03:04:53.735Z",
+      "sessions": [
+        {
+          "session_id": "session_1762139335303_6b04cpoz6",
+          "score": 2425,
+          "played_at": "2025-11-03T03:08:55.697Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T03:08:57.869Z"
+    },
+    {
+      "email": "paguiliganrosemielyn@gmail.com",
+      "registered_at": "2025-11-03T03:05:43.987Z",
+      "sessions": [
+        {
+          "session_id": "session_1762139334690_jgopxi4tz",
+          "score": 2200,
+          "played_at": "2025-11-03T03:08:55.178Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T03:08:58.822Z"
+    },
+    {
+      "email": "christianrebustes0102@gmail.com",
+      "registered_at": "2025-11-03T03:05:55.390Z",
+      "sessions": [
+        {
+          "session_id": "session_1762139370081_4gd1xmyan",
+          "score": 2175,
+          "played_at": "2025-11-03T03:09:30.204Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T03:09:38.588Z"
+    },
+    {
+      "email": "pau.florentino21@gmail.com",
+      "registered_at": "2025-11-03T03:06:42.389Z",
+      "sessions": [
+        {
+          "session_id": "session_1762139381087_62hrty1j2",
+          "score": 2425,
+          "played_at": "2025-11-03T03:09:41.389Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T03:10:07.980Z"
+    },
+    {
+      "email": "id264847@gmail.com",
+      "registered_at": "2025-11-03T03:09:12.439Z",
+      "sessions": [],
+      "has_redirected": false
+    },
+    {
+      "email": "luzcardenas@gmail",
+      "registered_at": "2025-11-03T03:09:46.874Z",
+      "sessions": [
+        {
+          "session_id": "session_1762139758126_mqu6ojbx3",
+          "score": 1350,
+          "played_at": "2025-11-03T03:15:59.152Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T03:16:16.288Z"
+    },
+    {
+      "email": "yeshua.ariola@gmail.com",
+      "registered_at": "2025-11-03T03:12:06.792Z",
+      "sessions": [
+        {
+          "session_id": "session_1762139680739_5ssm8gm3m",
+          "score": 2200,
+          "played_at": "2025-11-03T03:14:40.976Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T03:14:47.984Z"
+    },
+    {
+      "email": "angeloabong0722@gmail.com",
+      "registered_at": "2025-11-03T03:12:48.761Z",
+      "sessions": [
+        {
+          "session_id": "session_1762139751795_sio92o2iv",
+          "score": 1525,
+          "played_at": "2025-11-03T03:15:52.472Z"
+        },
+        {
+          "session_id": "session_1762139926047_71lykd05w",
+          "score": 1400,
+          "played_at": "2025-11-03T03:18:46.657Z"
+        },
+        {
+          "session_id": "session_1762140109368_tdxd3sq6i",
+          "score": 1675,
+          "played_at": "2025-11-03T03:21:50.164Z"
+        },
+        {
+          "session_id": "session_1762140393997_vcfnrafwv",
+          "score": 2500,
+          "played_at": "2025-11-03T03:26:34.614Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T03:26:38.065Z"
+    },
+    {
+      "email": "yogie@arboleda00.gmail.com",
+      "registered_at": "2025-11-03T03:13:57.021Z",
+      "sessions": [
+        {
+          "session_id": "session_1762139843947_1icywudwk",
+          "score": 2500,
+          "played_at": "2025-11-03T03:17:25.007Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T03:17:27.074Z"
+    },
+    {
+      "email": "peppaismoomoo@gmail.com",
+      "registered_at": "2025-11-03T03:16:42.338Z",
+      "sessions": [
+        {
+          "session_id": "session_1762140071898_7155nhs50",
+          "score": 1800,
+          "played_at": "2025-11-03T03:21:13.402Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T03:21:21.638Z"
+    },
+    {
+      "email": "jamesrudenpbalasso@gmail.com",
+      "registered_at": "2025-11-03T03:19:02.943Z",
+      "sessions": [
+        {
+          "session_id": "session_1762140120024_s4v2t813w",
+          "score": 2150,
+          "played_at": "2025-11-03T03:22:00.442Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T03:22:14.343Z"
+    },
+    {
+      "email": "djirasgaevangelista@gmail.com",
+      "registered_at": "2025-11-03T03:21:49.811Z",
+      "sessions": [],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T03:24:27.431Z"
+    },
+    {
+      "email": "kennethmendiola5@gmail.com",
+      "registered_at": "2025-11-03T03:22:50.896Z",
+      "sessions": [
+        {
+          "session_id": "session_1762140634224_j35ma51ud",
+          "score": 2500,
+          "played_at": "2025-11-03T03:30:34.346Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T03:30:45.978Z"
+    },
+    {
+      "email": "aihyapi@gmail.com",
+      "registered_at": "2025-11-03T03:27:43.662Z",
+      "sessions": [],
+      "has_redirected": false
+    },
+    {
+      "email": "maryarania2004@gmail.com",
+      "registered_at": "2025-11-03T03:29:50.370Z",
+      "sessions": [
+        {
+          "session_id": "session_1762140774783_9s96qex13",
+          "score": 2375,
+          "played_at": "2025-11-03T03:32:55.053Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T03:32:59.112Z"
+    },
+    {
+      "email": "mylenerait42@gmail.com",
+      "registered_at": "2025-11-03T03:29:55.082Z",
+      "sessions": [
+        {
+          "session_id": "session_1762140942213_tfhtrdncy",
+          "score": 2500,
+          "played_at": "2025-11-03T03:35:42.972Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T03:35:46.874Z"
+    },
+    {
+      "email": "jeffreyevedientes6@gmail.com",
+      "registered_at": "2025-11-03T03:30:52.477Z",
+      "sessions": [
+        {
+          "session_id": "session_1762140852541_91mxa98sh",
+          "score": 1900,
+          "played_at": "2025-11-03T03:34:13.154Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T03:34:20.086Z"
+    },
+    {
+      "email": "regiebeltran160@gmail.com",
+      "registered_at": "2025-11-03T03:32:07.340Z",
+      "sessions": [
+        {
+          "session_id": "session_1762140934142_g2j37gh48",
+          "score": 2275,
+          "played_at": "2025-11-03T03:35:34.499Z"
+        }
+      ],
+      "has_redirected": false
+    },
+    {
+      "email": "paulwilsonbeltran@yahoo.com",
+      "registered_at": "2025-11-03T03:33:42.326Z",
+      "sessions": [
+        {
+          "session_id": "session_1762141004622_hzdg5urz7",
+          "score": 2425,
+          "played_at": "2025-11-03T03:36:44.746Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T03:36:46.879Z"
+    },
+    {
+      "email": "yapipretty04@gmail.com",
+      "registered_at": "2025-11-03T03:34:38.710Z",
+      "sessions": [],
+      "has_redirected": false
+    },
+    {
+      "email": "radjeremys@gmail.com",
+      "registered_at": "2025-11-03T03:34:54.628Z",
+      "sessions": [],
+      "has_redirected": false
+    },
+    {
+      "email": "allenarlante@gmail.com",
+      "registered_at": "2025-11-03T03:35:27.920Z",
+      "sessions": [
+        {
+          "session_id": "session_1762141093208_ypzwiwrdt",
+          "score": 1825,
+          "played_at": "2025-11-03T03:38:12.925Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T03:38:24.204Z"
+    },
+    {
+      "email": "mr.aquines@gmail.com",
+      "registered_at": "2025-11-03T03:35:51.894Z",
+      "sessions": [
+        {
+          "session_id": "session_1762141656751_3c3w8zfuu",
+          "score": 2500,
+          "played_at": "2025-11-03T03:47:37.160Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T03:47:39.781Z"
+    },
+    {
+      "email": "galanjasminjoy7@gmail.com",
+      "registered_at": "2025-11-03T03:38:02.350Z",
+      "sessions": [],
+      "has_redirected": false
+    },
+    {
+      "email": "micahmagtalas04@gmail.com",
+      "registered_at": "2025-11-03T03:38:05.658Z",
+      "sessions": [
+        {
+          "session_id": "session_1762141248684_3cdt9mz40",
+          "score": 1750,
+          "played_at": "2025-11-03T03:40:50.083Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T03:40:52.281Z"
+    },
+    {
+      "email": "kingmuli27@gmail.com",
+      "registered_at": "2025-11-03T03:43:24.487Z",
+      "sessions": [
+        {
+          "session_id": "session_1762141611089_y0lhzpp9s",
+          "score": 2250,
+          "played_at": "2025-11-03T03:46:51.551Z"
+        },
+        {
+          "session_id": "session_1762142067891_4eo9koljm",
+          "score": 2500,
+          "played_at": "2025-11-03T03:54:28.536Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T03:54:36.584Z"
+    },
+    {
+      "email": "pausantosaglr@gmail.com",
+      "registered_at": "2025-11-03T03:46:00.315Z",
+      "sessions": [
+        {
+          "session_id": "session_1762141907431_25meagki2",
+          "score": 2500,
+          "played_at": "2025-11-03T03:51:47.654Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T03:51:49.279Z"
+    },
+    {
+      "email": "wilshenangelae.tondo@gmail.com",
+      "registered_at": "2025-11-03T03:49:58.599Z",
+      "sessions": [
+        {
+          "session_id": "session_1762142047454_sevk78o3i",
+          "score": 2225,
+          "played_at": "2025-11-03T03:54:06.512Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T03:54:13.551Z"
+    },
+    {
+      "email": "paulenedelacruz622@gmail.com",
+      "registered_at": "2025-11-03T03:54:25.271Z",
+      "sessions": [
+        {
+          "session_id": "session_1762142507041_lii58jbdv",
+          "score": 2500,
+          "played_at": "2025-11-03T04:01:47.344Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T04:01:49.552Z"
+    },
+    {
+      "email": "jasontacotaco@gmail.com",
+      "registered_at": "2025-11-03T04:39:11.583Z",
+      "sessions": [
+        {
+          "session_id": "session_1762144931451_scy3ssshh",
+          "score": 2475,
+          "played_at": "2025-11-03T04:42:12.136Z"
+        }
+      ],
+      "has_redirected": false
+    },
+    {
+      "email": "nf5648626@gmail.com",
+      "registered_at": "2025-11-03T04:41:46.283Z",
+      "sessions": [],
+      "has_redirected": false
+    },
+    {
+      "email": "dennisnopal02@gmail.com",
+      "registered_at": "2025-11-03T05:07:17.830Z",
+      "sessions": [],
+      "has_redirected": false
+    },
+    {
+      "email": "s.jesus7937@gmail.com",
+      "registered_at": "2025-11-03T05:12:27.339Z",
+      "sessions": [
+        {
+          "session_id": "session_1762147639142_and76bw2y",
+          "score": 2175,
+          "played_at": "2025-11-03T05:27:20.387Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T05:27:22.956Z"
+    },
+    {
+      "email": "franzmonrysarad9@gmail.com",
+      "registered_at": "2025-11-03T05:15:55.024Z",
+      "sessions": [
+        {
+          "session_id": "session_1762147137881_ibo6pmjeh",
+          "score": 2450,
+          "played_at": "2025-11-03T05:18:58.325Z"
+        },
+        {
+          "session_id": "session_1762147492063_wgkubryqj",
+          "score": 2325,
+          "played_at": "2025-11-03T05:24:52.433Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T05:19:00.869Z"
+    },
+    {
+      "email": "orallonica@gmail.com",
+      "registered_at": "2025-11-03T05:16:23.181Z",
+      "sessions": [
+        {
+          "session_id": "session_1762147422308_4bg69y3p8",
+          "score": 1775,
+          "played_at": "2025-11-03T05:23:42.985Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T05:23:51.346Z"
+    },
+    {
+      "email": "phoebecapati2826@gmail.com",
+      "registered_at": "2025-11-03T05:16:49.683Z",
+      "sessions": [
+        {
+          "session_id": "session_1762147180585_i6ylpz1fn",
+          "score": 2125,
+          "played_at": "2025-11-03T05:20:35.767Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T05:20:53.929Z"
+    },
+    {
+      "email": "zonmizrach@yahoo.com",
+      "registered_at": "2025-11-03T05:16:51.505Z",
+      "sessions": [
+        {
+          "session_id": "session_1762147208550_45sada88m",
+          "score": 2375,
+          "played_at": "2025-11-03T05:20:09.120Z"
+        },
+        {
+          "session_id": "session_1762147467804_pf35pgzag",
+          "score": 2500,
+          "played_at": "2025-11-03T05:24:28.155Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T05:24:36.629Z"
+    },
+    {
+      "email": "jervyabion.laycom09@gmail.com",
+      "registered_at": "2025-11-03T05:17:26.909Z",
+      "sessions": [
+        {
+          "session_id": "session_1762147225318_ktgth7vwe",
+          "score": 2125,
+          "played_at": "2025-11-03T05:20:25.369Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T05:20:55.104Z"
+    },
+    {
+      "email": "raellibrella1288@gmail.com",
+      "registered_at": "2025-11-03T05:19:40.644Z",
+      "sessions": [
+        {
+          "session_id": "session_1762147360777_nd2jt7ya7",
+          "score": 2050,
+          "played_at": "2025-11-03T05:22:41.837Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T05:22:46.493Z"
+    },
+    {
+      "email": "npasion011489@gmail.com",
+      "registered_at": "2025-11-03T05:26:46.548Z",
+      "sessions": [
+        {
+          "session_id": "session_1762147794363_hew9btq44",
+          "score": 1850,
+          "played_at": "2025-11-03T05:29:53.986Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T05:30:02.138Z"
+    },
+    {
+      "email": "chiangelma1983@gmail.com",
+      "registered_at": "2025-11-03T05:27:06.400Z",
+      "sessions": [
+        {
+          "session_id": "session_1762148000315_tr38udljc",
+          "score": 2350,
+          "played_at": "2025-11-03T05:33:21.360Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T05:33:30.149Z"
+    },
+    {
+      "email": "fightercony26@gmail.com",
+      "registered_at": "2025-11-03T05:33:11.654Z",
+      "sessions": [
+        {
+          "session_id": "session_1762148219405_s0q7ra84s",
+          "score": 2100,
+          "played_at": "2025-11-03T05:36:59.893Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T05:37:04.044Z"
+    },
+    {
+      "email": "cnvega.1024@gmail.com",
+      "registered_at": "2025-11-03T05:35:26.758Z",
+      "sessions": [
+        {
+          "session_id": "session_1762148291414_zqte3kigx",
+          "score": 2500,
+          "played_at": "2025-11-03T05:38:12.512Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T05:38:51.404Z"
+    },
+    {
+      "email": "santiagoazirelyk@gmail.com",
+      "registered_at": "2025-11-03T05:42:07.126Z",
+      "sessions": [
+        {
+          "session_id": "session_1762148722407_4g2kxcctt",
+          "score": 1750,
+          "played_at": "2025-11-03T05:45:23.578Z"
+        }
+      ],
+      "has_redirected": false
+    },
+    {
+      "email": "renzelbok07@gmail.com",
+      "registered_at": "2025-11-03T05:44:13.848Z",
+      "sessions": [
+        {
+          "session_id": "session_1762148823692_cu0wp7t44",
+          "score": 2500,
+          "played_at": "2025-11-03T05:47:05.490Z"
+        }
+      ],
+      "has_redirected": false
+    },
+    {
+      "email": "ivanmruiz1031@gmail.com",
+      "registered_at": "2025-11-03T05:46:50.463Z",
+      "sessions": [
+        {
+          "session_id": "session_1762148981902_f8pri3gui",
+          "score": 2375,
+          "played_at": "2025-11-03T05:49:44.083Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T05:49:45.298Z"
+    },
+    {
+      "email": "edilsagnoy@gmail.com",
+      "registered_at": "2025-11-03T05:48:09.965Z",
+      "sessions": [
+        {
+          "session_id": "session_1762149036926_bg7c2ogsl",
+          "score": 2500,
+          "played_at": "2025-11-03T05:51:10.894Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T05:51:10.899Z"
+    },
+    {
+      "email": "melaniecruzado79@gmail.com",
+      "registered_at": "2025-11-03T05:50:08.891Z",
+      "sessions": [
+        {
+          "session_id": "session_1762149248161_3z1oq5r7y",
+          "score": 2175,
+          "played_at": "2025-11-03T05:54:09.367Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T05:54:22.526Z"
+    },
+    {
+      "email": "perochorose16@gmail.com",
+      "registered_at": "2025-11-03T05:50:09.139Z",
+      "sessions": [
+        {
+          "session_id": "session_1762149210105_il8dmzlkb",
+          "score": 2100,
+          "played_at": "2025-11-03T05:53:30.439Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T05:53:35.424Z"
+    },
+    {
+      "email": "luzjavelosa@gmail.com",
+      "registered_at": "2025-11-03T05:50:12.845Z",
+      "sessions": [
+        {
+          "session_id": "session_1762149281781_226fibidf",
+          "score": 1525,
+          "played_at": "2025-11-03T05:54:43.000Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T05:54:47.729Z"
+    },
+    {
+      "email": "ramosmarichu077@gmail.com",
+      "registered_at": "2025-11-03T05:50:45.079Z",
+      "sessions": [
+        {
+          "session_id": "session_1762149247766_vex3kydf7",
+          "score": 1975,
+          "played_at": "2025-11-03T05:54:08.109Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T05:54:14.554Z"
+    },
+    {
+      "email": "loidasunga@gmail.com",
+      "registered_at": "2025-11-03T05:51:37.436Z",
+      "sessions": [
+        {
+          "session_id": "session_1762149238573_u7r3xs1bh",
+          "score": 1525,
+          "played_at": "2025-11-03T05:53:59.994Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T05:54:09.818Z"
+    },
+    {
+      "email": "coyosjayson@gmail.com",
+      "registered_at": "2025-11-03T05:53:34.046Z",
+      "sessions": [],
+      "has_redirected": false
+    },
+    {
+      "email": "christianesmadelprado@gmail.com",
+      "registered_at": "2025-11-03T05:54:55.511Z",
+      "sessions": [
+        {
+          "session_id": "session_1762149473151_omq3n9693",
+          "score": 2350,
+          "played_at": "2025-11-03T05:57:53.799Z"
+        }
+      ],
+      "has_redirected": false
+    },
+    {
+      "email": "delacruz.roel120778@gmail.com",
+      "registered_at": "2025-11-03T05:56:07.238Z",
+      "sessions": [
+        {
+          "session_id": "session_1762149580073_qtdeblmk7",
+          "score": 2050,
+          "played_at": "2025-11-03T05:59:41.350Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T05:59:43.638Z"
+    },
+    {
+      "email": "nbikelnb10@gmail.com",
+      "registered_at": "2025-11-03T05:56:08.225Z",
+      "sessions": [
+        {
+          "session_id": "session_1762149593194_hj7hl8897",
+          "score": 2500,
+          "played_at": "2025-11-03T05:59:53.696Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T06:01:00.863Z"
+    },
+    {
+      "email": "mansanas711@gmail.com",
+      "registered_at": "2025-11-03T05:58:54.665Z",
+      "sessions": [
+        {
+          "session_id": "session_1762149724050_k75v6vf18",
+          "score": 1975,
+          "played_at": "2025-11-03T06:02:04.605Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T06:02:31.616Z"
+    },
+    {
+      "email": "oreosanty@gmail.com",
+      "registered_at": "2025-11-03T06:00:35.265Z",
+      "sessions": [],
+      "has_redirected": false
+    },
+    {
+      "email": "legaspimichael193@gmail.com",
+      "registered_at": "2025-11-03T06:02:33.384Z",
+      "sessions": [],
+      "has_redirected": false
+    },
+    {
+      "email": "jm.casaje0063@gmail.com",
+      "registered_at": "2025-11-03T06:02:43.012Z",
+      "sessions": [
+        {
+          "session_id": "session_1762150301703_lq3hvjoca",
+          "score": 2500,
+          "played_at": "2025-11-03T06:11:42.320Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T06:11:46.551Z"
+    },
+    {
+      "email": "allanbaydal1@gmail.com",
+      "registered_at": "2025-11-03T06:03:00.703Z",
+      "sessions": [
+        {
+          "session_id": "session_1762149965954_9gmp61uwg",
+          "score": 1675,
+          "played_at": "2025-11-03T06:06:06.648Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T06:06:10.253Z"
+    },
+    {
+      "email": "lordval_123@yahoo.com",
+      "registered_at": "2025-11-03T06:03:59.819Z",
+      "sessions": [
+        {
+          "session_id": "session_1762150067642_hciyjtp3e",
+          "score": 2250,
+          "played_at": "2025-11-03T06:07:48.713Z"
+        },
+        {
+          "session_id": "session_1762150268944_o0emfonu6",
+          "score": 2500,
+          "played_at": "2025-11-03T06:11:09.984Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T06:11:12.919Z"
+    },
+    {
+      "email": "nbijamynb1@gmail.com",
+      "registered_at": "2025-11-03T06:12:12.203Z",
+      "sessions": [
+        {
+          "session_id": "session_1762150524245_chns3i1tt",
+          "score": 2500,
+          "played_at": "2025-11-03T06:15:24.679Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T06:15:52.798Z"
+    },
+    {
+      "email": "christopherdaymiel6@gmail.com",
+      "registered_at": "2025-11-03T06:17:05.448Z",
+      "sessions": [
+        {
+          "session_id": "session_1762150847784_rz1ooiumq",
+          "score": 1800,
+          "played_at": "2025-11-03T06:20:48.135Z"
+        },
+        {
+          "session_id": "session_1762151115445_8pwdtmmqv",
+          "score": 2375,
+          "played_at": "2025-11-03T06:25:15.792Z"
+        },
+        {
+          "session_id": "session_1762151354140_f87gd5r04",
+          "score": 2400,
+          "played_at": "2025-11-03T06:29:14.683Z"
+        },
+        {
+          "session_id": "session_1762151580836_c5ezf3vhj",
+          "score": 1925,
+          "played_at": "2025-11-03T06:33:01.205Z"
+        },
+        {
+          "session_id": "session_1762151820456_vp09wygve",
+          "score": 2250,
+          "played_at": "2025-11-03T06:37:00.826Z"
+        },
+        {
+          "session_id": "session_1762152057028_j14i4yjax",
+          "score": 2500,
+          "played_at": "2025-11-03T06:40:57.411Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T06:41:20.849Z"
+    },
+    {
+      "email": "corazonsalao@gmail.com",
+      "registered_at": "2025-11-03T06:19:18.401Z",
+      "sessions": [
+        {
+          "session_id": "session_1762151547954_5z5c535de",
+          "score": 2500,
+          "played_at": "2025-11-03T06:32:28.925Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T06:34:09.441Z"
+    },
+    {
+      "email": "mcbragancia@yahoo.com",
+      "registered_at": "2025-11-03T06:19:41.839Z",
+      "sessions": [
+        {
+          "session_id": "session_1762153018814_auy7qya19",
+          "score": 2500,
+          "played_at": "2025-11-03T06:37:26.565Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T06:38:32.515Z"
+    },
+    {
+      "email": "vicky25sarmientocortes@gmail.com",
+      "registered_at": "2025-11-03T06:23:13.229Z",
+      "sessions": [
+        {
+          "session_id": "session_1762151582114_o07566yzq",
+          "score": 2500,
+          "played_at": "2025-11-03T06:33:02.516Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T06:33:06.122Z"
+    },
+    {
+      "email": "shutupbratan@gmail.com",
+      "registered_at": "2025-11-03T06:23:59.087Z",
+      "sessions": [
+        {
+          "session_id": "session_1762151508392_s0ghz1sfi",
+          "score": 2500,
+          "played_at": "2025-11-03T06:31:48.904Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T06:31:51.222Z"
+    },
+    {
+      "email": "martinezkath86@gmail.com",
+      "registered_at": "2025-11-03T06:35:37.032Z",
+      "sessions": [
+        {
+          "session_id": "session_1762151912033_lqmpo57es",
+          "score": 2450,
+          "played_at": "2025-11-03T06:38:32.203Z"
+        },
+        {
+          "session_id": "session_1762152133331_c54qs1ia4",
+          "score": 2500,
+          "played_at": "2025-11-03T06:42:13.439Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T06:44:08.788Z"
+    },
+    {
+      "email": "tjtagob30@gmail.com",
+      "registered_at": "2025-11-03T06:43:15.230Z",
+      "sessions": [],
+      "has_redirected": false
+    },
+    {
+      "email": "jessamaetadifa20@gmail.com",
+      "registered_at": "2025-11-03T06:43:37.596Z",
+      "sessions": [],
+      "has_redirected": false
+    },
+    {
+      "email": "tjyagob30@gmail.com",
+      "registered_at": "2025-11-03T06:47:32.210Z",
+      "sessions": [],
+      "has_redirected": false
+    },
+    {
+      "email": "tjtagob30@gamil.com",
+      "registered_at": "2025-11-03T06:51:14.489Z",
+      "sessions": [
+        {
+          "session_id": "session_1762152890790_ijgf75ya4",
+          "score": 2500,
+          "played_at": "2025-11-03T06:54:51.238Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T06:54:56.735Z"
+    },
+    {
+      "email": "cabritojhobelle78@gmail.com",
+      "registered_at": "2025-11-03T06:55:35.155Z",
+      "sessions": [],
+      "has_redirected": false
+    },
+    {
+      "email": "jessamaetadifa@20gmail.com",
+      "registered_at": "2025-11-03T06:58:37.866Z",
+      "sessions": [
+        {
+          "session_id": "session_1762153633013_svb3wwe09",
+          "score": 2500,
+          "played_at": "2025-11-03T07:07:13.274Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T07:07:18.315Z"
+    },
+    {
+      "email": "natheljohna@gmail.com",
+      "registered_at": "2025-11-03T07:02:05.517Z",
+      "sessions": [
+        {
+          "session_id": "session_1762153540533_4558ufp98",
+          "score": 2025,
+          "played_at": "2025-11-03T07:05:40.561Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T07:05:53.639Z"
+    },
+    {
+      "email": "riannedomingsil28@gmail.com",
+      "registered_at": "2025-11-03T10:45:01.376Z",
+      "sessions": [
+        {
+          "session_id": "session_1762166930228_5hdelclv7",
+          "score": 2350,
+          "played_at": "2025-11-03T10:48:50.536Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T10:49:36.912Z"
+    },
+    {
+      "email": "geronimo.markj@gmail.com",
+      "registered_at": "2025-11-03T14:03:57.945Z",
+      "sessions": [
+        {
+          "session_id": "session_1762178917503_qa9n89m2d",
+          "score": 2350,
+          "played_at": "2025-11-03T14:08:37.938Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T14:09:38.968Z"
+    },
+    {
+      "email": "lutaojoanna@gmail.com",
+      "registered_at": "2025-11-03T14:48:57.800Z",
+      "sessions": [
+        {
+          "session_id": "session_1762182557503_9sicmxl6b",
+          "score": 2350,
+          "played_at": "2025-11-03T15:09:44.384Z"
+        }
+      ],
+      "has_redirected": false
+    },
+    {
+      "email": "acunajerrypaul884@gmail.com",
+      "registered_at": "2025-11-03T20:53:30.615Z",
+      "sessions": [
+        {
+          "session_id": "session_1762203605980_e5v9zh1cz",
+          "score": 1425,
+          "played_at": "2025-11-03T21:00:07.558Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T21:00:11.213Z"
+    },
+    {
+      "email": "julibethlaurece@gmail.com",
+      "registered_at": "2025-11-03T23:09:10.119Z",
+      "sessions": [
+        {
+          "session_id": "session_1762211595876_n4k0ygb7q",
+          "score": 2400,
+          "played_at": "2025-11-03T23:13:16.847Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-03T23:14:18.537Z"
+    },
+    {
+      "email": "coronelmaryjane50@gmail.com",
+      "registered_at": "2025-11-04T00:41:33.031Z",
+      "sessions": [
+        {
+          "session_id": "session_1762217112568_7wvv42hr6",
+          "score": 1775,
+          "played_at": "2025-11-04T00:45:13.489Z"
+        },
+        {
+          "session_id": "session_1762217391448_utss4als3",
+          "score": 2450,
+          "played_at": "2025-11-04T00:49:52.357Z"
+        },
+        {
+          "session_id": "session_1762301916636_njilw9r39",
+          "score": 1475,
+          "played_at": "2025-11-05T00:18:37.219Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-04T00:50:24.865Z"
+    },
+    {
+      "email": "jetromejica@yahoo.com",
+      "registered_at": "2025-11-04T01:01:35.816Z",
+      "sessions": [],
+      "has_redirected": false
+    },
+    {
+      "email": "jofforias@yahoo.com",
+      "registered_at": "2025-11-04T05:42:07.442Z",
+      "sessions": [
+        {
+          "session_id": "session_1762235160523_jpc3khp7r",
+          "score": 1375,
+          "played_at": "2025-11-04T05:46:00.857Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-04T05:46:10.116Z"
+    },
+    {
+      "email": "quinchrry@gmail.com",
+      "registered_at": "2025-11-04T06:02:08.250Z",
+      "sessions": [
+        {
+          "session_id": "session_1762236295591_56j2j8evz",
+          "score": 1975,
+          "played_at": "2025-11-04T06:04:55.698Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-04T06:05:00.309Z"
+    },
+    {
+      "email": "yodicoannaliza7@gmail.com",
+      "registered_at": "2025-11-04T06:23:55.828Z",
+      "sessions": [],
+      "has_redirected": false
+    },
+    {
+      "email": "joshuadelacruz322@gmail.com",
+      "registered_at": "2025-11-04T06:31:14.659Z",
+      "sessions": [
+        {
+          "session_id": "session_1762238038446_h3r2btold",
+          "score": 1650,
+          "played_at": "2025-11-04T06:33:59.964Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-04T06:34:03.173Z"
+    },
+    {
+      "email": "johnremznazal8@gmail.com",
+      "registered_at": "2025-11-04T06:31:51.354Z",
+      "sessions": [
+        {
+          "session_id": "session_1762238368029_sllgipavy",
+          "score": 1650,
+          "played_at": "2025-11-04T06:35:07.904Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-04T06:35:09.577Z"
+    },
+    {
+      "email": "allananicole.01@gmail.com",
+      "registered_at": "2025-11-04T06:35:48.893Z",
+      "sessions": [
+        {
+          "session_id": "session_1762238324023_ub6f75vhl",
+          "score": 2300,
+          "played_at": "2025-11-04T06:38:44.231Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-04T06:38:46.134Z"
+    },
+    {
+      "email": "panksks3@gmail.com",
+      "registered_at": "2025-11-04T06:36:30.114Z",
+      "sessions": [
+        {
+          "session_id": "session_1762238388689_tcwo6oodk",
+          "score": 1900,
+          "played_at": "2025-11-04T06:39:50.518Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-04T06:39:52.203Z"
+    },
+    {
+      "email": "galangjeyd17@gmail.com",
+      "registered_at": "2025-11-04T06:36:40.763Z",
+      "sessions": [
+        {
+          "session_id": "session_1762238424223_e0xlzg5rf",
+          "score": 1600,
+          "played_at": "2025-11-04T06:40:24.546Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-04T06:40:28.374Z"
+    },
+    {
+      "email": "aizeljacon@gmail.com",
+      "registered_at": "2025-11-04T06:36:47.602Z",
+      "sessions": [],
+      "has_redirected": false
+    },
+    {
+      "email": "philipnitsuj@gmail.com",
+      "registered_at": "2025-11-04T06:37:24.654Z",
+      "sessions": [
+        {
+          "session_id": "session_1762238409994_v4gw41p6s",
+          "score": 2300,
+          "played_at": "2025-11-04T06:40:10.307Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-04T06:40:22.924Z"
+    },
+    {
+      "email": "ramsantino0912@gmail.com",
+      "registered_at": "2025-11-04T06:37:28.286Z",
+      "sessions": [
+        {
+          "session_id": "session_1762238411473_wih5cwmy8",
+          "score": 2425,
+          "played_at": "2025-11-04T06:40:12.075Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-04T06:40:17.659Z"
+    },
+    {
+      "email": "comendadora83@gmail.com",
+      "registered_at": "2025-11-04T06:37:43.090Z",
+      "sessions": [
+        {
+          "session_id": "session_1762238489714_1l3yjcta7",
+          "score": 1850,
+          "played_at": "2025-11-04T06:41:25.646Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-04T06:41:30.183Z"
+    },
+    {
+      "email": "johnivandelima12@gmail.com",
+      "registered_at": "2025-11-04T06:37:44.900Z",
+      "sessions": [
+        {
+          "session_id": "session_1762238418094_h65dgs906",
+          "score": 1525,
+          "played_at": "2025-11-04T06:40:16.373Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-04T06:40:20.252Z"
+    },
+    {
+      "email": "mbashraf126@student.mcu.edu.ph",
+      "registered_at": "2025-11-04T06:50:13.777Z",
+      "sessions": [
+        {
+          "session_id": "session_1762239171576_nb5v1693y",
+          "score": 2450,
+          "played_at": "2025-11-04T06:52:51.894Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-04T06:52:53.137Z"
+    },
+    {
+      "email": "lenerait37@gmail.com",
+      "registered_at": "2025-11-04T06:50:15.254Z",
+      "sessions": [
+        {
+          "session_id": "session_1762239219335_1o3q5sno6",
+          "score": 1125,
+          "played_at": "2025-11-04T06:53:39.831Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-04T06:53:40.536Z"
+    },
+    {
+      "email": "marylenmendoza75@gmail.com",
+      "registered_at": "2025-11-04T06:52:32.163Z",
+      "sessions": [
+        {
+          "session_id": "session_1762239365592_7ovry90oz",
+          "score": 1575,
+          "played_at": "2025-11-04T06:56:05.266Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-04T06:56:06.651Z"
+    },
+    {
+      "email": "teofistoeduarte1234@gmail.com",
+      "registered_at": "2025-11-04T06:52:42.864Z",
+      "sessions": [
+        {
+          "session_id": "session_1762239355567_sleuajzjx",
+          "score": 2200,
+          "played_at": "2025-11-04T06:55:55.723Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-04T06:56:02.783Z"
+    },
+    {
+      "email": "rachellecruz247@gmail.com",
+      "registered_at": "2025-11-04T06:56:04.219Z",
+      "sessions": [],
+      "has_redirected": false
+    },
+    {
+      "email": "rangikumatsu29@gmail.com",
+      "registered_at": "2025-11-04T07:01:49.665Z",
+      "sessions": [
+        {
+          "session_id": "session_1762239912297_zj8fonodw",
+          "score": 2175,
+          "played_at": "2025-11-04T07:05:12.638Z"
+        },
+        {
+          "session_id": "session_1762240113711_0wnj25ckw",
+          "score": 2400,
+          "played_at": "2025-11-04T07:08:34.164Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-04T07:08:38.039Z"
+    },
+    {
+      "email": "mielvrinzhane@gmail.com",
+      "registered_at": "2025-11-04T07:02:00.953Z",
+      "sessions": [
+        {
+          "session_id": "session_1762240027451_xlknz26xj",
+          "score": 2100,
+          "played_at": "2025-11-04T07:07:07.706Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-04T07:07:10.444Z"
+    },
+    {
+      "email": "juliusalas10@gmail.com",
+      "registered_at": "2025-11-04T07:02:08.920Z",
+      "sessions": [
+        {
+          "session_id": "session_1762239900031_w0zepa8ql",
+          "score": 2425,
+          "played_at": "2025-11-04T07:05:00.726Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-04T07:05:06.090Z"
+    },
+    {
+      "email": "shanefajardo28@gmail.com",
+      "registered_at": "2025-11-04T07:03:08.036Z",
+      "sessions": [
+        {
+          "session_id": "session_1762239936458_qq1zzbopt",
+          "score": 2150,
+          "played_at": "2025-11-04T07:05:37.850Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-04T07:05:40.064Z"
+    },
+    {
+      "email": "jhaaaaai28@gmail.com",
+      "registered_at": "2025-11-04T07:04:19.570Z",
+      "sessions": [
+        {
+          "session_id": "session_1762240002424_8ilrdbt5h",
+          "score": 1650,
+          "played_at": "2025-11-04T07:06:42.584Z"
+        },
+        {
+          "session_id": "session_1762240228594_n422ud12u",
+          "score": 1525,
+          "played_at": "2025-11-04T07:10:28.773Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-04T07:06:45.471Z"
+    },
+    {
+      "email": "renieltimbas@gmail",
+      "registered_at": "2025-11-04T07:05:55.523Z",
+      "sessions": [
+        {
+          "session_id": "session_1762240132073_pt2pcuy46",
+          "score": 2325,
+          "played_at": "2025-11-04T07:08:52.528Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-04T07:08:58.036Z"
+    },
+    {
+      "email": "jonathanlorica6@gmail.con",
+      "registered_at": "2025-11-04T07:14:12.097Z",
+      "sessions": [
+        {
+          "session_id": "session_1762240629353_gu95or4dv",
+          "score": 1425,
+          "played_at": "2025-11-04T07:17:09.257Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-04T07:17:11.227Z"
+    },
+    {
+      "email": "shanejowardnepunan@gmail.com",
+      "registered_at": "2025-11-04T07:15:36.188Z",
+      "sessions": [
+        {
+          "session_id": "session_1762240782240_4ayqu1fel",
+          "score": 1700,
+          "played_at": "2025-11-04T07:19:42.679Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-04T07:19:46.468Z"
+    },
+    {
+      "email": "cianorosco30@gmail.com",
+      "registered_at": "2025-11-04T07:16:08.519Z",
+      "sessions": [
+        {
+          "session_id": "session_1762240753242_25f7n5lq5",
+          "score": 2175,
+          "played_at": "2025-11-04T07:19:14.104Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-04T07:19:41.669Z"
+    },
+    {
+      "email": "makoyflores15@gmail.com",
+      "registered_at": "2025-11-04T07:20:38.774Z",
+      "sessions": [
+        {
+          "session_id": "session_1762241008725_y14pxns5m",
+          "score": 2175,
+          "played_at": "2025-11-04T07:23:28.947Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-04T07:23:33.453Z"
+    },
+    {
+      "email": "jomel.marin24@gmail.com",
+      "registered_at": "2025-11-04T07:20:56.962Z",
+      "sessions": [
+        {
+          "session_id": "session_1762241025512_079py0vn4",
+          "score": 2500,
+          "played_at": "2025-11-04T07:23:45.777Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-04T07:23:48.225Z"
+    },
+    {
+      "email": "ericlupig28@gmail.com",
+      "registered_at": "2025-11-04T07:35:02.927Z",
+      "sessions": [
+        {
+          "session_id": "session_1762241847145_36cn99e8e",
+          "score": 1425,
+          "played_at": "2025-11-04T07:37:27.439Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-04T07:37:29.690Z"
+    },
+    {
+      "email": "johnmelbolivar5@gmail.com",
+      "registered_at": "2025-11-04T07:37:24.637Z",
+      "sessions": [
+        {
+          "session_id": "session_1762242146614_dxl41nfgp",
+          "score": 1475,
+          "played_at": "2025-11-04T07:42:27.365Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-04T07:42:29.695Z"
+    },
+    {
+      "email": "queeniejeanbolivar06@gmail.com",
+      "registered_at": "2025-11-04T07:37:46.753Z",
+      "sessions": [
+        {
+          "session_id": "session_1762242093663_exg13872n",
+          "score": 1475,
+          "played_at": "2025-11-04T07:41:33.914Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-04T07:41:37.214Z"
+    },
+    {
+      "email": "Johnabayon@gmail.com",
+      "registered_at": "2025-11-04T07:37:52.715Z",
+      "sessions": [
+        {
+          "session_id": "session_1762242292797_9t0oj2qzw",
+          "score": 1550,
+          "played_at": "2025-11-04T07:44:53.220Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-04T07:44:58.919Z"
+    },
+    {
+      "email": "melanieborda43@gmail.com",
+      "registered_at": "2025-11-04T07:37:54.314Z",
+      "sessions": [
+        {
+          "session_id": "session_1762242193696_ptdqys1s2",
+          "score": 1225,
+          "played_at": "2025-11-04T07:43:15.121Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-04T07:43:16.382Z"
+    },
+    {
+      "email": "johnpaulbolivar884@gmail.com",
+      "registered_at": "2025-11-04T07:38:33.584Z",
+      "sessions": [
+        {
+          "session_id": "session_1762242204947_k6v1am153",
+          "score": 1875,
+          "played_at": "2025-11-04T07:43:26.144Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-04T07:43:30.525Z"
+    },
+    {
+      "email": "hannahmaerivero@gmail",
+      "registered_at": "2025-11-04T07:40:12.894Z",
+      "sessions": [
+        {
+          "session_id": "session_1762242422410_3sgg4wlp4",
+          "score": 2125,
+          "played_at": "2025-11-04T07:47:03.238Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-04T07:47:04.419Z"
+    },
+    {
+      "email": "estiponajohnpaul14@gmail.com",
+      "registered_at": "2025-11-04T07:57:08.838Z",
+      "sessions": [
+        {
+          "session_id": "session_1762243181665_vlw7g0k6u",
+          "score": 1725,
+          "played_at": "2025-11-04T07:59:41.876Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-04T07:59:43.286Z"
+    },
+    {
+      "email": "lienor11200211@gmai.com",
+      "registered_at": "2025-11-04T07:58:21.998Z",
+      "sessions": [
+        {
+          "session_id": "session_1762243259186_pkb17ssnj",
+          "score": 50,
+          "played_at": "2025-11-04T08:00:59.585Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-04T08:01:00.508Z"
+    },
+    {
+      "email": "adrian15.nacua@gmail.com",
+      "registered_at": "2025-11-04T08:23:44.121Z",
+      "sessions": [
+        {
+          "session_id": "session_1762244794493_r4m7xsgj6",
+          "score": 2400,
+          "played_at": "2025-11-04T08:26:34.993Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-04T08:26:55.317Z"
+    },
+    {
+      "email": "marcos@gmail.com",
+      "registered_at": "2025-11-04T09:34:54.124Z",
+      "sessions": [
+        {
+          "session_id": "session_1762249058751_o3h6y3cu9",
+          "score": 2500,
+          "played_at": "2025-11-04T09:37:39.252Z"
+        }
+      ],
+      "has_redirected": false
+    },
+    {
+      "email": "eyhernandez01@gmail.com",
+      "registered_at": "2025-11-04T10:42:40.953Z",
+      "sessions": [
+        {
+          "session_id": "session_1762253119659_f44l3iwv5",
+          "score": 2475,
+          "played_at": "2025-11-04T10:45:20.724Z"
+        }
+      ],
+      "has_redirected": false
+    },
+    {
+      "email": "mcjancadapan@gmail.com",
+      "registered_at": "2025-11-04T10:57:27.085Z",
+      "sessions": [
+        {
+          "session_id": "session_1762254084381_ev4y5y19e",
+          "score": 2125,
+          "played_at": "2025-11-04T11:01:23.889Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-04T11:01:51.089Z"
+    },
+    {
+      "email": "lisboa19.marjorie@gmail.com",
+      "registered_at": "2025-11-04T11:07:17.899Z",
+      "sessions": [
+        {
+          "session_id": "session_1762254670977_tq32l8zq7",
+          "score": 2225,
+          "played_at": "2025-11-04T11:11:11.264Z"
+        }
+      ],
+      "has_redirected": false
+    },
+    {
+      "email": "ms.michellepedraza@gmail.com",
+      "registered_at": "2025-11-04T15:14:03.990Z",
+      "sessions": [],
+      "has_redirected": false
+    },
+    {
+      "email": "seaozzyyy@gmail.com",
+      "registered_at": "2025-11-04T15:16:57.575Z",
+      "sessions": [
+        {
+          "session_id": "session_1762269631183_o8iu62ead",
+          "score": 1925,
+          "played_at": "2025-11-04T15:20:31.594Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-04T15:20:48.469Z"
+    },
+    {
+      "email": "janealgre@gmail.com",
+      "registered_at": "2025-11-05T00:19:54.568Z",
+      "sessions": [
+        {
+          "session_id": "session_1762302133487_r4br2otak",
+          "score": 1450,
+          "played_at": "2025-11-05T00:22:14.155Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-05T00:22:16.604Z"
+    },
+    {
+      "email": "acprince727@gmail.com",
+      "registered_at": "2025-11-05T00:43:22.532Z",
+      "sessions": [
+        {
+          "session_id": "session_1762303560015_60mtn1ngk",
+          "score": 2150,
+          "played_at": "2025-11-05T00:45:59.909Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-05T00:46:01.786Z"
+    },
+    {
+      "email": "baniquedvictoria08@gmail.com",
+      "registered_at": "2025-11-05T00:43:33.773Z",
+      "sessions": [
+        {
+          "session_id": "session_1762303877300_v44fr7vpc",
+          "score": 1975,
+          "played_at": "2025-11-05T00:51:19.288Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-05T00:51:20.435Z"
+    },
+    {
+      "email": "rjzehcnasracso@gmail.com",
+      "registered_at": "2025-11-05T00:50:30.259Z",
+      "sessions": [
+        {
+          "session_id": "session_1762304030349_p18tnmohw",
+          "score": 2075,
+          "played_at": "2025-11-05T00:53:53.583Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-05T00:54:13.059Z"
+    },
+    {
+      "email": "ramram031330@gmail.com",
+      "registered_at": "2025-11-05T00:51:08.760Z",
+      "sessions": [
+        {
+          "session_id": "session_1762304058374_bcrp1nmzz",
+          "score": 2300,
+          "played_at": "2025-11-05T00:54:18.694Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-05T00:55:00.703Z"
+    },
+    {
+      "email": "nacarioruschel@gmail.com",
+      "registered_at": "2025-11-05T00:52:23.590Z",
+      "sessions": [],
+      "has_redirected": false
+    },
+    {
+      "email": "aldrinjoya.hotel99@gmail.com",
+      "registered_at": "2025-11-05T00:52:29.499Z",
+      "sessions": [
+        {
+          "session_id": "session_1762304284355_g97wecbf6",
+          "score": 2075,
+          "played_at": "2025-11-05T00:58:04.809Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-05T00:58:05.524Z"
+    },
+    {
+      "email": "katalinaamante054@gmail.com",
+      "registered_at": "2025-11-05T00:56:15.274Z",
+      "sessions": [
+        {
+          "session_id": "session_1762304355849_dw41nymev",
+          "score": 1375,
+          "played_at": "2025-11-05T00:59:16.083Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-05T00:59:17.018Z"
+    },
+    {
+      "email": "tomangellim@gmail.com",
+      "registered_at": "2025-11-05T01:04:49.275Z",
+      "sessions": [
+        {
+          "session_id": "session_1762304906793_ntmxurqu6",
+          "score": 1350,
+          "played_at": "2025-11-05T01:08:27.131Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-05T01:08:31.581Z"
+    },
+    {
+      "email": "Linedearmas1@gmail.com",
+      "registered_at": "2025-11-05T01:06:05.818Z",
+      "sessions": [
+        {
+          "session_id": "session_1762305006289_myiolpi62",
+          "score": 2100,
+          "played_at": "2025-11-05T01:10:06.642Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-05T01:10:10.475Z"
+    },
+    {
+      "email": "fallariajulie6@gmail.com",
+      "registered_at": "2025-11-05T01:06:48.513Z",
+      "sessions": [
+        {
+          "session_id": "session_1762305113584_jf8p34qie",
+          "score": 2225,
+          "played_at": "2025-11-05T01:11:50.635Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-05T01:11:52.771Z"
+    },
+    {
+      "email": "rosalindafallaria21@gmail.com",
+      "registered_at": "2025-11-05T01:06:58.752Z",
+      "sessions": [
+        {
+          "session_id": "session_1762305091220_e444w5p1l",
+          "score": 1875,
+          "played_at": "2025-11-05T01:11:31.827Z"
+        },
+        {
+          "session_id": "session_1762305435321_3ag6082m1",
+          "score": 1200,
+          "played_at": "2025-11-05T01:17:15.971Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-05T01:11:33.899Z"
+    },
+    {
+      "email": "vicentesarmiento066@gmail.com",
+      "registered_at": "2025-11-05T01:07:33.578Z",
+      "sessions": [
+        {
+          "session_id": "session_1762305248464_yg4t2u5ie",
+          "score": 1200,
+          "played_at": "2025-11-05T01:14:09.581Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-05T01:14:17.563Z"
+    },
+    {
+      "email": "mayannbautista222@gmail.com",
+      "registered_at": "2025-11-05T01:13:46.642Z",
+      "sessions": [
+        {
+          "session_id": "session_1762305560851_479bw400d",
+          "score": 1300,
+          "played_at": "2025-11-05T01:19:21.340Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-05T01:19:25.797Z"
+    },
+    {
+      "email": "kramkram11200211@gmail.com",
+      "registered_at": "2025-11-05T01:29:40.889Z",
+      "sessions": [
+        {
+          "session_id": "session_1762306363434_lg0cnxnvc",
+          "score": 1900,
+          "played_at": "2025-11-05T01:32:44.140Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-05T01:32:44.935Z"
+    },
+    {
+      "email": "mamasarayagerald@gmail.com",
+      "registered_at": "2025-11-05T01:29:54.277Z",
+      "sessions": [
+        {
+          "session_id": "session_1762306460397_6gpopx6q8",
+          "score": 1650,
+          "played_at": "2025-11-05T01:34:21.112Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-05T01:34:21.668Z"
+    },
+    {
+      "email": "rossfabroa@gmail.com",
+      "registered_at": "2025-11-05T01:47:13.733Z",
+      "sessions": [
+        {
+          "session_id": "session_1762307479866_kdm38l76p",
+          "score": 975,
+          "played_at": "2025-11-05T01:51:20.171Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-05T01:51:22.267Z"
+    },
+    {
+      "email": "evelynllano39@gmail.com",
+      "registered_at": "2025-11-05T01:49:41.385Z",
+      "sessions": [
+        {
+          "session_id": "session_1762307744933_mrlbwrdnr",
+          "score": 2025,
+          "played_at": "2025-11-05T01:55:46.284Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-05T01:55:47.800Z"
+    },
+    {
+      "email": "victoriaeklo1974@gmail.com",
+      "registered_at": "2025-11-05T01:50:20.870Z",
+      "sessions": [
+        {
+          "session_id": "session_1762307591363_htng2gyi1",
+          "score": 1350,
+          "played_at": "2025-11-05T01:53:11.970Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-05T01:53:13.289Z"
+    },
+    {
+      "email": "harveyjayroda@gmail.com",
+      "registered_at": "2025-11-05T01:51:59.105Z",
+      "sessions": [
+        {
+          "session_id": "session_1762307701451_cudmhlkoa",
+          "score": 2325,
+          "played_at": "2025-11-05T01:55:01.406Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-05T01:55:09.057Z"
+    },
+    {
+      "email": "hidydamalerio88@gmail.com",
+      "registered_at": "2025-11-05T01:52:42.736Z",
+      "sessions": [
+        {
+          "session_id": "session_1762307755132_mutwwqymn",
+          "score": 1525,
+          "played_at": "2025-11-05T01:55:55.398Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-05T01:56:11.007Z"
+    },
+    {
+      "email": "marcon.miguel75@gmail.com",
+      "registered_at": "2025-11-05T01:58:10.567Z",
+      "sessions": [
+        {
+          "session_id": "session_1762308027945_zhqww628j",
+          "score": 2175,
+          "played_at": "2025-11-05T02:00:48.528Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-05T02:01:03.977Z"
+    },
+    {
+      "email": "mariancristinacastro@gmail.com",
+      "registered_at": "2025-11-05T01:58:47.300Z",
+      "sessions": [
+        {
+          "session_id": "session_1762308094643_9r84xl08n",
+          "score": 1800,
+          "played_at": "2025-11-05T02:01:36.468Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-05T02:01:37.563Z"
+    },
+    {
+      "email": "gayanesrichard572@gmail.com",
+      "registered_at": "2025-11-05T01:59:02.454Z",
+      "sessions": [
+        {
+          "session_id": "session_1762308172118_gk8lpf5pc",
+          "score": 1250,
+          "played_at": "2025-11-05T02:02:52.405Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-05T02:02:56.429Z"
+    },
+    {
+      "email": "rapallidap@gmail.com",
+      "registered_at": "2025-11-05T02:11:04.597Z",
+      "sessions": [
+        {
+          "session_id": "session_1762308818414_mdo62vttu",
+          "score": 1550,
+          "played_at": "2025-11-05T02:13:39.441Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-05T02:13:44.615Z"
+    },
+    {
+      "email": "marygracetino55@gmail.com",
+      "registered_at": "2025-11-05T02:11:15.578Z",
+      "sessions": [
+        {
+          "session_id": "session_1762308852601_93ikpx7hv",
+          "score": 1675,
+          "played_at": "2025-11-05T02:14:13.920Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-05T02:14:13.954Z"
+    },
+    {
+      "email": "gracemagaluna601@gmail.com",
+      "registered_at": "2025-11-05T02:11:59.512Z",
+      "sessions": [
+        {
+          "session_id": "session_1762308871970_dyhn0jfe1",
+          "score": 1500,
+          "played_at": "2025-11-05T02:14:54.331Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-05T02:14:55.792Z"
+    },
+    {
+      "email": "jdnares@comark.com.ph",
+      "registered_at": "2025-11-05T02:21:40.661Z",
+      "sessions": [
+        {
+          "session_id": "session_1762309503907_1lp0yjwom",
+          "score": 2475,
+          "played_at": "2025-11-05T02:25:06.695Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-05T02:25:06.690Z"
+    },
+    {
+      "email": "vcrislyn532@gmail.com",
+      "registered_at": "2025-11-05T02:30:26.539Z",
+      "sessions": [
+        {
+          "session_id": "session_1762310026598_uq1ax4ym3",
+          "score": 1925,
+          "played_at": "2025-11-05T02:33:47.297Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-05T02:33:47.577Z"
+    },
+    {
+      "email": "prietojordel28@gmail.com",
+      "registered_at": "2025-11-05T02:32:58.787Z",
+      "sessions": [
+        {
+          "session_id": "session_1762310143177_mwoze5wfx",
+          "score": 2325,
+          "played_at": "2025-11-05T02:35:43.229Z"
+        },
+        {
+          "session_id": "session_1762311941246_x5yx9xlgk",
+          "score": 2375,
+          "played_at": "2025-11-05T03:05:41.624Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-05T02:35:45.525Z"
+    },
+    {
+      "email": "hshehshwh@gmaksjej.com",
+      "registered_at": "2025-11-05T02:33:13.091Z",
+      "sessions": [
+        {
+          "session_id": "session_1762310198266_io1o8e1eo",
+          "score": 2375,
+          "played_at": "2025-11-05T02:36:38.071Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-05T02:36:42.437Z"
+    },
+    {
+      "email": "magsanayjamilia88@gmail.com",
+      "registered_at": "2025-11-05T02:33:14.694Z",
+      "sessions": [
+        {
+          "session_id": "session_1762310223551_jblg013b7",
+          "score": 1950,
+          "played_at": "2025-11-05T02:37:03.265Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-05T02:37:08.830Z"
+    },
+    {
+      "email": "chelseaau0818@gmail.com",
+      "registered_at": "2025-11-05T02:33:56.640Z",
+      "sessions": [
+        {
+          "session_id": "session_1762310206037_r1p0h4a7x",
+          "score": 2400,
+          "played_at": "2025-11-05T02:36:43.593Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-05T02:37:09.166Z"
+    },
+    {
+      "email": "fdonato543@gmail.com",
+      "registered_at": "2025-11-05T02:34:35.804Z",
+      "sessions": [
+        {
+          "session_id": "session_1762310294120_zvaso0yno",
+          "score": 1925,
+          "played_at": "2025-11-05T02:39:02.653Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-05T02:39:02.891Z"
+    },
+    {
+      "email": "hsjznzn@bahah.com",
+      "registered_at": "2025-11-05T02:34:55.104Z",
+      "sessions": [
+        {
+          "session_id": "session_1762310259048_d68jnqz3v",
+          "score": 2150,
+          "played_at": "2025-11-05T02:37:38.865Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-05T02:37:40.367Z"
+    },
+    {
+      "email": "menzeboso@gmail.com",
+      "registered_at": "2025-11-05T02:43:58.501Z",
+      "sessions": [
+        {
+          "session_id": "session_1762310831336_yv3g6x492",
+          "score": 1650,
+          "played_at": "2025-11-05T02:47:11.784Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-05T02:47:13.134Z"
+    },
+    {
+      "email": "johnphilipnarciso21@gmail.com",
+      "registered_at": "2025-11-05T02:51:17.938Z",
+      "sessions": [
+        {
+          "session_id": "session_1762311245118_ff9gol9vd",
+          "score": 2100,
+          "played_at": "2025-11-05T02:54:06.294Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-05T02:54:09.321Z"
+    },
+    {
+      "email": "kristianbayog@gmail.com",
+      "registered_at": "2025-11-05T02:51:39.458Z",
+      "sessions": [
+        {
+          "session_id": "session_1762311274517_71l02675q",
+          "score": 1700,
+          "played_at": "2025-11-05T02:54:35.109Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-05T02:54:35.984Z"
+    },
+    {
+      "email": "graceparagas@gmail.co",
+      "registered_at": "2025-11-05T02:51:56.299Z",
+      "sessions": [
+        {
+          "session_id": "session_1762311304143_wz51znbcm",
+          "score": 1525,
+          "played_at": "2025-11-05T02:55:04.459Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-05T02:55:05.362Z"
+    },
+    {
+      "email": "pretoijordwl28@g",
+      "registered_at": "2025-11-05T03:00:07.769Z",
+      "sessions": [],
+      "has_redirected": false
+    },
+    {
+      "email": "arnoldparagas@gmail.com",
+      "registered_at": "2025-11-05T03:00:56.930Z",
+      "sessions": [
+        {
+          "session_id": "session_1762311849804_yceucim1q",
+          "score": 1925,
+          "played_at": "2025-11-05T03:04:10.514Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-05T03:04:11.621Z"
+    },
+    {
+      "email": "calmaresnathalie2018@gmail.com",
+      "registered_at": "2025-11-05T09:56:32.313Z",
+      "sessions": [
+        {
+          "session_id": "session_1762336781342_17gu50llf",
+          "score": 2275,
+          "played_at": "2025-11-05T09:59:41.754Z"
+        }
+      ],
+      "has_redirected": false
+    },
+    {
+      "email": "erthensamson2015@gmail.com",
+      "registered_at": "2025-11-06T00:26:50.446Z",
+      "sessions": [
+        {
+          "session_id": "session_1762389032045_k2kw8pz0f",
+          "score": 1900,
+          "played_at": "2025-11-06T00:30:56.824Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T00:30:56.865Z"
+    },
+    {
+      "email": "princefurton946@gmail.com",
+      "registered_at": "2025-11-06T00:34:27.494Z",
+      "sessions": [
+        {
+          "session_id": "session_1762389520082_lo279s6qt",
+          "score": 2475,
+          "played_at": "2025-11-06T00:38:15.918Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T00:38:17.358Z"
+    },
+    {
+      "email": "seanpadua08@gmail.com",
+      "registered_at": "2025-11-06T00:34:47.589Z",
+      "sessions": [
+        {
+          "session_id": "session_1762389449741_zehdipmkv",
+          "score": 1225,
+          "played_at": "2025-11-06T00:37:30.873Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T00:37:37.692Z"
+    },
+    {
+      "email": "miaocaroon@gmail.com",
+      "registered_at": "2025-11-06T00:34:55.894Z",
+      "sessions": [
+        {
+          "session_id": "session_1762389450953_idz64sx0z",
+          "score": 1925,
+          "played_at": "2025-11-06T00:37:32.147Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T00:37:33.755Z"
+    },
+    {
+      "email": "lourderundang00@gmail.com",
+      "registered_at": "2025-11-06T00:38:07.749Z",
+      "sessions": [
+        {
+          "session_id": "session_1762389742132_hhudz6fd1",
+          "score": 1825,
+          "played_at": "2025-11-06T00:42:22.844Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T00:42:23.358Z"
+    },
+    {
+      "email": "jmguemo_18@icloud.com",
+      "registered_at": "2025-11-06T00:42:00.339Z",
+      "sessions": [
+        {
+          "session_id": "session_1762389878064_nswcx73le",
+          "score": 2175,
+          "played_at": "2025-11-06T00:44:38.295Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T00:44:41.953Z"
+    },
+    {
+      "email": "deescupboard@gmail.com",
+      "registered_at": "2025-11-06T00:43:06.776Z",
+      "sessions": [
+        {
+          "session_id": "session_1762390017643_zw5wt17br",
+          "score": 2025,
+          "played_at": "2025-11-06T00:46:58.671Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T00:47:10.703Z"
+    },
+    {
+      "email": "jhaylordzaikrho901@gmail.com",
+      "registered_at": "2025-11-06T00:43:25.360Z",
+      "sessions": [
+        {
+          "session_id": "session_1762389952350_a01ov5jzr",
+          "score": 1325,
+          "played_at": "2025-11-06T00:45:52.522Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T00:45:56.913Z"
+    },
+    {
+      "email": "ikongski74@gmail.com",
+      "registered_at": "2025-11-06T00:44:13.864Z",
+      "sessions": [
+        {
+          "session_id": "session_1762389974004_tzvyi2o3o",
+          "score": 1975,
+          "played_at": "2025-11-06T00:47:11.143Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T00:47:18.081Z"
+    },
+    {
+      "email": "philiptapel@gmail.com",
+      "registered_at": "2025-11-06T00:48:03.133Z",
+      "sessions": [
+        {
+          "session_id": "session_1762390255054_h4g1h0iyg",
+          "score": 2200,
+          "played_at": "2025-11-06T00:50:55.392Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T00:50:58.703Z"
+    },
+    {
+      "email": "johnriver2025@gmail.com",
+      "registered_at": "2025-11-06T00:49:37.742Z",
+      "sessions": [],
+      "has_redirected": false
+    },
+    {
+      "email": "buenoyciaodriz93@gmail.com",
+      "registered_at": "2025-11-06T00:51:14.006Z",
+      "sessions": [
+        {
+          "session_id": "session_1762390761317_tci6k0ten",
+          "score": 2300,
+          "played_at": "2025-11-06T00:59:22.246Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T00:59:29.939Z"
+    },
+    {
+      "email": "deliavalen2025@gmail.com",
+      "registered_at": "2025-11-06T00:51:14.890Z",
+      "sessions": [
+        {
+          "session_id": "session_1762390765552_61q1odvtj",
+          "score": 2175,
+          "played_at": "2025-11-06T00:59:25.254Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T00:59:26.859Z"
+    },
+    {
+      "email": "ilumibao74@gmail.com",
+      "registered_at": "2025-11-06T00:52:54.313Z",
+      "sessions": [
+        {
+          "session_id": "session_1762390602975_waaw3j108",
+          "score": 1725,
+          "played_at": "2025-11-06T00:56:43.249Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T00:57:21.068Z"
+    },
+    {
+      "email": "defuntorumnerramae@gmail.com",
+      "registered_at": "2025-11-06T00:55:34.280Z",
+      "sessions": [
+        {
+          "session_id": "session_1762390754905_1rtocfs23",
+          "score": 2425,
+          "played_at": "2025-11-06T00:59:15.241Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T00:59:29.526Z"
+    },
+    {
+      "email": "kerekechristyn@gmail.com",
+      "registered_at": "2025-11-06T01:04:56.199Z",
+      "sessions": [
+        {
+          "session_id": "session_1762391345433_67y94v71o",
+          "score": 2375,
+          "played_at": "2025-11-06T01:09:03.935Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:09:05.840Z"
+    },
+    {
+      "email": "jonnamaem@gmail.com",
+      "registered_at": "2025-11-06T01:06:05.998Z",
+      "sessions": [
+        {
+          "session_id": "session_1762391346043_l9xu2unch",
+          "score": 2400,
+          "played_at": "2025-11-06T01:09:06.378Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:09:12.648Z"
+    },
+    {
+      "email": "rakkk@gmail.com",
+      "registered_at": "2025-11-06T01:06:16.686Z",
+      "sessions": [
+        {
+          "session_id": "session_1762391338817_h7ix00iiu",
+          "score": 1850,
+          "played_at": "2025-11-06T01:09:00.533Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:09:05.912Z"
+    },
+    {
+      "email": "pbskai24@gmail.com",
+      "registered_at": "2025-11-06T01:07:07.042Z",
+      "sessions": [],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:10:19.161Z"
+    },
+    {
+      "email": "llaban0228josw@gmail.com",
+      "registered_at": "2025-11-06T01:07:09.349Z",
+      "sessions": [
+        {
+          "session_id": "session_1762391463566_nvac4y1b6",
+          "score": 1450,
+          "played_at": "2025-11-06T01:11:04.170Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:11:07.139Z"
+    },
+    {
+      "email": "tanegajosselle.pdm@gmail.com",
+      "registered_at": "2025-11-06T01:07:31.007Z",
+      "sessions": [
+        {
+          "session_id": "session_1762391476003_oawc3ws64",
+          "score": 2100,
+          "played_at": "2025-11-06T01:11:16.310Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:11:31.981Z"
+    },
+    {
+      "email": "ginalynconj@gmail.com",
+      "registered_at": "2025-11-06T01:07:55.366Z",
+      "sessions": [
+        {
+          "session_id": "session_1762391617200_1ubzvrotv",
+          "score": 1825,
+          "played_at": "2025-11-06T01:13:37.777Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:13:41.777Z"
+    },
+    {
+      "email": "cherrynarito02@yahoo.com",
+      "registered_at": "2025-11-06T01:08:42.319Z",
+      "sessions": [],
+      "has_redirected": false
+    },
+    {
+      "email": "mapilisanmarieann1@gmail.com",
+      "registered_at": "2025-11-06T01:08:44.803Z",
+      "sessions": [
+        {
+          "session_id": "session_1762391472666_g39vjomwu",
+          "score": 2200,
+          "played_at": "2025-11-06T01:11:13.297Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:11:14.168Z"
+    },
+    {
+      "email": "bhealonzo9@gmail.com",
+      "registered_at": "2025-11-06T01:09:48.672Z",
+      "sessions": [
+        {
+          "session_id": "session_1762391676774_lchu7y7zz",
+          "score": 1050,
+          "played_at": "2025-11-06T01:14:37.870Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:14:46.837Z"
+    },
+    {
+      "email": "pasagnicole@gmail.com",
+      "registered_at": "2025-11-06T01:10:27.983Z",
+      "sessions": [],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:13:17.094Z"
+    },
+    {
+      "email": "angelitorabino3@gmail.com",
+      "registered_at": "2025-11-06T01:10:28.249Z",
+      "sessions": [
+        {
+          "session_id": "session_1762391664415_hb2rq1mgx",
+          "score": 2450,
+          "played_at": "2025-11-06T01:14:25.877Z"
+        },
+        {
+          "session_id": "session_1762392060079_1m2f9uvh0",
+          "score": 2500,
+          "played_at": "2025-11-06T01:21:01.648Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:21:28.832Z"
+    },
+    {
+      "email": "jocelyn31llaban@gmail.com",
+      "registered_at": "2025-11-06T01:10:34.688Z",
+      "sessions": [],
+      "has_redirected": false
+    },
+    {
+      "email": "deasisjenwin2@gmail.com",
+      "registered_at": "2025-11-06T01:10:59.064Z",
+      "sessions": [
+        {
+          "session_id": "session_1762391690694_k3skp6s2h",
+          "score": 1925,
+          "played_at": "2025-11-06T01:14:51.295Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:14:52.416Z"
+    },
+    {
+      "email": "jefflomibao@yahoo.com",
+      "registered_at": "2025-11-06T01:11:17.705Z",
+      "sessions": [
+        {
+          "session_id": "session_1762391787619_uutgpw4p2",
+          "score": 1425,
+          "played_at": "2025-11-06T01:16:29.204Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:16:38.560Z"
+    },
+    {
+      "email": "lanz20reyes558@gmail.com",
+      "registered_at": "2025-11-06T01:12:03.975Z",
+      "sessions": [
+        {
+          "session_id": "session_1762391715300_wwv8nx063",
+          "score": 1350,
+          "played_at": "2025-11-06T01:15:16.298Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:15:18.541Z"
+    },
+    {
+      "email": "pcgarboleda@gmail.com",
+      "registered_at": "2025-11-06T01:12:14.876Z",
+      "sessions": [],
+      "has_redirected": false
+    },
+    {
+      "email": "guadalquiver.marklouise15@gmail.con",
+      "registered_at": "2025-11-06T01:13:12.066Z",
+      "sessions": [
+        {
+          "session_id": "session_1762391790890_9yn8leysv",
+          "score": 925,
+          "played_at": "2025-11-06T01:16:36.766Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:16:37.553Z"
+    },
+    {
+      "email": "elmerowena214@yahoo.com.ph",
+      "registered_at": "2025-11-06T01:13:27.628Z",
+      "sessions": [
+        {
+          "session_id": "session_1762391894379_s0xzof4r9",
+          "score": 2375,
+          "played_at": "2025-11-06T01:18:14.754Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:18:16.336Z"
+    },
+    {
+      "email": "elmerdelacruz1022@yahoo.com",
+      "registered_at": "2025-11-06T01:13:47.228Z",
+      "sessions": [
+        {
+          "session_id": "session_1762391842205_dw26cnnmu",
+          "score": 1825,
+          "played_at": "2025-11-06T01:17:22.378Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:17:32.122Z"
+    },
+    {
+      "email": "lenniezoleta32@gmail.com",
+      "registered_at": "2025-11-06T01:14:39.483Z",
+      "sessions": [
+        {
+          "session_id": "session_1762391829746_cf5px54b8",
+          "score": 1400,
+          "played_at": "2025-11-06T01:17:55.020Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:17:59.502Z"
+    },
+    {
+      "email": "vncntdcdcl@gmail.com",
+      "registered_at": "2025-11-06T01:14:44.218Z",
+      "sessions": [
+        {
+          "session_id": "session_1762391841134_rdbgyyzq4",
+          "score": 2250,
+          "played_at": "2025-11-06T01:17:22.693Z"
+        }
+      ],
+      "has_redirected": false
+    },
+    {
+      "email": "twu.raimabagasbas@gmail.com",
+      "registered_at": "2025-11-06T01:14:52.491Z",
+      "sessions": [
+        {
+          "session_id": "session_1762391962718_x1ij6myug",
+          "score": 1725,
+          "played_at": "2025-11-06T01:19:23.187Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:19:24.181Z"
+    },
+    {
+      "email": "patriciamarierosales@gmail.com",
+      "registered_at": "2025-11-06T01:16:54.234Z",
+      "sessions": [
+        {
+          "session_id": "session_1762391994275_7w74h97a8",
+          "score": 1750,
+          "played_at": "2025-11-06T01:19:55.239Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:19:56.941Z"
+    },
+    {
+      "email": "placerpaulisaac@gmail.com",
+      "registered_at": "2025-11-06T01:17:23.469Z",
+      "sessions": [
+        {
+          "session_id": "session_1762392023017_6tdnl1gdb",
+          "score": 1675,
+          "played_at": "2025-11-06T01:20:23.142Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:20:52.282Z"
+    },
+    {
+      "email": "shinejusuadatayan@gmail.com",
+      "registered_at": "2025-11-06T01:17:49.465Z",
+      "sessions": [
+        {
+          "session_id": "session_1762392442654_mjh8mymvt",
+          "score": 1200,
+          "played_at": "2025-11-06T01:27:23.195Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:27:31.236Z"
+    },
+    {
+      "email": "jeanchuagaspar22@gmail.com",
+      "registered_at": "2025-11-06T01:18:11.176Z",
+      "sessions": [
+        {
+          "session_id": "session_1762392157742_1iz8516ra",
+          "score": 2125,
+          "played_at": "2025-11-06T01:22:38.383Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:23:27.119Z"
+    },
+    {
+      "email": "renz.laquindanum@smretail.com",
+      "registered_at": "2025-11-06T01:18:26.079Z",
+      "sessions": [
+        {
+          "session_id": "session_1762392158237_sbg2e9s2r",
+          "score": 1675,
+          "played_at": "2025-11-06T01:22:37.869Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:23:09.098Z"
+    },
+    {
+      "email": "josiegalope0807@gmail.com",
+      "registered_at": "2025-11-06T01:19:05.633Z",
+      "sessions": [
+        {
+          "session_id": "session_1762392237823_adydhgzbb",
+          "score": 1775,
+          "played_at": "2025-11-06T01:23:58.423Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:24:01.901Z"
+    },
+    {
+      "email": "zherrhem@gmail.com",
+      "registered_at": "2025-11-06T01:19:44.700Z",
+      "sessions": [
+        {
+          "session_id": "session_1762392256269_bxqodbqk4",
+          "score": 2200,
+          "played_at": "2025-11-06T01:24:16.534Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:24:18.980Z"
+    },
+    {
+      "email": "lorenzgabrielmarcos@gmail.com",
+      "registered_at": "2025-11-06T01:20:00.076Z",
+      "sessions": [
+        {
+          "session_id": "session_1762392228006_je5gwr4pb",
+          "score": 2475,
+          "played_at": "2025-11-06T01:23:48.471Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:24:02.731Z"
+    },
+    {
+      "email": "cruzchristianpoul@gmail.com",
+      "registered_at": "2025-11-06T01:20:05.127Z",
+      "sessions": [],
+      "has_redirected": false
+    },
+    {
+      "email": "xerrol1218@gmail.com",
+      "registered_at": "2025-11-06T01:20:17.717Z",
+      "sessions": [],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:23:22.998Z"
+    },
+    {
+      "email": "rose.p.llarenas@gmail.com",
+      "registered_at": "2025-11-06T01:20:35.034Z",
+      "sessions": [
+        {
+          "session_id": "session_1762393127899_of91nns2l",
+          "score": 1825,
+          "played_at": "2025-11-06T01:38:48.133Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:38:49.661Z"
+    },
+    {
+      "email": "tanhuecomariatheresa@gmail.com",
+      "registered_at": "2025-11-06T01:21:02.018Z",
+      "sessions": [
+        {
+          "session_id": "session_1762392449402_s6lfhq1py",
+          "score": 1175,
+          "played_at": "2025-11-06T01:27:29.950Z"
+        },
+        {
+          "session_id": "session_1762392725217_1uu5yzak1",
+          "score": 1325,
+          "played_at": "2025-11-06T01:32:05.745Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:32:15.598Z"
+    },
+    {
+      "email": "nelsonlapuz0@gmail.com",
+      "registered_at": "2025-11-06T01:22:08.101Z",
+      "sessions": [
+        {
+          "session_id": "session_1762392391098_15mr7ldxa",
+          "score": 1425,
+          "played_at": "2025-11-06T01:26:30.095Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:26:33.473Z"
+    },
+    {
+      "email": "albertnavarro444@gmail.com",
+      "registered_at": "2025-11-06T01:23:38.312Z",
+      "sessions": [
+        {
+          "session_id": "session_1762392435555_g465kmyhk",
+          "score": 1175,
+          "played_at": "2025-11-06T01:27:51.081Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:27:54.364Z"
+    },
+    {
+      "email": "jenelyndemellites@gmail.com",
+      "registered_at": "2025-11-06T01:24:04.952Z",
+      "sessions": [
+        {
+          "session_id": "session_1762392876446_y1qhkm0u8",
+          "score": 2075,
+          "played_at": "2025-11-06T01:34:37.584Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:34:40.116Z"
+    },
+    {
+      "email": "marifennavarro4467@gmail.com",
+      "registered_at": "2025-11-06T01:24:33.540Z",
+      "sessions": [
+        {
+          "session_id": "session_1762392929469_ucl3suxfh",
+          "score": 1700,
+          "played_at": "2025-11-06T01:31:07.575Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:31:10.643Z"
+    },
+    {
+      "email": "lamchek.lamchek@gmail.com",
+      "registered_at": "2025-11-06T01:24:35.183Z",
+      "sessions": [],
+      "has_redirected": false
+    },
+    {
+      "email": "josephcardenas8888@gmail.com",
+      "registered_at": "2025-11-06T01:24:39.516Z",
+      "sessions": [
+        {
+          "session_id": "session_1762392452720_m1dh6r8qv",
+          "score": 1775,
+          "played_at": "2025-11-06T01:27:33.158Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:27:37.703Z"
+    },
+    {
+      "email": "victoriovalera65@gmail.com",
+      "registered_at": "2025-11-06T01:25:07.614Z",
+      "sessions": [
+        {
+          "session_id": "session_1762393114968_vp61qgpd2",
+          "score": 1800,
+          "played_at": "2025-11-06T01:38:35.274Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:38:54.863Z"
+    },
+    {
+      "email": "sarahjane.toledo@icloud.com",
+      "registered_at": "2025-11-06T01:25:18.302Z",
+      "sessions": [
+        {
+          "session_id": "session_1762392519986_7oly2aaaj",
+          "score": 2050,
+          "played_at": "2025-11-06T01:28:40.198Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:28:42.757Z"
+    },
+    {
+      "email": "cristinabayaca26@gmail.com",
+      "registered_at": "2025-11-06T01:25:44.995Z",
+      "sessions": [],
+      "has_redirected": false
+    },
+    {
+      "email": "thineansano@gmail.com",
+      "registered_at": "2025-11-06T01:26:18.069Z",
+      "sessions": [
+        {
+          "session_id": "session_1762392558794_l9e6pf377",
+          "score": 1875,
+          "played_at": "2025-11-06T01:29:18.963Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:29:28.298Z"
+    },
+    {
+      "email": "yumulnicole33@gmail.com",
+      "registered_at": "2025-11-06T01:26:28.530Z",
+      "sessions": [
+        {
+          "session_id": "session_1762392642158_4p4d8bvz8",
+          "score": 2375,
+          "played_at": "2025-11-06T01:30:42.504Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:32:18.358Z"
+    },
+    {
+      "email": "rosario.shane091002@gmail.com",
+      "registered_at": "2025-11-06T01:26:34.818Z",
+      "sessions": [
+        {
+          "session_id": "session_1762392654278_qw2yxezb9",
+          "score": 2075,
+          "played_at": "2025-11-06T01:30:55.171Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:32:21.101Z"
+    },
+    {
+      "email": "ailynalejo1203@gmail.com",
+      "registered_at": "2025-11-06T01:26:36.218Z",
+      "sessions": [],
+      "has_redirected": false
+    },
+    {
+      "email": "caragancindy@gmail.com",
+      "registered_at": "2025-11-06T01:27:30.412Z",
+      "sessions": [
+        {
+          "session_id": "session_1762392834620_tk4w3j08q",
+          "score": 1525,
+          "played_at": "2025-11-06T01:33:55.047Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:33:56.917Z"
+    },
+    {
+      "email": "jhenroxas1420@gmail.com",
+      "registered_at": "2025-11-06T01:27:36.816Z",
+      "sessions": [
+        {
+          "session_id": "session_1762392629462_j9q4m0plk",
+          "score": 2100,
+          "played_at": "2025-11-06T01:30:31.232Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:30:33.831Z"
+    },
+    {
+      "email": "capillanesjomarie@gmail.com",
+      "registered_at": "2025-11-06T01:28:15.820Z",
+      "sessions": [
+        {
+          "session_id": "session_1762392732848_95eham7bh",
+          "score": 1650,
+          "played_at": "2025-11-06T01:32:15.042Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:32:24.948Z"
+    },
+    {
+      "email": "gmrosario1022@gmail.com",
+      "registered_at": "2025-11-06T01:28:17.819Z",
+      "sessions": [
+        {
+          "session_id": "session_1762392717861_uz283srzd",
+          "score": 2200,
+          "played_at": "2025-11-06T01:31:58.100Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:32:22.097Z"
+    },
+    {
+      "email": "mamaiyieee001@gmail.com",
+      "registered_at": "2025-11-06T01:29:05.622Z",
+      "sessions": [
+        {
+          "session_id": "session_1762392813048_ph3w7z41v",
+          "score": 1600,
+          "played_at": "2025-11-06T01:33:33.319Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:33:45.878Z"
+    },
+    {
+      "email": "arabis2020@gmail.com",
+      "registered_at": "2025-11-06T01:29:06.184Z",
+      "sessions": [
+        {
+          "session_id": "session_1762392697985_ptnjc82w2",
+          "score": 1800,
+          "played_at": "2025-11-06T01:31:39.089Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:31:52.813Z"
+    },
+    {
+      "email": "hikariyurieksde16@gmail.com",
+      "registered_at": "2025-11-06T01:29:22.600Z",
+      "sessions": [
+        {
+          "session_id": "session_1762392792302_kvegn9dp9",
+          "score": 1500,
+          "played_at": "2025-11-06T01:33:14.142Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:33:21.680Z"
+    },
+    {
+      "email": "valerajanice02@gmail.com",
+      "registered_at": "2025-11-06T01:29:26.052Z",
+      "sessions": [],
+      "has_redirected": false
+    },
+    {
+      "email": "jarase13@yahoo.com",
+      "registered_at": "2025-11-06T01:31:02.329Z",
+      "sessions": [
+        {
+          "session_id": "session_1762392993170_4etg5k3i6",
+          "score": 2200,
+          "played_at": "2025-11-06T01:36:33.288Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:36:34.736Z"
+    },
+    {
+      "email": "lmarigondon16@gmail.com",
+      "registered_at": "2025-11-06T01:31:21.250Z",
+      "sessions": [
+        {
+          "session_id": "session_1762392934158_siw4z8w66",
+          "score": 1500,
+          "played_at": "2025-11-06T01:35:34.400Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:35:37.469Z"
+    },
+    {
+      "email": "chrisandraapordo916@gmail.com",
+      "registered_at": "2025-11-06T01:31:23.943Z",
+      "sessions": [
+        {
+          "session_id": "session_1762392915450_n4vx85367",
+          "score": 1325,
+          "played_at": "2025-11-06T01:35:16.653Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:35:38.559Z"
+    },
+    {
+      "email": "jecylespina30@gmail.com",
+      "registered_at": "2025-11-06T01:31:43.684Z",
+      "sessions": [],
+      "has_redirected": false
+    },
+    {
+      "email": "princessjanelle29@gmail.com",
+      "registered_at": "2025-11-06T01:33:07.303Z",
+      "sessions": [
+        {
+          "session_id": "session_1762393009262_kkh82hb1c",
+          "score": 2300,
+          "played_at": "2025-11-06T01:36:48.793Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:36:56.568Z"
+    },
+    {
+      "email": "alexizb48@gmail.com",
+      "registered_at": "2025-11-06T01:33:25.468Z",
+      "sessions": [],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:36:58.147Z"
+    },
+    {
+      "email": "NikkeRazon@yahoo.com",
+      "registered_at": "2025-11-06T01:33:30.059Z",
+      "sessions": [
+        {
+          "session_id": "session_1762393023218_xka6lc1wk",
+          "score": 1750,
+          "played_at": "2025-11-06T01:37:03.715Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:37:09.475Z"
+    },
+    {
+      "email": "jmtrimidal24@gmail.com",
+      "registered_at": "2025-11-06T01:33:43.188Z",
+      "sessions": [],
+      "has_redirected": false
+    },
+    {
+      "email": "makigwaps@gmail.com",
+      "registered_at": "2025-11-06T01:34:14.179Z",
+      "sessions": [
+        {
+          "session_id": "session_1762391993570_hnhz40ntg",
+          "score": 1425,
+          "played_at": "2025-11-06T01:37:00.443Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:37:03.330Z"
+    },
+    {
+      "email": "jeffliong@69.com",
+      "registered_at": "2025-11-06T01:35:10.631Z",
+      "sessions": [
+        {
+          "session_id": "session_1762393187752_5qrbi322n",
+          "score": 1425,
+          "played_at": "2025-11-06T01:39:47.970Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:39:54.431Z"
+    },
+    {
+      "email": "conwinbeltran@gmail.com",
+      "registered_at": "2025-11-06T01:35:17.596Z",
+      "sessions": [
+        {
+          "session_id": "session_1762393115581_a9duoeyz2",
+          "score": 1975,
+          "played_at": "2025-11-06T01:38:35.617Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:38:51.877Z"
+    },
+    {
+      "email": "angelpalma3117@gmail.com",
+      "registered_at": "2025-11-06T01:35:28.958Z",
+      "sessions": [
+        {
+          "session_id": "session_1762393116022_4k7mwokqi",
+          "score": 1975,
+          "played_at": "2025-11-06T01:38:36.494Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:38:44.670Z"
+    },
+    {
+      "email": "mje52005@gmail.com",
+      "registered_at": "2025-11-06T01:35:47.910Z",
+      "sessions": [
+        {
+          "session_id": "session_1762393127896_dynfhpwga",
+          "score": 1875,
+          "played_at": "2025-11-06T01:38:48.846Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:38:55.370Z"
+    },
+    {
+      "email": "rhienreis09@gmail.com",
+      "registered_at": "2025-11-06T01:37:04.642Z",
+      "sessions": [
+        {
+          "session_id": "session_1762393381958_qefd9ye72",
+          "score": 1875,
+          "played_at": "2025-11-06T01:43:03.879Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:43:26.439Z"
+    },
+    {
+      "email": "mario_deleon10@yahoo.com",
+      "registered_at": "2025-11-06T01:37:19.550Z",
+      "sessions": [],
+      "has_redirected": false
+    },
+    {
+      "email": "mt6140237@gmail.com",
+      "registered_at": "2025-11-06T01:37:41.723Z",
+      "sessions": [
+        {
+          "session_id": "session_1762393326848_ej88x0hzx",
+          "score": 1925,
+          "played_at": "2025-11-06T01:42:06.973Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:42:34.020Z"
+    },
+    {
+      "email": "casison0217@gmail.com",
+      "registered_at": "2025-11-06T01:38:15.774Z",
+      "sessions": [
+        {
+          "session_id": "session_1762393301361_5qktjb5pg",
+          "score": 2250,
+          "played_at": "2025-11-06T01:41:41.858Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:41:43.979Z"
+    },
+    {
+      "email": "johnlawrencetaruc@gmail.com",
+      "registered_at": "2025-11-06T01:38:35.008Z",
+      "sessions": [
+        {
+          "session_id": "session_1762393274422_3pcgjvqmr",
+          "score": 2350,
+          "played_at": "2025-11-06T01:41:14.957Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:41:27.049Z"
+    },
+    {
+      "email": "allanpoyesporlas@gmail.com",
+      "registered_at": "2025-11-06T01:38:41.027Z",
+      "sessions": [
+        {
+          "session_id": "session_1762393283782_k9s23956d",
+          "score": 2225,
+          "played_at": "2025-11-06T01:41:23.926Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:41:50.662Z"
+    },
+    {
+      "email": "pujedabenjo@gmail.com",
+      "registered_at": "2025-11-06T01:39:16.293Z",
+      "sessions": [],
+      "has_redirected": false
+    },
+    {
+      "email": "joney122373@gmail.com",
+      "registered_at": "2025-11-06T01:39:25.225Z",
+      "sessions": [],
+      "has_redirected": false
+    },
+    {
+      "email": "reameadelacruz01@gmail.com",
+      "registered_at": "2025-11-06T01:39:33.096Z",
+      "sessions": [
+        {
+          "session_id": "session_1762393490472_yx1qk4h4f",
+          "score": 2400,
+          "played_at": "2025-11-06T01:44:51.657Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T01:45:15.819Z"
+    },
+    {
+      "email": "gregoriojr.fortuna@yahoo.com",
+      "registered_at": "2025-11-06T01:40:36.503Z",
+      "sessions": [],
+      "has_redirected": false
+    },
+    {
+      "email": "parconjohannes28@gmail.com",
+      "registered_at": "2025-11-06T01:42:58.026Z",
+      "sessions": [],
+      "has_redirected": false
+    },
+    {
+      "email": "tonibhel@gmail.com",
+      "registered_at": "2025-11-06T01:45:53.624Z",
+      "sessions": [
+        {
+          "session_id": "session_1762395711697_4391f6adr",
+          "score": 1700,
+          "played_at": "2025-11-06T02:21:52.224Z"
+        }
+      ],
+      "has_redirected": true,
+      "redirected_at": "2025-11-06T02:22:48.700Z"
+    },
+    {
+      "email": "junie0601@yahoo.com",
+      "registered_at": "2025-11-06T03:13:18.777Z",
+      "sessions": [
+        {
+          "session_id": "session_1762399185779_pz62nm767",
+          "score": 1525,
+          "played_at": "2025-11-06T03:19:46.136Z"
+        },
+        {
+          "session_id": "session_1762399444155_afpmluegy",
+          "score": 1575,
+          "played_at": "2025-11-06T03:24:04.557Z"
+        }
+      ],
+      "has_redirected": false
+    },
+    {
+      "email": "gibertloquero97@gmail.com",
+      "registered_at": "2025-11-06T04:01:17.945Z",
+      "sessions": [
+        {
+          "session_id": "session_1762402027020_bi5fv5wj7",
+          "score": 2000,
+          "played_at": "2025-11-06T04:07:07.986Z"
+        }
+      ],
+      "has_redirected": false
+    },
+    {
+      "email": "johnbelga@yahoo.com",
+      "registered_at": "2025-11-06T06:18:15.161Z",
+      "sessions": [
+        {
+          "session_id": "session_1762410082486_zn8nh4p0a",
+          "score": 2325,
+          "played_at": "2025-11-06T06:21:22.639Z"
+        }
+      ],
+      "has_redirected": false
+    },
+    {
+      "email": "frankbermejo84@yahoo.com",
+      "registered_at": "2025-11-06T06:25:26.815Z",
+      "sessions": [],
+      "has_redirected": false
+    },
+    {
+      "email": "rich.pix@yahoo.com",
+      "registered_at": "2025-11-06T06:32:10.845Z",
+      "sessions": [],
+      "has_redirected": false
+    },
+    {
+      "email": "palaba.app@gmail.com",
+      "registered_at": "2025-11-06T08:28:18.769Z",
+      "sessions": [],
+      "has_redirected": false
     }
   ]
 }

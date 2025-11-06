@@ -1,197 +1,142 @@
 #!/bin/bash
 
-# 🚀 Quick Deploy to Hostinger VPS
-# This script guides you through SQLite deployment
+###############################################################################
+# Yamaha Game - VPS Deployment Script (SQLite Version)
+# This script deploys the Yamaha game to your Hostinger VPS using SQLite
+###############################################################################
 
-echo "═══════════════════════════════════════════════════════════"
-echo "  🚀 Yamaha Quiz - SQLite Deployment to Hostinger VPS"
-echo "═══════════════════════════════════════════════════════════"
+set -e  # Exit on error
+
+echo "🚀 Yamaha Game - VPS Deployment (SQLite Version)"
+echo "================================================"
 echo ""
 
-# Get VPS details
-read -p "Enter your VPS IP address: " VPS_IP
-read -p "Enter your SSH username (default: root): " SSH_USER
-SSH_USER=${SSH_USER:-root}
-read -p "Enter your app directory (default: /var/www/yamaha): " APP_DIR
-APP_DIR=${APP_DIR:-/var/www/yamaha}
+# Configuration
+VPS_USER="root"  # Change this to your VPS username
+VPS_HOST=""      # Change this to your VPS IP or domain
+VPS_PATH="/var/www/yamaha"
+APP_NAME="yamaha-game"
 
-echo ""
-echo "📋 Configuration:"
-echo "   VPS IP: $VPS_IP"
-echo "   SSH User: $SSH_USER"
-echo "   App Directory: $APP_DIR"
+# Colors
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+RED='\033[0;31m'
+NC='\033[0m' # No Color
+
+# Check if VPS_HOST is set
+if [ -z "$VPS_HOST" ]; then
+    echo -e "${RED}❌ Error: VPS_HOST is not set${NC}"
+    echo "Please edit this script and set VPS_HOST to your VPS IP or domain"
+    echo "Example: VPS_HOST=\"123.45.67.89\" or VPS_HOST=\"yourdomain.com\""
+    exit 1
+fi
+
+echo -e "${YELLOW}📋 Deployment Configuration:${NC}"
+echo "   VPS User: $VPS_USER"
+echo "   VPS Host: $VPS_HOST"
+echo "   Deploy Path: $VPS_PATH"
+echo "   App Name: $APP_NAME"
 echo ""
 
-read -p "Continue with deployment? (y/n): " CONFIRM
-if [ "$CONFIRM" != "y" ]; then
-    echo "❌ Deployment cancelled"
+read -p "Continue with deployment? (y/n): " -n 1 -r
+echo ""
+if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+    echo "Deployment cancelled"
     exit 0
 fi
 
 echo ""
-echo "═══════════════════════════════════════════════════════════"
-echo "  Step 1: Uploading Files to VPS"
-echo "═══════════════════════════════════════════════════════════"
+echo -e "${GREEN}Step 1: Building project locally${NC}"
+# No build step needed for this project
 
-# Upload files
-echo "📤 Uploading SQLite migration files..."
+echo -e "${GREEN}Step 2: Creating deployment package${NC}"
+mkdir -p dist
+tar -czf dist/yamaha-deploy.tar.gz \
+    --exclude='node_modules' \
+    --exclude='.git' \
+    --exclude='dist' \
+    --exclude='backup' \
+    --exclude='*.backup' \
+    --exclude='.DS_Store' \
+    --exclude='*.old' \
+    server-sqlite.js \
+    package.json \
+    package-lock.json \
+    index.html \
+    admin \
+    js \
+    css \
+    assets \
+    icons
 
-scp admin/data/database.js $SSH_USER@$VPS_IP:$APP_DIR/admin/data/
-scp admin/data/migrate-to-sqlite.js $SSH_USER@$VPS_IP:$APP_DIR/admin/data/
-scp server-sqlite.js $SSH_USER@$VPS_IP:$APP_DIR/
-scp db-query.sh $SSH_USER@$VPS_IP:$APP_DIR/
-scp switch-db.sh $SSH_USER@$VPS_IP:$APP_DIR/
-scp test-sqlite.sh $SSH_USER@$VPS_IP:$APP_DIR/
+echo -e "${GREEN}Step 3: Uploading to VPS${NC}"
+scp dist/yamaha-deploy.tar.gz $VPS_USER@$VPS_HOST:/tmp/
 
-if [ $? -eq 0 ]; then
-    echo "✅ Files uploaded successfully"
-else
-    echo "❌ Upload failed. Check your SSH connection."
-    exit 1
-fi
-
-echo ""
-echo "═══════════════════════════════════════════════════════════"
-echo "  Step 2: Running Deployment on VPS"
-echo "═══════════════════════════════════════════════════════════"
-echo ""
-echo "Next steps will be executed on your VPS..."
-echo ""
-
-# Create and upload deployment script
-cat > /tmp/deploy-sqlite-vps.sh << 'DEPLOYSCRIPT'
-#!/bin/bash
+echo -e "${GREEN}Step 4: Deploying on VPS${NC}"
+ssh $VPS_USER@$VPS_HOST << 'ENDSSH'
 set -e
 
-APP_DIR=$1
+echo "📦 Extracting files..."
+mkdir -p /var/www/yamaha
+cd /var/www/yamaha
+tar -xzf /tmp/yamaha-deploy.tar.gz
+rm /tmp/yamaha-deploy.tar.gz
 
-echo "🔍 Current location: $(pwd)"
-cd $APP_DIR
+echo "📚 Installing dependencies..."
+npm install --production
 
-echo ""
-echo "📦 Step 2.1: Creating backup..."
-DATE=$(date +%Y%m%d_%H%M%S)
-mkdir -p /var/backups/yamaha-$DATE
-cp admin/data/*.json /var/backups/yamaha-$DATE/ 2>/dev/null || true
-echo "✅ Backup created: /var/backups/yamaha-$DATE"
-
-echo ""
-echo "📦 Step 2.2: Installing sqlite3..."
-npm install sqlite3
-echo "✅ sqlite3 installed"
-
-echo ""
-echo "⏸️  Step 2.3: Stopping application..."
-pm2 stop yamaha-game || echo "⚠️  App not running in PM2"
-
-echo ""
-echo "🔄 Step 2.4: Making scripts executable..."
-chmod +x *.sh
-
-echo ""
-echo "🗄️  Step 2.5: Running migration..."
-cd admin/data
-
-# Only migrate if database doesn't exist
-if [ ! -f "yamaha.db" ]; then
-    node migrate-to-sqlite.js
-    echo "✅ Migration completed"
+echo "🔄 Checking if migration is needed..."
+if [ ! -f admin/data/yamaha.db ]; then
+    echo "📊 SQLite database not found, running migration..."
+    if [ -f admin/data/qs.json ]; then
+        npm run migrate
+    else
+        echo "⚠️  No JSON data found to migrate. Database will be created on first run."
+    fi
 else
-    echo "⏭️  Database already exists"
-    ls -lh yamaha.db
+    echo "✅ SQLite database already exists"
 fi
 
-cd ../..
+echo "🔧 Setting permissions..."
+chown -R www-data:www-data /var/www/yamaha
+chmod -R 755 /var/www/yamaha
+chmod 775 admin/data
+chmod 664 admin/data/*.db 2>/dev/null || true
 
-echo ""
-echo "🔄 Step 2.6: Switching to SQLite server..."
-cp server.js server-json-backup.js 2>/dev/null || true
-cp server-sqlite.js server.js
-echo "✅ Server switched to SQLite"
-
-echo ""
-echo "▶️  Step 2.7: Starting application..."
-pm2 restart yamaha-game || pm2 start server.js --name yamaha-game
-pm2 save
-echo "✅ Application started"
-
-echo ""
-echo "🧪 Step 2.8: Verifying deployment..."
-sleep 3
-
-# Check if server is responding
-if curl -s http://localhost:3000/api/game/questions > /dev/null; then
-    echo "✅ API is responding"
+echo "🔄 Managing PM2 process..."
+if pm2 describe yamaha-game > /dev/null 2>&1; then
+    echo "   Restarting existing process..."
+    pm2 restart yamaha-game
 else
-    echo "⚠️  API not responding yet"
+    echo "   Starting new process..."
+    pm2 start server-sqlite.js --name yamaha-game
+    pm2 save
 fi
 
+echo "✅ Deployment complete!"
 echo ""
-echo "═══════════════════════════════════════════════════════════"
-echo "  ✅ Deployment Complete!"
-echo "═══════════════════════════════════════════════════════════"
-echo ""
-echo "📊 Database Stats:"
-./db-query.sh stats
+echo "📊 PM2 Status:"
+pm2 status yamaha-game
 
 echo ""
-echo "🎯 Next Steps:"
-echo "   1. Test your website in browser"
-echo "   2. Check admin dashboard"
-echo "   3. Play a test game"
-echo "   4. View logs: pm2 logs yamaha-game"
-echo ""
-echo "🔧 Useful Commands:"
-echo "   ./db-query.sh stats          - View database stats"
-echo "   ./db-query.sh leaderboard    - View leaderboard"
-echo "   ./test-sqlite.sh             - Run full test suite"
-echo "   pm2 logs yamaha-game         - View application logs"
-echo "   pm2 status                   - Check app status"
-echo ""
-DEPLOYSCRIPT
+echo "📝 Recent logs:"
+pm2 logs yamaha-game --lines 20 --nostream
 
-chmod +x /tmp/deploy-sqlite-vps.sh
-
-# Upload and execute deployment script
-scp /tmp/deploy-sqlite-vps.sh $SSH_USER@$VPS_IP:/tmp/
+ENDSSH
 
 echo ""
-echo "Executing deployment on VPS..."
+echo -e "${GREEN}✅ Deployment completed successfully!${NC}"
 echo ""
-
-ssh $SSH_USER@$VPS_IP "bash /tmp/deploy-sqlite-vps.sh $APP_DIR"
-
-if [ $? -eq 0 ]; then
-    echo ""
-    echo "═══════════════════════════════════════════════════════════"
-    echo "  🎉 DEPLOYMENT SUCCESSFUL!"
-    echo "═══════════════════════════════════════════════════════════"
-    echo ""
-    echo "Your application is now using SQLite database!"
-    echo ""
-    echo "🌐 Access your application:"
-    echo "   Game: http://$VPS_IP (or your domain)"
-    echo "   Admin: http://$VPS_IP/admin"
-    echo ""
-    echo "🔍 Monitor your application:"
-    echo "   ssh $SSH_USER@$VPS_IP"
-    echo "   cd $APP_DIR"
-    echo "   pm2 logs yamaha-game"
-    echo ""
-    echo "📊 Database location:"
-    echo "   $APP_DIR/admin/data/yamaha.db"
-    echo ""
-    echo "💾 Backups:"
-    echo "   /var/backups/yamaha-*"
-    echo ""
-else
-    echo ""
-    echo "❌ Deployment failed. Check the error messages above."
-    echo "You can manually connect and check:"
-    echo "   ssh $SSH_USER@$VPS_IP"
-    echo "   cd $APP_DIR"
-    echo "   pm2 logs yamaha-game"
-fi
+echo "🌐 Your app should be running at: http://$VPS_HOST"
+echo "🔐 Admin panel: http://$VPS_HOST/admin"
+echo ""
+echo "📊 Useful commands:"
+echo "   ssh $VPS_USER@$VPS_HOST 'pm2 status'"
+echo "   ssh $VPS_USER@$VPS_HOST 'pm2 logs yamaha-game'"
+echo "   ssh $VPS_USER@$VPS_HOST 'pm2 restart yamaha-game'"
+echo ""
 
 # Cleanup
-rm /tmp/deploy-sqlite-vps.sh
+rm -rf dist
+
+exit 0
