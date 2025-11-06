@@ -394,7 +394,7 @@ app.post('/api/sessions/end', async (req, res) => {
 
 app.get('/api/sessions', authenticateToken, async (req, res) => {
     try {
-        const sessions = await allQuery('SELECT * FROM sessions ORDER BY start_time DESC');
+        const sessions = await allQuery('SELECT * FROM sessions ORDER BY id DESC');
         res.json({success: true, sessions});
     } catch (error) {
         res.status(500).json({success: false, message: error.message});
