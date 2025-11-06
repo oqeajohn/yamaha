@@ -11987,6 +11987,66 @@
       "completed": 0,
       "ip_address": "::1",
       "user_agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_6_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/142.0.7444.77 Mobile/15E148 Safari/604.1"
+    },
+    {
+      "id": 1000,
+      "session_id": "4920fa9f687d372a2662d85fc4ab4c2b44dc0d43edc0888019c7bb2af48d900a",
+      "player_email": "justincambe1524@gmail.com",
+      "start_time": "2025-11-06T08:58:45.726Z",
+      "end_time": null,
+      "final_score": 0,
+      "fuel_remaining": 0,
+      "completed": 0,
+      "ip_address": "::1",
+      "user_agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 16_7_12 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6.1 Mobile/15E148 Safari/604.1"
+    },
+    {
+      "id": 1001,
+      "session_id": "d81ea404d64098623ecfed5645f985162c5d1cc2e3b4ad7f12df8ff1faf444f9",
+      "player_email": "desbm_vergara@yahoo.com",
+      "start_time": "2025-11-06T08:58:49.590Z",
+      "end_time": "2025-11-06T09:02:20.887Z",
+      "final_score": 2300,
+      "fuel_remaining": 100,
+      "completed": 1,
+      "ip_address": "::ffff:127.0.0.1",
+      "user_agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/29.0 Chrome/136.0.0.0 Mobile Safari/537.36"
+    },
+    {
+      "id": 1002,
+      "session_id": "545dea993767df4b4169363d3812786c135fbbf35131b72f313a8f3c33bf2a97",
+      "player_email": "justincambe1524@gmail.com",
+      "start_time": "2025-11-06T09:00:31.559Z",
+      "end_time": "2025-11-06T09:03:42.036Z",
+      "final_score": 2400,
+      "fuel_remaining": 100,
+      "completed": 1,
+      "ip_address": "::ffff:127.0.0.1",
+      "user_agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 16_7_12 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6.1 Mobile/15E148 Safari/604.1"
+    },
+    {
+      "id": 1003,
+      "session_id": "21de1a724f70a86a7bcfda7e9fc13b6e85ec63525f3567bef4b1bb310d7ef39a",
+      "player_email": "paulkentbenedictc@gmail.com",
+      "start_time": "2025-11-06T09:15:40.602Z",
+      "end_time": "2025-11-06T09:19:11.487Z",
+      "final_score": 2475,
+      "fuel_remaining": 100,
+      "completed": 1,
+      "ip_address": "::ffff:127.0.0.1",
+      "user_agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Mobile Safari/537.36"
+    },
+    {
+      "id": 1004,
+      "session_id": "ea7ed3dfdf7155d4bb8978170366af1ef5e9a3477746d8bd58c924106692090e",
+      "player_email": "jheng.lopez25@gmail.com",
+      "start_time": "2025-11-06T09:36:14.891Z",
+      "end_time": null,
+      "final_score": 0,
+      "fuel_remaining": 0,
+      "completed": 0,
+      "ip_address": "::ffff:127.0.0.1",
+      "user_agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Mobile Safari/537.36"
     }
   ]
 }

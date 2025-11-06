@@ -38618,6 +38618,141 @@
       "selected_answer": 1,
       "is_correct": 0,
       "answered_at": "2025-11-06T06:20:45.212Z"
+    },
+    {
+      "id": 4293,
+      "session_id": "d81ea404d64098623ecfed5645f985162c5d1cc2e3b4ad7f12df8ff1faf444f9",
+      "player_email": "desbm_vergara@yahoo.com",
+      "question_id": 29,
+      "selected_answer": 0,
+      "is_correct": 1,
+      "answered_at": "2025-11-06T08:59:15.696Z"
+    },
+    {
+      "id": 4294,
+      "session_id": "4920fa9f687d372a2662d85fc4ab4c2b44dc0d43edc0888019c7bb2af48d900a",
+      "player_email": "justincambe1524@gmail.com",
+      "question_id": 25,
+      "selected_answer": 1,
+      "is_correct": 1,
+      "answered_at": "2025-11-06T08:59:19.615Z"
+    },
+    {
+      "id": 4295,
+      "session_id": "d81ea404d64098623ecfed5645f985162c5d1cc2e3b4ad7f12df8ff1faf444f9",
+      "player_email": "desbm_vergara@yahoo.com",
+      "question_id": 24,
+      "selected_answer": 0,
+      "is_correct": 1,
+      "answered_at": "2025-11-06T09:00:01.177Z"
+    },
+    {
+      "id": 4296,
+      "session_id": "d81ea404d64098623ecfed5645f985162c5d1cc2e3b4ad7f12df8ff1faf444f9",
+      "player_email": "desbm_vergara@yahoo.com",
+      "question_id": 31,
+      "selected_answer": 0,
+      "is_correct": 1,
+      "answered_at": "2025-11-06T09:00:45.808Z"
+    },
+    {
+      "id": 4297,
+      "session_id": "545dea993767df4b4169363d3812786c135fbbf35131b72f313a8f3c33bf2a97",
+      "player_email": "justincambe1524@gmail.com",
+      "question_id": 35,
+      "selected_answer": 0,
+      "is_correct": 1,
+      "answered_at": "2025-11-06T09:01:01.099Z"
+    },
+    {
+      "id": 4298,
+      "session_id": "d81ea404d64098623ecfed5645f985162c5d1cc2e3b4ad7f12df8ff1faf444f9",
+      "player_email": "desbm_vergara@yahoo.com",
+      "question_id": 1,
+      "selected_answer": 0,
+      "is_correct": 1,
+      "answered_at": "2025-11-06T09:01:25.123Z"
+    },
+    {
+      "id": 4299,
+      "session_id": "545dea993767df4b4169363d3812786c135fbbf35131b72f313a8f3c33bf2a97",
+      "player_email": "justincambe1524@gmail.com",
+      "question_id": 22,
+      "selected_answer": 0,
+      "is_correct": 1,
+      "answered_at": "2025-11-06T09:01:36.197Z"
+    },
+    {
+      "id": 4300,
+      "session_id": "d81ea404d64098623ecfed5645f985162c5d1cc2e3b4ad7f12df8ff1faf444f9",
+      "player_email": "desbm_vergara@yahoo.com",
+      "question_id": 20,
+      "selected_answer": 0,
+      "is_correct": 1,
+      "answered_at": "2025-11-06T09:01:52.070Z"
+    },
+    {
+      "id": 4301,
+      "session_id": "545dea993767df4b4169363d3812786c135fbbf35131b72f313a8f3c33bf2a97",
+      "player_email": "justincambe1524@gmail.com",
+      "question_id": 29,
+      "selected_answer": 0,
+      "is_correct": 1,
+      "answered_at": "2025-11-06T09:02:09.819Z"
+    },
+    {
+      "id": 4302,
+      "session_id": "545dea993767df4b4169363d3812786c135fbbf35131b72f313a8f3c33bf2a97",
+      "player_email": "justincambe1524@gmail.com",
+      "question_id": 20,
+      "selected_answer": 0,
+      "is_correct": 1,
+      "answered_at": "2025-11-06T09:02:41.720Z"
+    },
+    {
+      "id": 4303,
+      "session_id": "545dea993767df4b4169363d3812786c135fbbf35131b72f313a8f3c33bf2a97",
+      "player_email": "justincambe1524@gmail.com",
+      "question_id": 25,
+      "selected_answer": 1,
+      "is_correct": 1,
+      "answered_at": "2025-11-06T09:03:12.597Z"
+    },
+    {
+      "id": 4304,
+      "session_id": "21de1a724f70a86a7bcfda7e9fc13b6e85ec63525f3567bef4b1bb310d7ef39a",
+      "player_email": "paulkentbenedictc@gmail.com",
+      "question_id": 20,
+      "selected_answer": 0,
+      "is_correct": 1,
+      "answered_at": "2025-11-06T09:16:10.305Z"
+    },
+    {
+      "id": 4305,
+      "session_id": "21de1a724f70a86a7bcfda7e9fc13b6e85ec63525f3567bef4b1bb310d7ef39a",
+      "player_email": "paulkentbenedictc@gmail.com",
+      "question_id": 25,
+      "selected_answer": 1,
+      "is_correct": 1,
+      "answered_at": "2025-11-06T09:16:44.720Z"
+    },
+    {
+      "id": 4306,
+      "session_id": "21de1a724f70a86a7bcfda7e9fc13b6e85ec63525f3567bef4b1bb310d7ef39a",
+      "player_email": "paulkentbenedictc@gmail.com",
+      "question_id": 2,
+      "selected_answer": 1,
+      "is_correct": 1,
+      "answered_at": "2025-11-06T09:17:14.050Z"
+    },
+    {
+      "id": 4307,
+      "session_id": "21de1a724f70a86a7bcfda7e9fc13b6e85ec63525f3567bef4b1bb310d7ef39a",
+      "player_email": "paulkentbenedictc@gmail.com",
+      "question_id": 30,
+      "selected_answer": 1,
+      "is_correct": 1,
+      "answered_at": "2025-11-06T09:17:45.875Z"
     }
   ]
 }
